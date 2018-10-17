@@ -7,9 +7,10 @@ package Business;
 
 /**
  *
- * @author harshalneelkamal
+ * @author vivekdalal
  */
-public class Product implements Comparable<Product>{
+public class Product implements Comparable<Product> {
+
     private String name;
     private double price;
 
@@ -39,5 +40,4 @@ public class Product implements Comparable<Product>{
         return this.name.compareTo(o.getName());
     }
 
-    
 }
