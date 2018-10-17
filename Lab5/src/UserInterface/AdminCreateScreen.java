@@ -5,6 +5,7 @@
  */
 package UserInterface;
 
+import Business.Abstract.User;
 import Business.Users.Admin;
 import Business.Users.Customer;
 import Business.Users.Supplier;
@@ -15,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
@@ -35,6 +37,9 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         initComponents();
         this.panelRight = panelRight;
         this.admin = admin;
+        ButtonGroup group = new ButtonGroup();
+        group.add(radioCustomer);
+        group.add(radioSupplier);
     }
 
     /**
@@ -142,7 +147,14 @@ public class AdminCreateScreen extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        // TODO add your handling code here:
+        if(radioCustomer.isSelected())
+        {
+
+        }
+        if(radioSupplier.isSelected())
+        {
+            
+        }
         
     }//GEN-LAST:event_btnCreateActionPerformed
 
