@@ -11,7 +11,7 @@ import java.awt.CardLayout;
 
 /**
  *
- * @author harshalneelkamal
+ * @author Raj
  */
 public class MainFrame extends javax.swing.JFrame {
 
