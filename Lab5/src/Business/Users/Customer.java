@@ -5,13 +5,10 @@
  */
 package Business.Users;
 
-import Business.Abstract.User;
-import java.util.Date;
-
 /**
  *
- * @author harshalneelkamal
+ * @author vivekdalal
  */
 public class Customer {
-    
+
 }
