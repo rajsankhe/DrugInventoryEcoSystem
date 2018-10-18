@@ -5,10 +5,29 @@
  */
 package Business.Users;
 
+import Business.Abstract.User;
+
 /**
  *
- * @author vivekdalal
+ * @author harshalneelkamal
  */
-public class Customer {
+public class Customer extends User implements Comparable<Customer> {
+
+    public Customer(String password, String userName) {
+        super(password, userName, "CUSTOMER");
+    }
+
+    @Override
+    public boolean verify(String password) {
+        if (password.equals(getPassword())) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int compareTo(Customer o) {
+        return o.getUserName().compareTo(this.getUserName());
+    }
 
 }
