@@ -6,11 +6,7 @@
 package UserInterface;
 
 import Business.Abstract.User;
-import Business.Users.Customer;
-import Business.Users.Supplier;
-import java.awt.CardLayout;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -24,6 +20,7 @@ public class LoginScreen extends javax.swing.JPanel {
      */
     List<User> list;
     JPanel panelRight;
+
     public LoginScreen(JPanel panelRight, List<User> list) {
         initComponents();
         this.list = list;
@@ -92,18 +89,27 @@ public class LoginScreen extends javax.swing.JPanel {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnSubmitActionPerformed
 
-    
-    private void initialize(){
+    private void initialize() {
         //text should either be "Supplier Login Screen" OR "Customer Login Screen"
         //Based on the selection
-        txtTitle.setText("****** Login Screen");
+        //Checking the list of Users passed for the type of User viz. Customer or Supplier
+        if (list.size() > 0) {
+            if (list.get(0).getRole().equalsIgnoreCase("SUPPLIER")) {
+                txtTitle.setText("SUPPLIER Login Screen");
+            } else if (list.get(0).getRole().equalsIgnoreCase("CUSTOMER")) {
+                txtTitle.setText("CUSTOMER Login Screen");
+            } else {
+                //Unknown role. Showing generic Title
+                txtTitle.setText("Login Screen");
+            }
+        }
+
         comboUser.removeAllItems();
         //only customer or suppliers should be listed based on the selection
     }
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSubmit;
