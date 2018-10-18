@@ -5,7 +5,6 @@
  */
 package UserInterface;
 
-import Business.Abstract.User;
 import Business.Users.Admin;
 import java.awt.CardLayout;
 
@@ -18,8 +17,8 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    
     private Admin adminUser;
+
     public MainFrame() {
         initComponents();
         adminUser = new Admin();
@@ -114,22 +113,22 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupplierActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout)panelRight.getLayout();
+        CardLayout layout = (CardLayout) panelRight.getLayout();
         panelRight.add(new LoginScreen(panelRight, adminUser.getSuppDir().getSupplierList()));
         layout.next(panelRight);
     }//GEN-LAST:event_btnSupplierActionPerformed
 
     private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout)panelRight.getLayout();
+        CardLayout layout = (CardLayout) panelRight.getLayout();
         panelRight.add(new LoginScreen(panelRight, adminUser.getCustDir().getCustomerList()));
         layout.next(panelRight);
     }//GEN-LAST:event_btnCustomerActionPerformed
 
     private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout)panelRight.getLayout();
-        panelRight.add(new AdminMainScreen(panelRight, (Admin)adminUser));
+        CardLayout layout = (CardLayout) panelRight.getLayout();
+        panelRight.add(new AdminMainScreen(panelRight, (Admin) adminUser));
         layout.next(panelRight);
     }//GEN-LAST:event_btnAdminActionPerformed
 
@@ -140,7 +139,7 @@ public class MainFrame extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
