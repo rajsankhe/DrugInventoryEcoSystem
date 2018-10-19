@@ -58,7 +58,7 @@ public class AdminMainScreen extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Customer Name", "Date Created"
+                "Customer Name"
             }
         ));
         jScrollPane1.setViewportView(tableCust);
@@ -68,7 +68,7 @@ public class AdminMainScreen extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Supplier Name", "Number of Products"
+                "Supplier Name"
             }
         ));
         jScrollPane2.setViewportView(tableSup);
@@ -121,12 +121,12 @@ public class AdminMainScreen extends javax.swing.JPanel {
             dtm.addRow(row);
         }
         DefaultTableModel dtmc = (DefaultTableModel)tableCust.getModel();
-        dtm.setRowCount(0);
+        dtmc.setRowCount(0);
         for(User u : admin.getCustDir().getCustomerList()){
             Customer s = (Customer)u;
-            Object[] row = new Object[dtm.getColumnCount()];
-            row[0]=s;
-            dtm.addRow(row);
+            Object[] rowc = new Object[dtmc.getColumnCount()];
+            rowc[0]=s;
+            dtmc.addRow(rowc);
         }
     }
     

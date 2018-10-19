@@ -6,7 +6,9 @@
 package UserInterface;
 
 import Business.Abstract.User;
+import java.awt.CardLayout;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -50,6 +52,11 @@ public class LoginScreen extends javax.swing.JPanel {
         });
 
         comboUser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboUserActionPerformed(evt);
+            }
+        });
 
         txtTitle.setText("Supplier Login Screen");
 
@@ -87,9 +94,32 @@ public class LoginScreen extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        // TODO add your handling code here:
-
+        String password= txtPword.getText();
+        String username= comboUser.getSelectedItem().toString();
+        int login=0;
+        for(User u: list)
+        {
+            if(username.equals(u.getUserName() ))
+            {
+                if((password.trim()).equals(u.getPassword()) )
+                {
+                    CardLayout layout = (CardLayout) panelRight.getLayout();
+                    panelRight.add(new SuccessScreen(u));
+                    layout.next(panelRight);
+                    login=1;
+                    break;
+                }
+            }
+        }
+        if(login==0)
+        {
+            JOptionPane.showMessageDialog(null, "Password didn't match");
+        }
     }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void comboUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboUserActionPerformed
 
     private void initialize() {
         //text should either be "Supplier Login Screen" OR "Customer Login Screen"
@@ -107,7 +137,10 @@ public class LoginScreen extends javax.swing.JPanel {
         }
 
         comboUser.removeAllItems();
-        //only customer or suppliers should be listed based on the selection
+        for(User u: list)
+        {
+            comboUser.addItem(u.getUserName());
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -11,6 +11,7 @@ import Business.Users.Customer;
 import Business.Users.Supplier;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -264,6 +265,13 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) panelRight.getLayout();
         panelRight.remove(this);
         layout.previous(panelRight);
+        for(Component component: panelRight.getComponents())
+        {
+            if ((AdminMainScreen.class).equals(component.getClass())) {
+                    AdminMainScreen manage= (AdminMainScreen)component;
+                    manage.populate();
+                }
+        }
     }//GEN-LAST:event_btnBackActionPerformed
 
 
