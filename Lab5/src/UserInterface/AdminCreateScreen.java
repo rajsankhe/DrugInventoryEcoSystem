@@ -5,6 +5,7 @@
  */
 package UserInterface;
 
+import Business.Abstract.User;
 import Business.Users.Admin;
 import Business.Users.Customer;
 import Business.Users.Supplier;
@@ -12,9 +13,12 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
@@ -31,10 +35,18 @@ public class AdminCreateScreen extends javax.swing.JPanel {
      */
     private JPanel panelRight;
     private Admin admin;
+
     public AdminCreateScreen(JPanel panelRight, Admin admin) {
         initComponents();
+
+        jLabelPwdAlert.setVisible(false);
+        jLabelUserNameAlert.setVisible(false);
+        jLabelRePwdAlert.setVisible(false);
         this.panelRight = panelRight;
         this.admin = admin;
+        ButtonGroup group = new ButtonGroup();
+        group.add(radioCustomer);
+        group.add(radioSupplier);
     }
 
     /**
@@ -56,11 +68,34 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         radioCustomer = new javax.swing.JRadioButton();
         radioSupplier = new javax.swing.JRadioButton();
         btnBack = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaPwdFormatAlert = new javax.swing.JTextArea();
+        jLabelRePwdAlert = new javax.swing.JLabel();
+        jLabelUserNameAlert = new javax.swing.JLabel();
+        jLabelPwdAlert = new javax.swing.JLabel();
 
         btnCreate.setText("Create");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateActionPerformed(evt);
+            }
+        });
+
+        txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUserKeyReleased(evt);
+            }
+        });
+
+        txtPword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPwordKeyReleased(evt);
+            }
+        });
+
+        txtRePword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtRePwordKeyReleased(evt);
             }
         });
 
@@ -86,64 +121,127 @@ public class AdminCreateScreen extends javax.swing.JPanel {
             }
         });
 
+        jScrollPane1.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+
+        jTextAreaPwdFormatAlert.setEditable(false);
+        jTextAreaPwdFormatAlert.setColumns(20);
+        jTextAreaPwdFormatAlert.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jTextAreaPwdFormatAlert.setRows(5);
+        jTextAreaPwdFormatAlert.setText("Usename Policy:\n1. Should be email address not starting with \nunderscore\n2. Should not contain any other special \ncharacter except underscore\n\nPassword Policy:  \n1. Should contain alphanumeric characters\n2. \"+_$\" are only allowed special characters");
+        jTextAreaPwdFormatAlert.setEnabled(false);
+        jScrollPane1.setViewportView(jTextAreaPwdFormatAlert);
+
+        jLabelRePwdAlert.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelRePwdAlert.setText("*Password should match with entered password");
+
+        jLabelUserNameAlert.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelUserNameAlert.setText("*Username should match Username policy");
+
+        jLabelPwdAlert.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelPwdAlert.setText("*Password should match password policy");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRePword, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(radioSupplier)
-                                    .addComponent(radioCustomer)))))
+                        .addComponent(btnBack)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(btnBack)))
-                .addContainerGap(76, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(47, 47, 47)
+                                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(98, 98, 98)
+                                .addComponent(jLabelUserNameAlert, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(80, 80, 80)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(35, 35, 35)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(radioSupplier)
+                                                    .addComponent(radioCustomer)))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(48, 48, 48)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabelPwdAlert)
+                                            .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelRePwdAlert)
+                                    .addComponent(txtRePword, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnBack)
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelUserNameAlert)
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelPwdAlert)
+                        .addGap(13, 13, 13)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtRePword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelRePwdAlert))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRePword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(radioCustomer)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(radioSupplier)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCreate)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        // TODO add your handling code here:
-        
+        String alertString = "";
+        if (txtUser.getText().isEmpty()) {
+            alertString += "Enter username\n";
+        }
+        if (txtPword.getText().isEmpty()) {
+            alertString += "Enter password\n";
+        }
+        if (txtRePword.getText().isEmpty()) {
+            alertString += "Re enter password\n";
+        }
+        if (!(radioCustomer.isSelected() || radioSupplier.isSelected())) {
+            alertString += "Select the user role\n";
+        }
+        if (alertString != "") {
+
+            JOptionPane.showMessageDialog(null, alertString);
+        }
+
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void radioCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioCustomerActionPerformed
@@ -152,19 +250,64 @@ public class AdminCreateScreen extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
 
-        CardLayout layout = (CardLayout)panelRight.getLayout();
+        CardLayout layout = (CardLayout) panelRight.getLayout();
         panelRight.remove(this);
         layout.previous(panelRight);
     }//GEN-LAST:event_btnBackActionPerformed
 
-    
-    
+
+    private void txtRePwordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRePwordKeyReleased
+        // TODO add your handling code here:
+        String password = txtPword.getText();
+        String rePassword = txtRePword.getText();
+        System.out.println(rePassword + "  " + password.substring(0, rePassword.length() - 1));
+        if (rePassword.length() <= password.length()) {
+            if (!rePassword.equals(password.substring(0, rePassword.length()))) {
+                jLabelRePwdAlert.setVisible(true);
+            } else {
+                jLabelRePwdAlert.setVisible(false);
+            }
+        } else {
+            jLabelRePwdAlert.setVisible(true);
+        }
+    }//GEN-LAST:event_txtRePwordKeyReleased
+
+    private void txtUserKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyReleased
+        // TODO add your handling code here:
+        Pattern pattern = Pattern.compile("^[^_][a-z0-9_]+@[a-z0-9_]+\\.[a-z0-9_\\.]*$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(txtUser.getText());
+        if (matcher.find()) {
+            jLabelUserNameAlert.setVisible(false);
+        } else {
+            jLabelUserNameAlert.setVisible(true);
+        }
+
+    }//GEN-LAST:event_txtUserKeyReleased
+
+    private void txtPwordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPwordKeyReleased
+        // TODO add your handling code here:
+        Pattern pattern = Pattern.compile("^[a-z0-9_+\\$]*$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(txtPword.getText());
+        if (matcher.find()) {
+            jLabelPwdAlert.setVisible(false);
+        } else {
+            jLabelPwdAlert.setVisible(true);
+        }
+
+    }//GEN-LAST:event_txtPwordKeyReleased
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelPwdAlert;
+    private javax.swing.JLabel jLabelRePwdAlert;
+    private javax.swing.JLabel jLabelUserNameAlert;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextAreaPwdFormatAlert;
     private javax.swing.JRadioButton radioCustomer;
     private javax.swing.JRadioButton radioSupplier;
     private javax.swing.JTextField txtPword;

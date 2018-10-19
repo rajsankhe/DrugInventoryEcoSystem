@@ -9,7 +9,7 @@ import Business.Abstract.User;
 
 /**
  *
- * @author harshalneelkamal
+ * @author tej
  */
 public class Customer extends User implements Comparable<Customer> {
 
