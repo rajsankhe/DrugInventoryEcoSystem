@@ -18,6 +18,7 @@ public abstract class User {
         this.password = password;
         this.userName = userName;
         this.role = role;
+        
     }
 
     public String getPassword() {
