@@ -36,6 +36,7 @@ public class AdminCreateScreen extends javax.swing.JPanel {
      */
     private JPanel panelRight;
     private Admin admin;
+    static Boolean validationFlag= false;
 
     public AdminCreateScreen(JPanel panelRight, Admin admin) {
         initComponents();
@@ -238,14 +239,19 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         if (!(radioCustomer.isSelected() || radioSupplier.isSelected())) {
             alertString += "Select the user role\n";
         }
-        if (alertString != "") {
+        if( !validationFlag)
+        {
+            alertString+= "Read the policies";
+        }
+        if (!alertString.isEmpty()) {
 
             JOptionPane.showMessageDialog(null, alertString);
             return;
         }
-        if(radioCustomer.isSelected())
-        {
-            Customer cust= new Customer(txtRePword.getText(),txtUser.getText());
+        
+        if (radioCustomer.isSelected()) {
+
+            Customer cust = new Customer(txtRePword.getText(), txtUser.getText());
             admin.getCustDir().getCustomerList().add(cust);
             
         }
@@ -283,11 +289,14 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         if (rePassword.length() <= password.length()) {
             if (!rePassword.equals(password.substring(0, rePassword.length()))) {
                 jLabelRePwdAlert.setVisible(true);
+                validationFlag= false;
             } else {
                 jLabelRePwdAlert.setVisible(false);
+                validationFlag= true;
             }
         } else {
             jLabelRePwdAlert.setVisible(true);
+            validationFlag= false;
         }
     }//GEN-LAST:event_txtRePwordKeyReleased
 
@@ -297,8 +306,10 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         Matcher matcher = pattern.matcher(txtUser.getText());
         if (matcher.find()) {
             jLabelUserNameAlert.setVisible(false);
+            validationFlag= true;
         } else {
             jLabelUserNameAlert.setVisible(true);
+            validationFlag= false;
         }
 
     }//GEN-LAST:event_txtUserKeyReleased
@@ -309,8 +320,10 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         Matcher matcher = pattern.matcher(txtPword.getText());
         if (matcher.find()) {
             jLabelPwdAlert.setVisible(false);
+            validationFlag= true;
         } else {
             jLabelPwdAlert.setVisible(true);
+            validationFlag= false;
         }
 
     }//GEN-LAST:event_txtPwordKeyReleased
