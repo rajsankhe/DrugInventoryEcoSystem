@@ -24,6 +24,7 @@ public class AdminMainScreen extends javax.swing.JPanel {
      */
     private JPanel panelRight;
     private Admin admin;
+
     public AdminMainScreen(JPanel panelRight, Admin admin) {
         initComponents();
         this.panelRight = panelRight;
@@ -46,12 +47,15 @@ public class AdminMainScreen extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tableSup = new javax.swing.JTable();
 
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         btnCreate.setText("Create User >>");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateActionPerformed(evt);
             }
         });
+        add(btnCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 6, -1, -1));
 
         tableCust.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -63,6 +67,8 @@ public class AdminMainScreen extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tableCust);
 
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 156, 380, 77));
+
         tableSup.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -73,63 +79,35 @@ public class AdminMainScreen extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(tableSup);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCreate))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 11, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnCreate)
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 50, 380, 88));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout)panelRight.getLayout();
+        CardLayout layout = (CardLayout) panelRight.getLayout();
         panelRight.add(new AdminCreateScreen(panelRight, admin));
         layout.next(panelRight);
     }//GEN-LAST:event_btnCreateActionPerformed
 
-
-    public void populate(){
-        DefaultTableModel dtm = (DefaultTableModel)tableSup.getModel();
+    public void populate() {
+        DefaultTableModel dtm = (DefaultTableModel) tableSup.getModel();
         dtm.setRowCount(0);
-        for(User u : admin.getSuppDir().getSupplierList()){
-            Supplier s = (Supplier)u;
+        for (User u : admin.getSuppDir().getSupplierList()) {
+            Supplier s = (Supplier) u;
             Object[] row = new Object[dtm.getColumnCount()];
-            row[0]=s;
+            row[0] = s;
             dtm.addRow(row);
         }
-        DefaultTableModel dtmc = (DefaultTableModel)tableCust.getModel();
+        DefaultTableModel dtmc = (DefaultTableModel) tableCust.getModel();
         dtmc.setRowCount(0);
-        for(User u : admin.getCustDir().getCustomerList()){
-            Customer s = (Customer)u;
+        for (User u : admin.getCustDir().getCustomerList()) {
+            Customer s = (Customer) u;
             Object[] rowc = new Object[dtmc.getColumnCount()];
-            rowc[0]=s;
+            rowc[0] = s;
             dtmc.addRow(rowc);
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
     private javax.swing.JScrollPane jScrollPane1;

@@ -41,8 +41,11 @@ public class LoginScreen extends javax.swing.JPanel {
 
         txtPword = new javax.swing.JTextField();
         btnSubmit = new javax.swing.JButton();
-        comboUser = new javax.swing.JComboBox<Object>();
+        comboUser = new javax.swing.JComboBox<>();
         txtTitle = new javax.swing.JLabel();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        add(txtPword, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 96, 166, -1));
 
         btnSubmit.setText("Login");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
@@ -50,69 +53,36 @@ public class LoginScreen extends javax.swing.JPanel {
                 btnSubmitActionPerformed(evt);
             }
         });
+        add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, -1, -1));
 
-        comboUser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboUserActionPerformed(evt);
             }
         });
+        add(comboUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 57, 166, -1));
 
         txtTitle.setText("Supplier Login Screen");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(btnSubmit))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtPword)
-                                .addComponent(comboUser, 0, 166, Short.MAX_VALUE))
-                            .addComponent(txtTitle))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(txtTitle)
-                .addGap(18, 18, 18)
-                .addComponent(comboUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSubmit)
-                .addContainerGap(131, Short.MAX_VALUE))
-        );
+        add(txtTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 23, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        String password= txtPword.getText();
-        String username= comboUser.getSelectedItem().toString();
-        int login=0;
-        for(User u: list)
-        {
-            if(username.equals(u.getUserName() ))
-            {
-                if((password.trim()).equals(u.getPassword()) )
-                {
+        String password = txtPword.getText();
+        String username = comboUser.getSelectedItem().toString();
+        int login = 0;
+        for (User u : list) {
+            if (username.equals(u.getUserName())) {
+                if ((password.trim()).equals(u.getPassword())) {
                     CardLayout layout = (CardLayout) panelRight.getLayout();
                     panelRight.add(new SuccessScreen(u));
                     layout.next(panelRight);
-                    login=1;
+                    login = 1;
                     break;
                 }
             }
         }
-        if(login==0)
-        {
+        if (login == 0) {
             JOptionPane.showMessageDialog(null, "Password didn't match");
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
@@ -137,8 +107,7 @@ public class LoginScreen extends javax.swing.JPanel {
         }
 
         comboUser.removeAllItems();
-        for(User u: list)
-        {
+        for (User u : list) {
             comboUser.addItem(u.getUserName());
         }
     }

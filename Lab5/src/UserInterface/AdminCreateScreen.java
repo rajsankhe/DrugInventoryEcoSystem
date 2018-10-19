@@ -10,20 +10,12 @@ import Business.Users.Admin;
 import Business.Users.Customer;
 import Business.Users.Supplier;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -48,6 +40,28 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         ButtonGroup group = new ButtonGroup();
         group.add(radioCustomer);
         group.add(radioSupplier);
+    }
+
+    //Checking whether user name already exists or no.
+    public boolean checkIfUserNameAlreadyExists(String username) {
+        //Iterate through the customer and supplier directory in admin
+
+        //Checking in Customer directory
+        for (User user : admin.getCustDir().getCustomerList()) {
+            if (username.equalsIgnoreCase(user.getUserName())) {
+                return true;
+            }
+        }
+
+        //Checking in Supplier directory
+        for (User user : admin.getSuppDir().getSupplierList()) {
+            if (username.equalsIgnoreCase(user.getUserName())) {
+                return true;
+            }
+        }
+
+        //Username is unique.
+        return false;
     }
 
     /**
@@ -75,36 +89,45 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         jLabelUserNameAlert = new javax.swing.JLabel();
         jLabelPwdAlert = new javax.swing.JLabel();
 
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         btnCreate.setText("Create");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateActionPerformed(evt);
             }
         });
+        add(btnCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(161, 319, 173, -1));
 
         txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtUserKeyReleased(evt);
             }
         });
+        add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 85, 173, -1));
 
         txtPword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtPwordKeyReleased(evt);
             }
         });
+        add(txtPword, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 140, 173, -1));
 
         txtRePword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtRePwordKeyReleased(evt);
             }
         });
+        add(txtRePword, new org.netbeans.lib.awtextra.AbsoluteConstraints(147, 198, 173, -1));
 
         jLabel1.setText("username:");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 95, -1, -1));
 
         jLabel2.setText("password:");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 145, -1, -1));
 
         jLabel3.setText("re-enter password :");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 203, -1, -1));
 
         radioCustomer.setText("Customer");
         radioCustomer.addActionListener(new java.awt.event.ActionListener() {
@@ -112,8 +135,10 @@ public class AdminCreateScreen extends javax.swing.JPanel {
                 radioCustomerActionPerformed(evt);
             }
         });
+        add(radioCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 261, -1, -1));
 
         radioSupplier.setText("Supplier");
+        add(radioSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 290, -1, -1));
 
         btnBack.setText("< BACK");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +146,7 @@ public class AdminCreateScreen extends javax.swing.JPanel {
                 btnBackActionPerformed(evt);
             }
         });
+        add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 6, -1, -1));
 
         jScrollPane1.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
 
@@ -132,103 +158,32 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         jTextAreaPwdFormatAlert.setEnabled(false);
         jScrollPane1.setViewportView(jTextAreaPwdFormatAlert);
 
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 91, 291, 152));
+
         jLabelRePwdAlert.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
         jLabelRePwdAlert.setText("*Password should match with entered password");
+        add(jLabelRePwdAlert, new org.netbeans.lib.awtextra.AbsoluteConstraints(147, 230, -1, -1));
 
         jLabelUserNameAlert.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
         jLabelUserNameAlert.setText("*Username should match Username policy");
+        add(jLabelUserNameAlert, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 123, 241, -1));
 
         jLabelPwdAlert.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
         jLabelPwdAlert.setText("*Password should match password policy");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(47, 47, 47)
-                                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(98, 98, 98)
-                                .addComponent(jLabelUserNameAlert, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(80, 80, 80)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(35, 35, 35)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(radioSupplier)
-                                                    .addComponent(radioCustomer)))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(48, 48, 48)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabelPwdAlert)
-                                            .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelRePwdAlert)
-                                    .addComponent(txtRePword, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnBack)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelUserNameAlert)
-                        .addGap(4, 4, 4)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelPwdAlert)
-                        .addGap(13, 13, 13)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtRePword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelRePwdAlert))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(radioCustomer)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioSupplier)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCreate)
-                .addContainerGap(86, Short.MAX_VALUE))
-        );
+        add(jLabelPwdAlert, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 172, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         String alertString = "";
+
         if (txtUser.getText().isEmpty()) {
             alertString += "Enter username\n";
         }
+
+        if (!txtUser.getText().isEmpty() && checkIfUserNameAlreadyExists(txtUser.getText())) {
+            alertString += "Username already exists. Please select different username\n";
+        }
+
         if (txtPword.getText().isEmpty()) {
             alertString += "Enter password\n";
         }
@@ -238,22 +193,26 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         if (!(radioCustomer.isSelected() || radioSupplier.isSelected())) {
             alertString += "Select the user role\n";
         }
-        if (alertString != "") {
+        if (!alertString.isEmpty()) {
 
             JOptionPane.showMessageDialog(null, alertString);
             return;
         }
-        if(radioCustomer.isSelected())
-        {
-            Customer cust= new Customer(txtRePword.getText(),txtUser.getText());
+
+        if (radioCustomer.isSelected()) {
+
+            Customer cust = new Customer(txtRePword.getText(), txtUser.getText());
             admin.getCustDir().getCustomerList().add(cust);
-            
+            JOptionPane.showMessageDialog(null, "Successfully created Customer with username  : " + cust.getUserName());
+
         }
-        if (radioSupplier.isSelected())
-        {
-            Supplier sup= new Supplier(txtRePword.getText(),txtUser.getText());
+        if (radioSupplier.isSelected()) {
+            Supplier sup = new Supplier(txtRePword.getText(), txtUser.getText());
             admin.getSuppDir().getSupplierList().add(sup);
+            JOptionPane.showMessageDialog(null, "Successfully created Supplier with username : " + sup.getUserName());
         }
+
+        //Supplier or Customer has been successfully created. We will show a pop-up to user with the same message
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void radioCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioCustomerActionPerformed
@@ -265,15 +224,13 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) panelRight.getLayout();
         panelRight.remove(this);
         layout.previous(panelRight);
-        for(Component component: panelRight.getComponents())
-        {
+        for (Component component : panelRight.getComponents()) {
             if ((AdminMainScreen.class).equals(component.getClass())) {
-                    AdminMainScreen manage= (AdminMainScreen)component;
-                    manage.populate();
-                }
+                AdminMainScreen manage = (AdminMainScreen) component;
+                manage.populate();
+            }
         }
     }//GEN-LAST:event_btnBackActionPerformed
-
 
     private void txtRePwordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRePwordKeyReleased
         // TODO add your handling code here:
@@ -314,7 +271,6 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_txtPwordKeyReleased
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
