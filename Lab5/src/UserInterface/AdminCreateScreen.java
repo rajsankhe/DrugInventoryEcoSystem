@@ -240,8 +240,19 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         if (alertString != "") {
 
             JOptionPane.showMessageDialog(null, alertString);
+            return;
         }
-
+        if(radioCustomer.isSelected())
+        {
+            Customer cust= new Customer(txtRePword.getText(),txtUser.getText());
+            admin.getCustDir().getCustomerList().add(cust);
+            
+        }
+        if (radioSupplier.isSelected())
+        {
+            Supplier sup= new Supplier(txtRePword.getText(),txtUser.getText());
+            admin.getSuppDir().getSupplierList().add(sup);
+        }
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void radioCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioCustomerActionPerformed

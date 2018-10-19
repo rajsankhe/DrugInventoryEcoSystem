@@ -17,6 +17,7 @@ public class Customer extends User implements Comparable<Customer> {
         super(password, userName, "CUSTOMER");
     }
 
+
     //Overriding method from User Absract class to verify a customer by checking the password
     @Override
     public boolean verify(String password) {
