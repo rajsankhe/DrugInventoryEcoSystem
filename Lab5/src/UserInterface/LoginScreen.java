@@ -22,7 +22,6 @@ public class LoginScreen extends javax.swing.JPanel {
      */
     List<User> list;
     JPanel panelRight;
-
     public LoginScreen(JPanel panelRight, List<User> list) {
         initComponents();
         this.list = list;

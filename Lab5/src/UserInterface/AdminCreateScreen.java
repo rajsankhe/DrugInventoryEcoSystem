@@ -28,6 +28,7 @@ public class AdminCreateScreen extends javax.swing.JPanel {
      */
     private JPanel panelRight;
     private Admin admin;
+    static boolean validationFlag=false;
 
     public AdminCreateScreen(JPanel panelRight, Admin admin) {
         initComponents();
@@ -37,9 +38,11 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         jLabelRePwdAlert.setVisible(false);
         this.panelRight = panelRight;
         this.admin = admin;
+        validationFlag= false;
         ButtonGroup group = new ButtonGroup();
         group.add(radioCustomer);
         group.add(radioSupplier);
+        txtRePword.setEnabled(false);
     }
 
     //Checking whether user name already exists or no.
@@ -193,6 +196,10 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         if (!(radioCustomer.isSelected() || radioSupplier.isSelected())) {
             alertString += "Select the user role\n";
         }
+        if(!validationFlag)
+        {
+            alertString+="Recheck policies";
+        }
         if (!alertString.isEmpty()) {
 
             JOptionPane.showMessageDialog(null, alertString);
@@ -240,11 +247,14 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         if (rePassword.length() <= password.length()) {
             if (!rePassword.equals(password.substring(0, rePassword.length()))) {
                 jLabelRePwdAlert.setVisible(true);
+                  validationFlag= false;
             } else {
                 jLabelRePwdAlert.setVisible(false);
+                validationFlag= true;
             }
         } else {
             jLabelRePwdAlert.setVisible(true);
+            validationFlag= false;
         }
     }//GEN-LAST:event_txtRePwordKeyReleased
 
@@ -254,20 +264,25 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         Matcher matcher = pattern.matcher(txtUser.getText());
         if (matcher.find()) {
             jLabelUserNameAlert.setVisible(false);
+            validationFlag= true;
         } else {
             jLabelUserNameAlert.setVisible(true);
+            validationFlag= false;
         }
 
     }//GEN-LAST:event_txtUserKeyReleased
 
     private void txtPwordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPwordKeyReleased
         // TODO add your handling code here:
+        txtRePword.setEnabled(true);
         Pattern pattern = Pattern.compile("^[a-z0-9_+\\$]*$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(txtPword.getText());
         if (matcher.find()) {
             jLabelPwdAlert.setVisible(false);
+            validationFlag= true;
         } else {
             jLabelPwdAlert.setVisible(true);
+            validationFlag= false;
         }
 
     }//GEN-LAST:event_txtPwordKeyReleased
