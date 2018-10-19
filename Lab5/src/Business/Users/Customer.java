@@ -17,6 +17,7 @@ public class Customer extends User implements Comparable<Customer> {
         super(password, userName, "CUSTOMER");
     }
 
+    //Overriding method from User Absract class to verify a customer by checking the password
     @Override
     public boolean verify(String password) {
         if (password.equals(getPassword())) {
@@ -25,6 +26,7 @@ public class Customer extends User implements Comparable<Customer> {
         return false;
     }
 
+    //implementing the compareTo method from the Comparable interface to compare the custom objects based on their username
     @Override
     public int compareTo(Customer o) {
         return o.getUserName().compareTo(this.getUserName());
