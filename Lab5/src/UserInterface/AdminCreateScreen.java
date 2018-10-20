@@ -260,7 +260,7 @@ public class AdminCreateScreen extends javax.swing.JPanel {
 
     private void txtUserKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyReleased
         // TODO add your handling code here:
-        Pattern pattern = Pattern.compile("^[^_][a-z0-9_]+@[a-z0-9_]+\\.[a-z0-9_\\.]*$", Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile("^[a-z0-9][a-z0-9_]*@[a-z0-9_]+\\.[a-z0-9_\\.]*$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(txtUser.getText());
         if (matcher.find()) {
             jLabelUserNameAlert.setVisible(false);
