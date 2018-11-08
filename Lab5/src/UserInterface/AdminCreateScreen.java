@@ -10,17 +10,12 @@ import Business.Users.Admin;
 import Business.Users.Customer;
 import Business.Users.Supplier;
 import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Date;
+import java.awt.Component;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -33,13 +28,43 @@ public class AdminCreateScreen extends javax.swing.JPanel {
      */
     private JPanel panelRight;
     private Admin admin;
+    static boolean validationFlag=false;
+
     public AdminCreateScreen(JPanel panelRight, Admin admin) {
         initComponents();
+
+        jLabelPwdAlert.setVisible(false);
+        jLabelUserNameAlert.setVisible(false);
+        jLabelRePwdAlert.setVisible(false);
         this.panelRight = panelRight;
         this.admin = admin;
+        validationFlag= false;
         ButtonGroup group = new ButtonGroup();
         group.add(radioCustomer);
         group.add(radioSupplier);
+        txtRePword.setEnabled(false);
+    }
+
+    //Checking whether user name already exists or no.
+    public boolean checkIfUserNameAlreadyExists(String username) {
+        //Iterate through the customer and supplier directory in admin
+
+        //Checking in Customer directory
+        for (User user : admin.getCustDir().getCustomerList()) {
+            if (username.equalsIgnoreCase(user.getUserName())) {
+                return true;
+            }
+        }
+
+        //Checking in Supplier directory
+        for (User user : admin.getSuppDir().getSupplierList()) {
+            if (username.equalsIgnoreCase(user.getUserName())) {
+                return true;
+            }
+        }
+
+        //Username is unique.
+        return false;
     }
 
     /**
@@ -61,6 +86,13 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         radioCustomer = new javax.swing.JRadioButton();
         radioSupplier = new javax.swing.JRadioButton();
         btnBack = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaPwdFormatAlert = new javax.swing.JTextArea();
+        jLabelRePwdAlert = new javax.swing.JLabel();
+        jLabelUserNameAlert = new javax.swing.JLabel();
+        jLabelPwdAlert = new javax.swing.JLabel();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCreate.setText("Create");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
@@ -68,12 +100,37 @@ public class AdminCreateScreen extends javax.swing.JPanel {
                 btnCreateActionPerformed(evt);
             }
         });
+        add(btnCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(161, 319, 173, -1));
+
+        txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUserKeyReleased(evt);
+            }
+        });
+        add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 85, 173, -1));
+
+        txtPword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPwordKeyReleased(evt);
+            }
+        });
+        add(txtPword, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 140, 173, -1));
+
+        txtRePword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtRePwordKeyReleased(evt);
+            }
+        });
+        add(txtRePword, new org.netbeans.lib.awtextra.AbsoluteConstraints(147, 198, 173, -1));
 
         jLabel1.setText("username:");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 95, -1, -1));
 
         jLabel2.setText("password:");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 145, -1, -1));
 
         jLabel3.setText("re-enter password :");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 203, -1, -1));
 
         radioCustomer.setText("Customer");
         radioCustomer.addActionListener(new java.awt.event.ActionListener() {
@@ -81,8 +138,10 @@ public class AdminCreateScreen extends javax.swing.JPanel {
                 radioCustomerActionPerformed(evt);
             }
         });
+        add(radioCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 261, -1, -1));
 
         radioSupplier.setText("Supplier");
+        add(radioSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 290, -1, -1));
 
         btnBack.setText("< BACK");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -90,72 +149,77 @@ public class AdminCreateScreen extends javax.swing.JPanel {
                 btnBackActionPerformed(evt);
             }
         });
+        add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 6, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRePword, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(radioSupplier)
-                                    .addComponent(radioCustomer)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(btnBack)))
-                .addContainerGap(76, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnBack)
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRePword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(radioCustomer)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioSupplier)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCreate)
-                .addContainerGap(47, Short.MAX_VALUE))
-        );
+        jScrollPane1.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+
+        jTextAreaPwdFormatAlert.setEditable(false);
+        jTextAreaPwdFormatAlert.setColumns(20);
+        jTextAreaPwdFormatAlert.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jTextAreaPwdFormatAlert.setRows(5);
+        jTextAreaPwdFormatAlert.setText("Usename Policy:\n1. Should be email address not starting with \nunderscore\n2. Should not contain any other special \ncharacter except underscore\n\nPassword Policy:  \n1. Should contain alphanumeric characters\n2. \"+_$\" are only allowed special characters");
+        jTextAreaPwdFormatAlert.setEnabled(false);
+        jScrollPane1.setViewportView(jTextAreaPwdFormatAlert);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 91, 291, 152));
+
+        jLabelRePwdAlert.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelRePwdAlert.setText("*Password should match with entered password");
+        add(jLabelRePwdAlert, new org.netbeans.lib.awtextra.AbsoluteConstraints(147, 230, -1, -1));
+
+        jLabelUserNameAlert.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelUserNameAlert.setText("*Username should match Username policy");
+        add(jLabelUserNameAlert, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 123, 241, -1));
+
+        jLabelPwdAlert.setFont(new java.awt.Font("Monospaced", 0, 10)); // NOI18N
+        jLabelPwdAlert.setText("*Password should match password policy");
+        add(jLabelPwdAlert, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 172, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        if(radioCustomer.isSelected())
+        String alertString = "";
+
+        if (txtUser.getText().isEmpty()) {
+            alertString += "Enter username\n";
+        }
+
+        if (!txtUser.getText().isEmpty() && checkIfUserNameAlreadyExists(txtUser.getText())) {
+            alertString += "Username already exists. Please select different username\n";
+        }
+
+        if (txtPword.getText().isEmpty()) {
+            alertString += "Enter password\n";
+        }
+        if (txtRePword.getText().isEmpty()) {
+            alertString += "Re enter password\n";
+        }
+        if (!(radioCustomer.isSelected() || radioSupplier.isSelected())) {
+            alertString += "Select the user role\n";
+        }
+        if(!validationFlag)
         {
+            alertString+="Recheck policies";
+        }
+        if (!alertString.isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, alertString);
+            return;
+        }
+
+        if (radioCustomer.isSelected()) {
+
+            Customer cust = new Customer(txtRePword.getText(), txtUser.getText());
+            admin.getCustDir().getCustomerList().add(cust);
+            JOptionPane.showMessageDialog(null, "Successfully created Customer with username  : " + cust.getUserName());
 
         }
-        if(radioSupplier.isSelected())
-        {
-            
+        if (radioSupplier.isSelected()) {
+            Supplier sup = new Supplier(txtRePword.getText(), txtUser.getText());
+            admin.getSuppDir().getSupplierList().add(sup);
+            JOptionPane.showMessageDialog(null, "Successfully created Supplier with username : " + sup.getUserName());
         }
-        
+
+        //Supplier or Customer has been successfully created. We will show a pop-up to user with the same message
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void radioCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioCustomerActionPerformed
@@ -164,19 +228,76 @@ public class AdminCreateScreen extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
 
-        CardLayout layout = (CardLayout)panelRight.getLayout();
+        CardLayout layout = (CardLayout) panelRight.getLayout();
         panelRight.remove(this);
         layout.previous(panelRight);
+        for (Component component : panelRight.getComponents()) {
+            if ((AdminMainScreen.class).equals(component.getClass())) {
+                AdminMainScreen manage = (AdminMainScreen) component;
+                manage.populate();
+            }
+        }
     }//GEN-LAST:event_btnBackActionPerformed
 
-    
-    
+    private void txtRePwordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRePwordKeyReleased
+        // TODO add your handling code here:
+        String password = txtPword.getText();
+        String rePassword = txtRePword.getText();
+        System.out.println(rePassword + "  " + password.substring(0, rePassword.length() - 1));
+        if (rePassword.length() <= password.length()) {
+            if (!rePassword.equals(password.substring(0, rePassword.length()))) {
+                jLabelRePwdAlert.setVisible(true);
+                  validationFlag= false;
+            } else {
+                jLabelRePwdAlert.setVisible(false);
+                validationFlag= true;
+            }
+        } else {
+            jLabelRePwdAlert.setVisible(true);
+            validationFlag= false;
+        }
+    }//GEN-LAST:event_txtRePwordKeyReleased
+
+    private void txtUserKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyReleased
+        // TODO add your handling code here:
+        Pattern pattern = Pattern.compile("^[a-z0-9][a-z0-9_]*@[a-z0-9_]+\\.[a-z0-9_\\.]*$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(txtUser.getText());
+        if (matcher.find()) {
+            jLabelUserNameAlert.setVisible(false);
+            validationFlag= true;
+        } else {
+            jLabelUserNameAlert.setVisible(true);
+            validationFlag= false;
+        }
+
+    }//GEN-LAST:event_txtUserKeyReleased
+
+    private void txtPwordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPwordKeyReleased
+        // TODO add your handling code here:
+        txtRePword.setEnabled(true);
+        Pattern pattern = Pattern.compile("^[a-z0-9_+\\$]*$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(txtPword.getText());
+        if (matcher.find()) {
+            jLabelPwdAlert.setVisible(false);
+            validationFlag= true;
+        } else {
+            jLabelPwdAlert.setVisible(true);
+            validationFlag= false;
+        }
+
+    }//GEN-LAST:event_txtPwordKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelPwdAlert;
+    private javax.swing.JLabel jLabelRePwdAlert;
+    private javax.swing.JLabel jLabelUserNameAlert;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextAreaPwdFormatAlert;
     private javax.swing.JRadioButton radioCustomer;
     private javax.swing.JRadioButton radioSupplier;
     private javax.swing.JTextField txtPword;
