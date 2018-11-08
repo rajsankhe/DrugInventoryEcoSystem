@@ -123,5 +123,116 @@ public class AnalysisHelper {
 
     }
 
+public void postWithMostNumComments() {
+        Map<Integer, Post> posts = DataStore.getInstance().getPosts();
+
+        List<Post> postList = new ArrayList<>(posts.values());
+
+        Collections.sort(postList, new Comparator<Post>() {
+            @Override
+            public int compare(Post o1, Post o2) {
+                return o2.getComments().size() - o1.getComments().size();
+            }
+        });
+
+        System.out.println("Post with maximum number of comments is:");
+        System.out.println("ID: " + postList.get(0).getPostId() + " Posting User ID: " + postList.get(0).getUserId()
+                + " Number of Comments: " + postList.get(0).getComments().size());
+
+//        for (Post post : postList) {
+//            System.out.println("ID: " + post.getPostId() + " Posting User ID: " + post.getUserId()
+//                    + " Number of Comments: " + post.getComments().size());
+//        }
+    }
+
+    public void postWithMostLikedComment() {
+        Map<Integer, Post> posts = DataStore.getInstance().getPosts();
+
+        int postWithMostLikedComments = -1;
+        int totalNumOfLikesForComments = -1;
+
+        for (Map.Entry<Integer, Post> entry : posts.entrySet()) {
+            int currSumOfLikes = 0;
+            Post p = entry.getValue();
+            for (Comment c : p.getComments()) {
+                currSumOfLikes += c.getLikes();
+            }
+
+            if (totalNumOfLikesForComments == -1) {
+                postWithMostLikedComments = entry.getKey();
+                totalNumOfLikesForComments = currSumOfLikes;
+            } else {
+                if (currSumOfLikes > totalNumOfLikesForComments) {
+                    totalNumOfLikesForComments = currSumOfLikes;
+                    postWithMostLikedComments = entry.getKey();
+                }
+            }
+
+        }
+
+        System.out.println("Post with maximum number of comments is:" + postWithMostLikedComments);
+
+        Post post = DataStore.getInstance().getPosts().get(postWithMostLikedComments);
+
+        System.out.println("ID: " + post.getPostId() + " Posting User ID: " + post.getUserId()
+                + " Number of Comments: " + post.getComments().size() + " Total number of Likes: " + totalNumOfLikesForComments);
+
+    }
+
+    public void topFiveInactiveUserBasedOnPosts() {
+        Map<Integer, Post> posts = DataStore.getInstance().getPosts();
+        //Map<Integer, Integer> userPostCount = new HashMap<>();
+        Map<Integer, Integer> userPostCount = new HashMap<>();
+
+        for (Post p : posts.values()) {
+            int userId = p.getUserId();
+            if (userPostCount.containsKey(userId)) {
+                //add 1 to the value
+                userPostCount.put(userId, userPostCount.get(userId) + 1);
+            } else {
+                userPostCount.put(userId, 1);
+            }
+        }
+
+        LinkedHashMap<Integer, Integer> sortedMap
+                = userPostCount.entrySet().stream().
+                        sorted(Entry.comparingByValue()).
+                        collect(Collectors.toMap(Entry::getKey, Entry::getValue,
+                                (e1, e2) -> e1, LinkedHashMap::new));
+
+        int i = 0;
+        System.out.println("5 Most inactive Users based on number of posts");
+        System.out.println("User | Post Count");
+
+        for (Map.Entry<Integer, Integer> entry : sortedMap.entrySet()) {
+            User user = DataStore.getInstance().getUsers().get(entry.getKey());
+            System.out.println(user.toString() + "|" + entry.getValue());
+            i++;
+            if (i > 4) {
+                break;
+            }
+        }
+
+    }
+
+    public void topFiveInactiveUserBasedOnComments() {
+        Map<Integer, User> users = DataStore.getInstance().getUsers();
+        List<User> userList = new ArrayList<>(users.values());
+
+        Collections.sort(userList, new Comparator<User>() {
+            @Override
+            public int compare(User o1, User o2) {
+                return o1.getComments().size() - o2.getComments().size();
+            }
+        });
+
+        System.out.println("Top 5 Inactive User(based on comments):");
+        for (int i = 0; i < 5; i++) {
+            System.out.println(userList.get(i));
+        }
+
+//                + " with comment count :" + users.get(userList.get(0).getId()).getComments().size());
+    }
+
 
 }
