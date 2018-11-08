@@ -123,7 +123,7 @@ public class AnalysisHelper {
 
     }
 
-public void postWithMostNumComments() {
+    public void postWithMostNumComments() {
         Map<Integer, Post> posts = DataStore.getInstance().getPosts();
 
         List<Post> postList = new ArrayList<>(posts.values());
@@ -196,8 +196,8 @@ public void postWithMostNumComments() {
 
         LinkedHashMap<Integer, Integer> sortedMap
                 = userPostCount.entrySet().stream().
-                        sorted(Entry.comparingByValue()).
-                        collect(Collectors.toMap(Entry::getKey, Entry::getValue,
+                sorted(Entry.comparingByValue()).
+                collect(Collectors.toMap(Entry::getKey, Entry::getValue,
                                 (e1, e2) -> e1, LinkedHashMap::new));
 
         int i = 0;
@@ -234,5 +234,95 @@ public void postWithMostNumComments() {
 //                + " with comment count :" + users.get(userList.get(0).getId()).getComments().size());
     }
 
+    public void topFiveInactiveUserOverall() {
+        //Taking count of posts and  comments
+        Map<Integer, Post> posts = DataStore.getInstance().getPosts();
+        Map<Integer, User> users = DataStore.getInstance().getUsers();
+        Map<Integer, Integer> userPostCommentCount = new HashMap<>();
+
+        for (Post p : posts.values()) {
+            int userId = p.getUserId();
+            if (userPostCommentCount.containsKey(userId)) {
+                //add 1 to the value
+                userPostCommentCount.put(userId, userPostCommentCount.get(userId) + 1);
+            } else {
+                userPostCommentCount.put(userId, 1);
+            }
+        }
+
+        for (User u : users.values()) {
+            if (userPostCommentCount.containsKey(u.getId())) {
+                //Appending number of comments to the number of posts already cacluated earlier
+                userPostCommentCount.put(u.getId(), userPostCommentCount.get(u.getId()) + u.getComments().size());
+            } else {
+                userPostCommentCount.put(u.getId(), u.getComments().size());
+            }
+        }
+
+        LinkedHashMap<Integer, Integer> sortedMap
+                = userPostCommentCount.entrySet().stream().
+                sorted(Entry.comparingByValue()).
+                collect(Collectors.toMap(Entry::getKey, Entry::getValue,
+                                (e1, e2) -> e1, LinkedHashMap::new));
+        int i = 0;
+
+        System.out.println("Top 5 Inactive User(based on Posts and Comments):");
+        for (Map.Entry<Integer, Integer> entry : sortedMap.entrySet()) {
+            if (i++ > 4) {
+                break;
+            }
+            User user = DataStore.getInstance().getUsers().get(entry.getKey());
+            System.out.println(user.toString() + "|" + entry.getValue());
+
+        }
+
+    }
+
+    public void topFiveActiveUserOverall() {
+        //Taking count of posts and  comments
+        Map<Integer, Post> posts = DataStore.getInstance().getPosts();
+        Map<Integer, User> users = DataStore.getInstance().getUsers();
+        Map<Integer, Integer> userPostCommentCount = new HashMap<>();
+
+        for (Post p : posts.values()) {
+            int userId = p.getUserId();
+            if (userPostCommentCount.containsKey(userId)) {
+                //add 1 to the value
+                userPostCommentCount.put(userId, userPostCommentCount.get(userId) + 1);
+            } else {
+                userPostCommentCount.put(userId, 1);
+            }
+        }
+
+        for (User u : users.values()) {
+            if (userPostCommentCount.containsKey(u.getId())) {
+                //Appending number of comments to the number of posts already cacluated earlier
+                userPostCommentCount.put(u.getId(), userPostCommentCount.get(u.getId()) + u.getComments().size());
+            } else {
+                userPostCommentCount.put(u.getId(), u.getComments().size());
+            }
+        }
+
+        LinkedHashMap<Integer, Integer> sortedMap
+                = userPostCommentCount.entrySet().stream().
+                sorted(Entry.comparingByValue(new Comparator<Integer>() {
+                    public int compare(Integer o1, Integer o2) {
+                        return o2 - o1;
+                    }
+                })).
+                collect(Collectors.toMap(Entry::getKey, Entry::getValue,
+                                (e1, e2) -> e1, LinkedHashMap::new));
+        int i = 0;
+
+        System.out.println("Top 5 Active User(based on Posts and Comments):");
+        for (Map.Entry<Integer, Integer> entry : sortedMap.entrySet()) {
+            if (i++ > 4) {
+                break;
+            }
+            User user = DataStore.getInstance().getUsers().get(entry.getKey());
+            System.out.println(user.toString() + "|" + entry.getValue());
+        }
+
+    }
 
 }
