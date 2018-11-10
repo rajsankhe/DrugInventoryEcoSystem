@@ -40,12 +40,15 @@ public class DataReader {
     }
     
     public String[] getFileHeader() throws IOException{
-        String line = "";
-        if(scanner.hasNextLine()){
+        if(header == null){
+            String line = "";
+            if(scanner.hasNextLine()){
             String[] rows = scanner.nextLine().split(",");
-            return rows;
+            header= rows;
         }
-        return null;
+        }
+        return header;
     }
     
 }
+    
