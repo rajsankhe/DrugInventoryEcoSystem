@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  *
@@ -17,22 +18,22 @@ import java.io.IOException;
  */
 public class DataReader {
     
-    private BufferedReader reader;
+    private Scanner scanner;
     private String[] header;
     
     public DataReader(String fileName) throws FileNotFoundException {
         File file = new File(fileName);
+        scanner = new Scanner(file);
         if(!file.exists())
             throw new FileNotFoundException("File not found at the path specified: "+fileName);
-        reader = new BufferedReader(new FileReader(file));
     }
     
     public String[] getNextRow() throws IOException{
         if (header == null)
             header = getFileHeader();
         String line = "";
-        if((line = reader.readLine()) != null){
-            String[] rows = line.split(",");
+        if(scanner.hasNextLine()){
+            String[] rows = scanner.nextLine().split(",");
             return rows;
         }
         return null;
@@ -40,8 +41,8 @@ public class DataReader {
     
     public String[] getFileHeader() throws IOException{
         String line = "";
-        if((line = reader.readLine()) != null){
-            String[] rows = line.split(",");
+        if(scanner.hasNextLine()){
+            String[] rows = scanner.nextLine().split(",");
             return rows;
         }
         return null;
