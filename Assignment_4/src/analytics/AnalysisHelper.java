@@ -29,6 +29,13 @@ public class AnalysisHelper {
         for (int i = 0; i < 3; i++) {
             System.out.println(productList.get(i).getId()+"\t\t"+productList.get(i).getPopularity());
         }
+        System.out.println(SEPERATOR);
+        productList.sort((o1,o2)-> (int)(o2.getPopularityAsPerProfit()- o1.getPopularityAsPerProfit()));
+        System.out.println("Top 3 most popular Product as per profit they earned");
+        System.out.println("Product Id\tPopularity");
+        for (int i = 0; i < 3; i++) {
+            System.out.println(productList.get(i).getId()+"\t\t"+productList.get(i).getPopularityAsPerProfit());
+        }
     }
 
     public void getThreeMostPopularCustomers() {

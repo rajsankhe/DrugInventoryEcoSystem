@@ -55,6 +55,7 @@ public class GateWay {
                 Product pro = products.get(producId);
                 int tempPopularity = pro.getPopularity() + Integer.parseInt(orderRow[3]);
                 pro.setPopularity(tempPopularity);
+                
 
                 //Adding items in orders
                 if (orders.containsKey(Integer.parseInt(orderRow[0]))) {
@@ -91,8 +92,12 @@ public class GateWay {
                 //calculate total revenue
                 double minPriceOfProduct = products.get(Integer.parseInt(orderRow[2])).getMin_price();
                 double revenue = Integer.parseInt(orderRow[6]) - minPriceOfProduct > 0 ? Integer.parseInt(orderRow[6]) - minPriceOfProduct : 0;
-                double totalRevenue = DataStore.getInstance().getTotalRevenue() + revenue;
+                double totalRevenue = DataStore.getInstance().getTotalRevenue() + revenue*Integer.parseInt(orderRow[3]);
                 DataStore.getInstance().setTotalRevenue(totalRevenue);
+                
+                //Calculating Popularity as per revenue
+                double tempRevenue= pro.getPopularityAsPerProfit()+ revenue*Integer.parseInt(orderRow[3]);
+                pro.setPopularityAsPerProfit(tempRevenue);
             }
             //GateWay gateWay = new GateWay();
             //gateWay.runanalysis();
@@ -114,7 +119,7 @@ public class GateWay {
 
         }
     }
-
+    
     public static void runanalysis() {
         AnalysisHelper analysisHelper = new AnalysisHelper();
         int i = 0;

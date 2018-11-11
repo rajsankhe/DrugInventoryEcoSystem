@@ -10,11 +10,13 @@ package entities;
  * @author harshalneelkamal
  */
 public class Product {
+
     int id;
     private double min_price;
     private double max_price;
     private double target_price;
     private int popularity;
+    private double popularityAsPerProfit;
 
     public Product(int id, double min_price, double max_price, double target_price) {
         this.id = id;
@@ -22,7 +24,7 @@ public class Product {
         this.max_price = max_price;
         this.target_price = target_price;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -62,6 +64,13 @@ public class Product {
     public void setPopularity(int popularity) {
         this.popularity = popularity;
     }
-    
-        
+
+    public void setPopularityAsPerProfit(double popularityAsPerProfit) {
+        this.popularityAsPerProfit = popularityAsPerProfit;
+    }
+
+    public double getPopularityAsPerProfit() {
+        return popularityAsPerProfit;
+    }
+
 }
