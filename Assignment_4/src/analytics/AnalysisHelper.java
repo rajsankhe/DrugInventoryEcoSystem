@@ -55,6 +55,14 @@ public class AnalysisHelper {
         for (int i = 0; i < 3; i++) {
             System.out.println(customerList.get(i).getId()+"\t\t"+customerList.get(i).getTotalPriceOfItemBought());
         }
+        
+        customerList.sort((o1,o2) -> (int) (o2.getTotalRevenueContributed()- o1.getTotalRevenueContributed()));
+        System.out.println(SEPERATOR);
+        System.out.println("Top 3 most popular Customers as per revenue contributed.");
+        System.out.println("Customer Id\tPopularity");
+        for (int i = 0; i < 3; i++) {
+            System.out.println(customerList.get(i).getId()+"\t\t"+customerList.get(i).getTotalRevenueContributed());
+        }
     }
     public void getTopThreeSalesPerson() {
 
@@ -72,6 +80,15 @@ public class AnalysisHelper {
         System.out.println("Sales Person Id\tPopularity");
         for (int i = 0; i < 3; i++) {
             System.out.println(salesList.get(i).getId()+"\t\t"+salesList.get(i).getTotalItemSold());
+        }
+        
+        
+        salesList.sort((o1,o2) ->  (int) (o2.getTotalpriceWRTRevenue()- o1.getTotalpriceWRTRevenue()));
+        System.out.println(SEPERATOR);
+        System.out.println("Top 3 most popular SalesPerson as per revenue contributed.");
+        System.out.println("Sales Person Id\tPopularity");
+        for (int i = 0; i < 3; i++) {
+            System.out.println(salesList.get(i).getId()+"\t\t"+salesList.get(i).getTotalpriceWRTRevenue());
         }
     }
     

@@ -70,7 +70,7 @@ public class GateWay {
                 }
                 items.put(Integer.parseInt(orderRow[1]), item);
 
-                // calculating sales person customer parameters
+                // calculating sales person parameters
                 SalesPerson salesPerson =null;
                 if(!salespersonList.containsKey(Integer.parseInt(orderRow[4]))){
                     salesPerson = new SalesPerson(Integer.parseInt(orderRow[4]));    
@@ -80,13 +80,19 @@ public class GateWay {
                 }
                 
                 double targetprice = products.get(Integer.parseInt(orderRow[2])).getTarget_price();
+                double minPrice = products.get(Integer.parseInt(orderRow[2])).getMin_price();
                 double salesPrice = Double.parseDouble(orderRow[6]);
                 double priceWRTTarget = salesPrice - targetprice;
+                double priceWRTRevenue = salesPrice - minPrice;
                 double totalpriceWRTTarget = priceWRTTarget*Integer.parseInt(orderRow[3]) + salesPerson.getTotalpriceWRTTarget();
                 salesPerson.setTotalpriceWRTTarget(totalpriceWRTTarget);
                 int totalItemSold = salesPerson.getTotalItemSold() + Integer.parseInt(orderRow[3]);
                 salesPerson.setTotalItemSold(totalItemSold);
                 salespersonList.put(Integer.parseInt(orderRow[4]), salesPerson);
+                // calculating sales person parameters wrt revenue
+                double totalpriceWRTRevenue = priceWRTRevenue*Integer.parseInt(orderRow[3]) + salesPerson.getTotalpriceWRTRevenue();
+                salesPerson.setTotalpriceWRTRevenue(totalpriceWRTRevenue);
+                
 
                 // calculating customer parameters
                 Customer customer=null;
@@ -101,6 +107,10 @@ public class GateWay {
                 customer.setTotalItemBought(totalItemBought);
                 customer.setTotalPriceOfItemBought(totalPriceOfItemBought);
                 customers.put(Integer.parseInt(orderRow[5]), customer);
+                // calculating customer parameter wrt revenue
+                double totalRevenueContributed = priceWRTRevenue*Integer.parseInt(orderRow[3]) + customer.getTotalRevenueContributed();
+                customer.setTotalRevenueContributed(totalRevenueContributed);
+                
 
                 //calculate total revenue
                 double minPriceOfProduct = products.get(Integer.parseInt(orderRow[2])).getMin_price();

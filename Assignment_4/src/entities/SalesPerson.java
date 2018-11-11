@@ -13,6 +13,15 @@ public class SalesPerson {
     private int id;
     private int totalItemSold;
     private double totalpriceWRTTarget;
+    private double totalpriceWRTRevenue;    
+
+    public double getTotalpriceWRTRevenue() {
+        return totalpriceWRTRevenue;
+    }
+
+    public void setTotalpriceWRTRevenue(double totalpriceWRTRevenue) {
+        this.totalpriceWRTRevenue = totalpriceWRTRevenue;
+    }
 
     public SalesPerson(int id) {
         this.id = id;
