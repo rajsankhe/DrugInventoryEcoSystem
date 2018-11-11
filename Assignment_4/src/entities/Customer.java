@@ -13,9 +13,18 @@ public class Customer {
     private int id;
     private long totalItemBought;
     private double totalPriceOfItemBought;
+    private double totalRevenueContributed;
 
     public Customer(int id) {
         this.id = id;
+    }
+
+    public double getTotalRevenueContributed() {
+        return totalRevenueContributed;
+    }
+
+    public void setTotalRevenueContributed(double totalRevenueContributed) {
+        this.totalRevenueContributed = totalRevenueContributed;
     }
 
     public int getId() {
