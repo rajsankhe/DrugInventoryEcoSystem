@@ -71,18 +71,31 @@ public class GateWay {
                 items.put(Integer.parseInt(orderRow[1]), item);
 
                 // calculating sales person customer parameters
-                SalesPerson salesPerson = new SalesPerson((Integer.parseInt(orderRow[4])));
+                SalesPerson salesPerson =null;
+                if(!salespersonList.containsKey(Integer.parseInt(orderRow[4]))){
+                    salesPerson = new SalesPerson(Integer.parseInt(orderRow[4]));    
+                }
+                else{
+                    salesPerson = salespersonList.get(Integer.parseInt(orderRow[4]));
+                }
+                
                 double targetprice = products.get(Integer.parseInt(orderRow[2])).getTarget_price();
                 double salesPrice = Double.parseDouble(orderRow[6]);
                 double priceWRTTarget = salesPrice - targetprice;
-                double totalpriceWRTTarget = priceWRTTarget + salesPerson.getTotalpriceWRTTarget();
+                double totalpriceWRTTarget = priceWRTTarget*Integer.parseInt(orderRow[3]) + salesPerson.getTotalpriceWRTTarget();
                 salesPerson.setTotalpriceWRTTarget(totalpriceWRTTarget);
                 int totalItemSold = salesPerson.getTotalItemSold() + Integer.parseInt(orderRow[3]);
                 salesPerson.setTotalItemSold(totalItemSold);
                 salespersonList.put(Integer.parseInt(orderRow[4]), salesPerson);
 
                 // calculating customer parameters
-                Customer customer = new Customer(Integer.parseInt(orderRow[5]));
+                Customer customer=null;
+                if(!customers.containsKey(Integer.parseInt(orderRow[5]))){
+                    customer = new Customer(Integer.parseInt(orderRow[5]));    
+                }
+                else{
+                    customer = customers.get(Integer.parseInt(orderRow[5]));
+                }
                 long totalItemBought = customer.getTotalItemBought() + Integer.parseInt(orderRow[3]);
                 double totalPriceOfItemBought = customer.getTotalPriceOfItemBought() + Integer.parseInt(orderRow[3]) * Integer.parseInt(orderRow[6]);
                 customer.setTotalItemBought(totalItemBought);
@@ -91,7 +104,7 @@ public class GateWay {
 
                 //calculate total revenue
                 double minPriceOfProduct = products.get(Integer.parseInt(orderRow[2])).getMin_price();
-                double revenue = Integer.parseInt(orderRow[6]) - minPriceOfProduct > 0 ? Integer.parseInt(orderRow[6]) - minPriceOfProduct : 0;
+                double revenue = Integer.parseInt(orderRow[6]) - minPriceOfProduct;
                 double totalRevenue = DataStore.getInstance().getTotalRevenue() + revenue*Integer.parseInt(orderRow[3]);
                 DataStore.getInstance().setTotalRevenue(totalRevenue);
                 
