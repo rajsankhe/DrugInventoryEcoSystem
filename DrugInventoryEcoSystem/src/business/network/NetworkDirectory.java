@@ -13,12 +13,22 @@ import java.util.Map;
  */
 public class NetworkDirectory {
 
-    Map<String, Network> networkDirectory;
+    Map<String, Network> networkList;
 
     public Network createAndAddNetwork() {
         Network network = new Network();
-        networkDirectory.put(network.getName(), network);
+        //left
+        //Check if netwrok already exists
+        networkList.put(network.getName(), network);
         return network;
+    }
+
+    public Map<String, Network> getNetworkList() {
+        return networkList;
+    }
+
+    public void setNetworkList(Map<String, Network> networkList) {
+        this.networkList = networkList;
     }
 
     //left
