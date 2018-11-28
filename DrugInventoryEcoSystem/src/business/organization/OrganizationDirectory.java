@@ -22,14 +22,14 @@ import java.util.List;
  */
 public class OrganizationDirectory {
 
-    private List<Organization> organizationDirectory;
+    private List<Organization> organizationList;
 
     public OrganizationDirectory() {
-        organizationDirectory = new ArrayList();
+        organizationList = new ArrayList();
     }
 
     public List<Organization> getOrganizationList() {
-        return organizationDirectory;
+        return organizationList;
     }
 
     public Organization createOrganization(String name, OrganizationType type) {
@@ -51,7 +51,7 @@ public class OrganizationDirectory {
         } else if (type.getValue().equals(OrganizationType.Producer.getValue())) {
             organization = new ProducerOrganization(name, type);
         }
-        organizationDirectory.add(organization);
+        organizationList.add(organization);
         return organization;
     }
 }

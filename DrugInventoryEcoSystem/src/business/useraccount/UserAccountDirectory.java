@@ -15,18 +15,18 @@ import java.util.Map;
  */
 public class UserAccountDirectory {
 
-    private Map<String, UserAccount> userAccountDirectory;
+    private Map<String, UserAccount> userAccountList;
 
-    public Map<String, UserAccount> getUserAccountDirectory() {
-        return userAccountDirectory;
+    public Map<String, UserAccount> getUserAccountList() {
+        return userAccountList;
     }
 
-    public void setUserAccountDirectory(Map<String, UserAccount> userAccountDirectory) {
-        this.userAccountDirectory = userAccountDirectory;
+    public void setUserAccountList(Map<String, UserAccount> userAccountList) {
+        this.userAccountList = userAccountList;
     }
 
     public UserAccount authenticateUser(String username, String password) {
-        for (Map.Entry<String, UserAccount> entry : userAccountDirectory.entrySet()) {
+        for (Map.Entry<String, UserAccount> entry : userAccountList.entrySet()) {
             UserAccount userAccount = entry.getValue();
             if (username.equalsIgnoreCase(userAccount.getUsername()) && password.equals(userAccount.getPassword())) {
                 return userAccount;
@@ -38,12 +38,12 @@ public class UserAccountDirectory {
 
     public boolean isUserExists(String username) {
 
-        return userAccountDirectory.containsKey(username);
+        return userAccountList.containsKey(username);
     }
 
     public UserAccount createUserAccount(String username, String password, Employee employee, Role role) {
 
-        if (userAccountDirectory.containsKey(username)) {
+        if (userAccountList.containsKey(username)) {
             //user already exists
             return null;
         }
@@ -52,7 +52,7 @@ public class UserAccountDirectory {
         userAccount.setPassword(password);
         userAccount.setEmployee(employee);
         userAccount.setRole(role);
-        userAccountDirectory.put(username, userAccount);
+        userAccountList.put(username, userAccount);
         return userAccount;
     }
 

@@ -13,20 +13,20 @@ import java.util.List;
  */
 public class EmployeeDirectory {
 
-    private List<Employee> employeeDirectory;
+    private List<Employee> employeeList;
 
-    public List<Employee> getEmployeeDirectory() {
-        return employeeDirectory;
+    public List<Employee> getEmployeeList() {
+        return employeeList;
     }
 
-    public void setEmployeeDirectory(List<Employee> employeeDirectory) {
-        this.employeeDirectory = employeeDirectory;
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 
     public Employee createEmployee(String name) {
         Employee employee = new Employee();
         employee.setName(name);
-        employeeDirectory.add(employee);
+        employeeList.add(employee);
         return employee;
     }
 

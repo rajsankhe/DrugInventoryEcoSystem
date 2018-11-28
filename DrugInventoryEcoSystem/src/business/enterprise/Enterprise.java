@@ -25,7 +25,11 @@ public abstract class Enterprise extends Organization {
     }
 
     public enum EnterpriseType {
-        Chemist("Chemist"), Supplier("Supplier"), Transporter("Transporter"), Legal("Legal"), Manufacturer("Manufacturer");
+        Chemist("Chemist"),
+        Supplier("Supplier"),
+        Transporter("Transporter"),
+        Legal("Legal"),
+        Manufacturer("Manufacturer");
 
         private String value;
 

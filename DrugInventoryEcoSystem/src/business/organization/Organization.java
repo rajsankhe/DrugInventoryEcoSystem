@@ -19,6 +19,8 @@ public abstract class Organization {
     private String name;
     private EmployeeDirectory employeeDirectory;
     private UserAccountDirectory userAccountDirectory;
+    //left
+    //use UUID
     private int organizationID;
     private static int counter = 0;
     private OrganizationType organizationType;

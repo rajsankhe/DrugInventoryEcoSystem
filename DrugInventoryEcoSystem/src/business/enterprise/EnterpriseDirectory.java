@@ -14,33 +14,33 @@ import java.util.List;
  */
 public class EnterpriseDirectory {
 
-    List<Enterprise> enterpriseDirectory;
+    List<Enterprise> enterpriseList;
 
     public EnterpriseDirectory() {
-        enterpriseDirectory = new ArrayList();
+        enterpriseList = new ArrayList();
     }
 
-    public List<Enterprise> getEnterpriseDirectory() {
-        return enterpriseDirectory;
+    public List<Enterprise> getEnterpriseList() {
+        return enterpriseList;
     }
 
-    public void setEnterpriseDirectory(List<Enterprise> enterpriseDirectory) {
-        this.enterpriseDirectory = enterpriseDirectory;
+    public void setEnterpriseList(List<Enterprise> enterpriseList) {
+        this.enterpriseList = enterpriseList;
     }
 
     //Create enterprise
     public Enterprise createAndAddEnterprise(String name, Enterprise.EnterpriseType type) {
         Enterprise enterprise = null;
         if (type == Enterprise.EnterpriseType.Chemist) {
-            enterpriseDirectory.add(new ChemistEnterprise(name, type));
+            enterpriseList.add(new ChemistEnterprise(name, type));
         } else if (type == Enterprise.EnterpriseType.Legal) {
-            enterpriseDirectory.add(new LegalEnterprise(name, type));
+            enterpriseList.add(new LegalEnterprise(name, type));
         } else if (type == Enterprise.EnterpriseType.Manufacturer) {
-            enterpriseDirectory.add(new ManufacturerEnterprise(name, type));
+            enterpriseList.add(new ManufacturerEnterprise(name, type));
         } else if (type == Enterprise.EnterpriseType.Transporter) {
-            enterpriseDirectory.add(new TransportationEnterprise(name, type));
+            enterpriseList.add(new TransportationEnterprise(name, type));
         } else if (type == Enterprise.EnterpriseType.Supplier) {
-            enterpriseDirectory.add(new SupplierEnterprise(name, type));
+            enterpriseList.add(new SupplierEnterprise(name, type));
         }
         return enterprise;
     }
