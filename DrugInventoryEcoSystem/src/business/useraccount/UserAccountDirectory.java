@@ -7,6 +7,7 @@ package business.useraccount;
 
 import business.employee.Employee;
 import business.role.Role;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -16,6 +17,12 @@ import java.util.Map;
 public class UserAccountDirectory {
 
     private Map<String, UserAccount> userAccountList;
+
+    public UserAccountDirectory() {
+        this.userAccountList = new HashMap<>();
+    }
+    
+    
 
     public Map<String, UserAccount> getUserAccountList() {
         return userAccountList;
