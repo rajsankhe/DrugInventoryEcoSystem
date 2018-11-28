@@ -5,6 +5,7 @@
  */
 package business.employee;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,12 @@ import java.util.List;
 public class EmployeeDirectory {
 
     private List<Employee> employeeList;
+
+    public EmployeeDirectory() {
+        this.employeeList = new ArrayList<>();
+    }
+    
+    
 
     public List<Employee> getEmployeeList() {
         return employeeList;
@@ -29,5 +36,7 @@ public class EmployeeDirectory {
         employeeList.add(employee);
         return employee;
     }
+    
+    
 
 }

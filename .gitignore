@@ -3,4 +3,4 @@ build/
 private/
 dist/
 *.csv
-.db4o
+*.db4o
