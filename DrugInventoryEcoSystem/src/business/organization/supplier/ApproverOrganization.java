@@ -19,7 +19,7 @@ import java.util.List;
 public class ApproverOrganization extends Organization {
 
     public ApproverOrganization(String name, OrganizationType type) {
-        super(name, type);
+        super(name);
     }
 
     @Override

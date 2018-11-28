@@ -23,9 +23,8 @@ public abstract class Organization {
     private static int counter = 0;
     private OrganizationType organizationType;
 
-    public Organization(String name, OrganizationType type) {
+    public Organization(String name) {
         this.name = name;
-        this.organizationType = type;
         //left
         //workQueue = new WorkQueue();
         this.employeeDirectory = new EmployeeDirectory();
@@ -85,14 +84,13 @@ public abstract class Organization {
 //    public void setWorkQueue(WorkQueue workQueue) {
 //        this.workQueue = workQueue;
 //    }
-    public OrganizationType getType() {
-        return organizationType;
-    }
-
-    public void setType(OrganizationType type) {
-        this.organizationType = type;
-    }
-
+//    public OrganizationType getType() {
+//        return organizationType;
+//    }
+//
+//    public void setType(OrganizationType type) {
+//        this.organizationType = type;
+//    }
     @Override
     public String toString() {
         return name;

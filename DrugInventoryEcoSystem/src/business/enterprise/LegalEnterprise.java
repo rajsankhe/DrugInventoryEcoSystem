@@ -5,6 +5,9 @@
  */
 package business.enterprise;
 
+import business.role.Role;
+import java.util.List;
+
 /**
  *
  * @author vivekdalal
@@ -13,6 +16,11 @@ public class LegalEnterprise extends Enterprise {
 
     public LegalEnterprise(String name, EnterpriseType type) {
         super(name, type);
+    }
+
+    @Override
+    public List<Role> getSupportedRole() {
+        return null;
     }
 
 }
