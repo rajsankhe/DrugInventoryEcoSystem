@@ -19,7 +19,7 @@ import java.util.List;
 public class ProducerOrganization extends Organization {
 
     public ProducerOrganization(String name, OrganizationType type) {
-        super(name, type);
+        super(name);
     }
 
     @Override

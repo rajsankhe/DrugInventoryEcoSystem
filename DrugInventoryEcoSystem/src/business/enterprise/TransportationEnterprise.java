@@ -5,6 +5,9 @@
  */
 package business.enterprise;
 
+import business.role.Role;
+import java.util.List;
+
 /**
  *
  * @author vivekdalal
@@ -15,4 +18,8 @@ public class TransportationEnterprise extends Enterprise {
         super(name, type);
     }
 
+    @Override
+    public List<Role> getSupportedRole() {
+        return null;
+    }
 }

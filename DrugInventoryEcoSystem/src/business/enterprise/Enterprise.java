@@ -5,17 +5,18 @@
  */
 package business.enterprise;
 
+import business.organization.Organization;
 import business.organization.OrganizationDirectory;
 
 /**
  *
  * @author vivekdalal
  */
-public class Enterprise {
+public abstract class Enterprise extends Organization {
 
     //left
     private int id; //Generate UUID.
-    private String name;
+    //private String name;
     private EnterpriseType enterpriseType;
     private OrganizationDirectory organizationDirectory;
 
@@ -51,9 +52,10 @@ public class Enterprise {
     }
 
     public Enterprise(String name, EnterpriseType type) {
-        //super(name); Do we need this?
-        this.name = name;
+        super(name);
+        //this.name = name;
         this.enterpriseType = type;
         organizationDirectory = new OrganizationDirectory();
     }
+
 }

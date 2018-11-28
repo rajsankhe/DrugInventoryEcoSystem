@@ -6,12 +6,18 @@
 package business;
 
 import business.network.NetworkDirectory;
+import business.organization.Organization;
+import business.role.Role;
+import business.role.Role.RoleType;
+import business.role.SystemAdminRole;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author vivekdalal
  */
-public class EcoSystem {
+public class EcoSystem extends Organization {
 
     private static EcoSystem business;
     NetworkDirectory networkDirectory;
@@ -24,7 +30,7 @@ public class EcoSystem {
     }
 
     private EcoSystem() {
-        //super(null); Do we need this?
+        super("EcoSystem");
         networkDirectory = new NetworkDirectory();
     }
 
@@ -44,4 +50,11 @@ public class EcoSystem {
 //    public void setNetworkDirectory(NetworkDirectory networkDirectory) {
 //        this.networkDirectory = networkDirectory;
 //    }
+    @Override
+    public List<Role> getSupportedRole() {
+        List<Role> roleList = new ArrayList();
+        roleList.add(new SystemAdminRole(RoleType.Admin));
+        return roleList;
+    }
+
 }
