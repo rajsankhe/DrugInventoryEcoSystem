@@ -4,4 +4,4 @@ private/
 dist/
 *.csv
 *.db4o
-nbproject/project.properties
+*/nbproject/project.properties
