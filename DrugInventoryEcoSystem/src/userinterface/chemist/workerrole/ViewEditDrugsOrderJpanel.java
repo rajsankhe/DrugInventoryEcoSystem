@@ -51,26 +51,13 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        drugquantity = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         update = new javax.swing.JButton();
         save = new javax.swing.JButton();
         back = new javax.swing.JButton();
         addRow = new javax.swing.JButton();
-
-        drugquantity.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Drug", "Quantity"
-            }
-        ));
-        jScrollPane1.setViewportView(drugquantity);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        drugquantity = new javax.swing.JTable();
 
         jLabel1.setText("View Drugs Order");
 
@@ -102,6 +89,19 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
             }
         });
 
+        drugquantity.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Drug", "Quantity"
+            }
+        ));
+        jScrollPane1.setViewportView(drugquantity);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,18 +113,21 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
                 .addComponent(save)
                 .addGap(181, 181, 181))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(addRow, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(addRow, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(268, 268, 268)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(104, 104, 104)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(back))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(268, 268, 268)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(back)))
+                            .addGap(208, 208, 208)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(115, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -134,9 +137,9 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
                 .addComponent(back)
                 .addGap(8, 8, 8)
                 .addComponent(jLabel1)
-                .addGap(52, 52, 52)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addGap(54, 54, 54)
                 .addComponent(addRow)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -179,7 +182,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
              if(model.getValueAt(i,0)!=null && model.getValueAt(i,1)!=null){
              Drug newDrug= new Drug();
              newDrug.setName(String.valueOf(model.getValueAt(i,0)));
-             newDrug.setQuantity((int)model.getValueAt(i,1));
+             newDrug.setQuantity(Integer.parseInt((String)model.getValueAt(i,1)));
              orderList.add(newDrug);
              }
         }
