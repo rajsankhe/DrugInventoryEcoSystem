@@ -21,21 +21,30 @@ public class NetworkDirectory {
     public NetworkDirectory() {
         this.networkList = new HashMap<>();
     }
-    
-    
 
-    public Network createAndAddNetwork() {
+    private boolean checkIfNetworkAlreadyExists(String name) {
+        return networkList.containsKey(name);
+    }
+
+    public Network createAndAddNetwork(String name) {
+        if (checkIfNetworkAlreadyExists(name)) {
+            //network already exists
+            return null;
+        }
+
         Network network = new Network();
+        network.setName(name);
         //left
         //Check if netwrok already exists
         networkList.put(network.getName(), network);
         return network;
     }
+
     public List<Network> getNetworkList() {
-        
+
         return networkList.values().stream().collect(Collectors.toList());
     }
-    
+
     public void setNetworkList(Map<String, Network> networkList) {
         this.networkList = networkList;
     }

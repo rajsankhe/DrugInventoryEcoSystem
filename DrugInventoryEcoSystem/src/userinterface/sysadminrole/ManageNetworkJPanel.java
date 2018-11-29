@@ -8,6 +8,7 @@ import business.EcoSystem;
 import business.network.Network;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,7 +37,9 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
     private void populateNetworkTable() {
         DefaultTableModel model = (DefaultTableModel) networkJTable.getModel();
 
+        //Handling multiple networks
         model.setRowCount(0);
+
         for (Network network : system.getNetworkDirectory().getNetworkList()) {
             Object[] row = new Object[1];
             row[0] = network.getName();
@@ -146,10 +149,16 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
 
         String name = nameJTextField.getText();
 
-        Network network = system.getNetworkDirectory().createAndAddNetwork();
-        network.setName(name);
+        Network network = system.getNetworkDirectory().createAndAddNetwork(name);
+        nameJTextField.setText("");
 
-        populateNetworkTable();
+        if (network != null) {
+            populateNetworkTable();
+        } else {
+            JOptionPane.showMessageDialog(null, "Network creation failed! Network with same name already exists in the system. Please check.");
+            return;
+        }
+
     }//GEN-LAST:event_submitJButtonActionPerformed
 
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed

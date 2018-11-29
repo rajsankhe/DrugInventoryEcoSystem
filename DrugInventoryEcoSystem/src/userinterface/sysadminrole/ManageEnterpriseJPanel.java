@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author raunak
+ * @author vivekdalal
  */
 public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
@@ -109,12 +109,22 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         jLabel1.setText("Network");
 
         networkJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        networkJComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                networkJComboBoxActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Name");
 
         jLabel3.setText("Enterprise Type");
 
         enterpriseTypeJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        enterpriseTypeJComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enterpriseTypeJComboBoxActionPerformed(evt);
+            }
+        });
 
         submitJButton.setText("Submit");
         submitJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -147,8 +157,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(networkJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(enterpriseTypeJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(nameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(nameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(39, 39, 39)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -196,7 +205,19 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
         String name = nameJTextField.getText();
 
+        nameJTextField.setText("");
+
+        if (name.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Invalid name passed! Please check.");
+        }
+
         Enterprise enterprise = network.getEnterpriseDirectory().createAndAddEnterprise(name, type);
+
+        if (enterprise == null) {
+            //Enterprise with same name already exists. Throw error
+            JOptionPane.showMessageDialog(null, "Enterprise with the given name already exists in this network! Please check.");
+            return;
+        }
 
         populateTable();
 
@@ -212,6 +233,14 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed
+
+    private void enterpriseTypeJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterpriseTypeJComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_enterpriseTypeJComboBoxActionPerformed
+
+    private void networkJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_networkJComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_networkJComboBoxActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backJButton;

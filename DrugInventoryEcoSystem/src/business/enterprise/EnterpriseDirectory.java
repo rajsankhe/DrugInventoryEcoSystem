@@ -31,17 +31,28 @@ public class EnterpriseDirectory {
     //Create enterprise
     public Enterprise createAndAddEnterprise(String name, Enterprise.EnterpriseType type) {
         Enterprise enterprise = null;
-        if (type == Enterprise.EnterpriseType.Chemist) {
-            enterpriseList.add(new ChemistEnterprise(name, type));
-        } else if (type == Enterprise.EnterpriseType.Legal) {
-            enterpriseList.add(new LegalEnterprise(name, type));
-        } else if (type == Enterprise.EnterpriseType.Manufacturer) {
-            enterpriseList.add(new ManufacturerEnterprise(name, type));
-        } else if (type == Enterprise.EnterpriseType.Transporter) {
-            enterpriseList.add(new TransportationEnterprise(name, type));
-        } else if (type == Enterprise.EnterpriseType.Supplier) {
-            enterpriseList.add(new SupplierEnterprise(name, type));
+
+        for (Enterprise e : enterpriseList) {
+            if (e.getName().equalsIgnoreCase(name)) {
+                //Enerprise with the name passed already exists
+                return null;
+
+            }
         }
+
+        if (type == Enterprise.EnterpriseType.Chemist) {
+            enterprise = new ChemistEnterprise(name, type);
+        } else if (type == Enterprise.EnterpriseType.Legal) {
+            enterprise = new LegalEnterprise(name, type);
+        } else if (type == Enterprise.EnterpriseType.Manufacturer) {
+            enterprise = new ManufacturerEnterprise(name, type);
+        } else if (type == Enterprise.EnterpriseType.Transporter) {
+            enterprise = new TransportationEnterprise(name, type);
+        } else if (type == Enterprise.EnterpriseType.Supplier) {
+            enterprise = new SupplierEnterprise(name, type);
+        }
+
+        enterpriseList.add(enterprise);
         return enterprise;
     }
 
