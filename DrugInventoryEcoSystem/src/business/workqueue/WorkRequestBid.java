@@ -5,11 +5,26 @@
  */
 package business.workqueue;
 
+import business.bid.Bid;
+
 /**
  *
  * @author Tej Sankhe
  */
 public class WorkRequestBid extends WorkRequest{
+    Bid bidRequest;
+
+    public WorkRequestBid() {
+        this.bidRequest = new Bid();
+    }
+
+    public Bid getBidRequest() {
+        return bidRequest;
+    }
+
+    public void setBidRequest(Bid bidRequest) {
+        this.bidRequest = bidRequest;
+    }
     
     
 }
