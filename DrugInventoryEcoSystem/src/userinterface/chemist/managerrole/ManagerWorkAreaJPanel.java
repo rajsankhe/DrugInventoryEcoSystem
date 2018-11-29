@@ -43,9 +43,9 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();
         
         model.setRowCount(0);
-        for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
+        for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
             WorkRequestDrugs workRequestDrugs = (WorkRequestDrugs)request;            
-            Object[] row = new Object[4];
+            Object[] row = new Object[5];
             row[0] = request;
             row[1] = request.getStatus();
             row[2] = request.getResult();
@@ -217,6 +217,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         
         WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
         request.setReceiver(userAccount);
+        populateRequestTable();
     }//GEN-LAST:event_assignToMeActionPerformed
 
     private void viewRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRequestActionPerformed

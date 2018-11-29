@@ -6,9 +6,7 @@
 package userinterface.chemist.workerrole;
 
 import business.drug.Drug;
-import business.useraccount.UserAccount;
 import business.workqueue.WorkRequestDrugs;
-import commonutils.Constants;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.List;
@@ -71,15 +69,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
             new String [] {
                 "Drug", "Quantity"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(drugquantity);
 
         jLabel1.setText("View Drugs Order");
@@ -172,6 +162,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         drugquantity.setEnabled(true);
         addRow.setEnabled(true);
         save.setEnabled(true);
+        update.setEnabled(false);
     }//GEN-LAST:event_updateActionPerformed
 
     private void addRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRowActionPerformed
@@ -185,11 +176,17 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
          DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
          int nRow = model.getRowCount();
          for (int i = 0; i < nRow; i++) {
+             if(model.getValueAt(i,0)!=null && model.getValueAt(i,1)!=null){
              Drug newDrug= new Drug();
-             newDrug.setName(String.valueOf(model.getValueAt(i,1)));
-             newDrug.setQuantity(Integer.valueOf((String)model.getValueAt(i,1)));
+             newDrug.setName(String.valueOf(model.getValueAt(i,0)));
+             newDrug.setQuantity((int)model.getValueAt(i,1));
              orderList.add(newDrug);
+             }
         }
+         drugquantity.setEnabled(false);
+        addRow.setEnabled(false);
+        save.setEnabled(false);
+        update.setEnabled(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_saveActionPerformed
 

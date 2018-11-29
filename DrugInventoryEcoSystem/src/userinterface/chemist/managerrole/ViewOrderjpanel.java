@@ -25,7 +25,7 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
     public ViewOrderjpanel(JPanel userProcessContainer, WorkRequestDrugs request) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.workRequestDrugs = workRequestDrugs;
+        this.workRequestDrugs = request;
         populateRequestTable();
     }
     

@@ -25,8 +25,8 @@ public class WorkRequest {
     private static int count = 1;
     
     public WorkRequest(){
-        requestDate = new Date();
-        requestId = count;
+        this.requestDate = new Date();
+        this.requestId = count;
         count++;
     }
 
