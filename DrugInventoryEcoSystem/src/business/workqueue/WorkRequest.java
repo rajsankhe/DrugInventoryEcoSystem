@@ -13,15 +13,25 @@ import java.util.Date;
  * @author Tej Sankhe
  */
 public class WorkRequest {
+    private int requestId;
     private String message;
     private UserAccount sender;
     private UserAccount receiver;
     private String status;
+    private String result;
+    private String request;
     private Date requestDate;
     private Date resolveDate;
+    private static int count = 1;
     
     public WorkRequest(){
         requestDate = new Date();
+        requestId = count;
+        count++;
+    }
+
+    public int getRequestId() {
+        return requestId;
     }
 
     public String getMessage() {
@@ -34,6 +44,14 @@ public class WorkRequest {
 
     public UserAccount getSender() {
         return sender;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 
     public void setSender(UserAccount sender) {
@@ -71,4 +89,18 @@ public class WorkRequest {
     public void setResolveDate(Date resolveDate) {
         this.resolveDate = resolveDate;
     }
+
+    public String getRequest() {
+        return request;
+    }
+
+    public void setRequest(String request) {
+        this.request = request;
+    }
+    
+    @Override
+    public String toString() {
+        return Integer.toString(requestId);
+    } 
+    
 }

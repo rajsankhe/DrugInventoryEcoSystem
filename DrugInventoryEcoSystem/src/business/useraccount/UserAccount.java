@@ -7,6 +7,7 @@ package business.useraccount;
 
 import business.employee.Employee;
 import business.role.Role;
+import business.workqueue.WorkQueue;
 
 /**
  *
@@ -19,7 +20,15 @@ public class UserAccount {
     private Employee employee;
     private Role role;
     //Left
-    //private WorkQueue workQueue;
+    private WorkQueue workQueue;
+
+    public WorkQueue getWorkQueue() {
+        return workQueue;
+    }
+
+    public void setWorkQueue(WorkQueue workQueue) {
+        this.workQueue = workQueue;
+    }
 
     public String getUsername() {
         return username;
