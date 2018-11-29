@@ -8,7 +8,9 @@ package business.useraccount;
 import business.employee.Employee;
 import business.role.Role;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -21,8 +23,6 @@ public class UserAccountDirectory {
     public UserAccountDirectory() {
         this.userAccountList = new HashMap<>();
     }
-    
-    
 
     public Map<String, UserAccount> getUserAccountList() {
         return userAccountList;
@@ -46,6 +46,11 @@ public class UserAccountDirectory {
     public boolean isUserExists(String username) {
 
         return userAccountList.containsKey(username);
+    }
+
+    public List<UserAccount> getUserAccountListValues() {
+
+        return userAccountList.values().stream().collect(Collectors.toList());
     }
 
     public UserAccount createUserAccount(String username, String password, Employee employee, Role role) {

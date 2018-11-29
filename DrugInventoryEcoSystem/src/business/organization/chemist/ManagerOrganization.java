@@ -7,7 +7,6 @@ package business.organization.chemist;
 
 import business.organization.Organization;
 import business.role.Role;
-import business.role.Role.RoleType;
 import business.role.chemist.ManagerRole;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,7 @@ public class ManagerOrganization extends Organization {
     @Override
     public List<Role> getSupportedRole() {
         List<Role> roles = new ArrayList();
-        roles.add(new ManagerRole(RoleType.Manager));
+        roles.add(new ManagerRole(Role.RoleType.Manager));
         return roles;
     }
 }
