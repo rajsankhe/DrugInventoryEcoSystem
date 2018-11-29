@@ -8,9 +8,12 @@ package business.role.chemist;
 import business.EcoSystem;
 import business.enterprise.Enterprise;
 import business.organization.Organization;
+import business.organization.chemist.ManagerOrganization;
 import business.role.Role;
 import business.useraccount.UserAccount;
 import javax.swing.JPanel;
+import userinterface.chemist.managerrole.ManagerWorkAreaJPanel;
+import userinterface.chemist.workerrole.WorkerWorkAreaJPanel;
 
 /**
  *
@@ -24,8 +27,7 @@ public class ManagerRole extends Role {
 
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {
-        //left
-        return null;
+        return new ManagerWorkAreaJPanel(userProcessContainer,account,(ManagerOrganization)organization,enterprise);
     }
 
 }

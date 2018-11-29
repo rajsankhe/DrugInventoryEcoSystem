@@ -5,6 +5,12 @@
  */
 package userinterface.chemist.managerrole;
 
+import business.drug.Drug;
+import business.workqueue.WorkRequestDrugs;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Tej Sankhe
@@ -14,8 +20,25 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
     /**
      * Creates new form ViewOrderjpanel
      */
-    public ViewOrderjpanel() {
+    private JPanel userProcessContainer;
+    private WorkRequestDrugs workRequestDrugs;
+    public ViewOrderjpanel(JPanel userProcessContainer, WorkRequestDrugs request) {
         initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.workRequestDrugs = workRequestDrugs;
+        populateRequestTable();
+    }
+    
+    public void populateRequestTable(){
+        DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
+        
+        model.setRowCount(0);
+        for (Drug drug : workRequestDrugs.getDrugsOrderList()){         
+            Object[] row = new Object[2];
+            row[0] = drug.getName();
+            row[1] = drug.getQuantity();
+            model.addRow(row);
+        }
     }
 
     /**
@@ -101,6 +124,9 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
     }//GEN-LAST:event_backActionPerformed
 
 
