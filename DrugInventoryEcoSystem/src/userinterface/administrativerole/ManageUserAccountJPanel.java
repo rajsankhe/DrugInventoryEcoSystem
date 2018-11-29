@@ -10,7 +10,10 @@ import business.enterprise.Enterprise;
 import business.organization.Organization;
 import business.role.Role;
 import business.useraccount.UserAccount;
+import commonutils.Email;
+import commonutils.PasswordUtility;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -67,7 +70,6 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         userJTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        passwordJTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         employeeJComboBox = new javax.swing.JComboBox();
         backjButton1 = new javax.swing.JButton();
@@ -75,6 +77,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         organizationJComboBox = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
         roleJComboBox = new javax.swing.JComboBox();
+        emailIdJTextField = new javax.swing.JTextField();
 
         createUserJButton.setText("Create");
         createUserJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +113,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(userJTable);
 
-        jLabel2.setText("Password");
+        jLabel2.setText("Email ID");
 
         jLabel3.setText("Employee");
 
@@ -172,7 +175,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(roleJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(nameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(passwordJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(emailIdJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(66, 66, 66)
@@ -205,7 +208,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(passwordJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(emailIdJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -219,13 +222,29 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
 
     private void createUserJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserJButtonActionPerformed
         String userName = nameJTextField.getText();
-        String password = passwordJTextField.getText();
+        //String password = passwordJTextField.getText();
+        String emailID = emailIdJTextField.getText();
+
+        //Validations remaining
+        String password = PasswordUtility.createPassword(userName);
+
         Organization organization = (Organization) organizationJComboBox.getSelectedItem();
         Employee employee = (Employee) employeeJComboBox.getSelectedItem();
         Role role = (Role) roleJComboBox.getSelectedItem();
 
-        organization.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
+        UserAccount userAccount = organization.getUserAccountDirectory().createUserAccount(userName, password, emailID, employee, role);
 
+        if (userAccount == null) {
+            JOptionPane.showMessageDialog(null, "Username already exists in this organization! Please check");
+            return;
+        }
+
+        //Send email to user with password.
+        try {
+            Email.sendMail(userName, emailID, password);
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(null, "We were unable to send mail to the desired recepient! Please contact system administrator");
+        }
         popData();
     }//GEN-LAST:event_createUserJButtonActionPerformed
 
@@ -273,6 +292,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backjButton1;
     private javax.swing.JButton createUserJButton;
+    private javax.swing.JTextField emailIdJTextField;
     private javax.swing.JComboBox employeeJComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -282,7 +302,6 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameJTextField;
     private javax.swing.JComboBox organizationJComboBox;
-    private javax.swing.JTextField passwordJTextField;
     private javax.swing.JComboBox roleJComboBox;
     private javax.swing.JTable userJTable;
     // End of variables declaration//GEN-END:variables

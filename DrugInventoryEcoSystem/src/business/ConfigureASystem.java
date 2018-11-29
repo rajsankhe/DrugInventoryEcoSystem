@@ -27,7 +27,7 @@ public class ConfigureASystem {
         //create user account
         Employee employee = system.getEmployeeDirectory().createEmployee("BROCODERS");
 
-        UserAccount ua = system.getUserAccountDirectory().createUserAccount("admin", "admin", employee, new SystemAdminRole(Role.RoleType.Admin));
+        UserAccount ua = system.getUserAccountDirectory().createUserAccount("admin", "admin", "admin@brocoders.com", employee, new SystemAdminRole(Role.RoleType.Admin));
 
         return system;
     }

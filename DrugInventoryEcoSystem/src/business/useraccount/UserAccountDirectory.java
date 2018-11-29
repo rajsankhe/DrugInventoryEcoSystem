@@ -53,7 +53,7 @@ public class UserAccountDirectory {
         return userAccountList.values().stream().collect(Collectors.toList());
     }
 
-    public UserAccount createUserAccount(String username, String password, Employee employee, Role role) {
+    public UserAccount createUserAccount(String username, String password, String emailID, Employee employee, Role role) {
 
         if (userAccountList.containsKey(username)) {
             //user already exists
@@ -62,6 +62,7 @@ public class UserAccountDirectory {
         UserAccount userAccount = new UserAccount();
         userAccount.setUsername(username);
         userAccount.setPassword(password);
+        userAccount.setEmailID(emailID);
         userAccount.setEmployee(employee);
         userAccount.setRole(role);
         userAccountList.put(username, userAccount);
