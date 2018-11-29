@@ -85,4 +85,5 @@ public abstract class Organization {
     public String toString() {
         return name;
     }
+
 }

@@ -19,6 +19,7 @@ public class UserAccount {
     private String password;
     private Employee employee;
     private Role role;
+    private String emailID;
     //Left
     private WorkQueue workQueue;
 
@@ -65,6 +66,14 @@ public class UserAccount {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getEmailID() {
+        return emailID;
+    }
+
+    public void setEmailID(String emailID) {
+        this.emailID = emailID;
     }
 
     public String toString() {
