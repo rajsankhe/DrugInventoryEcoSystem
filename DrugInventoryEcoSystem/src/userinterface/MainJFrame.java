@@ -56,14 +56,19 @@ public class MainJFrame extends javax.swing.JFrame {
         jButtonLogIn = new javax.swing.JButton();
         jPasswordFieldLogin = new javax.swing.JPasswordField();
         container = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(23, 35, 51));
+
+        jLabelUserName.setForeground(new java.awt.Color(255, 255, 255));
         jLabelUserName.setText("User Name");
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Password:");
 
-        jButtonLogOut.setIcon(new javax.swing.ImageIcon("/Users/vivekdalal/Documents/code/aed/bro_coders/group_assignment_bro_coders/DrugInventoryEcoSystem/resources/icons/logout_btn.png")); // NOI18N
+        jButtonLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/logout_btn.png"))); // NOI18N
         jButtonLogOut.setText("Log Out");
         jButtonLogOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,7 +76,7 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButtonLogIn.setIcon(new javax.swing.ImageIcon("/Users/vivekdalal/Documents/code/aed/bro_coders/group_assignment_bro_coders/DrugInventoryEcoSystem/resources/icons/login_btn.png")); // NOI18N
+        jButtonLogIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/login_btn.png"))); // NOI18N
         jButtonLogIn.setText("Log In");
         jButtonLogIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,7 +113,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPasswordFieldLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonLogIn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonLogOut)
@@ -117,18 +122,27 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jSplitPane1.setLeftComponent(jPanel1);
 
+        container.setBackground(new java.awt.Color(71, 120, 197));
         container.setLayout(new java.awt.CardLayout());
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/project_logo.png"))); // NOI18N
+        jLabel2.setMaximumSize(new java.awt.Dimension(300, 100));
+        jLabel2.setMinimumSize(new java.awt.Dimension(300, 100));
+        jLabel2.setPreferredSize(new java.awt.Dimension(300, 100));
+        container.add(jLabel2, "card2");
+
         jSplitPane1.setRightComponent(container);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+            .addComponent(jSplitPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
         );
 
         pack();
@@ -246,6 +260,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonLogIn;
     private javax.swing.JButton jButtonLogOut;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelUserName;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordFieldLogin;
