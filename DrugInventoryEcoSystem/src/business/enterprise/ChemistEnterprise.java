@@ -5,6 +5,7 @@
  */
 package business.enterprise;
 
+import business.inventory.Inventory;
 import business.role.Role;
 import java.util.List;
 
@@ -13,9 +14,12 @@ import java.util.List;
  * @author vivekdalal
  */
 public class ChemistEnterprise extends Enterprise {
-
+    private Inventory inventory;
+    
+    
     public ChemistEnterprise(String name, EnterpriseType type) {
         super(name, type);
+        inventory= new Inventory();
     }
 
     @Override
