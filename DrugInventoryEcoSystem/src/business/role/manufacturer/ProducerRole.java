@@ -24,7 +24,7 @@ public class ProducerRole extends Role {
 
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {
-        //left
+        //return new ProducerWorkAreaJPanel(userProcessContainer, enterprise);
         return null;
     }
 

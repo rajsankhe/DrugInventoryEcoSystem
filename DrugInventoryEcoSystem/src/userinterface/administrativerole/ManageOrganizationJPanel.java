@@ -5,6 +5,8 @@
  */
 package userinterface.administrativerole;
 
+import business.enterprise.Enterprise;
+import business.enterprise.Enterprise.EnterpriseType;
 import business.organization.Organization;
 import business.organization.Organization.OrganizationType;
 import business.organization.OrganizationDirectory;
@@ -20,15 +22,17 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
 
     private OrganizationDirectory directory;
     private JPanel userProcessContainer;
+    private EnterpriseType enterpriseType;
 
     /**
      * Creates new form ManageOrganizationJPanel
      */
-    public ManageOrganizationJPanel(JPanel userProcessContainer, OrganizationDirectory directory) {
+    public ManageOrganizationJPanel(JPanel userProcessContainer, OrganizationDirectory directory, Enterprise.EnterpriseType enterpriseType) {
         initComponents();
         this.setSize(1480, 1050);
         this.userProcessContainer = userProcessContainer;
         this.directory = directory;
+        this.enterpriseType = enterpriseType;
 
         populateTable();
         populateCombo();
@@ -36,10 +40,19 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
 
     private void populateCombo() {
         organizationJComboBox.removeAllItems();
-        for (OrganizationType type : OrganizationType.values()) {
-            if (!type.getValue().equals(OrganizationType.Admin.getValue())) {
-                organizationJComboBox.addItem(type);
-            }
+
+        if (enterpriseType == Enterprise.EnterpriseType.Chemist) {
+            organizationJComboBox.addItem(OrganizationType.Worker);
+            organizationJComboBox.addItem(OrganizationType.Manager);
+        } else if (enterpriseType == Enterprise.EnterpriseType.Legal) {
+            organizationJComboBox.addItem(OrganizationType.Validator);
+        } else if (enterpriseType == Enterprise.EnterpriseType.Manufacturer) {
+            organizationJComboBox.addItem(OrganizationType.Producer);
+        } else if (enterpriseType == Enterprise.EnterpriseType.Transporter) {
+            organizationJComboBox.addItem(OrganizationType.Transporter);
+        } else if (enterpriseType == Enterprise.EnterpriseType.Supplier) {
+            organizationJComboBox.addItem(OrganizationType.Coordinator);
+            organizationJComboBox.addItem(OrganizationType.Approver);
         }
     }
 

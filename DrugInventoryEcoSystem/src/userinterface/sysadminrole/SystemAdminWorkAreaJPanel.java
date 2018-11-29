@@ -28,10 +28,12 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     EcoSystem ecosystem;
 
     public SystemAdminWorkAreaJPanel(JPanel userProcessContainer, EcoSystem ecosystem) {
+        //Admin screen which loads up when we login as a Admin - EcoSystem Admin
         initComponents();
         this.setSize(1480, 1050);
         this.userProcessContainer = userProcessContainer;
         this.ecosystem = ecosystem;
+        //Tree which shows the hierarchy of the EcoSystem
         populateTree();
     }
 

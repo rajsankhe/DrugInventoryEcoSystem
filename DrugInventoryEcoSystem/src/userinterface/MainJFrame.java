@@ -24,11 +24,14 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
+    //The parent EcoSystem Singleton Object
     private EcoSystem system;
+    //Singleton DB4O object to store and retrieve the EcoSystem when system STARTS/STOPS
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
 
     public MainJFrame() {
         initComponents();
+        //Retrieving the system from the file
         system = dB4OUtil.retrieveSystem();
         this.setSize(1680, 1050);
         jButtonLogIn.setEnabled(true);
