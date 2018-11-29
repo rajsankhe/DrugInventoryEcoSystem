@@ -53,4 +53,8 @@ public class UserAccount {
         this.role = role;
     }
 
+    public String toString() {
+        return this.username;
+    }
+
 }
