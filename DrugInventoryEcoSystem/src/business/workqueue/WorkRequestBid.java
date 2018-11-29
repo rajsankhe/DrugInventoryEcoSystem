@@ -15,6 +15,7 @@ public class WorkRequestBid extends WorkRequest{
     Bid bidRequest;
 
     public WorkRequestBid() {
+        super();
         this.bidRequest = new Bid();
     }
 

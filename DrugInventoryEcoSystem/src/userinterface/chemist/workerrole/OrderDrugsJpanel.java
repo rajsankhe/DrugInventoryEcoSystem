@@ -59,15 +59,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
             new String [] {
                 "Drug", "Quantity"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(drugquantity);
 
         jLabel1.setText("Order Drugs");
@@ -107,13 +99,13 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(268, 268, 268)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(316, 316, 316)
-                                .addComponent(submit))))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addComponent(back)))
+                        .addComponent(back))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(309, 309, 309)
+                        .addComponent(submit)))
                 .addContainerGap(115, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -141,10 +133,12 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
          DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
          int nRow = model.getRowCount();
          for (int i = 0; i < nRow; i++) {
+             if(model.getValueAt(i,0)!=null && model.getValueAt(i,1)!=null){
              Drug newDrug= new Drug();
-             newDrug.setName(String.valueOf(model.getValueAt(i,1)));
-             newDrug.setQuantity(Integer.valueOf((String)model.getValueAt(i,1)));
+             newDrug.setName(String.valueOf(model.getValueAt(i,0)));
+             newDrug.setQuantity(Integer.parseInt((String)model.getValueAt(i,1)));
              orderList.add(newDrug);
+             }
         }
         userAccount.getWorkQueue().addWorkRequest(workRequestDrugs);
     }//GEN-LAST:event_submitActionPerformed

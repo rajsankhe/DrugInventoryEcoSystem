@@ -23,6 +23,11 @@ public class UserAccount {
     //Left
     private WorkQueue workQueue;
 
+    public UserAccount() {
+        this.workQueue = new WorkQueue();
+    }
+    
+    
     public WorkQueue getWorkQueue() {
         return workQueue;
     }

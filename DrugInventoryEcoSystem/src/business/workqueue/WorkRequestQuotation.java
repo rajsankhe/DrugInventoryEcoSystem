@@ -15,6 +15,7 @@ public class WorkRequestQuotation extends WorkRequest{
     Quotation quotationRequest;
 
     public WorkRequestQuotation() {
+        super();
         quotationRequest = new Quotation();
     }
 

@@ -50,7 +50,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
             row[0] = request;
             row[1] = request.getStatus();
             row[2] = request.getResult();
-            row[3] = request.getSender().getUsername();
+            row[3] = request.getReceiver();
             model.addRow(row);
         }
     }
@@ -69,7 +69,6 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
         orderRequest = new javax.swing.JButton();
         viewRequest = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        back = new javax.swing.JButton();
         send = new javax.swing.JButton();
 
         workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -122,8 +121,6 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("jLabel1");
 
-        back.setText("Back");
-
         send.setText("Send for Approval");
         send.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,9 +133,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(back)
-                .addGap(18, 18, 18)
+                .addGap(102, 102, 102)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(orderRequest)
@@ -153,13 +148,8 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(back)))
+                .addGap(39, 39, 39)
+                .addComponent(jLabel1)
                 .addGap(54, 54, 54)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
@@ -215,7 +205,6 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_sendActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton back;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton orderRequest;
