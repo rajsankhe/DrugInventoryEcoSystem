@@ -172,7 +172,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         });
         add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 445, -1, -1));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon("/Users/vivekdalal/Documents/code/aed/bro_coders/group_assignment_bro_coders/DrugInventoryEcoSystem/resources/icons/admin.png")); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/admin.png"))); // NOI18N
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 6, -1, -1));
         add(emailIDJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 345, 136, -1));
     }// </editor-fold>//GEN-END:initComponents

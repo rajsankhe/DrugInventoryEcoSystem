@@ -150,7 +150,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel6.setIcon(new javax.swing.ImageIcon("/Users/vivekdalal/Documents/code/aed/bro_coders/group_assignment_bro_coders/DrugInventoryEcoSystem/resources/icons/admin.png")); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/admin.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
