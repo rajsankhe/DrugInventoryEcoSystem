@@ -5,11 +5,15 @@
  */
 package userinterface.chemist.workerrole;
 
+import business.drug.Drug;
 import business.useraccount.UserAccount;
 import business.workqueue.WorkRequestDrugs;
+import commonutils.Constants;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -41,7 +45,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         drugquantity = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        submit = new javax.swing.JButton();
         addRow = new javax.swing.JButton();
         back = new javax.swing.JButton();
 
@@ -59,26 +63,19 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean [] {
-                true, false
-            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(drugquantity);
 
         jLabel1.setText("Order Drugs");
 
-        jButton1.setText("Submit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        submit.setText("Submit");
+        submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                submitActionPerformed(evt);
             }
         });
 
@@ -113,7 +110,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(316, 316, 316)
-                                .addComponent(jButton1))))
+                                .addComponent(submit))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addComponent(back)))
@@ -131,19 +128,30 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addRow)
                 .addGap(13, 13, 13)
-                .addComponent(jButton1)
+                .addComponent(submit)
                 .addContainerGap(66, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //drugquantity.get
-        WorkRequestDrugs workRequestDrugs = new WorkRequestDrugs();
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+         WorkRequestDrugs workRequestDrugs = new WorkRequestDrugs();
+         workRequestDrugs.setSender(userAccount);
+         workRequestDrugs.setStatus(Constants.chemistCoworkerSend);
+         List<Drug> orderList=workRequestDrugs.getDrugsOrderList();
+         DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
+         int nRow = model.getRowCount();
+         for (int i = 0; i < nRow; i++) {
+             Drug newDrug= new Drug();
+             newDrug.setName(String.valueOf(model.getValueAt(i,1)));
+             newDrug.setQuantity(Integer.valueOf((String)model.getValueAt(i,1)));
+             orderList.add(newDrug);
+        }
         userAccount.getWorkQueue().addWorkRequest(workRequestDrugs);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_submitActionPerformed
 
     private void addRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRowActionPerformed
-        
+        DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
+        model.addRow(new Object[]{"",""});
     }//GEN-LAST:event_addRowActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
@@ -162,8 +170,8 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
     private javax.swing.JButton addRow;
     private javax.swing.JButton back;
     private javax.swing.JTable drugquantity;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton submit;
     // End of variables declaration//GEN-END:variables
 }
