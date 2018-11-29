@@ -5,6 +5,16 @@
  */
 package userinterface.chemist.managerrole;
 
+import business.enterprise.Enterprise;
+import business.organization.chemist.ManagerOrganization;
+import business.useraccount.UserAccount;
+import business.workqueue.WorkRequest;
+import business.workqueue.WorkRequestDrugs;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author vivekdalal
@@ -14,8 +24,35 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManagerWorkAreaJPanel
      */
-    public ManagerWorkAreaJPanel() {
+    private JPanel userProcessContainer;
+    private ManagerOrganization organization;
+    private Enterprise enterprise;
+    private UserAccount userAccount;
+    
+    public ManagerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ManagerOrganization organization, Enterprise enterprise) {
         initComponents();
+        this.setSize(1680, 1050);
+        this.userProcessContainer = userProcessContainer;
+        this.organization = organization;
+        this.enterprise = enterprise;
+        this.userAccount = account;
+        populateRequestTable();
+    }
+    
+    public void populateRequestTable(){
+        DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();
+        
+        model.setRowCount(0);
+        for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
+            WorkRequestDrugs workRequestDrugs = (WorkRequestDrugs)request;            
+            Object[] row = new Object[4];
+            row[0] = request;
+            row[1] = request.getStatus();
+            row[2] = request.getResult();
+            row[3] = request.getSender();
+            row[4] = request.getReceiver();
+            model.addRow(row);
+        }
     }
 
     /**
@@ -39,20 +76,20 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
 
         workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Request ID", "Status", "Result", "Manager"
+                "Request ID", "Status", "Result", "Worker", "Manager"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -82,10 +119,25 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         jLabel1.setText("jLabel1");
 
         back.setText("Back");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
 
         reject.setText("Reject");
+        reject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rejectActionPerformed(evt);
+            }
+        });
 
         approve.setText("Approve");
+        approve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                approveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -156,11 +208,61 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
 
     private void assignToMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignToMeActionPerformed
         // TODO add your handling code here:
+        int selectedRow = workRequestJTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select row");
+            return;
+        }
+        
+        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
+        request.setReceiver(userAccount);
     }//GEN-LAST:event_assignToMeActionPerformed
 
     private void viewRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRequestActionPerformed
         // TODO add your handling code here:
+        int selectedRow = workRequestJTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select row");
+            return;
+        }
+        
+        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("viewEditDrug", new ViewOrderjpanel(userProcessContainer, request));
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_viewRequestActionPerformed
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backActionPerformed
+
+    private void approveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approveActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = workRequestJTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select row");
+            return;
+        }
+        
+        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
+        request.setResult("Approve");
+    }//GEN-LAST:event_approveActionPerformed
+
+    private void rejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = workRequestJTable.getSelectedRow();
+        
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select row");
+            return;
+        }
+        
+        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
+        request.setResult("Reject");
+    }//GEN-LAST:event_rejectActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton approve;
