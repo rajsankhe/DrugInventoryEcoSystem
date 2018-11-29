@@ -17,7 +17,8 @@ public class WorkRequestDrugs extends WorkRequest{
     List<Drug> drugsOrderList;
 
     public WorkRequestDrugs() {
-    this.drugsOrderList = new ArrayList<>();
+super();
+        this.drugsOrderList = new ArrayList<>();
     }
 
     public List<Drug> getDrugsOrderList() {
