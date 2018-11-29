@@ -10,6 +10,7 @@ import business.enterprise.Enterprise;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import javax.swing.JPanel;
+import userinterface.sysadminrole.SystemAdminWorkAreaJPanel;
 
 /**
  *
@@ -23,9 +24,8 @@ public class SystemAdminRole extends Role {
 
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system) {
-        //return new SystemAdminWorkAreaJPanel(userProcessContainer, system);
-        //left
-        return null;
+        System.out.println("Creating work area for system admin role");
+        return new SystemAdminWorkAreaJPanel(userProcessContainer, system);
     }
 
 }
