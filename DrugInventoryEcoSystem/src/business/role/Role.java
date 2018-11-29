@@ -57,6 +57,16 @@ public abstract class Role {
 
     @Override
     public String toString() {
-        return this.getClass().getName();
+        //Need to verify this
+        return getRoleType().value;
     }
+
+    public RoleType getRoleType() {
+        return roleType;
+    }
+
+    public void setRoleType(RoleType roleType) {
+        this.roleType = roleType;
+    }
+
 }
