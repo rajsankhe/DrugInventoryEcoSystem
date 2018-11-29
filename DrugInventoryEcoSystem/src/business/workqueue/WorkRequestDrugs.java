@@ -13,10 +13,10 @@ import java.util.List;
  *
  * @author Tej Sankhe
  */
-public class WorkRequestMedicine extends WorkRequest{
+public class WorkRequestDrugs extends WorkRequest{
     List<Drug> drugsOrderList;
 
-    public WorkRequestMedicine() {
+    public WorkRequestDrugs() {
     this.drugsOrderList = new ArrayList<>();
     }
 

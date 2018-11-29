@@ -8,6 +8,7 @@ package business.organization;
 import business.employee.EmployeeDirectory;
 import business.role.Role;
 import business.useraccount.UserAccountDirectory;
+import business.workqueue.WorkQueue;
 import java.util.List;
 
 /**
@@ -17,6 +18,7 @@ import java.util.List;
 public abstract class Organization {
 
     private String name;
+    private WorkQueue workQueue;
     private EmployeeDirectory employeeDirectory;
     private UserAccountDirectory userAccountDirectory;
     //left
@@ -28,7 +30,7 @@ public abstract class Organization {
     public Organization(String name) {
         this.name = name;
         //left
-        //workQueue = new WorkQueue();
+        workQueue = new WorkQueue();
         this.employeeDirectory = new EmployeeDirectory();
         this.userAccountDirectory = new UserAccountDirectory();
         this.organizationID = counter;
@@ -75,24 +77,10 @@ public abstract class Organization {
         return name;
     }
 
-//    public WorkQueue getWorkQueue() {
-//        return workQueue;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public void setWorkQueue(WorkQueue workQueue) {
-//        this.workQueue = workQueue;
-//    }
-//    public OrganizationType getType() {
-//        return organizationType;
-//    }
-//
-//    public void setType(OrganizationType type) {
-//        this.organizationType = type;
-//    }
+    public WorkQueue getWorkQueue() {
+        return workQueue;
+    }
+
     @Override
     public String toString() {
         return name;
