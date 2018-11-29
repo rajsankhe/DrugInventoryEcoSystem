@@ -86,6 +86,8 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         backJButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(71, 120, 197));
+
         enterpriseJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -127,6 +129,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
             }
         });
 
+        submitJButton.setBackground(new java.awt.Color(255, 255, 255));
         submitJButton.setText("Submit");
         submitJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,6 +137,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
             }
         });
 
+        backJButton.setBackground(new java.awt.Color(255, 255, 255));
         backJButton.setText("<< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

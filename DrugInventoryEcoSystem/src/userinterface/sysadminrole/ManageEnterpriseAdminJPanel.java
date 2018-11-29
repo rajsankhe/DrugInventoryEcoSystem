@@ -103,6 +103,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         emailIDJTextField = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(71, 120, 197));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         enterpriseJTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -149,13 +150,14 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         enterpriseJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         add(enterpriseJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 256, 136, -1));
 
+        submitJButton.setBackground(new java.awt.Color(255, 255, 255));
         submitJButton.setText("Submit");
         submitJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitJButtonActionPerformed(evt);
             }
         });
-        add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 454, -1, -1));
+        add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 440, -1, -1));
 
         jLabel4.setText("Email ID");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 350, -1, -1));
@@ -164,6 +166,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         jLabel5.setText("Name");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 394, -1, -1));
 
+        backJButton.setBackground(new java.awt.Color(255, 255, 255));
         backJButton.setText("<< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
