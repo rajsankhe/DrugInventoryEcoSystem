@@ -7,6 +7,7 @@ package userinterface.sysadminrole;
 import business.EcoSystem;
 import business.enterprise.Enterprise;
 import business.network.Network;
+import commonutils.Validator;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
@@ -193,8 +194,10 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
         nameJTextField.setText("");
 
-        if (name.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Invalid name passed! Please check.");
+        if (!Validator.isValidString(name)) {
+            //Name is not valid
+            JOptionPane.showMessageDialog(null, "Please enter a valid name. Only characters are allowed");
+            return;
         }
 
         Enterprise enterprise = network.getEnterpriseDirectory().createAndAddEnterprise(name, type);
@@ -204,6 +207,8 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Enterprise with the given name already exists in this network! Please check.");
             return;
         }
+
+        JOptionPane.showMessageDialog(null, "Enterprise created successfully.");
 
         populateTable();
 

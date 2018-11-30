@@ -8,12 +8,20 @@ package commonutils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
  * @author vivekdalal
  */
 public class Validator {
+
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX
+            = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+    public static final Pattern VALID_STRING_WITH_SPACES
+            = Pattern.compile("[a-zA-Z\\\\s']+", Pattern.CASE_INSENSITIVE);
 
     //Validation methods for String input type in input on the form.
     public static boolean isValidString(String str) {
@@ -91,5 +99,15 @@ public class Validator {
             ex.printStackTrace();
             return false;
         }
+    }
+
+    public static boolean isValidEmail(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.find();
+    }
+
+    public static boolean isValidStringWithSpaces(String nameStr) {
+        Matcher matcher = VALID_STRING_WITH_SPACES.matcher(nameStr);
+        return matcher.find();
     }
 }

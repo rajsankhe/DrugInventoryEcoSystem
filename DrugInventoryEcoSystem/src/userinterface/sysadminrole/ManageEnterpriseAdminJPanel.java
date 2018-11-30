@@ -13,6 +13,7 @@ import business.role.Role;
 import business.useraccount.UserAccount;
 import commonutils.Email;
 import commonutils.PasswordUtility;
+import commonutils.Validator;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
@@ -226,6 +227,30 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         String emailID = String.valueOf(emailIDJTextField.getText());
         String name = nameJTextField.getText();
 
+        if (enterprise == null) {
+            JOptionPane.showMessageDialog(null, "Please select a valid Enterprise and then proceed");
+            return;
+        }
+
+        usernameJTextField.setText("");
+        emailIDJTextField.setText("");
+        nameJTextField.setText("");
+
+        if (!Validator.isValidString(username)) {
+            JOptionPane.showMessageDialog(null, "User name can contain only alphabets. Please check.");
+            return;
+        }
+
+        if (!Validator.isValidEmail(emailID)) {
+            JOptionPane.showMessageDialog(null, "Email ID is in incorrect format. Please check.");
+            return;
+        }
+
+        if (!Validator.isValidStringWithSpaces(name)) {
+            JOptionPane.showMessageDialog(null, "Name can contain only alphabets. Please check.");
+            return;
+        }
+
         Employee employee = enterprise.getEmployeeDirectory().createEmployee(name);
 
         if (enterprise.getUserAccountDirectory().isUserExists(username)) {
@@ -238,11 +263,6 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
         UserAccount account = enterprise.getUserAccountDirectory().createUserAccount(username, password, emailID, employee, new AdminRole(Role.RoleType.Admin));
 
-        usernameJTextField.setText("");
-        //passwordJPasswordField.setText("");
-        emailIDJTextField.setText("");
-        nameJTextField.setText("");
-
         //        if (account == null) {
         //            JOptionPane.showMessageDialog(null, "Account with the username passed already exists in the system! Please check");
         //            return;
@@ -252,9 +272,10 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
             Email.sendMail(username, emailID, password);
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, "We were unable to send mail to the desired recepient! Please contact system administrator");
+            exception.printStackTrace();
         }
 
-        JOptionPane.showMessageDialog(null, "Email with password sent to user successfully.");
+        JOptionPane.showMessageDialog(null, "User created successfully. Please check email for login credentials.");
 
         populateTable();
     }//GEN-LAST:event_submitJButtonActionPerformed
