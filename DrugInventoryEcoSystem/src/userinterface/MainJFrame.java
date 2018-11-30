@@ -59,14 +59,24 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setPreferredSize(new java.awt.Dimension(1200, 750));
+        setResizable(false);
+
+        jSplitPane1.setPreferredSize(new java.awt.Dimension(1200, 750));
 
         jPanel1.setBackground(new java.awt.Color(23, 35, 51));
+        jPanel1.setPreferredSize(new java.awt.Dimension(100, 750));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelUserName.setForeground(new java.awt.Color(255, 255, 255));
         jLabelUserName.setText("User Name");
+        jPanel1.add(jLabelUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 41, -1, -1));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Password:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 104, -1, -1));
+        jPanel1.add(jTextFieldUn, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 63, 87, -1));
 
         jButtonLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/logout_btn.png"))); // NOI18N
         jButtonLogOut.setText("Log Out");
@@ -75,6 +85,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 jButtonLogOutActionPerformed(evt);
             }
         });
+        jPanel1.add(jButtonLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 683, -1, -1));
 
         jButtonLogIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/login_btn.png"))); // NOI18N
         jButtonLogIn.setText("Log In");
@@ -83,42 +94,8 @@ public class MainJFrame extends javax.swing.JFrame {
                 jButtonLogInActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonLogOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelUserName)
-                            .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jButtonLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPasswordFieldLogin)
-                    .addComponent(jTextFieldUn))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLabelUserName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldUn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordFieldLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonLogIn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonLogOut)
-                .addGap(31, 31, 31))
-        );
+        jPanel1.add(jButtonLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 635, 90, -1));
+        jPanel1.add(jPasswordFieldLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 126, 87, -1));
 
         jSplitPane1.setLeftComponent(jPanel1);
 
@@ -129,7 +106,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/project_logo.png"))); // NOI18N
         jLabel2.setMaximumSize(new java.awt.Dimension(300, 100));
         jLabel2.setMinimumSize(new java.awt.Dimension(300, 100));
-        jLabel2.setPreferredSize(new java.awt.Dimension(300, 100));
+        jLabel2.setPreferredSize(new java.awt.Dimension(1100, 750));
         container.add(jLabel2, "card2");
 
         jSplitPane1.setRightComponent(container);
@@ -138,11 +115,11 @@ public class MainJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1032, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
         );
 
         pack();
@@ -167,24 +144,24 @@ public class MainJFrame extends javax.swing.JFrame {
             for (Network network : system.getNetworkDirectory().getNetworkList()) {
                 //Step 2.a: check against each enterprise
                 if (userAccount == null) {
-                for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
-                    userAccount = enterprise.getUserAccountDirectory().authenticateUser(userName, password);
-                    if (userAccount == null) {
-                        //Step 3:check against each organization for each enterprise
-                        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-                            userAccount = organization.getUserAccountDirectory().authenticateUser(userName, password);
-                            if (userAccount != null) {
-                                inEnterprise = enterprise;
-                                inOrganization = organization;
-                                break;
+                    for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
+                        userAccount = enterprise.getUserAccountDirectory().authenticateUser(userName, password);
+                        if (userAccount == null) {
+                            //Step 3:check against each organization for each enterprise
+                            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                                userAccount = organization.getUserAccountDirectory().authenticateUser(userName, password);
+                                if (userAccount != null) {
+                                    inEnterprise = enterprise;
+                                    inOrganization = organization;
+                                    break;
+                                }
                             }
-                        }
 
-                    } else {
-                        inEnterprise = enterprise;
-                        break;
+                        } else {
+                            inEnterprise = enterprise;
+                            break;
+                        }
                     }
-                }
                 }
             }
         }

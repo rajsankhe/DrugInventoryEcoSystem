@@ -30,7 +30,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     public SystemAdminWorkAreaJPanel(JPanel userProcessContainer, EcoSystem ecosystem) {
         //Admin screen which loads up when we login as a Admin - EcoSystem Admin
         initComponents();
-        this.setSize(1480, 1050);
+        this.setSize(1200, 750);
         this.userProcessContainer = userProcessContainer;
         this.ecosystem = ecosystem;
         //Tree which shows the hierarchy of the EcoSystem
@@ -100,9 +100,11 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(71, 120, 197));
+        setPreferredSize(new java.awt.Dimension(1100, 750));
         setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setBackground(new java.awt.Color(71, 120, 197));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel1.setPreferredSize(new java.awt.Dimension(100, 750));
 
         jTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
             public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
@@ -128,7 +130,8 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         jSplitPane.setLeftComponent(jPanel1);
 
-        jPanel2.setBackground(new java.awt.Color(71, 120, 197));
+        jPanel2.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel2.setPreferredSize(new java.awt.Dimension(1000, 750));
 
         jLabel1.setText("Selected Node:");
 
