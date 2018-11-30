@@ -16,6 +16,7 @@ import commonutils.Constants;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,22 +32,27 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
     private WorkerOrganization organization;
     private Enterprise enterprise;
     private UserAccount userAccount;
+
     public WorkerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, WorkerOrganization organization, Enterprise enterprise) {
         initComponents();
-         this.setSize(1680, 1050);
-         this.userProcessContainer = userProcessContainer;
+        this.setSize(1680, 1050);
+        ((DefaultTableCellRenderer) workRequestJTable.getDefaultRenderer(Object.class)).setOpaque(false);
+        jScrollPane1.setOpaque(false);
+        jScrollPane1.getViewport().setOpaque(false);
+        this.userProcessContainer = userProcessContainer;
         this.organization = organization;
         this.enterprise = enterprise;
         this.userAccount = account;
+        title.setText("Chemist Worker: " + userAccount.getUsername());
         populateRequestTable();
     }
-    
-    public void populateRequestTable(){
+
+    public void populateRequestTable() {
         DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();
-        
+
         model.setRowCount(0);
-        for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
-            WorkRequestDrugs workRequestDrugs = (WorkRequestDrugs)request;            
+        for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()) {
+            WorkRequestDrugs workRequestDrugs = (WorkRequestDrugs) request;
             Object[] row = new Object[4];
             row[0] = request;
             row[1] = request.getStatus();
@@ -65,12 +71,16 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        kGradientPanel1 = new keeptoo.KGradientPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         workRequestJTable = new javax.swing.JTable();
-        orderRequest = new javax.swing.JButton();
         viewRequest = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        orderRequest = new javax.swing.JButton();
         send = new javax.swing.JButton();
+        title = new javax.swing.JLabel();
+
+        kGradientPanel1.setkEndColor(new java.awt.Color(102, 204, 255));
+        kGradientPanel1.setkStartColor(new java.awt.Color(183, 248, 230));
 
         workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -87,7 +97,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                true, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -99,19 +109,6 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(workRequestJTable);
-        if (workRequestJTable.getColumnModel().getColumnCount() > 0) {
-            workRequestJTable.getColumnModel().getColumn(0).setResizable(false);
-            workRequestJTable.getColumnModel().getColumn(1).setResizable(false);
-            workRequestJTable.getColumnModel().getColumn(2).setResizable(false);
-            workRequestJTable.getColumnModel().getColumn(3).setResizable(false);
-        }
-
-        orderRequest.setText("Order Request");
-        orderRequest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                orderRequestActionPerformed(evt);
-            }
-        });
 
         viewRequest.setText("View Request");
         viewRequest.addActionListener(new java.awt.event.ActionListener() {
@@ -120,7 +117,12 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("jLabel1");
+        orderRequest.setText("Order Request");
+        orderRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderRequestActionPerformed(evt);
+            }
+        });
 
         send.setText("Send for Approval");
         send.addActionListener(new java.awt.event.ActionListener() {
@@ -129,96 +131,120 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        title.setText("title");
+        title.setAlignmentX(740.0F);
+        title.setAlignmentY(245.0F);
+
+        javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
+        kGradientPanel1.setLayout(kGradientPanel1Layout);
+        kGradientPanel1Layout.setHorizontalGroup(
+            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(orderRequest)
+                .addGap(200, 200, 200)
+                .addComponent(viewRequest)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                .addComponent(send)
+                .addContainerGap())
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGap(363, 363, 363)
+                .addComponent(title)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                    .addContainerGap(47, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 744, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(39, 39, 39)))
+        );
+        kGradientPanel1Layout.setVerticalGroup(
+            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(title)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 319, Short.MAX_VALUE)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(orderRequest)
+                    .addComponent(viewRequest)
+                    .addComponent(send))
+                .addGap(47, 47, 47))
+            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                    .addGap(71, 71, 71)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(97, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(102, 102, 102)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(orderRequest)
-                        .addGap(35, 35, 35)
-                        .addComponent(viewRequest)
-                        .addGap(32, 32, 32)
-                        .addComponent(send))
-                    .addComponent(jLabel1)
-                    .addComponent(jScrollPane1))
-                .addContainerGap(141, Short.MAX_VALUE))
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel1)
-                .addGap(54, 54, 54)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(orderRequest)
-                    .addComponent(viewRequest)
-                    .addComponent(send))
-                .addGap(80, 80, 80))
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void orderRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderRequestActionPerformed
-       CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("OrderDrugs", new OrderDrugsJpanel(userProcessContainer, userAccount));
-        layout.next(userProcessContainer);
-    }//GEN-LAST:event_orderRequestActionPerformed
-
-    private void viewRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRequestActionPerformed
+    private void sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendActionPerformed
+        // TODO add your handling code here:
         int selectedRow = workRequestJTable.getSelectedRow();
-        
-        if (selectedRow < 0){
+
+        if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
-        
-        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
+
+        WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
+        if (!(request.getStatus() == Constants.Approve || request.getStatus() == Constants.chemistCoworkerSendForApproval)) {
+            Organization org = null;
+            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (organization instanceof ManagerOrganization) {
+                    org = organization;
+                    break;
+                }
+            }
+            if (org != null) {
+                org.getWorkQueue().getWorkRequestList().add(request);
+
+            }
+            request.setStatus(Constants.chemistCoworkerSendForApproval);
+            populateRequestTable();
+        } else {
+            JOptionPane.showMessageDialog(null, "Already request send");
+            return;
+        }
+
+    }//GEN-LAST:event_sendActionPerformed
+
+    private void viewRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRequestActionPerformed
+        int selectedRow = workRequestJTable.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select row");
+            return;
+        }
+
+        WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         userProcessContainer.add("viewEditDrug", new ViewEditDrugsOrderJpanel(userProcessContainer, request));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_viewRequestActionPerformed
 
-    private void sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendActionPerformed
-        // TODO add your handling code here:
-        int selectedRow = workRequestJTable.getSelectedRow();
-        
-        if (selectedRow < 0){
-            JOptionPane.showMessageDialog(null, "Please select row");
-            return;
-        }
-        
-        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
-        if(!(request.getStatus()==Constants.Approve || request.getStatus() == Constants.chemistCoworkerSendForApproval)){
-        Organization org = null;
-        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()){
-            if (organization instanceof ManagerOrganization){
-                org = organization;
-                break;
-            }
-        }
-        if (org!=null){
-            org.getWorkQueue().getWorkRequestList().add(request);
-            
-        }
-        request.setStatus(Constants.chemistCoworkerSendForApproval);
-        populateRequestTable();
-        }
-        else{
-           JOptionPane.showMessageDialog(null, "Already request send");
-            return; 
-        }
-                
-    }//GEN-LAST:event_sendActionPerformed
+    private void orderRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderRequestActionPerformed
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("OrderDrugs", new OrderDrugsJpanel(userProcessContainer, userAccount));
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_orderRequestActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JButton orderRequest;
     private javax.swing.JButton send;
+    private javax.swing.JLabel title;
     private javax.swing.JButton viewRequest;
     private javax.swing.JTable workRequestJTable;
     // End of variables declaration//GEN-END:variables
