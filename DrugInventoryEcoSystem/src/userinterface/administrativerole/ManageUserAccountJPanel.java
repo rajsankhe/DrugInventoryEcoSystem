@@ -10,8 +10,8 @@ import business.enterprise.Enterprise;
 import business.organization.Organization;
 import business.role.Role;
 import business.useraccount.UserAccount;
-import commonutils.Email;
 import commonutils.PasswordUtility;
+import commonutils.email.SendEmail;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -199,9 +199,12 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
 
         //Send email to user with password.
         try {
-            Email.sendMail(userName, emailID, password);
+            SendEmail sendEmail = new SendEmail();
+
+            sendEmail.sendMail(userName, emailID, password);
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, "We were unable to send mail to the desired recepient! Please contact system administrator");
+            exception.printStackTrace();
         }
         popData();
     }//GEN-LAST:event_createUserJButtonActionPerformed

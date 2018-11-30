@@ -194,7 +194,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
         nameJTextField.setText("");
 
-        if (!Validator.isValidString(name)) {
+        if (!Validator.isValidAlphaNum(name)) {
             //Name is not valid
             JOptionPane.showMessageDialog(null, "Please enter a valid name. Only characters are allowed");
             return;

@@ -23,7 +23,10 @@ public class Validator {
     public static final Pattern VALID_STRING_WITH_SPACES
             = Pattern.compile("[a-zA-Z\\\\s']+", Pattern.CASE_INSENSITIVE);
 
-    //Validation methods for String input type in input on the form.
+    public static final Pattern VALID_ALPHA_NUMERIC
+            = Pattern.compile("^[a-zA-Z0-9]*$", Pattern.CASE_INSENSITIVE);
+
+//Validation methods for String input type in input on the form.
     public static boolean isValidString(String str) {
         if (null != str && str.length() > 0) {
             //Checking whether the string contains only characters and no numbers
@@ -108,6 +111,11 @@ public class Validator {
 
     public static boolean isValidStringWithSpaces(String nameStr) {
         Matcher matcher = VALID_STRING_WITH_SPACES.matcher(nameStr);
+        return matcher.find();
+    }
+
+    public static boolean isValidAlphaNum(String str) {
+        Matcher matcher = VALID_ALPHA_NUMERIC.matcher(str);
         return matcher.find();
     }
 }
