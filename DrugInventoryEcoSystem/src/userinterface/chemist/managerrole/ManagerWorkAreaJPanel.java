@@ -5,7 +5,6 @@
  */
 package userinterface.chemist.managerrole;
 
-import business.EcoSystem;
 import business.enterprise.Enterprise;
 import business.organization.Organization;
 import business.organization.chemist.ManagerOrganization;
@@ -20,7 +19,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import userinterface.chemist.workerrole.OrderDrugsJpanel;
 
 /**
  *
@@ -35,9 +33,8 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
     private ManagerOrganization organization;
     private Enterprise enterprise;
     private UserAccount userAccount;
-    private EcoSystem ecoSystem;
     
-    public ManagerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ManagerOrganization organization, Enterprise enterprise, EcoSystem ecosystem) {
+    public ManagerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ManagerOrganization organization, Enterprise enterprise) {
         initComponents();
         this.setSize(1680, 1050);
         ((DefaultTableCellRenderer) workRequestJTable.getDefaultRenderer(Object.class)).setOpaque(false);
@@ -48,7 +45,6 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.userAccount = account;
         title.setText("Chemist Manager: "+userAccount.getUsername());
-        this.ecoSystem= ecosystem;
         populateRequestTable();
     }
     
@@ -85,9 +81,10 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         reject = new javax.swing.JButton();
         approve = new javax.swing.JButton();
         title = new javax.swing.JLabel();
+
         kGradientPanel1.setkEndColor(new java.awt.Color(102, 204, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(183, 248, 230));
-        sendToSupplier = new javax.swing.JButton();
+
         workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -149,6 +146,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
                 approveActionPerformed(evt);
             }
         });
+
         title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         title.setText("Title");
         title.setAlignmentX(740.0F);
@@ -191,12 +189,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(reject))
                 .addContainerGap(149, Short.MAX_VALUE))
         );
-        sendToSupplier.setText("Send To Supplier");
-        sendToSupplier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sendToSupplierActionPerformed(evt);
-            }
-        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -210,45 +203,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
             .addGap(0, 537, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(assignToMe)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(viewRequest)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(approve)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sendToSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(reject)
-                        .addGap(131, 131, 131))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                       ))
-                .addGap(54, 54, 54)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(assignToMe)
-                    .addComponent(viewRequest)
-                    .addComponent(reject)
-                    .addComponent(approve)
-                    .addComponent(sendToSupplier))
-                .addGap(80, 80, 80))
-        ));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -258,12 +213,6 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGap(0, 733, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 12, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 12, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,7 +276,23 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         JOptionPane.OK_CANCEL_OPTION);
          request.setMessage(message);
         Organization org = null;
+        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()){
+            if (organization instanceof ApproverOrganization){
+                org = organization;
+                break;
+            }
         }
+        if (org!=null){
+            org.getWorkQueue().getWorkRequestList().add(request);
+            
+        }
+        organization.getWorkQueue().getWorkRequestList().remove(request);
+        populateRequestTable();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Assign request to you.");
+        }
+        
     }//GEN-LAST:event_approveActionPerformed
 
     private void rejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectActionPerformed
@@ -359,31 +324,6 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         //WorkRequestDrugs wr= request.getSender().getWorkQueue().getWorkRequestList().stream().filter(x -> x==request).findFirst().get();
     }//GEN-LAST:event_rejectActionPerformed
 
-    private void sendToSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToSupplierActionPerformed
-        // TODO add your handling code here:
-        int selectedRow = workRequestJTable.getSelectedRow();
-        
-        if (selectedRow < 0){
-            JOptionPane.showMessageDialog(null, "Please select row");
-            return;
-        }
-        
-        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
-        
-        if(!(Constants.Approve).equalsIgnoreCase(request.getStatus()))
-        {
-            JOptionPane.showMessageDialog(null, "Request Approved can only be send to Supplier");
-            return;
-        }
-        else
-        {
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer,ecoSystem, request ));
-        layout.next(userProcessContainer);   
-        }
-        
-    }//GEN-LAST:event_sendToSupplierActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton approve;
     private javax.swing.JButton assignToMe;
@@ -392,7 +332,6 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JButton reject;
     private javax.swing.JLabel title;
-    private javax.swing.JButton sendToSupplier;
     private javax.swing.JButton viewRequest;
     private javax.swing.JTable workRequestJTable;
     // End of variables declaration//GEN-END:variables
