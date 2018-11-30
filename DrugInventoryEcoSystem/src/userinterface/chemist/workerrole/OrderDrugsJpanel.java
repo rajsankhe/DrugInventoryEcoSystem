@@ -7,6 +7,7 @@ package userinterface.chemist.workerrole;
 
 import business.drug.Drug;
 import business.useraccount.UserAccount;
+import business.workqueue.WorkRequest;
 import business.workqueue.WorkRequestDrugs;
 import commonutils.Constants;
 import java.awt.CardLayout;
@@ -27,6 +28,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private UserAccount userAccount;
+
     public OrderDrugsJpanel(JPanel userProcessContainer, UserAccount account) {
         initComponents();
         this.setSize(1680, 1050);
@@ -164,21 +166,20 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-         WorkRequestDrugs workRequestDrugs = new WorkRequestDrugs();
-         workRequestDrugs.setSender(userAccount);
-         List<Drug> orderList=workRequestDrugs.getDrugsOrderList();
-         DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
-         int nRow = model.getRowCount();
-         for (int i = 0; i < nRow; i++) {
-             if(model.getValueAt(i,0)!=null && model.getValueAt(i,1)!=null){
-             Drug newDrug= new Drug();
-             newDrug.setName(String.valueOf(model.getValueAt(i,0)));
-             newDrug.setQuantity(Integer.parseInt((String)model.getValueAt(i,1)));
-             orderList.add(newDrug);
-             }
+        WorkRequestDrugs workRequestDrugs = (WorkRequestDrugs) userAccount.getWorkQueue().addWorkRequest(WorkRequest.workRequestType.Drugs);
+        workRequestDrugs.setSender(userAccount);
+        List<Drug> orderList = workRequestDrugs.getDrugsOrderList();
+        DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
+        int nRow = model.getRowCount();
+        for (int i = 0; i < nRow; i++) {
+            if (model.getValueAt(i, 0) != null && model.getValueAt(i, 1) != null) {
+                Drug newDrug = new Drug();
+                newDrug.setName(String.valueOf(model.getValueAt(i, 0)));
+                newDrug.setQuantity(Integer.parseInt((String) model.getValueAt(i, 1)));
+                orderList.add(newDrug);
+            }
         }
-         workRequestDrugs.setStatus(Constants.chemistCoworkerRequestCreated);
-        userAccount.getWorkQueue().addWorkRequest(workRequestDrugs);
+        workRequestDrugs.setStatus(Constants.chemistCoworkerRequestCreated);
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
@@ -190,7 +191,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
 
     private void addRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRowActionPerformed
         DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
-        model.addRow(new Object[]{"",""});
+        model.addRow(new Object[]{"", ""});
     }//GEN-LAST:event_addRowActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
@@ -200,7 +201,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
         Component component = componentArray[componentArray.length - 1];
         WorkerWorkAreaJPanel workAreaJPanel = (WorkerWorkAreaJPanel) component;
         workAreaJPanel.populateRequestTable();
-        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backActionPerformed
 
