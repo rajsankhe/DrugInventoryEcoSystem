@@ -65,7 +65,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         for (Drug drug : workRequestDrugs.getDrugsOrderList()) {
             Object[] row = new Object[2];
             row[0] = drug.getName();
-            row[1] = drug.getQuantity();
+            row[1] = Integer.toString(drug.getQuantity());
             model.addRow(row);
         }
     }
