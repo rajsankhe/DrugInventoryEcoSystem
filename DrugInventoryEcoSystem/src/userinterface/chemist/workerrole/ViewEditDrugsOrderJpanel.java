@@ -12,6 +12,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -40,9 +41,10 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         save.setEnabled(false);
         addRow.setEnabled(false);
         update.setEnabled(true);
+        drugquantity.setEnabled(false);
         this.userProcessContainer = userProcessContainer;
         this.workRequestDrugs = workRequestDrugs;
-        if (workRequestDrugs.getStatus() == Constants.Approve || workRequestDrugs.getStatus() == Constants.chemistCoworkerSendForApproval) {
+        if (workRequestDrugs.getStatus().equals(Constants.Approve) || workRequestDrugs.getStatus().equals(Constants.chemistCoworkerSendForApproval)) {
             update.setEnabled(false);
         }
         drugquantity.setShowGrid(true);
@@ -217,8 +219,9 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
          List<Drug> orderList=workRequestDrugs.getDrugsOrderList();
-         List<Drug> newOrderList= new ArrayList<Drug>();
-         orderList.removeAll(orderList);
+//         List<Drug> newOrderList= new ArrayList<Drug>();
+         orderList.clear();
+         try{
          DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
          int nRow = model.getRowCount();
          for (int i = 0; i < nRow; i++) {
@@ -226,17 +229,26 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
              Drug newDrug= new Drug();
              newDrug.setName(String.valueOf(model.getValueAt(i,0)));
              newDrug.setQuantity(Integer.parseInt((String)model.getValueAt(i,1)));
-             newOrderList.add(newDrug);
+             orderList.add(newDrug);
              }
         }
-         if(!newOrderList.isEmpty())
-         {
-             orderList= newOrderList;
          }
-         drugquantity.setEnabled(false);
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Please enter integer value in quantity field.");
+            return;
+        }
+         if(!orderList.isEmpty()){
+             drugquantity.setEnabled(false);
         addRow.setEnabled(false);
         save.setEnabled(false);
         update.setEnabled(true);
+        JOptionPane.showMessageDialog(null, "Order list updated.");
+         }
+         else{
+            JOptionPane.showMessageDialog(null, "Order list can't be empty.");
+            return;
+        }
+         
         // TODO add your handling code here:
     }//GEN-LAST:event_saveActionPerformed
 

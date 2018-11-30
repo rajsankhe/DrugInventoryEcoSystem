@@ -13,6 +13,7 @@ import commonutils.Constants;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -169,9 +170,11 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
         WorkRequestDrugs workRequestDrugs = (WorkRequestDrugs) userAccount.getWorkQueue().addWorkRequest(WorkRequest.workRequestType.Drugs);
         workRequestDrugs.setSender(userAccount);
         List<Drug> orderList = workRequestDrugs.getDrugsOrderList();
+        orderList.clear();
         DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
         int nRow = model.getRowCount();
-        for (int i = 0; i < nRow; i++) {
+        try{
+            for (int i = 0; i < nRow; i++) {
             if (model.getValueAt(i, 0) != null && model.getValueAt(i, 1) != null) {
                 Drug newDrug = new Drug();
                 newDrug.setName(String.valueOf(model.getValueAt(i, 0)));
@@ -179,6 +182,12 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
                 orderList.add(newDrug);
             }
         }
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Please enter integer value in quantity field.");
+            return;
+        }
+        if(!orderList.isEmpty()){
         workRequestDrugs.setStatus(Constants.chemistCoworkerRequestCreated);
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
@@ -187,6 +196,11 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
         workAreaJPanel.populateRequestTable();
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Order list can't be empty.");
+            return;
+        }
     }//GEN-LAST:event_submitActionPerformed
 
     private void addRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRowActionPerformed
