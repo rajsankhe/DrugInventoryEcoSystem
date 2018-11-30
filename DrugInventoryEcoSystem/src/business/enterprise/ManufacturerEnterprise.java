@@ -14,8 +14,8 @@ import java.util.List;
  */
 public class ManufacturerEnterprise extends Enterprise {
 
-    public ManufacturerEnterprise(String name, EnterpriseType type) {
-        super(name, type);
+    public ManufacturerEnterprise(String name, EnterpriseType type, int id) {
+        super(name, type, id);
     }
 
     @Override

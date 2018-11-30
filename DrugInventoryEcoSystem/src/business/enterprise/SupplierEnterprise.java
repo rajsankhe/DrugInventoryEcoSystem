@@ -14,10 +14,12 @@ import java.util.List;
  * @author vivekdalal
  */
 public class SupplierEnterprise extends Enterprise {
+
     private Inventory inventory;
-    public SupplierEnterprise(String name, EnterpriseType type) {
-        super(name, type);
-        inventory= new Inventory();
+
+    public SupplierEnterprise(String name, EnterpriseType type, int id) {
+        super(name, type, id);
+        inventory = new Inventory();
     }
 
     @Override

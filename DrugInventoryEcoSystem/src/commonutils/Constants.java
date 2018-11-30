@@ -10,6 +10,9 @@ package commonutils;
  * @author Raj Sankhe
  */
 public class Constants {
-    public static final String chemistCoworkerSend="Pending Approval From Chemist Manager";
+    public static final String chemistCoworkerSendForApproval="Pending Approval";
+    public static final String chemistCoworkerRequestCreated="Not send for Approval";
+    public static final String Approve="Approved";
+    public static final String Reject="Rejected";
     
 }

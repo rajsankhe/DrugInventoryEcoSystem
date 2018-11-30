@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class ValidatorOrganization extends Organization {
 
-    public ValidatorOrganization(String name, OrganizationType type) {
-        super(name);
+    public ValidatorOrganization(String name, OrganizationType type, int id) {
+        super(name, id);
     }
 
     @Override

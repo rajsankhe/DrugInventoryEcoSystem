@@ -12,6 +12,7 @@ import business.organization.chemist.WorkerOrganization;
 import business.useraccount.UserAccount;
 import business.workqueue.WorkRequest;
 import business.workqueue.WorkRequestDrugs;
+import commonutils.Constants;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -49,8 +50,8 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
             Object[] row = new Object[4];
             row[0] = request;
             row[1] = request.getStatus();
-            row[2] = request.getResult();
-            row[3] = request.getReceiver();
+            row[2] = request.getReceiver();
+            row[3] = request.getMessage();
             model.addRow(row);
         }
     }
@@ -79,11 +80,11 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Request ID", "Status", "Result", "Manager"
+                "Request ID", "Status", "Manager", "Message"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -202,6 +203,8 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
             org.getWorkQueue().getWorkRequestList().add(request);
             
         }
+        request.setStatus(Constants.chemistCoworkerSendForApproval);
+        populateRequestTable();
     }//GEN-LAST:event_sendActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
