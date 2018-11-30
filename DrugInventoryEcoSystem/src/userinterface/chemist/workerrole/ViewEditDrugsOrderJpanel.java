@@ -11,6 +11,7 @@ import commonutils.Constants;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -175,6 +176,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
          List<Drug> orderList=workRequestDrugs.getDrugsOrderList();
+         List<Drug> newOrderList= new ArrayList<Drug>();
          orderList.removeAll(orderList);
          DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
          int nRow = model.getRowCount();
@@ -183,9 +185,13 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
              Drug newDrug= new Drug();
              newDrug.setName(String.valueOf(model.getValueAt(i,0)));
              newDrug.setQuantity(Integer.parseInt((String)model.getValueAt(i,1)));
-             orderList.add(newDrug);
+             newOrderList.add(newDrug);
              }
         }
+         if(!newOrderList.isEmpty())
+         {
+             orderList= newOrderList;
+         }
          drugquantity.setEnabled(false);
         addRow.setEnabled(false);
         save.setEnabled(false);
