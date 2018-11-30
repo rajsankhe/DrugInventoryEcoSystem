@@ -5,8 +5,11 @@
  */
 package userinterface.administrativerole;
 
+import business.employee.Employee;
 import business.enterprise.Enterprise;
+import business.organization.Organization;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -108,7 +111,21 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void userJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userJButtonActionPerformed
-        // TODO add your handling code here:
+        boolean isEmployeePresent = false;
+
+        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            //If Organization exists
+            for (Employee employee : organization.getEmployeeDirectory().getEmployeeList()) {
+                //If employee exists
+                isEmployeePresent = true;
+                break;
+            }
+        }
+
+        if (!isEmployeePresent) {
+            JOptionPane.showMessageDialog(null, "Please create an employee before creating an user");
+            return;
+        }
         ManageUserAccountJPanel muajp = new ManageUserAccountJPanel(userProcessContainer, enterprise);
         userProcessContainer.add("ManageUserAccountJPanel", muajp);
 
@@ -117,7 +134,11 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_userJButtonActionPerformed
 
     private void manageEmployeeJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEmployeeJButtonActionPerformed
-
+        //check if organization has been created
+        if (enterprise.getOrganizationDirectory().getOrganizationList().size() == 0) {
+            JOptionPane.showMessageDialog(null, "Please create an organization before creating an enpterprise");
+            return;
+        }
         ManageEmployeeJPanel manageEmployeeJPanel = new ManageEmployeeJPanel(userProcessContainer, enterprise.getOrganizationDirectory());
         userProcessContainer.add("manageEmployeeJPanel", manageEmployeeJPanel);
 
