@@ -46,6 +46,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.enterprise = enterprise;
         this.userAccount = account;
+        this.ecosystem= ecosystem;
         title.setText("Chemist Manager: "+userAccount.getUsername());
         populateRequestTable();
     }
@@ -342,7 +343,10 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
                 Constants.Approve+" message",
                 JOptionPane.OK_CANCEL_OPTION);
             request.setMessage(message);
-            Organization org = null;
+             populateRequestTable();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Assign request to you.");
         }
     }//GEN-LAST:event_approveActionPerformed
 
