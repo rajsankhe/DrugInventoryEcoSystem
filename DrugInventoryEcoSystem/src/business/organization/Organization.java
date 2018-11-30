@@ -86,4 +86,9 @@ public abstract class Organization {
         return name;
     }
 
+    public OrganizationType getOrganizationType() {
+        return organizationType;
+    }
+    
+
 }
