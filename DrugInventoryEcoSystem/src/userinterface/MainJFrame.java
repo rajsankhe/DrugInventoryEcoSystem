@@ -166,6 +166,7 @@ public class MainJFrame extends javax.swing.JFrame {
             //Step 2: Go inside each network and check each enterprise
             for (Network network : system.getNetworkDirectory().getNetworkList()) {
                 //Step 2.a: check against each enterprise
+                if (userAccount == null) {
                 for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
                     userAccount = enterprise.getUserAccountDirectory().authenticateUser(userName, password);
                     if (userAccount == null) {
@@ -183,6 +184,7 @@ public class MainJFrame extends javax.swing.JFrame {
                         inEnterprise = enterprise;
                         break;
                     }
+                }
                 }
             }
         }

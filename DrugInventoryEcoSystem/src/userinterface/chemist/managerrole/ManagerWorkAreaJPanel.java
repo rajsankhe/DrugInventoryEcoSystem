@@ -6,11 +6,15 @@
 package userinterface.chemist.managerrole;
 
 import business.enterprise.Enterprise;
+import business.organization.Organization;
 import business.organization.chemist.ManagerOrganization;
+import business.organization.supplier.ApproverOrganization;
 import business.useraccount.UserAccount;
 import business.workqueue.WorkRequest;
 import business.workqueue.WorkRequestDrugs;
+import commonutils.Constants;
 import java.awt.CardLayout;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -45,12 +49,11 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
             WorkRequestDrugs workRequestDrugs = (WorkRequestDrugs)request;            
-            Object[] row = new Object[5];
+            Object[] row = new Object[4];
             row[0] = request;
             row[1] = request.getStatus();
-            row[2] = request.getResult();
-            row[3] = request.getSender();
-            row[4] = request.getReceiver();
+            row[2] = request.getSender();
+            row[3] = request.getReceiver();
             model.addRow(row);
         }
     }
@@ -76,20 +79,20 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
 
         workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Request ID", "Status", "Result", "Worker", "Manager"
+                "Request ID", "Status", "Worker", "Manager"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -209,15 +212,20 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
     private void assignToMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignToMeActionPerformed
         // TODO add your handling code here:
         int selectedRow = workRequestJTable.getSelectedRow();
-        
         if (selectedRow < 0){
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
         
         WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
-        request.setReceiver(userAccount);
-        populateRequestTable();
+        if(request.getReceiver()==null){
+         request.setReceiver(userAccount);
+        populateRequestTable();   
+        }
+        else{
+             JOptionPane.showMessageDialog(null, "Already assinged to "+request.getReceiver());
+            return;
+        }
     }//GEN-LAST:event_assignToMeActionPerformed
 
     private void viewRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRequestActionPerformed
@@ -249,7 +257,32 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         }
         
         WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
-        request.setResult("Approve");
+        if(request.getReceiver()== userAccount){
+            request.setStatus(Constants.Approve);
+             JFrame frame = new JFrame();
+             String message = (String) JOptionPane.showInputDialog(frame, 
+        "Enter the message",
+        Constants.Approve+" message",
+        JOptionPane.OK_CANCEL_OPTION);
+         request.setMessage(message);
+        Organization org = null;
+        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()){
+            if (organization instanceof ApproverOrganization){
+                org = organization;
+                break;
+            }
+        }
+        if (org!=null){
+            org.getWorkQueue().getWorkRequestList().add(request);
+            
+        }
+        organization.getWorkQueue().getWorkRequestList().remove(request);
+        populateRequestTable();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Assign request to you.");
+        }
+        
     }//GEN-LAST:event_approveActionPerformed
 
     private void rejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectActionPerformed
@@ -262,7 +295,23 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         }
         
         WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
-        request.setResult("Reject");
+        if(request.getReceiver()== userAccount){
+        request.setStatus(Constants.Reject);
+        JFrame frame = new JFrame();
+             String message = (String) JOptionPane.showInputDialog(frame, 
+        "Enter the message",
+        Constants.Reject+" message",
+        JOptionPane.OK_CANCEL_OPTION);
+         request.setMessage(message);
+    
+        organization.getWorkQueue().getWorkRequestList().remove(request);
+        populateRequestTable();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Assign request to you.");
+        }
+        
+        //WorkRequestDrugs wr= request.getSender().getWorkQueue().getWorkRequestList().stream().filter(x -> x==request).findFirst().get();
     }//GEN-LAST:event_rejectActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -18,7 +18,6 @@ public class WorkRequest {
     private UserAccount sender;
     private UserAccount receiver;
     private String status;
-    private String result;
     private String request;
     private Date requestDate;
     private Date resolveDate;
@@ -46,13 +45,7 @@ public class WorkRequest {
         return sender;
     }
 
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
+    
 
     public void setSender(UserAccount sender) {
         this.sender = sender;
