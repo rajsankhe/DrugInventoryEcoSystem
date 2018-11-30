@@ -37,7 +37,6 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
     public ManagerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ManagerOrganization organization, Enterprise enterprise) {
         initComponents();
         this.setSize(1680, 1050);
-        title.setText("Chemist Manager: "+userAccount.getUsername());
         ((DefaultTableCellRenderer) workRequestJTable.getDefaultRenderer(Object.class)).setOpaque(false);
         jScrollPane1.setOpaque(false);
         jScrollPane1.getViewport().setOpaque(false);
@@ -45,6 +44,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.enterprise = enterprise;
         this.userAccount = account;
+        title.setText("Chemist Manager: "+userAccount.getUsername());
         populateRequestTable();
     }
     
@@ -112,6 +112,12 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(workRequestJTable);
+        if (workRequestJTable.getColumnModel().getColumnCount() > 0) {
+            workRequestJTable.getColumnModel().getColumn(0).setResizable(false);
+            workRequestJTable.getColumnModel().getColumn(1).setResizable(false);
+            workRequestJTable.getColumnModel().getColumn(2).setResizable(false);
+            workRequestJTable.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         assignToMe.setText("Assign To Me");
         assignToMe.addActionListener(new java.awt.event.ActionListener() {

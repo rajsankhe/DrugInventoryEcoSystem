@@ -97,7 +97,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -109,6 +109,12 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(workRequestJTable);
+        if (workRequestJTable.getColumnModel().getColumnCount() > 0) {
+            workRequestJTable.getColumnModel().getColumn(0).setResizable(false);
+            workRequestJTable.getColumnModel().getColumn(1).setResizable(false);
+            workRequestJTable.getColumnModel().getColumn(2).setResizable(false);
+            workRequestJTable.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         viewRequest.setText("View Request");
         viewRequest.addActionListener(new java.awt.event.ActionListener() {
@@ -198,7 +204,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
         }
 
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
-        if (!(request.getStatus() == Constants.Approve || request.getStatus() == Constants.chemistCoworkerSendForApproval)) {
+        if (!(request.getStatus().equals(Constants.Approve) || request.getStatus().equals(Constants.chemistCoworkerSendForApproval))) {
             Organization org = null;
             for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
                 if (organization instanceof ManagerOrganization) {
