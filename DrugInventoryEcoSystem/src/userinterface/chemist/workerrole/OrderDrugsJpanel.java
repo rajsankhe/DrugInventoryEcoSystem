@@ -128,7 +128,6 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
          WorkRequestDrugs workRequestDrugs = new WorkRequestDrugs();
          workRequestDrugs.setSender(userAccount);
-         workRequestDrugs.setStatus(Constants.chemistCoworkerSend);
          List<Drug> orderList=workRequestDrugs.getDrugsOrderList();
          DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
          int nRow = model.getRowCount();
@@ -140,6 +139,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
              orderList.add(newDrug);
              }
         }
+         workRequestDrugs.setStatus(Constants.chemistCoworkerRequestCreated);
         userAccount.getWorkQueue().addWorkRequest(workRequestDrugs);
     }//GEN-LAST:event_submitActionPerformed
 

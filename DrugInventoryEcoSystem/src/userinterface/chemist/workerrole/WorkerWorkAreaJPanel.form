@@ -65,8 +65,8 @@
               <Table columnCount="4" rowCount="4">
                 <Column editable="false" title="Request ID" type="java.lang.Integer"/>
                 <Column editable="false" title="Status" type="java.lang.String"/>
-                <Column editable="false" title="Result" type="java.lang.String"/>
                 <Column editable="false" title="Manager" type="java.lang.Object"/>
+                <Column editable="false" title="Message" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
