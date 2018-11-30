@@ -236,6 +236,8 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         usernameJTextField.setText("");
         emailIDJTextField.setText("");
         nameJTextField.setText("");
+        enterpriseJComboBox.setSelectedIndex(0);
+        networkJComboBox.setSelectedIndex(0);
 
         if (!Validator.isValidString(username)) {
             JOptionPane.showMessageDialog(null, "User name can contain only alphabets. Please check.");
