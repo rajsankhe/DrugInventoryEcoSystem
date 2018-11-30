@@ -19,8 +19,6 @@ public class EmployeeDirectory {
     public EmployeeDirectory() {
         this.employeeList = new ArrayList<>();
     }
-    
-    
 
     public List<Employee> getEmployeeList() {
         return employeeList;
@@ -31,12 +29,10 @@ public class EmployeeDirectory {
     }
 
     public Employee createEmployee(String name) {
-        Employee employee = new Employee();
+        Employee employee = new Employee(employeeList.size());
         employee.setName(name);
         employeeList.add(employee);
         return employee;
     }
-    
-    
 
 }

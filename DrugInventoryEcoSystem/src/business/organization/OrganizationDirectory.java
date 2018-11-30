@@ -35,21 +35,21 @@ public class OrganizationDirectory {
     public Organization createOrganization(String name, OrganizationType type) {
         Organization organization = null;
         if (type.getValue().equals(OrganizationType.Admin.getValue())) {
-            organization = new AdminOrganization(name, type);
+            organization = new AdminOrganization(name, type, organizationList.size());
         } else if (type.getValue().equals(OrganizationType.Worker.getValue())) {
-            organization = new WorkerOrganization(name, type);
+            organization = new WorkerOrganization(name, type, organizationList.size());
         } else if (type.getValue().equals(OrganizationType.Manager.getValue())) {
-            organization = new ManagerOrganization(name, type);
+            organization = new ManagerOrganization(name, type, organizationList.size());
         } else if (type.getValue().equals(OrganizationType.Coordinator.getValue())) {
-            organization = new CoordinatorOrganization(name, type);
+            organization = new CoordinatorOrganization(name, type, organizationList.size());
         } else if (type.getValue().equals(OrganizationType.Approver.getValue())) {
-            organization = new ApproverOrganization(name, type);
+            organization = new ApproverOrganization(name, type, organizationList.size());
         } else if (type.getValue().equals(OrganizationType.Validator.getValue())) {
-            organization = new ValidatorOrganization(name, type);
+            organization = new ValidatorOrganization(name, type, organizationList.size());
         } else if (type.getValue().equals(OrganizationType.Transporter.getValue())) {
-            organization = new TransporterOrganization(name, type);
+            organization = new TransporterOrganization(name, type, organizationList.size());
         } else if (type.getValue().equals(OrganizationType.Producer.getValue())) {
-            organization = new ProducerOrganization(name, type);
+            organization = new ProducerOrganization(name, type, organizationList.size());
         }
         organizationList.add(organization);
         return organization;

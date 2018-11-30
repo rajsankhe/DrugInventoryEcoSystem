@@ -18,8 +18,8 @@ import java.util.List;
  */
 public class WorkerOrganization extends Organization {
 
-    public WorkerOrganization(String name, OrganizationType type) {
-        super(name);
+    public WorkerOrganization(String name, OrganizationType type, int id) {
+        super(name, id);
     }
 
     @Override
