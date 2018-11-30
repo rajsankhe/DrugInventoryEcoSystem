@@ -14,8 +14,8 @@ import business.quotation.Quotation;
 public class WorkRequestQuotation extends WorkRequest{
     Quotation quotationRequest;
 
-    public WorkRequestQuotation() {
-        super();
+    public WorkRequestQuotation(int size) {
+        super(size);
         quotationRequest = new Quotation();
     }
 

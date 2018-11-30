@@ -14,8 +14,8 @@ import business.bid.Bid;
 public class WorkRequestBid extends WorkRequest{
     Bid bidRequest;
 
-    public WorkRequestBid() {
-        super();
+    public WorkRequestBid(int size) {
+        super(size);
         this.bidRequest = new Bid();
     }
 

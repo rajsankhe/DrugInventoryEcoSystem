@@ -21,12 +21,31 @@ public class WorkRequest {
     private String request;
     private Date requestDate;
     private Date resolveDate;
-    private static int count = 1;
     
-    public WorkRequest(){
+    public enum workRequestType {
+        Bid("Bid"),
+        Drugs("Drugs"),
+        Quotation("Quotation");
+
+        private String value;
+
+        private workRequestType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+    }
+    
+    public WorkRequest(int size){
         this.requestDate = new Date();
-        this.requestId = count;
-        count++;
+        this.requestId = size;
     }
 
     public int getRequestId() {
