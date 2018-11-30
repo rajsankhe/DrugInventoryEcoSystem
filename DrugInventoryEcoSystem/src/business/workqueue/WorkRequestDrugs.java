@@ -16,8 +16,8 @@ import java.util.List;
 public class WorkRequestDrugs extends WorkRequest{
     List<Drug> drugsOrderList;
 
-    public WorkRequestDrugs() {
-super();
+    public WorkRequestDrugs(int size) {
+super(size);
         this.drugsOrderList = new ArrayList<>();
     }
 
