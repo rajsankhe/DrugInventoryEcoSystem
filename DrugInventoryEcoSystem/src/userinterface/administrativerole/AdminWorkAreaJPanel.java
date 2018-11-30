@@ -23,7 +23,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
      */
     public AdminWorkAreaJPanel(JPanel userProcessContainer, Enterprise enterprise) {
         initComponents();
-        this.setSize(1480, 1050);
+        this.setSize(1200, 750);
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
         valueLabel.setText(enterprise.getName());
@@ -38,6 +38,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        kGradientPanel1 = new keeptoo.KGradientPanel();
         jLabel1 = new javax.swing.JLabel();
         userJButton = new javax.swing.JButton();
         manageEmployeeJButton = new javax.swing.JButton();
@@ -45,10 +46,21 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         enterpriseLabel = new javax.swing.JLabel();
         valueLabel = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(71, 120, 197));
+        setBackground(new java.awt.Color(204, 204, 204));
+        setMaximumSize(new java.awt.Dimension(1200, 750));
+        setMinimumSize(new java.awt.Dimension(1200, 750));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        kGradientPanel1.setkEndColor(new java.awt.Color(102, 255, 204));
+        kGradientPanel1.setkStartColor(new java.awt.Color(204, 255, 204));
+        kGradientPanel1.setMaximumSize(new java.awt.Dimension(1200, 750));
+        kGradientPanel1.setMinimumSize(new java.awt.Dimension(1200, 750));
+        kGradientPanel1.setPreferredSize(new java.awt.Dimension(1200, 750));
+        kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 51, 255));
         jLabel1.setText("My Work Area -Adminstrative Role");
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(362, 199, -1, 108));
 
         userJButton.setText("Manage User");
         userJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -56,6 +68,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
                 userJButtonActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(userJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 490, 180, -1));
 
         manageEmployeeJButton.setText("Manage Employee");
         manageEmployeeJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -63,6 +76,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
                 manageEmployeeJButtonActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(manageEmployeeJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 440, 180, -1));
 
         manageOrganizationJButton.setText("Manage Organization");
         manageOrganizationJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -70,58 +84,26 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
                 manageOrganizationJButtonActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(manageOrganizationJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 390, -1, -1));
 
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel.setText("EnterPrise :");
+        kGradientPanel1.add(enterpriseLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 327, 120, 30));
 
         valueLabel.setText("<value>");
+        kGradientPanel1.add(valueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 337, 130, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 702, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 145, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(30, 30, 30)
-                            .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(120, 120, 120)
-                            .addComponent(manageOrganizationJButton))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(120, 120, 120)
-                            .addComponent(manageEmployeeJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(120, 120, 120)
-                            .addComponent(userJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(0, 146, Short.MAX_VALUE)))
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 563, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 172, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addGap(21, 21, 21)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(valueLabel)))
-                    .addGap(10, 10, 10)
-                    .addComponent(manageOrganizationJButton)
-                    .addGap(21, 21, 21)
-                    .addComponent(manageEmployeeJButton)
-                    .addGap(21, 21, 21)
-                    .addComponent(userJButton)
-                    .addGap(0, 172, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -156,6 +138,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel enterpriseLabel;
     private javax.swing.JLabel jLabel1;
+    private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JButton manageEmployeeJButton;
     private javax.swing.JButton manageOrganizationJButton;
     private javax.swing.JButton userJButton;

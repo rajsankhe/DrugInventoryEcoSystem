@@ -10,6 +10,7 @@ import business.organization.Organization;
 import business.organization.OrganizationDirectory;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,6 +29,11 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.organizationDir = organizationDir;
+        this.setSize(1200, 750);
+        ((DefaultTableCellRenderer) organizationJTable.getDefaultRenderer(Object.class)).setOpaque(false);
+        jScrollPane1.setOpaque(false);
+        jScrollPane1.getViewport().setOpaque(false);
+        organizationJTable.setShowGrid(true);
 
         populateOrganizationComboBox();
         populateOrganizationEmpComboBox();
@@ -71,6 +77,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        kGradientPanel1 = new keeptoo.KGradientPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         organizationJTable = new javax.swing.JTable();
         addJButton = new javax.swing.JButton();
@@ -81,8 +88,20 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         nameJTextField = new javax.swing.JTextField();
         organizationEmpJComboBox = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(71, 120, 197));
+        setBackground(new java.awt.Color(204, 204, 204));
+        setMaximumSize(new java.awt.Dimension(1200, 750));
+        setMinimumSize(new java.awt.Dimension(1200, 750));
+        setPreferredSize(new java.awt.Dimension(1200, 750));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        kGradientPanel1.setkEndColor(new java.awt.Color(102, 255, 204));
+        kGradientPanel1.setkStartColor(new java.awt.Color(204, 255, 204));
+        kGradientPanel1.setMaximumSize(new java.awt.Dimension(1200, 750));
+        kGradientPanel1.setMinimumSize(new java.awt.Dimension(1200, 750));
+        kGradientPanel1.setPreferredSize(new java.awt.Dimension(1200, 750));
+        kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         organizationJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -112,21 +131,25 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(organizationJTable);
 
+        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 480, 92));
+
         addJButton.setText("Create Employee");
         addJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addJButtonActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(addJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 380, -1, -1));
 
-        organizationJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         organizationJComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 organizationJComboBoxActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 81, -1));
 
         jLabel1.setText("Organization");
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
 
         backJButton.setText("<< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -134,67 +157,23 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
                 backJButtonActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, -1, -1));
 
         jLabel2.setText("Name");
+        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 310, -1, -1));
+        kGradientPanel1.add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 126, -1));
 
-        organizationEmpJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        kGradientPanel1.add(organizationEmpJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 81, -1));
 
         jLabel3.setText("Organization");
+        kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(backJButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addJButton)
-                .addGap(175, 175, 175))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(jLabel1)
-                        .addGap(32, 32, 32)
-                        .addComponent(organizationJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(296, 296, 296)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(organizationEmpJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(organizationJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(organizationEmpJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(nameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addJButton)
-                    .addComponent(backJButton))
-                .addGap(48, 48, 48))
-        );
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 51, 255));
+        jLabel4.setText("Manage Organization");
+        kGradientPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 280, 50));
+
+        add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 750));
     }// </editor-fold>//GEN-END:initComponents
 
     private void addJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addJButtonActionPerformed
@@ -227,7 +206,9 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JTextField nameJTextField;
     private javax.swing.JComboBox organizationEmpJComboBox;
     private javax.swing.JComboBox organizationJComboBox;

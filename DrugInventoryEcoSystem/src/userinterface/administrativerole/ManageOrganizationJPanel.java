@@ -12,6 +12,7 @@ import business.organization.Organization.OrganizationType;
 import business.organization.OrganizationDirectory;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,7 +30,12 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
      */
     public ManageOrganizationJPanel(JPanel userProcessContainer, OrganizationDirectory directory, Enterprise.EnterpriseType enterpriseType) {
         initComponents();
-        this.setSize(1480, 1050);
+        this.setSize(1200, 750);
+        ((DefaultTableCellRenderer) organizationJTable.getDefaultRenderer(Object.class)).setOpaque(false);
+        jScrollPane1.setOpaque(false);
+        jScrollPane1.getViewport().setOpaque(false);
+        organizationJTable.setShowGrid(true);
+
         this.userProcessContainer = userProcessContainer;
         this.directory = directory;
         this.enterpriseType = enterpriseType;
@@ -79,6 +85,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        kGradientPanel1 = new keeptoo.KGradientPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         organizationJTable = new javax.swing.JTable();
         addJButton = new javax.swing.JButton();
@@ -87,8 +94,20 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         backJButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         orgNameJTextField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(71, 120, 197));
+        setBackground(new java.awt.Color(204, 204, 204));
+        setMaximumSize(new java.awt.Dimension(1200, 750));
+        setMinimumSize(new java.awt.Dimension(1200, 750));
+        setPreferredSize(new java.awt.Dimension(1200, 750));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        kGradientPanel1.setkEndColor(new java.awt.Color(102, 255, 204));
+        kGradientPanel1.setkStartColor(new java.awt.Color(204, 255, 204));
+        kGradientPanel1.setMaximumSize(new java.awt.Dimension(1200, 750));
+        kGradientPanel1.setMinimumSize(new java.awt.Dimension(1200, 750));
+        kGradientPanel1.setPreferredSize(new java.awt.Dimension(1200, 750));
+        kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         organizationJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -118,16 +137,21 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(organizationJTable);
 
+        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 480, 92));
+
         addJButton.setText("Add Organization");
         addJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addJButtonActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(addJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, -1, -1));
 
         organizationJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        kGradientPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 81, -1));
 
         jLabel1.setText("Organization Type ");
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, -1, -1));
 
         backJButton.setText("<< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -135,53 +159,19 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                 backJButtonActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 300, -1, -1));
 
         jLabel2.setText("Organization Name ");
+        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, -1, -1));
+        kGradientPanel1.add(orgNameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 81, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(111, 111, 111)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(backJButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addJButton)
-                .addGap(175, 175, 175))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(organizationJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(orgNameJTextField))
-                .addGap(334, 334, 334))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(organizationJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(orgNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addJButton)
-                    .addComponent(backJButton))
-                .addGap(48, 48, 48))
-        );
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 51, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Manage Organization");
+        kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 660, 110));
+
+        add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 750));
     }// </editor-fold>//GEN-END:initComponents
 
     private void addJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addJButtonActionPerformed
@@ -204,7 +194,9 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
     private javax.swing.JButton backJButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JTextField orgNameJTextField;
     private javax.swing.JComboBox organizationJComboBox;
     private javax.swing.JTable organizationJTable;

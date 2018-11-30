@@ -6,6 +6,7 @@ package userinterface.sysadminrole;
 
 import business.EcoSystem;
 import business.network.Network;
+import commonutils.Validator;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
@@ -128,7 +129,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                 submitJButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, -1, -1));
+        kGradientPanel1.add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 260, -1, -1));
         kGradientPanel1.add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 93, -1));
 
         backJButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -138,7 +139,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                 backJButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, -1, -1));
+        kGradientPanel1.add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, -1, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/admin.png"))); // NOI18N
         kGradientPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 6, -1, -1));
@@ -150,11 +151,19 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
 
         String name = nameJTextField.getText();
 
+        if (!Validator.isValidString(name)) {
+            //Name is not valid
+            JOptionPane.showMessageDialog(null, "Please enter a valid name. Only characters are allowed");
+            nameJTextField.setText("");
+            return;
+        }
+
         Network network = system.getNetworkDirectory().createAndAddNetwork(name);
         nameJTextField.setText("");
 
         if (network != null) {
             populateNetworkTable();
+            JOptionPane.showMessageDialog(null, "Network successfully created");
         } else {
             JOptionPane.showMessageDialog(null, "Network creation failed! Network with same name already exists in the system. Please check.");
             return;
@@ -168,6 +177,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         Component component = componentArray[componentArray.length - 1];
         SystemAdminWorkAreaJPanel sysAdminwjp = (SystemAdminWorkAreaJPanel) component;
         sysAdminwjp.populateTree();
+
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed

@@ -11,6 +11,7 @@ import business.network.Network;
 import business.organization.Organization;
 import java.awt.CardLayout;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -33,6 +34,8 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         this.setSize(1200, 750);
         this.userProcessContainer = userProcessContainer;
         this.ecosystem = ecosystem;
+        //btnManageEnterprise.setEnabled(false);
+        //btnManageAdmin.setEnabled(false);
         //Tree which shows the hierarchy of the EcoSystem
         populateTree();
     }
@@ -132,10 +135,13 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
         jPanel2.setPreferredSize(new java.awt.Dimension(1000, 750));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Selected Node:");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, -1, -1));
 
         lblSelectedNode.setText("<View_selected_node>");
+        jPanel2.add(lblSelectedNode, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, -1));
 
         btnManageNetwork.setBackground(new java.awt.Color(255, 255, 255));
         btnManageNetwork.setText("Manage Network");
@@ -144,6 +150,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                 btnManageNetworkActionPerformed(evt);
             }
         });
+        jPanel2.add(btnManageNetwork, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 294, -1));
 
         btnManageEnterprise.setBackground(new java.awt.Color(255, 255, 255));
         btnManageEnterprise.setText("Manage Enterprise");
@@ -152,6 +159,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                 btnManageEnterpriseActionPerformed(evt);
             }
         });
+        jPanel2.add(btnManageEnterprise, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 294, -1));
 
         btnManageAdmin.setBackground(new java.awt.Color(255, 255, 255));
         btnManageAdmin.setText("Manage Enterprise Admin");
@@ -160,52 +168,10 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                 btnManageAdminActionPerformed(evt);
             }
         });
+        jPanel2.add(btnManageAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 294, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/admin.png"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblSelectedNode)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnManageAdmin)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnManageEnterprise, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnManageNetwork, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(lblSelectedNode)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel6)))
-                .addGap(9, 9, 9)
-                .addComponent(btnManageNetwork)
-                .addGap(18, 18, 18)
-                .addComponent(btnManageEnterprise)
-                .addGap(18, 18, 18)
-                .addComponent(btnManageAdmin)
-                .addContainerGap(175, Short.MAX_VALUE))
-        );
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 6, -1, -1));
 
         jSplitPane.setRightComponent(jPanel2);
 
@@ -220,6 +186,12 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnManageNetworkActionPerformed
 
     private void btnManageEnterpriseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageEnterpriseActionPerformed
+        //check if network is created
+        if (ecosystem.getNetworkDirectory().getNetworkList().size() == 0) {
+            JOptionPane.showMessageDialog(null, "Please create a network before creating an enpterprise");
+            return;
+        }
+
         ManageEnterpriseJPanel manageEnterpriseJPanel = new ManageEnterpriseJPanel(userProcessContainer, ecosystem);
         userProcessContainer.add("manageEnterpriseJPanel", manageEnterpriseJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -227,6 +199,21 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnManageEnterpriseActionPerformed
 
     private void btnManageAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageAdminActionPerformed
+        boolean isEnterprisePresent = false;
+        for (Network network : ecosystem.getNetworkDirectory().getNetworkList()) {
+            //If network exists
+            for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
+                //If enterprise exists
+                isEnterprisePresent = true;
+                break;
+            }
+        }
+
+        if (!isEnterprisePresent) {
+            JOptionPane.showMessageDialog(null, "Please create an enterprise before creating an admin");
+            return;
+        }
+
         ManageEnterpriseAdminJPanel manageEnterpriseAdminJPanel = new ManageEnterpriseAdminJPanel(userProcessContainer, ecosystem);
         userProcessContainer.add("manageEnterpriseAdminJPanel", manageEnterpriseAdminJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
