@@ -8,7 +8,6 @@ package userinterface.chemist.workerrole;
 import business.drug.Drug;
 import business.workqueue.WorkRequestDrugs;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.util.List;
 import javax.swing.JPanel;
@@ -26,32 +25,37 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private WorkRequestDrugs workRequestDrugs;
+
     public ViewEditDrugsOrderJpanel(JPanel userProcessContainer, WorkRequestDrugs workRequestDrugs) {
         initComponents();
         //drugquantity.setEnabled(false);
         //drugquantity.setOpaque(false);
-        ((DefaultTableCellRenderer)drugquantity.getDefaultRenderer(Object.class)).setOpaque(false);
+        ((DefaultTableCellRenderer) drugquantity.getDefaultRenderer(Object.class)).setOpaque(false);
+        //((DefaultTableCellRenderer) drugquantity.getDefaultRenderer(Object.class)).setBackground(Color.red);
+        //headerRenderer
         jScrollPane1.setOpaque(false);
         jScrollPane1.getViewport().setOpaque(false);
         save.setEnabled(false);
         addRow.setEnabled(false);
         drugquantity.setShowGrid(true);
         //drugquantity.getTableHeader().setOpaque(false);
-        drugquantity.getTableHeader().setBackground(Color.BLUE);
-        drugquantity.getTableHeader().setForeground(Color.BLACK);
-        
+        // drugquantity.getTableHeader().setBackground(Color.BLUE);
+        //drugquantity.getTableHeader().setForeground(Color.BLACK);
+
+        //JTableHeader tableHeader = drugquantity.getTableHeader();
+        //tableHeader.setBackground(Color.red);
         this.setSize(1480, 1050);
         this.userProcessContainer = userProcessContainer;
         this.workRequestDrugs = workRequestDrugs;
-        
+
         populateRequestTable();
     }
-    
-    public void populateRequestTable(){
+
+    public void populateRequestTable() {
         DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
-        
+
         model.setRowCount(0);
-        for (Drug drug : workRequestDrugs.getDrugsOrderList()){         
+        for (Drug drug : workRequestDrugs.getDrugsOrderList()) {
             Object[] row = new Object[2];
             row[0] = drug.getName();
             row[1] = drug.getQuantity();
@@ -154,7 +158,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         Component component = componentArray[componentArray.length - 1];
         WorkerWorkAreaJPanel workAreaJPanel = (WorkerWorkAreaJPanel) component;
         workAreaJPanel.populateRequestTable();
-        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backActionPerformed
 
@@ -168,29 +172,28 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
 
     private void addRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRowActionPerformed
         DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
-        model.addRow(new Object[]{"",""});
+        model.addRow(new Object[]{"", ""});
     }//GEN-LAST:event_addRowActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-         List<Drug> orderList=workRequestDrugs.getDrugsOrderList();
-         orderList.removeAll(orderList);
-         DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
-         int nRow = model.getRowCount();
-         for (int i = 0; i < nRow; i++) {
-             if(model.getValueAt(i,0)!=null && model.getValueAt(i,1)!=null){
-             Drug newDrug= new Drug();
-             newDrug.setName(String.valueOf(model.getValueAt(i,0)));
-             newDrug.setQuantity(Integer.parseInt((String)model.getValueAt(i,1)));
-             orderList.add(newDrug);
-             }
+        List<Drug> orderList = workRequestDrugs.getDrugsOrderList();
+        orderList.removeAll(orderList);
+        DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
+        int nRow = model.getRowCount();
+        for (int i = 0; i < nRow; i++) {
+            if (model.getValueAt(i, 0) != null && model.getValueAt(i, 1) != null) {
+                Drug newDrug = new Drug();
+                newDrug.setName(String.valueOf(model.getValueAt(i, 0)));
+                newDrug.setQuantity(Integer.parseInt((String) model.getValueAt(i, 1)));
+                orderList.add(newDrug);
+            }
         }
-         drugquantity.setEnabled(false);
+        drugquantity.setEnabled(false);
         addRow.setEnabled(false);
         save.setEnabled(false);
         update.setEnabled(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_saveActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addRow;
