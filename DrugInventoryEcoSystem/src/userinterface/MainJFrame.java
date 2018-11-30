@@ -33,7 +33,7 @@ public class MainJFrame extends javax.swing.JFrame {
         initComponents();
         //Retrieving the system from the file
         system = dB4OUtil.retrieveSystem();
-        this.setSize(1680, 1050);
+        this.setSize(1200, 750);
         jButtonLogIn.setEnabled(true);
         jButtonLogOut.setEnabled(false);
     }

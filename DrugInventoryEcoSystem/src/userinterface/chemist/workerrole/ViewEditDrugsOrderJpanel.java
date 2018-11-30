@@ -86,7 +86,6 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
 
         kGradientPanel1.setkEndColor(new java.awt.Color(102, 204, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(183, 248, 230));
-        kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -107,13 +106,10 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         drugquantity.setOpaque(false);
         jScrollPane1.setViewportView(drugquantity);
 
-        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 580, 230));
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("View and Update Order Details");
         jLabel1.setAlignmentX(740.0F);
         jLabel1.setAlignmentY(245.0F);
-        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, -1, -1));
 
         update.setText("Update");
         update.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +117,6 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
                 updateActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 400, -1, -1));
 
         addRow.setText("Add Row");
         addRow.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +124,6 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
                 addRowActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(addRow, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 370, -1, -1));
 
         save.setText("Save");
         save.addActionListener(new java.awt.event.ActionListener() {
@@ -137,7 +131,6 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
                 saveActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 400, -1, -1));
 
         back.setText("Back");
         back.addActionListener(new java.awt.event.ActionListener() {
@@ -145,7 +138,46 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
                 backActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
+        kGradientPanel1.setLayout(kGradientPanel1Layout);
+        kGradientPanel1Layout.setHorizontalGroup(
+            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(back)
+                        .addGap(146, 146, 146)
+                        .addComponent(jLabel1))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                .addComponent(update)
+                                .addGap(217, 217, 217)
+                                .addComponent(addRow)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(save))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(25, 25, 25))
+        );
+        kGradientPanel1Layout.setVerticalGroup(
+            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(back)
+                    .addComponent(jLabel1))
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(update)
+                    .addComponent(addRow)
+                    .addComponent(save))
+                .addGap(36, 36, 36))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
