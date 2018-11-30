@@ -14,5 +14,5 @@ public class Constants {
     public static final String chemistCoworkerRequestCreated="Not send for Approval";
     public static final String Approve="Approved";
     public static final String Reject="Rejected";
-    
+    public static final String sentToSupplier="Sent to supplier";
 }
