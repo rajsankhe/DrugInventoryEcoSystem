@@ -141,6 +141,13 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
         }
          workRequestDrugs.setStatus(Constants.chemistCoworkerRequestCreated);
         userAccount.getWorkQueue().addWorkRequest(workRequestDrugs);
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        WorkerWorkAreaJPanel workAreaJPanel = (WorkerWorkAreaJPanel) component;
+        workAreaJPanel.populateRequestTable();
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
     }//GEN-LAST:event_submitActionPerformed
 
     private void addRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRowActionPerformed
