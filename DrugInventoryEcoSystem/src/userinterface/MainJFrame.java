@@ -14,6 +14,7 @@ import business.useraccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import userinterface.logout.LogOutScreen;
 
 /**
  *
@@ -66,6 +67,8 @@ public class MainJFrame extends javax.swing.JFrame {
         jSplitPane1.setPreferredSize(new java.awt.Dimension(1200, 750));
 
         jPanel1.setBackground(new java.awt.Color(23, 35, 51));
+        jPanel1.setMaximumSize(new java.awt.Dimension(100, 750));
+        jPanel1.setMinimumSize(new java.awt.Dimension(100, 750));
         jPanel1.setPreferredSize(new java.awt.Dimension(100, 750));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -80,21 +83,27 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jButtonLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/logout_btn.png"))); // NOI18N
         jButtonLogOut.setText("Log Out");
+        jButtonLogOut.setMaximumSize(new java.awt.Dimension(90, 36));
+        jButtonLogOut.setMinimumSize(new java.awt.Dimension(90, 36));
+        jButtonLogOut.setPreferredSize(new java.awt.Dimension(77, 36));
         jButtonLogOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLogOutActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 683, -1, -1));
+        jPanel1.add(jButtonLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 90, 36));
 
         jButtonLogIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/login_btn.png"))); // NOI18N
         jButtonLogIn.setText("Log In");
+        jButtonLogIn.setMaximumSize(new java.awt.Dimension(90, 36));
+        jButtonLogIn.setMinimumSize(new java.awt.Dimension(90, 36));
+        jButtonLogIn.setPreferredSize(new java.awt.Dimension(90, 36));
         jButtonLogIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLogInActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 635, 90, -1));
+        jPanel1.add(jButtonLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 620, 90, 36));
         jPanel1.add(jPasswordFieldLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 126, 87, -1));
 
         jSplitPane1.setLeftComponent(jPanel1);
@@ -158,7 +167,7 @@ public class MainJFrame extends javax.swing.JFrame {
                             }
 
                         }
-                        if(userAccount != null){
+                        if (userAccount != null) {
                             inEnterprise = enterprise;
                             break;
                         }
@@ -193,8 +202,8 @@ public class MainJFrame extends javax.swing.JFrame {
         jPasswordFieldLogin.setText("");
 
         container.removeAll();
-        JPanel blankJP = new JPanel();
-        container.add("blank", blankJP);
+        JPanel logoutPanel = new LogOutScreen();
+        container.add("logoutScreen", logoutPanel);
         CardLayout crdLyt = (CardLayout) container.getLayout();
         crdLyt.next(container);
         dB4OUtil.storeSystem(system);
