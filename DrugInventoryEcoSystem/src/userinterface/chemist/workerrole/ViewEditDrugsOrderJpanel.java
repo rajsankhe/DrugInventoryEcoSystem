@@ -9,9 +9,11 @@ import business.drug.Drug;
 import business.workqueue.WorkRequestDrugs;
 import commonutils.Constants;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,16 +29,23 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
     private WorkRequestDrugs workRequestDrugs;
     public ViewEditDrugsOrderJpanel(JPanel userProcessContainer, WorkRequestDrugs workRequestDrugs) {
         initComponents();
-        drugquantity.setEnabled(false);
+        //drugquantity.setEnabled(false);
+        //drugquantity.setOpaque(false);
+        ((DefaultTableCellRenderer)drugquantity.getDefaultRenderer(Object.class)).setOpaque(false);
+        jScrollPane1.setOpaque(false);
+        jScrollPane1.getViewport().setOpaque(false);
         save.setEnabled(false);
         addRow.setEnabled(false);
         update.setEnabled(true);
-        this.setSize(1680, 1050);
         this.userProcessContainer = userProcessContainer;
         this.workRequestDrugs = workRequestDrugs;
         if(workRequestDrugs.getStatus()==Constants.Approve || workRequestDrugs.getStatus() == Constants.chemistCoworkerSendForApproval){
            update.setEnabled(false); 
         }
+        drugquantity.setShowGrid(true);
+        drugquantity.getTableHeader().setBackground(Color.BLUE);
+        drugquantity.getTableHeader().setForeground(Color.BLACK);
+        this.setSize(1480, 1050);
         populateRequestTable();
     }
     
@@ -56,44 +65,22 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        update = new javax.swing.JButton();
-        save = new javax.swing.JButton();
-        back = new javax.swing.JButton();
-        addRow = new javax.swing.JButton();
+        kGradientPanel1 = new keeptoo.KGradientPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         drugquantity = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        update = new javax.swing.JButton();
+        addRow = new javax.swing.JButton();
+        save = new javax.swing.JButton();
+        back = new javax.swing.JButton();
 
-        jLabel1.setText("View Drugs Order");
+        kGradientPanel1.setkEndColor(new java.awt.Color(102, 204, 255));
+        kGradientPanel1.setkStartColor(new java.awt.Color(183, 248, 230));
+        kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        update.setText("Update");
-        update.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateActionPerformed(evt);
-            }
-        });
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        save.setText("Save");
-        save.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveActionPerformed(evt);
-            }
-        });
-
-        back.setText("Back");
-        back.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backActionPerformed(evt);
-            }
-        });
-
-        addRow.setText("Add Row");
-        addRow.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addRowActionPerformed(evt);
-            }
-        });
-
+        drugquantity.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         drugquantity.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -105,52 +92,60 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
                 "Drug", "Quantity"
             }
         ));
+        drugquantity.setAlignmentX(740.0F);
+        drugquantity.setAlignmentY(245.0F);
+        drugquantity.setOpaque(false);
         jScrollPane1.setViewportView(drugquantity);
+
+        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 580, 230));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("View and Update Order Details");
+        jLabel1.setAlignmentX(740.0F);
+        jLabel1.setAlignmentY(245.0F);
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, -1, -1));
+
+        update.setText("Update");
+        update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 400, -1, -1));
+
+        addRow.setText("Add Row");
+        addRow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addRowActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(addRow, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 370, -1, -1));
+
+        save.setText("Save");
+        save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 400, -1, -1));
+
+        back.setText("Back");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(update)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(save)
-                .addGap(181, 181, 181))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(addRow, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(268, 268, 268)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addComponent(back)))
-                            .addGap(208, 208, 208)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(115, Short.MAX_VALUE))
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(back)
-                .addGap(8, 8, 8)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
-                .addComponent(addRow)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(update)
-                    .addComponent(save))
-                .addContainerGap(66, Short.MAX_VALUE))
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -205,6 +200,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
     private javax.swing.JTable drugquantity;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JButton save;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
