@@ -192,6 +192,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
         }
         
         WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
+        if(!(request.getStatus()==Constants.Approve || request.getStatus() == Constants.chemistCoworkerSendForApproval)){
         Organization org = null;
         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()){
             if (organization instanceof ManagerOrganization){
@@ -205,6 +206,12 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
         }
         request.setStatus(Constants.chemistCoworkerSendForApproval);
         populateRequestTable();
+        }
+        else{
+           JOptionPane.showMessageDialog(null, "Already request send");
+            return; 
+        }
+                
     }//GEN-LAST:event_sendActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

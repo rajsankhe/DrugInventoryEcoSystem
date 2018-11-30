@@ -7,6 +7,7 @@ package userinterface.chemist.workerrole;
 
 import business.drug.Drug;
 import business.workqueue.WorkRequestDrugs;
+import commonutils.Constants;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.List;
@@ -37,6 +38,12 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         jScrollPane1.getViewport().setOpaque(false);
         save.setEnabled(false);
         addRow.setEnabled(false);
+        update.setEnabled(true);
+        this.userProcessContainer = userProcessContainer;
+        this.workRequestDrugs = workRequestDrugs;
+        if (workRequestDrugs.getStatus() == Constants.Approve || workRequestDrugs.getStatus() == Constants.chemistCoworkerSendForApproval) {
+            update.setEnabled(false);
+        }
         drugquantity.setShowGrid(true);
         //drugquantity.getTableHeader().setOpaque(false);
         // drugquantity.getTableHeader().setBackground(Color.BLUE);
