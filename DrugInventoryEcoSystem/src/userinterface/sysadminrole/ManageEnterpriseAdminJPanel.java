@@ -8,12 +8,13 @@ import business.EcoSystem;
 import business.employee.Employee;
 import business.enterprise.Enterprise;
 import business.network.Network;
+import business.organization.Organization;
 import business.role.AdminRole;
 import business.role.Role;
 import business.useraccount.UserAccount;
-import commonutils.Email;
 import commonutils.PasswordUtility;
 import commonutils.Validator;
+import commonutils.email.SendEmail;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
@@ -241,6 +242,23 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
             return;
         }
 
+        //check whether username assigned is used anywhere
+        for (Network network : system.getNetworkDirectory().getNetworkList()) {
+            for (Enterprise e : network.getEnterpriseDirectory().getEnterpriseList()) {
+                if (e.getUserAccountDirectory().isUserExists(username)) {
+                    JOptionPane.showMessageDialog(null, "Account with the username passed already exists in the system! Please check");
+                    return;
+                }
+
+                for (Organization organization : e.getOrganizationDirectory().getOrganizationList()) {
+                    if (organization.getUserAccountDirectory().isUserExists(username)) {
+                        JOptionPane.showMessageDialog(null, "Account with the username passed already exists in the system! Please check");
+                        return;
+                    }
+                }
+            }
+        }
+
         if (!Validator.isValidEmail(emailID)) {
             JOptionPane.showMessageDialog(null, "Email ID is in incorrect format. Please check.");
             return;
@@ -269,7 +287,9 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         //        }
         //Send email to user with password.
         try {
-            Email.sendMail(username, emailID, password);
+            SendEmail sendEmail = new SendEmail();
+
+            sendEmail.sendMail(username, emailID, password);
         } catch (Exception exception) {
             JOptionPane.showMessageDialog(null, "We were unable to send mail to the desired recepient! Please contact system administrator");
             exception.printStackTrace();
