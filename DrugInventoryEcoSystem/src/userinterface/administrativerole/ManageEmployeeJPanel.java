@@ -8,7 +8,9 @@ package userinterface.administrativerole;
 import business.employee.Employee;
 import business.organization.Organization;
 import business.organization.OrganizationDirectory;
+import commonutils.Validator;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -180,8 +182,22 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
 
         Organization organization = (Organization) organizationEmpJComboBox.getSelectedItem();
         String name = nameJTextField.getText();
+        nameJTextField.setText("");
+        organizationEmpJComboBox.setSelectedIndex(0);
+        if (!Validator.isValidStringWithSpaces(name)) {
+            JOptionPane.showMessageDialog(null, "Name passed is invalid. Only alphabest and spaces are allowed");
+            return;
+        }
+
+        for (Employee employee : organization.getEmployeeDirectory().getEmployeeList()) {
+            if (employee.getName().equalsIgnoreCase(name)) {
+                JOptionPane.showMessageDialog(null, "Employee with same name exists in the organization");
+                return;
+            }
+        }
 
         organization.getEmployeeDirectory().createEmployee(name);
+        JOptionPane.showMessageDialog(null, "Employee created successfully.");
         populateTable(organization);
 
     }//GEN-LAST:event_addJButtonActionPerformed

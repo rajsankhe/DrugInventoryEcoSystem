@@ -105,16 +105,26 @@ public class Validator {
     }
 
     public static boolean isValidEmail(String emailStr) {
+        if (emailStr.isEmpty()) {
+            return false;
+        }
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.find();
     }
 
     public static boolean isValidStringWithSpaces(String nameStr) {
+        if (nameStr.isEmpty()) {
+            return false;
+        }
         Matcher matcher = VALID_STRING_WITH_SPACES.matcher(nameStr);
         return matcher.find();
     }
 
     public static boolean isValidAlphaNum(String str) {
+        if (str.isEmpty()) {
+            return false;
+        }
+
         Matcher matcher = VALID_ALPHA_NUMERIC.matcher(str);
         return matcher.find();
     }

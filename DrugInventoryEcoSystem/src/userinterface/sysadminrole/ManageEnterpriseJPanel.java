@@ -193,6 +193,8 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         String name = nameJTextField.getText();
 
         nameJTextField.setText("");
+        networkJComboBox.setSelectedIndex(0);
+        enterpriseTypeJComboBox.setSelectedIndex(0);
 
         if (!Validator.isValidAlphaNum(name)) {
             //Name is not valid

@@ -190,6 +190,17 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         Employee employee = (Employee) employeeJComboBox.getSelectedItem();
         Role role = (Role) roleJComboBox.getSelectedItem();
 
+        organizationJComboBox.setSelectedIndex(0);
+        employeeJComboBox.setSelectedIndex(0);
+        roleJComboBox.setSelectedIndex(0);
+        nameJTextField.setText("");
+        emailIdJTextField.setText("");
+
+        if (employee == null || role == null) {
+            JOptionPane.showMessageDialog(null, "Please fill correct information in employee and role fields");
+            return;
+        }
+
         UserAccount userAccount = organization.getUserAccountDirectory().createUserAccount(userName, password, emailID, employee, role);
 
         if (userAccount == null) {
@@ -206,6 +217,8 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "We were unable to send mail to the desired recepient! Please contact system administrator");
             exception.printStackTrace();
         }
+
+        JOptionPane.showMessageDialog(null, "User created successfully. Please check email for login credentials.");
         popData();
     }//GEN-LAST:event_createUserJButtonActionPerformed
 

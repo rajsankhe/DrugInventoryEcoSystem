@@ -10,7 +10,9 @@ import business.enterprise.Enterprise.EnterpriseType;
 import business.organization.Organization;
 import business.organization.Organization.OrganizationType;
 import business.organization.OrganizationDirectory;
+import commonutils.Validator;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -178,7 +180,22 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
 
         OrganizationType type = (OrganizationType) organizationJComboBox.getSelectedItem();
         String orgName = orgNameJTextField.getText();
+        orgNameJTextField.setText("");
+        if (!Validator.isValidAlphaNum(orgName)) {
+            JOptionPane.showMessageDialog(null, "Organization name is invalid. Only alphanumeric characters are allowed. Please check");
+            return;
+        }
+
+        //check if organization with same name exists in the system
+        for (Organization organization : directory.getOrganizationList()) {
+            if (organization.getName().equalsIgnoreCase(orgName)) {
+                JOptionPane.showMessageDialog(null, "Organization with the same name exists in this enterprise. Please check");
+                return;
+            }
+        }
+
         directory.createOrganization(orgName, type);
+        JOptionPane.showMessageDialog(null, "Organization created successfully");
         populateTable();
     }//GEN-LAST:event_addJButtonActionPerformed
 
