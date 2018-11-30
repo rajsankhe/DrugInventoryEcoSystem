@@ -14,12 +14,12 @@ import java.util.List;
  * @author vivekdalal
  */
 public class ChemistEnterprise extends Enterprise {
+
     private Inventory inventory;
-    
-    
-    public ChemistEnterprise(String name, EnterpriseType type) {
-        super(name, type);
-        inventory= new Inventory();
+
+    public ChemistEnterprise(String name, EnterpriseType type, int id) {
+        super(name, type, id);
+        inventory = new Inventory();
     }
 
     @Override

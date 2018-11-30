@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class ManagerOrganization extends Organization {
 
-    public ManagerOrganization(String name, OrganizationType type) {
-        super(name);
+    public ManagerOrganization(String name, OrganizationType type, int id) {
+        super(name, id);
     }
 
     @Override

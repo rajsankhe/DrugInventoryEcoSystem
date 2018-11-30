@@ -41,15 +41,15 @@ public class EnterpriseDirectory {
         }
 
         if (type == Enterprise.EnterpriseType.Chemist) {
-            enterprise = new ChemistEnterprise(name, type);
+            enterprise = new ChemistEnterprise(name, type, enterpriseList.size());
         } else if (type == Enterprise.EnterpriseType.Legal) {
-            enterprise = new LegalEnterprise(name, type);
+            enterprise = new LegalEnterprise(name, type, enterpriseList.size());
         } else if (type == Enterprise.EnterpriseType.Manufacturer) {
-            enterprise = new ManufacturerEnterprise(name, type);
+            enterprise = new ManufacturerEnterprise(name, type, enterpriseList.size());
         } else if (type == Enterprise.EnterpriseType.Transporter) {
-            enterprise = new TransportationEnterprise(name, type);
+            enterprise = new TransportationEnterprise(name, type, enterpriseList.size());
         } else if (type == Enterprise.EnterpriseType.Supplier) {
-            enterprise = new SupplierEnterprise(name, type);
+            enterprise = new SupplierEnterprise(name, type, enterpriseList.size());
         }
 
         enterpriseList.add(enterprise);

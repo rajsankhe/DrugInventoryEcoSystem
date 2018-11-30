@@ -82,6 +82,8 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         organizationEmpJComboBox = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(71, 120, 197));
+
         organizationJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},

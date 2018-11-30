@@ -24,17 +24,17 @@ public abstract class Organization {
     //left
     //use UUID
     private int organizationID;
-    private static int counter = 0;
+    //private static int counter = 0;
     private OrganizationType organizationType;
 
-    public Organization(String name) {
+    public Organization(String name, int id) {
         this.name = name;
         //left
         workQueue = new WorkQueue();
         this.employeeDirectory = new EmployeeDirectory();
         this.userAccountDirectory = new UserAccountDirectory();
-        this.organizationID = counter;
-        ++counter;
+        this.organizationID = id;
+        //++counter;
     }
 
     public enum OrganizationType {

@@ -88,6 +88,8 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         orgNameJTextField = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(71, 120, 197));
+
         organizationJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
