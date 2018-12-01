@@ -154,7 +154,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         });
         kGradientPanel1.add(addJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 439, -1, 50));
 
-        kGradientPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, 81, -1));
+        kGradientPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, 200, -1));
 
         jLabel1.setText("Organization Type ");
         kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, -1, -1));
@@ -169,7 +169,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
 
         jLabel2.setText("Organization Name ");
         kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 400, -1, -1));
-        kGradientPanel1.add(orgNameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 400, 81, -1));
+        kGradientPanel1.add(orgNameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 400, 200, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 51, 255));
