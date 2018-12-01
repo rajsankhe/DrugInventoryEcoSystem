@@ -112,7 +112,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resources/icons/logout_btn.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Log Out"/>
+                <Property name="text" type="java.lang.String" value="Out"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[90, 36]"/>
                 </Property>
@@ -137,7 +137,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resources/icons/login_btn.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Log In"/>
+                <Property name="text" type="java.lang.String" value="In"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[90, 36]"/>
                 </Property>

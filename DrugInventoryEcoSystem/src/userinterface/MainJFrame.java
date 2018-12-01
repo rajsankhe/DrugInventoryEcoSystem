@@ -82,7 +82,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jPanel1.add(jTextFieldUn, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 63, 87, -1));
 
         jButtonLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/logout_btn.png"))); // NOI18N
-        jButtonLogOut.setText("Log Out");
+        jButtonLogOut.setText("Out");
         jButtonLogOut.setMaximumSize(new java.awt.Dimension(90, 36));
         jButtonLogOut.setMinimumSize(new java.awt.Dimension(90, 36));
         jButtonLogOut.setPreferredSize(new java.awt.Dimension(77, 36));
@@ -94,7 +94,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jPanel1.add(jButtonLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 90, 36));
 
         jButtonLogIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/login_btn.png"))); // NOI18N
-        jButtonLogIn.setText("Log In");
+        jButtonLogIn.setText("In");
         jButtonLogIn.setMaximumSize(new java.awt.Dimension(90, 36));
         jButtonLogIn.setMinimumSize(new java.awt.Dimension(90, 36));
         jButtonLogIn.setPreferredSize(new java.awt.Dimension(90, 36));
