@@ -41,6 +41,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         save.setEnabled(false);
         addRow.setEnabled(false);
         update.setEnabled(true);
+        jButtonDelete.setEnabled(false);
         drugquantity.setEnabled(false);
         drugquantity.setSize(300, 64);
         this.userProcessContainer = userProcessContainer;
@@ -68,7 +69,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         model.setRowCount(0);
         for (Drug drug : workRequestDrugs.getDrugsOrderList()) {
             Object[] row = new Object[2];
-            row[0] = drug.getName();
+            row[0] = drug;
             row[1] = Integer.toString(drug.getQuantity());
             model.addRow(row);
         }
@@ -86,6 +87,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         addRow = new javax.swing.JButton();
         save = new javax.swing.JButton();
         back = new javax.swing.JButton();
+        jButtonDelete = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1200, 750));
 
@@ -151,6 +153,13 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
             }
         });
 
+        jButtonDelete.setText("Delete Row");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -165,9 +174,11 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
                     .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(kGradientPanel1Layout.createSequentialGroup()
                             .addComponent(update)
-                            .addGap(202, 202, 202)
+                            .addGap(142, 142, 142)
                             .addComponent(addRow)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonDelete)
+                            .addGap(115, 115, 115)
                             .addComponent(save))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(485, 485, 485))
@@ -185,7 +196,8 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(update)
                     .addComponent(addRow)
-                    .addComponent(save))
+                    .addComponent(save)
+                    .addComponent(jButtonDelete))
                 .addContainerGap(362, Short.MAX_VALUE))
         );
 
@@ -217,6 +229,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         drugquantity.setEnabled(true);
         addRow.setEnabled(true);
         save.setEnabled(true);
+        jButtonDelete.setEnabled(true);
         update.setEnabled(false);
     }//GEN-LAST:event_updateActionPerformed
 
@@ -226,44 +239,58 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
     }//GEN-LAST:event_addRowActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-         List<Drug> orderList=workRequestDrugs.getDrugsOrderList();
-//         List<Drug> newOrderList= new ArrayList<Drug>();
-         orderList.clear();
-         try{
-         DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
-         int nRow = model.getRowCount();
-         for (int i = 0; i < nRow; i++) {
-             if(model.getValueAt(i,0)!=null && model.getValueAt(i,1)!=null){
-             Drug newDrug= new Drug();
-             newDrug.setName(String.valueOf(model.getValueAt(i,0)));
-             newDrug.setQuantity(Integer.parseInt((String)model.getValueAt(i,1)));
-             orderList.add(newDrug);
-             }
-        }
-         }
-        catch(Exception e){
+        List<Drug> orderList = new ArrayList<>();
+        try {
+            DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
+            int nRow = model.getRowCount();
+            for (int i = 0; i < nRow; i++) {
+                if (model.getValueAt(i, 0) != null && model.getValueAt(i, 1) != null) {
+                    Drug newDrug = new Drug();
+                    newDrug.setName(String.valueOf(model.getValueAt(i, 0)));
+                    newDrug.setQuantity(Integer.parseInt((String) model.getValueAt(i, 1)));
+                    orderList.add(newDrug);
+                }
+            }
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please enter integer value in quantity field.");
             return;
         }
-         if(!orderList.isEmpty()){
-             drugquantity.setEnabled(false);
-        addRow.setEnabled(false);
-        save.setEnabled(false);
-        update.setEnabled(true);
-        JOptionPane.showMessageDialog(null, "Order list updated.");
-         }
-         else{
+        if (!orderList.isEmpty()) {
+            workRequestDrugs.setDrugsOrderList(orderList);
+            drugquantity.setEnabled(false);
+            addRow.setEnabled(false);
+            save.setEnabled(false);
+            jButtonDelete.setEnabled(false);
+            update.setEnabled(true);
+            JOptionPane.showMessageDialog(null, "Order list updated.");
+        } else {
             JOptionPane.showMessageDialog(null, "Order list can't be empty.");
             return;
         }
-         
+
         // TODO add your handling code here:
     }//GEN-LAST:event_saveActionPerformed
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = drugquantity.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select row");
+            return;
+        }
+
+        Drug drug = (Drug) drugquantity.getValueAt(selectedRow, 0);
+        workRequestDrugs.getDrugsOrderList().remove(drug);
+        populateRequestTable();
+        
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addRow;
     private javax.swing.JButton back;
     private javax.swing.JTable drugquantity;
+    private javax.swing.JButton jButtonDelete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
