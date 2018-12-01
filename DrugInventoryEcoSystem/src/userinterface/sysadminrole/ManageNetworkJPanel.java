@@ -48,7 +48,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
 
         for (Network network : system.getNetworkDirectory().getNetworkList()) {
             Object[] row = new Object[1];
-            row[0] = network.getName();
+            row[0] = network;
             model.addRow(row);
         }
     }
@@ -71,6 +71,8 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         backJButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        editNetworkjButton = new javax.swing.JButton();
+        deleteNetworkjButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setMaximumSize(new java.awt.Dimension(1200, 750));
@@ -99,16 +101,9 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                 "Name"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class
-            };
             boolean[] canEdit = new boolean [] {
                 false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -125,7 +120,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 420, 140));
 
         jLabel1.setText("Name");
-        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, -1, -1));
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 400, -1, -1));
 
         submitJButton.setBackground(new java.awt.Color(255, 255, 255));
         submitJButton.setText("Submit");
@@ -134,8 +129,8 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                 submitJButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 380, -1, -1));
-        kGradientPanel1.add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, 93, -1));
+        kGradientPanel1.add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 330, -1, -1));
+        kGradientPanel1.add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 390, 170, -1));
 
         backJButton.setBackground(new java.awt.Color(255, 255, 255));
         backJButton.setText("<< Back");
@@ -152,7 +147,18 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 51, 255));
         jLabel7.setText("Manage Network");
-        kGradientPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 380, 50));
+        kGradientPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 380, 50));
+
+        editNetworkjButton.setText("Edit");
+        editNetworkjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editNetworkjButtonActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(editNetworkjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, -1, -1));
+
+        deleteNetworkjButton.setText("Delete");
+        kGradientPanel1.add(deleteNetworkjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, -1, -1));
 
         add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 750));
     }// </editor-fold>//GEN-END:initComponents
@@ -192,8 +198,51 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed
 
+    private void editNetworkjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editNetworkjButtonActionPerformed
+        // TODO add your handling code here:
+//        int selectedRow = networkJTable.getSelectedRow();
+//
+//        if (selectedRow < 0) {
+//            JOptionPane.showMessageDialog(null, "Please select row");
+//            return;
+//        }
+//
+//        Network network = (Network) networkJTable.getValueAt(selectedRow, 0);
+//
+//        String oldName = network.getName();
+//        JFrame frame = new JFrame();
+//        String message = (String) JOptionPane.showInputDialog(frame,
+//                "Enter the new Name for Network",
+//                "Update Network",
+//                JOptionPane.OK_CANCEL_OPTION);
+//
+//        if (!Validator.isValidAlphaNum(message)) {
+//            //Name is not valid
+//            JOptionPane.showMessageDialog(null, "Please enter a valid name. Only characters and numbers are allowed");
+//            nameJTextField.setText("");
+//            return;
+//        }
+//
+//        network.setName(message);
+//
+//        //Update network in the list
+//        for (Network n : system.getNetworkDirectory().getNetworkList()) {
+//            if (n.getName().equalsIgnoreCase(oldName)) {
+//                //Found the network
+//                //n.setName(message);
+//
+//                break;
+//            }
+//        }
+//
+//        populateNetworkTable();
+
+    }//GEN-LAST:event_editNetworkjButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backJButton;
+    private javax.swing.JButton deleteNetworkjButton;
+    private javax.swing.JButton editNetworkjButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
