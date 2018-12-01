@@ -184,8 +184,8 @@ public class AssignToSupplier extends javax.swing.JPanel {
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
-        WorkerWorkAreaJPanel workAreaJPanel = (WorkerWorkAreaJPanel) component;
-        workAreaJPanel.populateRequestTable();
+        ManagerWorkAreaJPanel managerWorkAreaJPanel = (ManagerWorkAreaJPanel) component;
+        managerWorkAreaJPanel.populateRequestTable();
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backActionPerformed
