@@ -192,9 +192,31 @@ public class AssignToSupplier extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        List<Network> networkList=  ecosystem.getNetworkDirectory().getNetworkList();
+        String networkName = networkDropdown.getSelectedItem().toString();
+        Network networkSelected = networkList.stream()
+                .filter(network -> networkName.equals(network.getName()))
+                .findAny()
+                .orElse(null);
         if(networkDropdown.getSelectedItem()!= null && enterpriseDropdown.getSelectedItem()!= null)
         {
+             String enterpriseName = enterpriseDropdown.getSelectedItem().toString();
+        List<Enterprise> enterpriseList=networkSelected.getEnterpriseDirectory().getEnterpriseList();
+            Enterprise enterpriseSelected=enterpriseList.stream()
+                .filter(enterprise -> enterpriseName.equals(enterprise.getName()))
+                .findAny()
+                .orElse(null);
+            Organization org= null;
+        for (Organization organization : enterpriseSelected.getOrganizationDirectory().getOrganizationList()){
+            if (organization instanceof ApproverOrganization){
+                org = organization;
+                break;
+            }
+        }
+        org.getWorkQueue().getWorkRequestList().add(request);
             request.setStatus(Constants.sentToSupplier);
+            request.setSender(request.getReceiver());
+            request.setReceiver(null);
             JOptionPane.showMessageDialog(null, "Request send to supplier");
         }
         else
@@ -222,7 +244,7 @@ public class AssignToSupplier extends javax.swing.JPanel {
              enterpriseList=networkSelected.getEnterpriseDirectory().getEnterpriseList();
         }
         if(enterpriseList!= null)
-        enterpriseList.stream().forEach(enterprise -> enterpriseDropdown.addItem(enterprise.getName()));      
+        enterpriseList.stream().forEach(enterprise -> enterpriseDropdown.addItem(enterprise.getName()));   
     }//GEN-LAST:event_networkDropdownItemStateChanged
 
     private void networkDropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_networkDropdownActionPerformed

@@ -271,35 +271,6 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_viewRequestActionPerformed
 
-    private void rejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectActionPerformed
-        // TODO add your handling code here:
-        int selectedRow = workRequestJTable.getSelectedRow();
-        
-        if (selectedRow < 0){
-            JOptionPane.showMessageDialog(null, "Please select row");
-            return;
-        }
-        
-        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
-        if(request.getReceiver()== userAccount){
-        request.setStatus(Constants.Reject);
-        JFrame frame = new JFrame();
-             String message = (String) JOptionPane.showInputDialog(frame, 
-        "Enter the message",
-        Constants.Reject+" message",
-        JOptionPane.OK_CANCEL_OPTION);
-         request.setMessage(message);
-    
-        organization.getWorkQueue().getWorkRequestList().remove(request);
-        populateRequestTable();
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Assign request to you.");
-        }
-        
-        //WorkRequestDrugs wr= request.getSender().getWorkQueue().getWorkRequestList().stream().filter(x -> x==request).findFirst().get();
-    }//GEN-LAST:event_rejectActionPerformed
-
     private void sendToSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToSupplierActionPerformed
         // TODO add your handling code here:
         int selectedRow = workRequestJTable.getSelectedRow();
@@ -325,6 +296,35 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_sendToSupplierActionPerformed
 
+    private void rejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = workRequestJTable.getSelectedRow();
+
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select row");
+            return;
+        }
+
+        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
+        if(request.getReceiver()== userAccount){
+            request.setStatus(Constants.Reject);
+            JFrame frame = new JFrame();
+            String message = (String) JOptionPane.showInputDialog(frame,
+                "Enter the message",
+                Constants.Reject+" message",
+                JOptionPane.OK_CANCEL_OPTION);
+            request.setMessage(message);
+
+            organization.getWorkQueue().getWorkRequestList().remove(request);
+            populateRequestTable();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Assign request to you.");
+        }
+
+        //WorkRequestDrugs wr= request.getSender().getWorkQueue().getWorkRequestList().stream().filter(x -> x==request).findFirst().get();
+    }//GEN-LAST:event_rejectActionPerformed
+
     private void approveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approveActionPerformed
         // TODO add your handling code here:
         int selectedRow = workRequestJTable.getSelectedRow();
@@ -343,7 +343,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
                 Constants.Approve+" message",
                 JOptionPane.OK_CANCEL_OPTION);
             request.setMessage(message);
-             populateRequestTable();
+            populateRequestTable();
         }
         else{
             JOptionPane.showMessageDialog(null, "Assign request to you.");

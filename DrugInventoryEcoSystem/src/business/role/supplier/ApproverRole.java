@@ -8,9 +8,11 @@ package business.role.supplier;
 import business.EcoSystem;
 import business.enterprise.Enterprise;
 import business.organization.Organization;
+import business.organization.supplier.ApproverOrganization;
 import business.role.Role;
 import business.useraccount.UserAccount;
 import javax.swing.JPanel;
+import userinterface.supplier.approverrole.ApproverWorkAreaJPanel;
 
 /**
  *
@@ -24,8 +26,7 @@ public class ApproverRole extends Role {
 
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {
-        //left
-        return null;
+        return new ApproverWorkAreaJPanel(userProcessContainer,account,(ApproverOrganization)organization,enterprise,business);
     }
 
 }
