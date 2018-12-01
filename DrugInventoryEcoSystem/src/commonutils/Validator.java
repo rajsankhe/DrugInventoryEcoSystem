@@ -132,7 +132,7 @@ public class Validator {
         return matcher.find();
     }
 
-    public static boolean isValidAlphaNum(String str) {
+    public static boolean isValidUsername(String str) {
         if (str.isEmpty()) {
             return false;
         }
