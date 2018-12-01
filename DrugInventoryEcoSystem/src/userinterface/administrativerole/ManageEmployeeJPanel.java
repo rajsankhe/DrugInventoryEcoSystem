@@ -8,7 +8,9 @@ package userinterface.administrativerole;
 import business.employee.Employee;
 import business.organization.Organization;
 import business.organization.OrganizationDirectory;
+import commonutils.Validator;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -34,6 +36,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         jScrollPane1.setOpaque(false);
         jScrollPane1.getViewport().setOpaque(false);
         organizationJTable.setShowGrid(true);
+        organizationJTable.setSize(300, 64);
 
         populateOrganizationComboBox();
         populateOrganizationEmpComboBox();
@@ -89,6 +92,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         organizationEmpJComboBox = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setMaximumSize(new java.awt.Dimension(1200, 750));
@@ -103,6 +107,8 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         kGradientPanel1.setPreferredSize(new java.awt.Dimension(1200, 750));
         kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        organizationJTable.setBackground(new java.awt.Color(102, 255, 204));
+        organizationJTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         organizationJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -129,9 +135,12 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        organizationJTable.setGridColor(new java.awt.Color(0, 0, 0));
+        organizationJTable.setSelectionBackground(new java.awt.Color(102, 255, 204));
+        organizationJTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(organizationJTable);
 
-        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 480, 92));
+        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 800, 170));
 
         addJButton.setText("Create Employee");
         addJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -139,17 +148,17 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
                 addJButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(addJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 380, -1, -1));
+        kGradientPanel1.add(addJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 510, -1, 60));
 
         organizationJComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 organizationJComboBoxActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 81, -1));
+        kGradientPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 81, -1));
 
         jLabel1.setText("Organization");
-        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, -1, -1));
 
         backJButton.setText("<< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -157,21 +166,24 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
                 backJButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, -1, -1));
+        kGradientPanel1.add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, -1, -1));
 
         jLabel2.setText("Name");
-        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 310, -1, -1));
-        kGradientPanel1.add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 126, -1));
+        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 450, -1, -1));
+        kGradientPanel1.add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 440, 126, -1));
 
-        kGradientPanel1.add(organizationEmpJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 81, -1));
+        kGradientPanel1.add(organizationEmpJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 400, 81, -1));
 
         jLabel3.setText("Organization");
-        kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, -1, -1));
+        kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 51, 255));
         jLabel4.setText("Manage Organization");
-        kGradientPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 280, 50));
+        kGradientPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 280, 50));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/admin-internal.png"))); // NOI18N
+        kGradientPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 100));
 
         add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 750));
     }// </editor-fold>//GEN-END:initComponents
@@ -181,7 +193,22 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         Organization organization = (Organization) organizationEmpJComboBox.getSelectedItem();
         String name = nameJTextField.getText();
 
+        organizationEmpJComboBox.setSelectedIndex(0);
+        if (!Validator.isValidStringWithSpaces(name)) {
+            JOptionPane.showMessageDialog(null, "Name passed is invalid. Only alphabest and spaces are allowed");
+            return;
+        }
+
+        for (Employee employee : organization.getEmployeeDirectory().getEmployeeList()) {
+            if (employee.getName().equalsIgnoreCase(name)) {
+                JOptionPane.showMessageDialog(null, "Employee with same name exists in the organization");
+                return;
+            }
+        }
+
         organization.getEmployeeDirectory().createEmployee(name);
+        JOptionPane.showMessageDialog(null, "Employee created successfully.");
+        nameJTextField.setText("");
         populateTable(organization);
 
     }//GEN-LAST:event_addJButtonActionPerformed
@@ -207,6 +234,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JTextField nameJTextField;

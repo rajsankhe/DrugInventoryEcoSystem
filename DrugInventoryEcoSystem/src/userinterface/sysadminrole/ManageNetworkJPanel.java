@@ -36,7 +36,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         jScrollPane1.setOpaque(false);
         jScrollPane1.getViewport().setOpaque(false);
         networkJTable.setShowGrid(true);
-
+        networkJTable.setSize(300, 64);
         populateNetworkTable();
     }
 
@@ -70,6 +70,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         nameJTextField = new javax.swing.JTextField();
         backJButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setMaximumSize(new java.awt.Dimension(1200, 750));
@@ -85,6 +86,8 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         kGradientPanel1.setPreferredSize(new java.awt.Dimension(1200, 750));
         kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        networkJTable.setBackground(new java.awt.Color(153, 255, 255));
+        networkJTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         networkJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
@@ -112,15 +115,17 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
             }
         });
         networkJTable.setGridColor(new java.awt.Color(0, 0, 0));
+        networkJTable.setSelectionBackground(new java.awt.Color(153, 255, 255));
+        networkJTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(networkJTable);
         if (networkJTable.getColumnModel().getColumnCount() > 0) {
             networkJTable.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 420, 140));
+        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 420, 140));
 
         jLabel1.setText("Name");
-        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, -1, -1));
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, -1, -1));
 
         submitJButton.setBackground(new java.awt.Color(255, 255, 255));
         submitJButton.setText("Submit");
@@ -129,8 +134,8 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                 submitJButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 260, -1, -1));
-        kGradientPanel1.add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 93, -1));
+        kGradientPanel1.add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 380, -1, -1));
+        kGradientPanel1.add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, 93, -1));
 
         backJButton.setBackground(new java.awt.Color(255, 255, 255));
         backJButton.setText("<< Back");
@@ -139,10 +144,15 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                 backJButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, -1, -1));
+        kGradientPanel1.add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, -1, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/admin.png"))); // NOI18N
-        kGradientPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 6, -1, -1));
+        kGradientPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 51, 255));
+        jLabel7.setText("Manage Network");
+        kGradientPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 380, 50));
 
         add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 750));
     }// </editor-fold>//GEN-END:initComponents
@@ -186,6 +196,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
     private javax.swing.JButton backJButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JTextField nameJTextField;

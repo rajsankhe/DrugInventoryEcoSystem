@@ -42,9 +42,10 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         addRow.setEnabled(false);
         update.setEnabled(true);
         drugquantity.setEnabled(false);
+        drugquantity.setSize(300, 64);
         this.userProcessContainer = userProcessContainer;
         this.workRequestDrugs = workRequestDrugs;
-        if (workRequestDrugs.getStatus().equals(Constants.Approve) || workRequestDrugs.getStatus().equals(Constants.chemistCoworkerSendForApproval)) {
+        if ((workRequestDrugs.getStatus().equals(Constants.Approve) || workRequestDrugs.getStatus().equals(Constants.chemistCoworkerSendForApproval))) {
             update.setEnabled(false);
         }
         drugquantity.setShowGrid(true);
@@ -54,7 +55,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
 
         //JTableHeader tableHeader = drugquantity.getTableHeader();
         //tableHeader.setBackground(Color.red);
-        this.setSize(1480, 1050);
+        this.setSize(1200, 750);
         this.userProcessContainer = userProcessContainer;
         this.workRequestDrugs = workRequestDrugs;
 
@@ -86,11 +87,16 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         save = new javax.swing.JButton();
         back = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(1200, 750));
+
         kGradientPanel1.setkEndColor(new java.awt.Color(102, 204, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(183, 248, 230));
+        kGradientPanel1.setPreferredSize(new java.awt.Dimension(1200, 750));
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        drugquantity.setBackground(new java.awt.Color(153, 255, 255));
+        drugquantity.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         drugquantity.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         drugquantity.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,7 +111,11 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         ));
         drugquantity.setAlignmentX(740.0F);
         drugquantity.setAlignmentY(245.0F);
+        drugquantity.setGridColor(new java.awt.Color(0, 0, 0));
         drugquantity.setOpaque(false);
+        drugquantity.setPreferredSize(new java.awt.Dimension(300, 64));
+        drugquantity.setSelectionBackground(new java.awt.Color(153, 255, 255));
+        drugquantity.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(drugquantity);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -134,7 +144,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
             }
         });
 
-        back.setText("Back");
+        back.setText("<< Back");
         back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backActionPerformed(evt);
@@ -146,46 +156,44 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGap(80, 80, 80)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
                         .addComponent(back)
-                        .addGap(146, 146, 146)
+                        .addGap(104, 104, 104)
                         .addComponent(jLabel1))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addComponent(update)
-                                .addGap(217, 217, 217)
-                                .addComponent(addRow)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(save))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(25, 25, 25))
+                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                            .addComponent(update)
+                            .addGap(202, 202, 202)
+                            .addComponent(addRow)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(save))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(485, 485, 485))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(back)
-                    .addComponent(jLabel1))
-                .addGap(26, 26, 26)
+                .addGap(42, 42, 42)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(back))
+                .addGap(43, 43, 43)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(update)
                     .addComponent(addRow)
                     .addComponent(save))
-                .addGap(36, 36, 36))
+                .addContainerGap(362, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1265, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

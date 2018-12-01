@@ -95,8 +95,6 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTree = new javax.swing.JTree();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        lblSelectedNode = new javax.swing.JLabel();
         btnManageNetwork = new javax.swing.JButton();
         btnManageEnterprise = new javax.swing.JButton();
         btnManageAdmin = new javax.swing.JButton();
@@ -109,6 +107,8 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setPreferredSize(new java.awt.Dimension(100, 750));
 
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("DrugInventory");
+        jTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
             public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
                 jTreeValueChanged(evt);
@@ -121,14 +121,14 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 118, Short.MAX_VALUE))
+                .addGap(0, 387, Short.MAX_VALUE))
         );
 
         jSplitPane.setLeftComponent(jPanel1);
@@ -137,12 +137,6 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         jPanel2.setPreferredSize(new java.awt.Dimension(1000, 750));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Selected Node:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, -1, -1));
-
-        lblSelectedNode.setText("<View_selected_node>");
-        jPanel2.add(lblSelectedNode, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, -1));
-
         btnManageNetwork.setBackground(new java.awt.Color(255, 255, 255));
         btnManageNetwork.setText("Manage Network");
         btnManageNetwork.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +144,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                 btnManageNetworkActionPerformed(evt);
             }
         });
-        jPanel2.add(btnManageNetwork, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 294, -1));
+        jPanel2.add(btnManageNetwork, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 294, 70));
 
         btnManageEnterprise.setBackground(new java.awt.Color(255, 255, 255));
         btnManageEnterprise.setText("Manage Enterprise");
@@ -159,7 +153,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                 btnManageEnterpriseActionPerformed(evt);
             }
         });
-        jPanel2.add(btnManageEnterprise, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 294, -1));
+        jPanel2.add(btnManageEnterprise, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 290, 60));
 
         btnManageAdmin.setBackground(new java.awt.Color(255, 255, 255));
         btnManageAdmin.setText("Manage Enterprise Admin");
@@ -168,10 +162,10 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                 btnManageAdminActionPerformed(evt);
             }
         });
-        jPanel2.add(btnManageAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 294, -1));
+        jPanel2.add(btnManageAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 259, 290, 70));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/admin.png"))); // NOI18N
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(508, 6, -1, -1));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jSplitPane.setRightComponent(jPanel2);
 
@@ -222,23 +216,21 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void jTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTreeValueChanged
 
-        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) jTree.getLastSelectedPathComponent();
-        if (selectedNode != null) {
-            lblSelectedNode.setText(selectedNode.toString());
-        }
+//        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) jTree.getLastSelectedPathComponent();
+//        if (selectedNode != null) {
+//            lblSelectedNode.setText(selectedNode.toString());
+//        }
     }//GEN-LAST:event_jTreeValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnManageAdmin;
     private javax.swing.JButton btnManageEnterprise;
     private javax.swing.JButton btnManageNetwork;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane;
     private javax.swing.JTree jTree;
-    private javax.swing.JLabel lblSelectedNode;
     // End of variables declaration//GEN-END:variables
 }

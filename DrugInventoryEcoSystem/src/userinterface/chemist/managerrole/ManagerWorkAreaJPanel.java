@@ -20,7 +20,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import userinterface.chemist.workerrole.OrderDrugsJpanel;
 
 /**
  *
@@ -35,11 +34,11 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
     private ManagerOrganization organization;
     private Enterprise enterprise;
     private UserAccount userAccount;
-    private EcoSystem ecoSystem;
+    private EcoSystem ecosystem;
     
-    public ManagerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ManagerOrganization organization, Enterprise enterprise, EcoSystem ecosystem) {
+    public ManagerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ManagerOrganization organization, Enterprise enterprise,EcoSystem ecosystem) {
         initComponents();
-        this.setSize(1680, 1050);
+        this.setSize(1200, 750);
         ((DefaultTableCellRenderer) workRequestJTable.getDefaultRenderer(Object.class)).setOpaque(false);
         jScrollPane1.setOpaque(false);
         jScrollPane1.getViewport().setOpaque(false);
@@ -47,8 +46,8 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.enterprise = enterprise;
         this.userAccount = account;
+        this.ecosystem= ecosystem;
         title.setText("Chemist Manager: "+userAccount.getUsername());
-        this.ecoSystem= ecosystem;
         populateRequestTable();
     }
     
@@ -76,18 +75,22 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         workRequestJTable = new javax.swing.JTable();
         assignToMe = new javax.swing.JButton();
         viewRequest = new javax.swing.JButton();
         reject = new javax.swing.JButton();
-        approve = new javax.swing.JButton();
         title = new javax.swing.JLabel();
+        sendToSupplier = new javax.swing.JButton();
+        approve = new javax.swing.JButton();
+
         kGradientPanel1.setkEndColor(new java.awt.Color(102, 204, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(183, 248, 230));
-        sendToSupplier = new javax.swing.JButton();
+        kGradientPanel1.setPreferredSize(new java.awt.Dimension(1200, 750));
+
+        workRequestJTable.setBackground(new java.awt.Color(153, 255, 255));
+        workRequestJTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -114,6 +117,9 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        workRequestJTable.setGridColor(new java.awt.Color(0, 0, 0));
+        workRequestJTable.setSelectionBackground(new java.awt.Color(153, 255, 255));
+        workRequestJTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(workRequestJTable);
         if (workRequestJTable.getColumnModel().getColumnCount() > 0) {
             workRequestJTable.getColumnModel().getColumn(0).setResizable(false);
@@ -143,16 +149,24 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        title.setText("Title");
+        title.setAlignmentX(740.0F);
+        title.setAlignmentY(245.0F);
+
+        sendToSupplier.setText("Send To Supplier");
+        sendToSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendToSupplierActionPerformed(evt);
+            }
+        });
+
         approve.setText("Approve");
         approve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 approveActionPerformed(evt);
             }
         });
-        title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        title.setText("Title");
-        title.setAlignmentX(740.0F);
-        title.setAlignmentY(245.0F);
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -160,117 +174,54 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addComponent(assignToMe)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(41, 41, 41)
                         .addComponent(viewRequest)
-                        .addGap(102, 102, 102)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(approve)
-                        .addGap(49, 49, 49)
+                        .addGap(51, 51, 51)
+                        .addComponent(sendToSupplier)
+                        .addGap(55, 55, 55)
                         .addComponent(reject))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(51, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(279, 279, 279))
+                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(462, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(35, 35, 35)
                 .addComponent(title)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(assignToMe)
                     .addComponent(viewRequest)
-                    .addComponent(approve)
-                    .addComponent(reject))
-                .addContainerGap(149, Short.MAX_VALUE))
-        );
-        sendToSupplier.setText("Send To Supplier");
-        sendToSupplier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sendToSupplierActionPerformed(evt);
-            }
-        });
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 753, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 537, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(assignToMe)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(viewRequest)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(approve)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sendToSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(reject)
-                        .addGap(131, 131, 131))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                       ))
-                .addGap(54, 54, 54)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(assignToMe)
-                    .addComponent(viewRequest)
                     .addComponent(reject)
-                    .addComponent(approve)
-                    .addComponent(sendToSupplier))
-                .addGap(80, 80, 80))
-        ));
+                    .addComponent(sendToSupplier)
+                    .addComponent(approve))
+                .addContainerGap(351, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGap(0, 733, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 12, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 12, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1170, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -308,28 +259,6 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_viewRequestActionPerformed
 
-    private void approveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approveActionPerformed
-        // TODO add your handling code here:
-        int selectedRow = workRequestJTable.getSelectedRow();
-        
-        if (selectedRow < 0){
-            JOptionPane.showMessageDialog(null, "Please select row");
-            return;
-        }
-        
-        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
-        if(request.getReceiver()== userAccount){
-            request.setStatus(Constants.Approve);
-             JFrame frame = new JFrame();
-             String message = (String) JOptionPane.showInputDialog(frame, 
-        "Enter the message",
-        Constants.Approve+" message",
-        JOptionPane.OK_CANCEL_OPTION);
-         request.setMessage(message);
-        Organization org = null;
-        }
-    }//GEN-LAST:event_approveActionPerformed
-
     private void rejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectActionPerformed
         // TODO add your handling code here:
         int selectedRow = workRequestJTable.getSelectedRow();
@@ -362,14 +291,14 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
     private void sendToSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToSupplierActionPerformed
         // TODO add your handling code here:
         int selectedRow = workRequestJTable.getSelectedRow();
-        
+
         if (selectedRow < 0){
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
-        
+
         WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
-        
+
         if(!(Constants.Approve).equalsIgnoreCase(request.getStatus()))
         {
             JOptionPane.showMessageDialog(null, "Request Approved can only be send to Supplier");
@@ -377,22 +306,46 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         }
         else
         {
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer,ecoSystem, request ));
-        layout.next(userProcessContainer);   
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer,ecosystem, request ));
+            layout.next(userProcessContainer);
         }
-        
+
     }//GEN-LAST:event_sendToSupplierActionPerformed
+
+    private void approveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approveActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = workRequestJTable.getSelectedRow();
+
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select row");
+            return;
+        }
+
+        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
+        if(request.getReceiver()== userAccount){
+            request.setStatus(Constants.Approve);
+            JFrame frame = new JFrame();
+            String message = (String) JOptionPane.showInputDialog(frame,
+                "Enter the message",
+                Constants.Approve+" message",
+                JOptionPane.OK_CANCEL_OPTION);
+            request.setMessage(message);
+             populateRequestTable();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Assign request to you.");
+        }
+    }//GEN-LAST:event_approveActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton approve;
     private javax.swing.JButton assignToMe;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JButton reject;
-    private javax.swing.JLabel title;
     private javax.swing.JButton sendToSupplier;
+    private javax.swing.JLabel title;
     private javax.swing.JButton viewRequest;
     private javax.swing.JTable workRequestJTable;
     // End of variables declaration//GEN-END:variables
