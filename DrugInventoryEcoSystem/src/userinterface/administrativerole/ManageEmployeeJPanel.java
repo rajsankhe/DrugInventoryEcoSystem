@@ -157,7 +157,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
                 organizationJComboBoxActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 81, -1));
+        kGradientPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 220, -1));
 
         jLabel1.setText("Organization");
         kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, -1, -1));
@@ -172,16 +172,16 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
 
         jLabel2.setText("Name");
         kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 480, -1, -1));
-        kGradientPanel1.add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 470, 126, -1));
+        kGradientPanel1.add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 470, 190, -1));
 
-        kGradientPanel1.add(organizationEmpJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 430, 81, -1));
+        kGradientPanel1.add(organizationEmpJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 430, 190, -1));
 
         jLabel3.setText("Organization");
         kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 430, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 51, 255));
-        jLabel4.setText("Manage Organization");
+        jLabel4.setText("Manage Employee");
         kGradientPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 280, 50));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/admin-internal.png"))); // NOI18N
@@ -191,7 +191,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         kGradientPanel1.add(deleteOrgjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 380, -1, -1));
 
         editOrgjButton.setText("Edit");
-        kGradientPanel1.add(editOrgjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
+        kGradientPanel1.add(editOrgjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, -1, -1));
 
         add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 750));
     }// </editor-fold>//GEN-END:initComponents
@@ -217,7 +217,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         organization.getEmployeeDirectory().createEmployee(name);
         JOptionPane.showMessageDialog(null, "Employee created successfully.");
         nameJTextField.setText("");
-        populateTable(organization);
+//        populateTable(organization);
 
     }//GEN-LAST:event_addJButtonActionPerformed
 
