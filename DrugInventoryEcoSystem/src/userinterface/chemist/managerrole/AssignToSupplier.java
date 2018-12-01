@@ -7,6 +7,7 @@ package userinterface.chemist.managerrole;
 
 import business.EcoSystem;
 import business.enterprise.Enterprise;
+import business.enterprise.SupplierEnterprise;
 import business.network.Network;
 import business.organization.Organization;
 import business.organization.supplier.ApproverOrganization;
@@ -18,6 +19,7 @@ import java.awt.Component;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -60,8 +62,8 @@ public class AssignToSupplier extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        networkDropdown = new javax.swing.JComboBox<String>();
-        enterpriseDropdown = new javax.swing.JComboBox<String>();
+        networkDropdown = new javax.swing.JComboBox<>();
+        enterpriseDropdown = new javax.swing.JComboBox<>();
         back = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1200, 750));
@@ -93,7 +95,7 @@ public class AssignToSupplier extends javax.swing.JPanel {
             }
         });
 
-        networkDropdown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        networkDropdown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         networkDropdown.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 networkDropdownItemStateChanged(evt);
@@ -105,7 +107,7 @@ public class AssignToSupplier extends javax.swing.JPanel {
             }
         });
 
-        enterpriseDropdown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        enterpriseDropdown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         enterpriseDropdown.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 enterpriseDropdownItemStateChanged(evt);
@@ -131,9 +133,9 @@ public class AssignToSupplier extends javax.swing.JPanel {
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
+                        .addContainerGap()
                         .addComponent(back)
-                        .addGap(46, 46, 46)
+                        .addGap(108, 108, 108)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(155, 155, 155)
@@ -147,16 +149,16 @@ public class AssignToSupplier extends javax.swing.JPanel {
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(267, 267, 267)
                         .addComponent(jButton1)))
-                .addContainerGap(739, Short.MAX_VALUE))
+                .addContainerGap(751, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGap(57, 57, 57)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(back))
-                .addGap(57, 57, 57)
+                .addGap(59, 59, 59)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(networkDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -166,7 +168,7 @@ public class AssignToSupplier extends javax.swing.JPanel {
                     .addComponent(enterpriseDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(484, Short.MAX_VALUE))
+                .addContainerGap(491, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -203,7 +205,8 @@ public class AssignToSupplier extends javax.swing.JPanel {
         if(networkDropdown.getSelectedItem()!= null && enterpriseDropdown.getSelectedItem()!= null)
         {
              String enterpriseName = enterpriseDropdown.getSelectedItem().toString();
-        List<Enterprise> enterpriseList=networkSelected.getEnterpriseDirectory().getEnterpriseList();
+        List<Enterprise> enterpriseList=networkSelected.getEnterpriseDirectory().getEnterpriseList().stream().
+                     filter(enterprise -> enterprise instanceof SupplierEnterprise).collect(Collectors.toList()); 
             Enterprise enterpriseSelected=enterpriseList.stream()
                 .filter(enterprise -> enterpriseName.equals(enterprise.getName()))
                 .findAny()
@@ -212,10 +215,9 @@ public class AssignToSupplier extends javax.swing.JPanel {
         for (Organization organization : enterpriseSelected.getOrganizationDirectory().getOrganizationList()){
             if (organization instanceof ApproverOrganization){
                 org = organization;
-                break;
+                org.getWorkQueue().getWorkRequestList().add(request);
             }
         }
-        org.getWorkQueue().getWorkRequestList().add(request);
             request.setStatus(Constants.sentToSupplier);
             request.setSender(request.getReceiver());
             request.setReceiver(null);
@@ -243,7 +245,8 @@ public class AssignToSupplier extends javax.swing.JPanel {
         List<Enterprise> enterpriseList= null;
         if(networkSelected!= null)
         {
-             enterpriseList=networkSelected.getEnterpriseDirectory().getEnterpriseList();
+             enterpriseList=networkSelected.getEnterpriseDirectory().getEnterpriseList().stream().
+                     filter(enterprise -> enterprise instanceof SupplierEnterprise).collect(Collectors.toList());      
         }
         if(enterpriseList!= null)
         enterpriseList.stream().forEach(enterprise -> enterpriseDropdown.addItem(enterprise.getName()));   
