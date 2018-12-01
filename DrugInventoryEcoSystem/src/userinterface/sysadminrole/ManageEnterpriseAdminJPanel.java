@@ -112,6 +112,8 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         submitJButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        deleteAdminjButton = new javax.swing.JButton();
+        editAdminjButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setMaximumSize(new java.awt.Dimension(1200, 750));
@@ -156,33 +158,31 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 760, 250));
 
         jLabel1.setText("Network");
-        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 440, -1, -1));
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 470, -1, -1));
 
-        networkJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         networkJComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 networkJComboBoxActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(networkJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 440, 136, -1));
+        kGradientPanel1.add(networkJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 470, 136, -1));
 
         jLabel3.setText("Enterprise");
-        kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 500, -1, -1));
+        kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 530, -1, -1));
 
-        enterpriseJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        kGradientPanel1.add(enterpriseJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 500, 136, -1));
+        kGradientPanel1.add(enterpriseJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 530, 136, -1));
 
         jLabel2.setText("Username");
-        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 550, -1, -1));
-        kGradientPanel1.add(usernameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 540, 136, -1));
+        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 580, -1, -1));
+        kGradientPanel1.add(usernameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 570, 136, -1));
 
         jLabel4.setText("Email ID");
-        kGradientPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 590, -1, -1));
-        kGradientPanel1.add(emailIDJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 590, 136, -1));
+        kGradientPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 620, -1, -1));
+        kGradientPanel1.add(emailIDJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 620, 136, -1));
 
         jLabel5.setText("Name");
-        kGradientPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 640, -1, -1));
-        kGradientPanel1.add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 630, 136, -1));
+        kGradientPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 670, -1, -1));
+        kGradientPanel1.add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 660, 136, -1));
 
         backJButton.setBackground(new java.awt.Color(255, 255, 255));
         backJButton.setText("<< Back");
@@ -209,6 +209,12 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         jLabel7.setForeground(new java.awt.Color(0, 51, 255));
         jLabel7.setText("Manage Admin User Account");
         kGradientPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 380, 50));
+
+        deleteAdminjButton.setText("Delete");
+        kGradientPanel1.add(deleteAdminjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 430, -1, -1));
+
+        editAdminjButton.setText("Edit");
+        kGradientPanel1.add(editAdminjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, -1, -1));
 
         add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 750));
     }// </editor-fold>//GEN-END:initComponents
@@ -315,6 +321,8 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backJButton;
+    private javax.swing.JButton deleteAdminjButton;
+    private javax.swing.JButton editAdminjButton;
     private javax.swing.JTextField emailIDJTextField;
     private javax.swing.JComboBox enterpriseJComboBox;
     private javax.swing.JTable enterpriseJTable;
