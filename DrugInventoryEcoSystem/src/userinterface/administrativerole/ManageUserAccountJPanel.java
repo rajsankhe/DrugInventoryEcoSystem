@@ -193,7 +193,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         String emailID = emailIdJTextField.getText();
 
         //Validations remaining
-        if (Validator.isValidUsername(userName)) {
+        if (!Validator.isValidUsername(userName)) {
             JOptionPane.showMessageDialog(null, "Username in incorrect format. Should be 2 to 25 characters "
                     + "and characters, numbers and the ., -, _ symbols");
             return;
