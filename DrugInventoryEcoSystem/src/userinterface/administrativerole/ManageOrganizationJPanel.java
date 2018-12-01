@@ -152,9 +152,8 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                 addJButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(addJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 430, -1, -1));
+        kGradientPanel1.add(addJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 439, -1, 50));
 
-        organizationJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         kGradientPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, 81, -1));
 
         jLabel1.setText("Organization Type ");
