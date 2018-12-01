@@ -36,7 +36,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         jScrollPane1.setOpaque(false);
         jScrollPane1.getViewport().setOpaque(false);
         networkJTable.setShowGrid(true);
-
+        networkJTable.setSize(300, 64);
         populateNetworkTable();
     }
 
@@ -86,6 +86,8 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         kGradientPanel1.setPreferredSize(new java.awt.Dimension(1200, 750));
         kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        networkJTable.setBackground(new java.awt.Color(153, 255, 255));
+        networkJTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         networkJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
@@ -113,6 +115,8 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
             }
         });
         networkJTable.setGridColor(new java.awt.Color(0, 0, 0));
+        networkJTable.setSelectionBackground(new java.awt.Color(153, 255, 255));
+        networkJTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(networkJTable);
         if (networkJTable.getColumnModel().getColumnCount() > 0) {
             networkJTable.getColumnModel().getColumn(0).setResizable(false);
