@@ -222,12 +222,8 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
             for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
                 if (organization instanceof ManagerOrganization) {
                     org = organization;
-                    break;
+                    org.getWorkQueue().getWorkRequestList().add(request);
                 }
-            }
-            if (org != null) {
-                org.getWorkQueue().getWorkRequestList().add(request);
-
             }
             request.setStatus(Constants.chemistCoworkerSendForApproval);
             populateRequestTable();
