@@ -25,7 +25,7 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
     private WorkRequestDrugs workRequestDrugs;
     public ViewOrderjpanel(JPanel userProcessContainer, WorkRequestDrugs request) {
         initComponents();
-        this.setSize(1680, 1050);
+        this.setSize(1200, 750);
         ((DefaultTableCellRenderer) drugquantity.getDefaultRenderer(Object.class)).setOpaque(false);
         jScrollPane1.setOpaque(false);
         jScrollPane1.getViewport().setOpaque(false);
@@ -61,9 +61,14 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
         back = new javax.swing.JButton();
         title = new javax.swing.JLabel();
 
+        setPreferredSize(new java.awt.Dimension(1200, 750));
+
         kGradientPanel1.setkEndColor(new java.awt.Color(102, 204, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(183, 248, 230));
+        kGradientPanel1.setPreferredSize(new java.awt.Dimension(1200, 750));
 
+        drugquantity.setBackground(new java.awt.Color(153, 255, 255));
+        drugquantity.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         drugquantity.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -90,6 +95,9 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        drugquantity.setGridColor(new java.awt.Color(0, 0, 0));
+        drugquantity.setSelectionBackground(new java.awt.Color(153, 255, 255));
+        drugquantity.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(drugquantity);
 
         back.setText("Back");

@@ -46,6 +46,7 @@ public class WorkRequest {
     public WorkRequest(int size){
         this.requestDate = new Date();
         this.requestId = size;
+        this.status="";
     }
 
     public int getRequestId() {
