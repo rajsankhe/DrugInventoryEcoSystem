@@ -40,7 +40,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         jScrollPane1.setOpaque(false);
         jScrollPane1.getViewport().setOpaque(false);
         userJTable.setShowGrid(true);
-
+        userJTable.setSize(300, 64);
         popOrganizationComboBox();
         // employeeJComboBox.removeAllItems();
         popData();
@@ -113,6 +113,8 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         jLabel1.setText("User Name");
         kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 520, -1, -1));
 
+        userJTable.setBackground(new java.awt.Color(102, 255, 204));
+        userJTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         userJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -136,9 +138,11 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        userJTable.setSelectionBackground(new java.awt.Color(102, 255, 204));
+        userJTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(userJTable);
 
-        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, 375, 179));
+        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 750, 220));
 
         jLabel2.setText("Email ID");
         kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 560, -1, -1));

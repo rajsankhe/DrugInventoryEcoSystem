@@ -37,7 +37,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         jScrollPane1.setOpaque(false);
         jScrollPane1.getViewport().setOpaque(false);
         organizationJTable.setShowGrid(true);
-
+        organizationJTable.setSize(300, 64);
         this.userProcessContainer = userProcessContainer;
         this.directory = directory;
         this.enterpriseType = enterpriseType;
@@ -112,6 +112,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         kGradientPanel1.setPreferredSize(new java.awt.Dimension(1200, 750));
         kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        organizationJTable.setBackground(new java.awt.Color(102, 255, 204));
         organizationJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -138,9 +139,12 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        organizationJTable.setGridColor(new java.awt.Color(0, 0, 0));
+        organizationJTable.setSelectionBackground(new java.awt.Color(102, 255, 204));
+        organizationJTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(organizationJTable);
 
-        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 480, 92));
+        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 690, 160));
 
         addJButton.setText("Add Organization");
         addJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -148,13 +152,13 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                 addJButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(addJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, -1, -1));
+        kGradientPanel1.add(addJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 430, -1, -1));
 
         organizationJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        kGradientPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, 81, -1));
+        kGradientPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, 81, -1));
 
         jLabel1.setText("Organization Type ");
-        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, -1, -1));
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, -1, -1));
 
         backJButton.setText("<< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -165,8 +169,8 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         kGradientPanel1.add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         jLabel2.setText("Organization Name ");
-        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, -1, -1));
-        kGradientPanel1.add(orgNameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 340, 81, -1));
+        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 400, -1, -1));
+        kGradientPanel1.add(orgNameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 400, 81, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 51, 255));
