@@ -100,7 +100,7 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
         drugquantity.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(drugquantity);
 
-        back.setText("Back");
+        back.setText("<< Back");
         back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backActionPerformed(evt);

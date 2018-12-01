@@ -144,7 +144,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
             }
         });
 
-        back.setText("Back");
+        back.setText("<< Back");
         back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backActionPerformed(evt);
