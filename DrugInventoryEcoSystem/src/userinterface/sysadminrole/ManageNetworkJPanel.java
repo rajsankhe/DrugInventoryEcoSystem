@@ -161,7 +161,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
 
         String name = nameJTextField.getText();
 
-        if (!Validator.isValidString(name)) {
+        if (!Validator.isValidAlphaNum(name)) {
             //Name is not valid
             JOptionPane.showMessageDialog(null, "Please enter a valid name. Only characters are allowed");
             nameJTextField.setText("");
