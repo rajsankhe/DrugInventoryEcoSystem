@@ -37,4 +37,8 @@ public class WorkQueue {
         this.workRequestList.add(workRequest);
         return workRequest;
     }
+    
+    public void deleteWorkRequest(WorkRequest workRequest){
+        this.workRequestList.remove(workRequest);
+    }
 }

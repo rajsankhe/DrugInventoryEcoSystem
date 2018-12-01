@@ -57,6 +57,12 @@ public class Drug {
     public void setDisease(List<String> disease) {
         this.disease = disease;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+    
     
     
 }

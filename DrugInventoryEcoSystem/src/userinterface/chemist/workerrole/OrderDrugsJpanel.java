@@ -12,6 +12,7 @@ import business.workqueue.WorkRequestDrugs;
 import commonutils.Constants;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -136,7 +137,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(addRow))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,10 +172,8 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        WorkRequestDrugs workRequestDrugs = (WorkRequestDrugs) userAccount.getWorkQueue().addWorkRequest(WorkRequest.workRequestType.Drugs);
-        workRequestDrugs.setSender(userAccount);
-        List<Drug> orderList = workRequestDrugs.getDrugsOrderList();
-        orderList.clear();
+
+        List<Drug> orderList = new ArrayList<>();
         DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
         int nRow = model.getRowCount();
         try{
@@ -192,7 +191,10 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
             return;
         }
         if(!orderList.isEmpty()){
+        WorkRequestDrugs workRequestDrugs = (WorkRequestDrugs) userAccount.getWorkQueue().addWorkRequest(WorkRequest.workRequestType.Drugs);
+        workRequestDrugs.setSender(userAccount);    
         workRequestDrugs.setStatus(Constants.chemistCoworkerRequestCreated);
+        workRequestDrugs.setDrugsOrderList(orderList);
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
