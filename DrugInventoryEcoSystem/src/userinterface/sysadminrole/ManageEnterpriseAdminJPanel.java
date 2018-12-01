@@ -239,14 +239,9 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
             return;
         }
 
-        usernameJTextField.setText("");
-        emailIDJTextField.setText("");
-        nameJTextField.setText("");
-        enterpriseJComboBox.setSelectedIndex(0);
-        networkJComboBox.setSelectedIndex(0);
-
-        if (!Validator.isValidString(username)) {
-            JOptionPane.showMessageDialog(null, "User name can contain only alphabets. Please check.");
+        if (!Validator.isValidUsername(username)) {
+            JOptionPane.showMessageDialog(null, "Username in incorrect format. Should be 2 to 25 characters "
+                    + "and characters, numbers and the ., -, _ symbols");
             return;
         }
 
@@ -304,7 +299,11 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         }
 
         JOptionPane.showMessageDialog(null, "User created successfully. Please check email for login credentials.");
-
+        usernameJTextField.setText("");
+        emailIDJTextField.setText("");
+        nameJTextField.setText("");
+        enterpriseJComboBox.setSelectedIndex(0);
+        networkJComboBox.setSelectedIndex(0);
         populateTable();
     }//GEN-LAST:event_submitJButtonActionPerformed
 
