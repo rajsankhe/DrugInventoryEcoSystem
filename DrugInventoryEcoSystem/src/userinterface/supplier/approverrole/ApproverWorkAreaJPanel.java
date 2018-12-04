@@ -8,8 +8,10 @@ package userinterface.supplier.approverrole;
 import userinterface.chemist.managerrole.*;
 import business.EcoSystem;
 import business.enterprise.Enterprise;
+import business.enterprise.SupplierEnterprise;
 import business.organization.Organization;
 import business.organization.chemist.ManagerOrganization;
+import business.organization.legal.ValidatorOrganization;
 import business.organization.supplier.ApproverOrganization;
 import business.useraccount.UserAccount;
 import business.workqueue.WorkRequest;
@@ -279,7 +281,18 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
             return;
         }
         WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
+        Organization org= null;
         if(request.getReceiver()== userAccount){
+            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()){
+            if (organization instanceof ValidatorOrganization){
+                org = organization;
+                org.getWorkQueue().getWorkRequestList().add(request);
+            }
+        }
+            request.setStatus(Constants.sentToLegal);
+            request.setSender(request.getReceiver());
+            request.setReceiver(null);
+            JOptionPane.showMessageDialog(null, "Request send to Legal");
             /* CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer,ecosystem, request ));
             layout.next(userProcessContainer);*/
@@ -298,7 +311,9 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         }
         WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
         if(request.getReceiver()== userAccount){
-            //enterprise.get
+            SupplierEnterprise supplierEnterprise=(SupplierEnterprise)  enterprise;
+            supplierEnterprise.getInventory();
+            
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             userProcessContainer.add("RequestBid", new RequestBidOrSendSupplier(userProcessContainer,ecosystem, request ));
             layout.next(userProcessContainer);

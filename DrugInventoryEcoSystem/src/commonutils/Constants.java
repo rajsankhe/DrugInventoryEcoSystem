@@ -15,4 +15,5 @@ public class Constants {
     public static final String Approve="Approved";
     public static final String Reject="Rejected";
     public static final String sentToSupplier="Sent to supplier";
+    public static final String sentToLegal="Sent for Legal Check";
 }
