@@ -5,14 +5,17 @@
  */
 package business.workqueue;
 
+import business.organization.Organization;
 import business.useraccount.UserAccount;
 import java.util.Date;
+import java.util.Stack;
 
 /**
  *
  * @author Tej Sankhe
  */
 public class WorkRequest {
+
     private int requestId;
     private String message;
     private UserAccount sender;
@@ -21,7 +24,8 @@ public class WorkRequest {
     private String request;
     private Date requestDate;
     private Date resolveDate;
-    
+    private Stack<Organization> organizationStack;
+
     public enum workRequestType {
         Bid("Bid"),
         Drugs("Drugs"),
@@ -42,11 +46,11 @@ public class WorkRequest {
             return value;
         }
     }
-    
-    public WorkRequest(int size){
+
+    public WorkRequest(int size) {
         this.requestDate = new Date();
         this.requestId = size;
-        this.status="";
+        this.status = "";
     }
 
     public int getRequestId() {
@@ -64,8 +68,6 @@ public class WorkRequest {
     public UserAccount getSender() {
         return sender;
     }
-
-    
 
     public void setSender(UserAccount sender) {
         this.sender = sender;
@@ -110,10 +112,18 @@ public class WorkRequest {
     public void setRequest(String request) {
         this.request = request;
     }
-    
+
     @Override
     public String toString() {
         return Integer.toString(requestId);
-    } 
-    
+    }
+
+    public Stack<Organization> getOrganizationStack() {
+        return organizationStack;
+    }
+
+    public void setOrganizationStack(Stack<Organization> organizationStack) {
+        this.organizationStack = organizationStack;
+    }
+
 }
