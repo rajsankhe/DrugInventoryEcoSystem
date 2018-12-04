@@ -17,6 +17,15 @@ public class SupplierEnterprise extends Enterprise {
 
     private Inventory inventory;
 
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+    
+
     public SupplierEnterprise(String name, EnterpriseType type, int id) {
         super(name, type, id);
         inventory = new Inventory();

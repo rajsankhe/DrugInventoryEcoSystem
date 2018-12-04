@@ -83,7 +83,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         viewRequest = new javax.swing.JButton();
         title = new javax.swing.JLabel();
         sendToLegal = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        CheckInventory = new javax.swing.JButton();
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1200, 750));
 
@@ -156,7 +156,12 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Check Inventory");
+        CheckInventory.setText("Check Inventory");
+        CheckInventory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckInventoryActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -170,7 +175,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
+                            .addComponent(CheckInventory)
                             .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                     .addComponent(assignToMe)
@@ -194,7 +199,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(viewRequest)
                     .addComponent(sendToLegal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(CheckInventory)
                 .addContainerGap(342, Short.MAX_VALUE))
         );
 
@@ -284,9 +289,29 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_sendToLegalActionPerformed
 
+    private void CheckInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckInventoryActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = workRequestJTable.getSelectedRow();
+
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null, "Please select row");
+            return;
+        }
+        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
+        if(request.getReceiver()== userAccount){
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            userProcessContainer.add("RequestBid", new RequestBidOrSendSupplier(userProcessContainer,ecosystem, request ));
+            layout.next(userProcessContainer);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Assign request to you.");
+        }
+        
+    }//GEN-LAST:event_CheckInventoryActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CheckInventory;
     private javax.swing.JButton assignToMe;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
