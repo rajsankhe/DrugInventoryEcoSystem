@@ -17,6 +17,7 @@ import javax.mail.internet.*;
 public class SendEmail {
 
     public void sendMail(String username, String to, String userPassword) {
+        System.out.println("Mail triggered! to: " + to);
         //Get properties object
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
