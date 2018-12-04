@@ -292,13 +292,13 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
     private void CheckInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckInventoryActionPerformed
         // TODO add your handling code here:
         int selectedRow = workRequestJTable.getSelectedRow();
-
         if (selectedRow < 0){
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
         WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
         if(request.getReceiver()== userAccount){
+            //enterprise.get
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             userProcessContainer.add("RequestBid", new RequestBidOrSendSupplier(userProcessContainer,ecosystem, request ));
             layout.next(userProcessContainer);
