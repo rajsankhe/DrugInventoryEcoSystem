@@ -298,7 +298,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         }
         WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
         if(request.getReceiver()== userAccount){
-            //enterprise.get
+            enterprise.get
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             userProcessContainer.add("RequestBid", new RequestBidOrSendSupplier(userProcessContainer,ecosystem, request ));
             layout.next(userProcessContainer);
