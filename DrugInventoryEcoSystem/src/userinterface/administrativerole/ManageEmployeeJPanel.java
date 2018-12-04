@@ -193,7 +193,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         editOrgjButton.setText("Edit");
         kGradientPanel1.add(editOrgjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, -1, -1));
 
-        add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 750));
+        add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 810));
     }// </editor-fold>//GEN-END:initComponents
 
     private void addJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addJButtonActionPerformed

@@ -5,16 +5,23 @@
  */
 package commonutils;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  *
  * @author Tej Sankhe
  */
 public class PasswordUtility {
-    public static String createPassword(String un){
-            Random randomInts =  new Random();
-            randomInts.ints(0, 9);
-            return un+"@"+(randomInts.ints(0, 9)).findAny().getAsInt()+randomInts.ints(0, 9).findAny().getAsInt()+randomInts.ints(0, 9).findAny().getAsInt();
-        }
+
+    public static String createPassword(String un) {
+//        Random randomInts = new Random();
+//        randomInts.ints(0, 9);
+
+        SecureRandom random = new SecureRandom();
+        int num = random.nextInt(1000000);
+        String formatted = String.format("%06d", num);
+        String password = un + "@" + formatted;
+        System.out.println(un + "|" + password);
+        return password;
+    }
 }

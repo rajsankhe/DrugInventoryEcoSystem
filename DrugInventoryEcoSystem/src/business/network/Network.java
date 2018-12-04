@@ -32,8 +32,13 @@ public class Network {
         return enterpriseDirectory;
     }
 
+    public void setEnterpriseDirectory(EnterpriseDirectory enterpriseDirectory) {
+        this.enterpriseDirectory = enterpriseDirectory;
+    }
+
     @Override
     public String toString() {
         return name;
     }
+
 }

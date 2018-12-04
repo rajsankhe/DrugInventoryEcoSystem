@@ -23,6 +23,10 @@ public abstract class Enterprise extends Organization {
         return organizationDirectory;
     }
 
+    public void setOrganizationDirectory(OrganizationDirectory organizationDirectory) {
+        this.organizationDirectory = organizationDirectory;
+    }
+
     public enum EnterpriseType {
         Chemist("Chemist"),
         Supplier("Supplier"),
