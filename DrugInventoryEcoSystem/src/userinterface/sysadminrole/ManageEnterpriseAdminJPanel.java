@@ -17,6 +17,8 @@ import commonutils.Validator;
 import commonutils.email.SendEmail;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -296,20 +298,32 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
         UserAccount account = enterprise.getUserAccountDirectory().createUserAccount(username, password, emailID, employee, new AdminRole(Role.RoleType.Admin));
 
-        //        if (account == null) {
-        //            JOptionPane.showMessageDialog(null, "Account with the username passed already exists in the system! Please check");
-        //            return;
-        //        }
-        //Send email to user with password.
-        try {
-            SendEmail sendEmail = new SendEmail();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
 
-            sendEmail.sendMail(username, emailID, password);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "We were unable to send mail to the desired recepient! Please contact system administrator");
-            exception.printStackTrace();
-        }
+        Runnable runnableTask = () -> {
+            try {
+                System.out.println("Executor task started");
+                SendEmail sendEmail = new SendEmail();
+                sendEmail.sendMail(username, emailID, password);
 
+            } catch (Exception exception) {
+                //JOptionPane.showMessageDialog(null, "We were unable to send mail to the desired recepient! Please contact system administrator");
+                exception.printStackTrace();
+            }
+        };
+
+        executor.execute(runnableTask);
+
+        executor.shutdown();
+
+//        try {
+//            SendEmail sendEmail = new SendEmail();
+//
+//            sendEmail.sendMail(username, emailID, password);
+//        } catch (Exception exception) {
+//            JOptionPane.showMessageDialog(null, "We were unable to send mail to the desired recepient! Please contact system administrator");
+//            exception.printStackTrace();
+//        }
         JOptionPane.showMessageDialog(null, "User created successfully. Please check email for login credentials.");
         usernameJTextField.setText("");
         emailIDJTextField.setText("");

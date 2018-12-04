@@ -14,6 +14,8 @@ import commonutils.PasswordUtility;
 import commonutils.Validator;
 import commonutils.email.SendEmail;
 import java.awt.CardLayout;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -217,15 +219,32 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
             return;
         }
         //Send email to user with password.
-        try {
-            SendEmail sendEmail = new SendEmail();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
 
-            sendEmail.sendMail(userName, emailID, password);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, "We were unable to send mail to the desired recepient! Please contact system administrator");
-            exception.printStackTrace();
-        }
+        Runnable runnableTask = () -> {
+            try {
+                System.out.println("Executor task started");
+                SendEmail sendEmail = new SendEmail();
+                sendEmail.sendMail(userName, emailID, password);
 
+            } catch (Exception exception) {
+                //JOptionPane.showMessageDialog(null, "We were unable to send mail to the desired recepient! Please contact system administrator");
+                exception.printStackTrace();
+            }
+        };
+
+        executor.execute(runnableTask);
+
+        executor.shutdown();
+
+//        try {
+//            SendEmail sendEmail = new SendEmail();
+//
+//            sendEmail.sendMail(userName, emailID, password);
+//        } catch (Exception exception) {
+//            JOptionPane.showMessageDialog(null, "We were unable to send mail to the desired recepient! Please contact system administrator");
+//            exception.printStackTrace();
+//        }
         JOptionPane.showMessageDialog(null, "User created successfully. Please check email for login credentials.");
         organizationJComboBox.setSelectedIndex(0);
         employeeJComboBox.setSelectedIndex(0);
