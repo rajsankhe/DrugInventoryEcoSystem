@@ -77,6 +77,10 @@ public abstract class Organization {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public WorkQueue getWorkQueue() {
         return workQueue;
     }
@@ -89,6 +93,5 @@ public abstract class Organization {
     public OrganizationType getOrganizationType() {
         return organizationType;
     }
-    
 
 }

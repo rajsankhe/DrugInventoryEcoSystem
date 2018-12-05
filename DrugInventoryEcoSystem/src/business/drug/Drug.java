@@ -12,11 +12,13 @@ import java.util.List;
  * @author Raj
  */
 public class Drug {
+
     private int id;
     private String name;
     private int quantity;
-    private double price;
+    private double manufacturerPrice;
     private List<String> disease;
+    private double supplierPrice;
 
     public int getId() {
         return id;
@@ -42,12 +44,20 @@ public class Drug {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
-        return price;
+    public double getManufacturerPrice() {
+        return manufacturerPrice;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setManufacturerPrice(double manufacturerPrice) {
+        this.manufacturerPrice = manufacturerPrice;
+    }
+
+    public double getSupplierPrice() {
+        return supplierPrice;
+    }
+
+    public void setSupplierPrice(double supplierPrice) {
+        this.supplierPrice = supplierPrice;
     }
 
     public List<String> getDisease() {
@@ -62,7 +72,5 @@ public class Drug {
     public String toString() {
         return name;
     }
-    
-    
-    
+
 }

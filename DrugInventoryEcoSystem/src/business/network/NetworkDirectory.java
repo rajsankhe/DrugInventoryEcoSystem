@@ -51,8 +51,13 @@ public class NetworkDirectory {
 
     //left
     public void deleteNetwork(Network network) {
-//        Network network = new Network();
-//        networkDirectory.put(network.getName(), network);
-//        return network;
+        networkList.remove(network.getName());
+
+    }
+
+    public void updateNetwork(Network network, String newName) {
+        Network network1 = networkList.remove(network.getName());
+        network1.setName(newName);
+        networkList.put(newName, network1);
     }
 }

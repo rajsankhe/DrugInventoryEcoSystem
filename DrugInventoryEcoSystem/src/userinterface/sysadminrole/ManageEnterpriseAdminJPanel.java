@@ -60,9 +60,9 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
                 for (UserAccount userAccount : enterprise.getUserAccountDirectory().getUserAccountListValues()) {
                     Object[] row = new Object[3];
-                    row[0] = enterprise.getName();
-                    row[1] = network.getName();
-                    row[2] = userAccount.getUsername();
+                    row[0] = enterprise;
+                    row[1] = network;
+                    row[2] = userAccount;
 
                     model.addRow(row);
                 }
@@ -115,7 +115,6 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         deleteAdminjButton = new javax.swing.JButton();
-        editAdminjButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setMaximumSize(new java.awt.Dimension(1200, 750));
@@ -213,10 +212,12 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         kGradientPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 380, 50));
 
         deleteAdminjButton.setText("Delete");
+        deleteAdminjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteAdminjButtonActionPerformed(evt);
+            }
+        });
         kGradientPanel1.add(deleteAdminjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 430, -1, -1));
-
-        editAdminjButton.setText("Edit");
-        kGradientPanel1.add(editAdminjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, -1, -1));
 
         add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 750));
     }// </editor-fold>//GEN-END:initComponents
@@ -333,10 +334,28 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         populateTable();
     }//GEN-LAST:event_submitJButtonActionPerformed
 
+    private void deleteAdminjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAdminjButtonActionPerformed
+        int selectedRow = enterpriseJTable.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a row!!!");
+        } else {
+            Enterprise enterprise = (Enterprise) enterpriseJTable.getValueAt(selectedRow, 0);
+            Network network = (Network) enterpriseJTable.getValueAt(selectedRow, 1);
+            UserAccount userAccount = (UserAccount) enterpriseJTable.getValueAt(selectedRow, 2);
+
+            int selectionButton = JOptionPane.YES_NO_OPTION;
+            int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure to delete?", "Warning", selectionButton);
+            if (selectionResult == JOptionPane.YES_OPTION) {
+                //can delete the network now.
+                enterprise.getUserAccountDirectory().removeUserAccout(userAccount);
+            }
+            populateTable();
+        }
+    }//GEN-LAST:event_deleteAdminjButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backJButton;
     private javax.swing.JButton deleteAdminjButton;
-    private javax.swing.JButton editAdminjButton;
     private javax.swing.JTextField emailIDJTextField;
     private javax.swing.JComboBox enterpriseJComboBox;
     private javax.swing.JTable enterpriseJTable;

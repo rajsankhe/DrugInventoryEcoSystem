@@ -53,6 +53,10 @@ public class UserAccountDirectory {
         return userAccountList.values().stream().collect(Collectors.toList());
     }
 
+    public void removeUserAccout(UserAccount userAccount) {
+        userAccountList.remove(userAccount.getUsername());
+    }
+
     public UserAccount createUserAccount(String username, String password, String emailID, Employee employee, Role role) {
 
         if (userAccountList.containsKey(username)) {
