@@ -14,10 +14,12 @@ import business.workqueue.WorkRequestDrugs;
 import commonutils.Constants;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import userinterface.chemist.workerrole.WorkerWorkAreaJPanel;
 
 /**
  *
@@ -33,20 +35,22 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
     private Enterprise enterprise;
     private UserAccount userAccount;
     private EcoSystem ecosystem;
+    private WorkRequestDrugs request;
 
-    RequestBidOrSendSupplier(WorkRequestDrugs request, Map<String, int[]> requestOrSend, Boolean bidFlag) {
+    public RequestBidOrSendSupplier(JPanel userProcessContainer,WorkRequestDrugs request, Map<String, int[]> requestOrSend, Boolean bidFlag) {
         initComponents(); 
+        this.userProcessContainer=userProcessContainer;
+        this.request= request;
         if(bidFlag==Boolean.TRUE)
-        {
-            messageLabel.setText("Inventory is low, please request bid");
-            messageLabel.setForeground(Color.red);
+        {   messageLabel.setText("Inventory is low, please request bid");
             requestBid.setEnabled(true);
-            sendToSupplier.setEnabled(false);
+            sendToChemist.setEnabled(false);
         }
         else
         {
+            messageLabel.setText("Request can be full filled");
             requestBid.setEnabled(false);
-            sendToSupplier.setEnabled(true);
+            sendToChemist.setEnabled(true);
         }
         populateRequestTable(requestOrSend);
     }
@@ -65,8 +69,9 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
         workRequestJTable = new javax.swing.JTable();
         requestBid = new javax.swing.JButton();
         title = new javax.swing.JLabel();
-        sendToSupplier = new javax.swing.JButton();
+        sendToChemist = new javax.swing.JButton();
         messageLabel = new javax.swing.JLabel();
+        back = new javax.swing.JButton();
 
         kGradientPanel1.setkEndColor(new java.awt.Color(102, 204, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(183, 248, 230));
@@ -117,10 +122,21 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
         title.setAlignmentX(740.0F);
         title.setAlignmentY(245.0F);
 
-        sendToSupplier.setText("Send To Supplier");
-        sendToSupplier.addActionListener(new java.awt.event.ActionListener() {
+        sendToChemist.setText("Send To Chemist");
+        sendToChemist.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sendToSupplierActionPerformed(evt);
+                sendToChemistActionPerformed(evt);
+            }
+        });
+
+        messageLabel.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        messageLabel.setForeground(new java.awt.Color(51, 51, 255));
+        messageLabel.setText("Hii");
+
+        back.setText("<< Back");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
             }
         });
 
@@ -131,37 +147,37 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(89, 89, 89)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addComponent(requestBid)
-                                .addGap(399, 399, 399)
-                                .addComponent(sendToSupplier))
-                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addGap(89, 89, 89)
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                            .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, kGradientPanel1Layout.createSequentialGroup()
+                                    .addComponent(requestBid)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(sendToChemist))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(back)))
+                .addContainerGap(442, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addContainerGap()
+                .addComponent(back)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(title)
                 .addGap(10, 10, 10)
                 .addComponent(messageLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(73, 73, 73)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(requestBid)
-                    .addComponent(sendToSupplier))
-                .addContainerGap(52, Short.MAX_VALUE))
+                    .addComponent(sendToChemist))
+                .addContainerGap(242, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -170,61 +186,45 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 717, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE))
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 717, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 424, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE))
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestBidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestBidActionPerformed
         // TODO add your handling code here:
-        int selectedRow = workRequestJTable.getSelectedRow();
-        if (selectedRow < 0){
-            JOptionPane.showMessageDialog(null, "Please select row");
-            return;
-        }
-
-        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
-        if(request.getReceiver()== userAccount){
-            request.setStatus(Constants.requestBid);
-//            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-//            userProcessContainer.add("RequestBid", new RequestBidOrSendSupplier(userProcessContainer,ecosystem, request ));
-//            layout.next(userProcessContainer);
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Assign request to you.");
-        }
     }//GEN-LAST:event_requestBidActionPerformed
 
-    private void sendToSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToSupplierActionPerformed
-        int selectedRow = workRequestJTable.getSelectedRow();
-
-        if (selectedRow < 0){
-            JOptionPane.showMessageDialog(null, "Please select row");
-            return;
-        }
-        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
-        if(request.getReceiver()== userAccount){
+    private void sendToChemistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToChemistActionPerformed
               request.setStatus(Constants.resentToChemist);
+              JOptionPane.showMessageDialog(null, "Order is completed");
               
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Assign request to you.");
-        }
+    }//GEN-LAST:event_sendToChemistActionPerformed
 
-    }//GEN-LAST:event_sendToSupplierActionPerformed
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        ApproverWorkAreaJPanel approverworkAreaJPanel = (ApproverWorkAreaJPanel) component;
+        approverworkAreaJPanel.populateRequestTable();
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JLabel messageLabel;
     private javax.swing.JButton requestBid;
-    private javax.swing.JButton sendToSupplier;
+    private javax.swing.JButton sendToChemist;
     private javax.swing.JLabel title;
     private javax.swing.JTable workRequestJTable;
     // End of variables declaration//GEN-END:variables
