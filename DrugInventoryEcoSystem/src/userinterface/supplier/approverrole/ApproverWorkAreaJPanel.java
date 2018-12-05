@@ -10,6 +10,7 @@ import business.drug.Drug;
 import business.enterprise.Enterprise;
 import business.enterprise.SupplierEnterprise;
 import business.inventory.Inventory;
+import business.network.Network;
 import business.organization.Organization;
 import business.organization.legal.ValidatorOrganization;
 import business.organization.supplier.ApproverOrganization;
@@ -39,9 +40,10 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
     private ApproverOrganization organization;
     private Enterprise enterprise;
     private UserAccount userAccount;
+    private Network network;
     private EcoSystem ecosystem;
 
-    public ApproverWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ApproverOrganization organization, Enterprise enterprise, EcoSystem ecosystem) {
+    public ApproverWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ApproverOrganization organization, Enterprise enterprise, EcoSystem ecosystem, Network network) {
         initComponents();
         this.setSize(1680, 1050);
         ((DefaultTableCellRenderer) workRequestJTable.getDefaultRenderer(Object.class)).setOpaque(false);
@@ -52,6 +54,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         this.enterprise = enterprise;
         this.userAccount = account;
         this.ecosystem = ecosystem;
+        this.network = network;
         title.setText("Supplier Approver: " + userAccount.getUsername());
         populateRequestTable();
     }
@@ -284,22 +287,29 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         Organization org = null;
         //request.getEnterpriseStack().add(this.enterprise);
-        if (request.getReceiver() == userAccount) {
-            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-                if (organization instanceof ValidatorOrganization) {
-                    org = organization;
-                    org.getWorkQueue().getWorkRequestList().add(request);
+        if (!(request.getStatus().equals(Constants.rejectedByLegal) || request.getStatus().equals(Constants.acceptedByLegal))) {
+            if (request.getReceiver() == userAccount) {
+                for (Enterprise e : network.getEnterpriseDirectory().getEnterpriseList()) {
+                    if (e.getEnterpriseType().equals(Enterprise.EnterpriseType.Legal)) {
+                        for (Organization organization : e.getOrganizationDirectory().getOrganizationList()) {
+                            if (organization instanceof ValidatorOrganization) {
+                                org = organization;
+                                org.getWorkQueue().getWorkRequestList().add(request);
+                            }
+                        }
+                    }
                 }
+
+                request.setStatus(Constants.sentToLegal);
+                JOptionPane.showMessageDialog(null, "Request send to Legal");
+                /* CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+                 userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer,ecosystem, request ));
+                 layout.next(userProcessContainer);*/
+            } else {
+                JOptionPane.showMessageDialog(null, "Assign request to you.");
             }
-            request.setStatus(Constants.sentToLegal);
-            request.setSender(request.getReceiver());
-            request.setReceiver(null);
-            JOptionPane.showMessageDialog(null, "Request send to Legal");
-            /* CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer,ecosystem, request ));
-            layout.next(userProcessContainer);*/
         } else {
-            JOptionPane.showMessageDialog(null, "Assign request to you.");
+            JOptionPane.showMessageDialog(null, "Already validated by legal.");
         }
     }//GEN-LAST:event_sendToLegalActionPerformed
 
