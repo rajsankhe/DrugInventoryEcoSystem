@@ -18,4 +18,5 @@ public class Constants {
     public static final String sentToLegal="Sent for Legal Check";
     public static final String requestBid="Bid requestted";
     public static String resentToChemist="Order Completed";
+    public static final String legalCheckApi = "";
 }

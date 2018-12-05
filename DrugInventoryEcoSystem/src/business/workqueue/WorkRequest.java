@@ -5,6 +5,7 @@
  */
 package business.workqueue;
 
+import business.enterprise.Enterprise;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import java.util.Date;
@@ -24,7 +25,7 @@ public class WorkRequest {
     private String request;
     private Date requestDate;
     private Date resolveDate;
-    private Stack<Organization> organizationStack;
+    private Stack<Enterprise> enterpriseStack;
 
     public enum workRequestType {
         Bid("Bid"),
@@ -118,12 +119,11 @@ public class WorkRequest {
         return Integer.toString(requestId);
     }
 
-    public Stack<Organization> getOrganizationStack() {
-        return organizationStack;
+    public Stack<Enterprise> getEnterpriseStack() {
+        return enterpriseStack;
     }
 
-    public void setOrganizationStack(Stack<Organization> organizationStack) {
-        this.organizationStack = organizationStack;
+    public void setEnterpriseStack(Stack<Enterprise> enterpriseStack) {
+        this.enterpriseStack = enterpriseStack;
     }
-
 }

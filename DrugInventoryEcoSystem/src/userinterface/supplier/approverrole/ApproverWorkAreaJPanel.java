@@ -319,7 +319,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         if(request.getReceiver()== userAccount){
             SupplierEnterprise supplierEnterprise=(SupplierEnterprise)  enterprise;
             Inventory inventorySupp=supplierEnterprise.getInventory();
-            List<Drug> inventory = inventorySupp.getInventory();
+            List<Drug> inventory = inventorySupp.getDrugStock();
             List<Drug> drugsOrderList = request.getDrugsOrderList();
             Map<String,int[]> requestOrSend= new HashMap<>();
             Boolean bidFlag=false;

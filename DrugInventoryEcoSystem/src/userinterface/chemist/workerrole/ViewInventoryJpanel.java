@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package userinterface.chemist.managerrole;
+package userinterface.chemist.workerrole;
 
+import userinterface.chemist.managerrole.*;
 import business.drug.Drug;
-import business.enterprise.ChemistEnterprise;
 import business.enterprise.Enterprise;
+import business.inventory.Inventory;
 import business.workqueue.WorkRequestDrugs;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -18,23 +19,21 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Tej Sankhe
  */
-public class ViewOrderjpanel extends javax.swing.JPanel {
+public class ViewInventoryJpanel extends javax.swing.JPanel {
 
     /**
      * Creates new form ViewOrderjpanel
      */
     private JPanel userProcessContainer;
-    private WorkRequestDrugs workRequestDrugs;
-    ChemistEnterprise enterprise;
-    public ViewOrderjpanel(JPanel userProcessContainer, WorkRequestDrugs request, Enterprise enterprise) {
+    private Inventory inventory;
+    public ViewInventoryJpanel(JPanel userProcessContainer, Inventory inventory) {
         initComponents();
         this.setSize(1200, 750);
         ((DefaultTableCellRenderer) drugquantity.getDefaultRenderer(Object.class)).setOpaque(false);
         jScrollPane1.setOpaque(false);
         jScrollPane1.getViewport().setOpaque(false);
         this.userProcessContainer = userProcessContainer;
-        this.workRequestDrugs = request;
-        this.enterprise = (ChemistEnterprise) enterprise;
+        this.inventory = inventory;
         populateRequestTable();
     }
     
@@ -42,7 +41,7 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
         
         model.setRowCount(0);
-        for (Drug drug : workRequestDrugs.getDrugsOrderList()){         
+        for (Drug drug : inventory.getDrugStock()){         
             Object[] row = new Object[2];
             row[0] = drug.getName();
             row[1] = drug.getQuantity();
@@ -64,7 +63,6 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
         drugquantity = new javax.swing.JTable();
         back = new javax.swing.JButton();
         title = new javax.swing.JLabel();
-        jButtonCheckInventory = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1200, 750));
 
@@ -113,16 +111,9 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
         });
 
         title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        title.setText("Order Drugs");
+        title.setText("Inventory");
         title.setAlignmentX(740.0F);
         title.setAlignmentY(245.0F);
-
-        jButtonCheckInventory.setText("Check Inventory");
-        jButtonCheckInventory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCheckInventoryActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -136,10 +127,7 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
                         .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(144, 144, 144)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(413, 413, 413)
-                        .addComponent(jButtonCheckInventory)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(444, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
@@ -151,9 +139,7 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
                     .addComponent(title))
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonCheckInventory)
-                .addContainerGap(383, Short.MAX_VALUE))
+                .addContainerGap(430, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -175,18 +161,10 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backActionPerformed
 
-    private void jButtonCheckInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCheckInventoryActionPerformed
-        // TODO add your handling code here:
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("viewInventory", new ViewInventoryJpanel(userProcessContainer, enterprise.getInventory()));
-        layout.next(userProcessContainer);
-    }//GEN-LAST:event_jButtonCheckInventoryActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
     private javax.swing.JTable drugquantity;
-    private javax.swing.JButton jButtonCheckInventory;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JLabel title;
