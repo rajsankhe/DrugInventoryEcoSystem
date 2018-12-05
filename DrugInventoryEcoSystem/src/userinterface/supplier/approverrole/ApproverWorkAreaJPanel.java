@@ -335,17 +335,20 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
                         .filter(drugIn -> entry.getKey().equals(drugIn.getName()))
                         .findAny()
                         .orElse(null);
-                countArray[0] = drug.getQuantity();
-                countArray[2] = countArray[1] - countArray[2];
+                if (drug != null) {
+                    countArray[0] = drug.getQuantity();
+                }
+                countArray[2] = countArray[1] - countArray[0];
                 if (countArray[2] < 0) {
                     countArray[2] = 0;
                 } else if (countArray[2] > 0) {
                     bidFlag = true;
                 }
+                
             }
 
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            userProcessContainer.add("RequestBid", new RequestBidOrSendSupplier(request, requestOrSend, bidFlag));
+            userProcessContainer.add("RequestBid", new RequestBidOrSendSupplier(userProcessContainer,request, requestOrSend, bidFlag));
             layout.next(userProcessContainer);
         } else {
             JOptionPane.showMessageDialog(null, "Assign request to you.");

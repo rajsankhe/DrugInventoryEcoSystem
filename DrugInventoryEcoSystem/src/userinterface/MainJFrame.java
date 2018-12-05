@@ -12,6 +12,8 @@ import business.network.Network;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import java.awt.CardLayout;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import userinterface.logout.LogOutScreen;
@@ -27,10 +29,10 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     //The parent EcoSystem Singleton Object
     private EcoSystem system;
+   // private static final Logger log = LogManager.getLogger(MainJFrame.class);
     //Singleton DB4O object to store and retrieve the EcoSystem when system STARTS/STOPS
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
-
-    public MainJFrame() {
+       public MainJFrame() {
         initComponents();
         //Retrieving the system from the file
         system = dB4OUtil.retrieveSystem();
