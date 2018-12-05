@@ -11,7 +11,10 @@ import business.organization.supplier.ApproverOrganization;
 import business.useraccount.UserAccount;
 import business.workqueue.WorkRequest;
 import business.workqueue.WorkRequestDrugs;
+import commonutils.Constants;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -30,10 +33,22 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
     private Enterprise enterprise;
     private UserAccount userAccount;
     private EcoSystem ecosystem;
-   public RequestBidOrSendSupplier(JPanel userProcessContainer, EcoSystem ecosystem, WorkRequestDrugs request) {
-       initComponents(); 
-       requestBid.setEnabled(false);
-       
+
+    RequestBidOrSendSupplier(WorkRequestDrugs request, Map<String, int[]> requestOrSend, Boolean bidFlag) {
+        initComponents(); 
+        if(bidFlag==Boolean.TRUE)
+        {
+            messageLabel.setText("Inventory is low, please request bid");
+            messageLabel.setForeground(Color.red);
+            requestBid.setEnabled(true);
+            sendToSupplier.setEnabled(false);
+        }
+        else
+        {
+            requestBid.setEnabled(false);
+            sendToSupplier.setEnabled(true);
+        }
+        populateRequestTable(requestOrSend);
     }
 
     /**
@@ -174,18 +189,18 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
         }
 
         WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
-        if(request.getReceiver()==null){
-            request.setReceiver(userAccount);
-            populateRequestTable();
+        if(request.getReceiver()== userAccount){
+            request.setStatus(Constants.requestBid);
+//            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+//            userProcessContainer.add("RequestBid", new RequestBidOrSendSupplier(userProcessContainer,ecosystem, request ));
+//            layout.next(userProcessContainer);
         }
         else{
-            JOptionPane.showMessageDialog(null, "Already assinged to "+request.getReceiver());
-            return;
+            JOptionPane.showMessageDialog(null, "Assign request to you.");
         }
     }//GEN-LAST:event_requestBidActionPerformed
 
     private void sendToSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToSupplierActionPerformed
-        // TODO add your handling code here:
         int selectedRow = workRequestJTable.getSelectedRow();
 
         if (selectedRow < 0){
@@ -194,9 +209,8 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
         }
         WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
         if(request.getReceiver()== userAccount){
-            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            userProcessContainer.add("RequestBid", new RequestBidOrSendSupplier(userProcessContainer,ecosystem, request ));
-            layout.next(userProcessContainer);
+              request.setStatus(Constants.resentToChemist);
+              
         }
         else{
             JOptionPane.showMessageDialog(null, "Assign request to you.");
@@ -215,18 +229,18 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
     private javax.swing.JTable workRequestJTable;
     // End of variables declaration//GEN-END:variables
 
-    private void populateRequestTable() {
+    private void populateRequestTable(Map<String, int[]> requestOrSend) {
         DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();  
         model.setRowCount(0);
-        for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
-            WorkRequestDrugs workRequestDrugs = (WorkRequestDrugs)request;            
-            Object[] row = new Object[4];
-            row[0] = request;
-            row[1] = request.getStatus();
-            row[2] = request.getSender();
-            row[3] = request.getReceiver();
+        for (Map.Entry<String, int[]> entry : requestOrSend.entrySet()) {
+             Object[] row = new Object[4]; 
+            row[0] = entry.getKey();
+            int[] countArray = entry.getValue();
+            row[1] = countArray[0];
+            row[2] = countArray[1];
+            row[3] = countArray[2];
             model.addRow(row);
-    }
+        }
     }   
 }
 
