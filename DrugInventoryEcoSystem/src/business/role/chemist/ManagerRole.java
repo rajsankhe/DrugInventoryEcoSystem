@@ -7,6 +7,7 @@ package business.role.chemist;
 
 import business.EcoSystem;
 import business.enterprise.Enterprise;
+import business.network.Network;
 import business.organization.Organization;
 import business.organization.chemist.ManagerOrganization;
 import business.role.Role;
@@ -25,7 +26,7 @@ public class ManagerRole extends Role {
     }
 
     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business, Network network) {
         return new ManagerWorkAreaJPanel(userProcessContainer, account, (ManagerOrganization) organization, enterprise, business);
     }
 
