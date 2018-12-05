@@ -9,9 +9,11 @@ import business.EcoSystem;
 import business.enterprise.Enterprise;
 import business.network.Network;
 import business.organization.Organization;
+import business.organization.manufacturer.ProducerOrganization;
 import business.role.Role;
 import business.useraccount.UserAccount;
 import javax.swing.JPanel;
+import userinterface.manufacturer.producerrole.ProducerWorkAreaJPanel;
 
 /**
  *
@@ -23,10 +25,9 @@ public class ProducerRole extends Role {
         super(type);
     }
 
-    @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business, Network network) {
-        //return new ProducerWorkAreaJPanel(userProcessContainer, enterprise);
-        return null;
+        return new ProducerWorkAreaJPanel(userProcessContainer, account, (ProducerOrganization) organization, enterprise, business);
+
     }
 
 }

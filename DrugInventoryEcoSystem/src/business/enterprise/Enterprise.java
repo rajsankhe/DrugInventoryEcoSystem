@@ -63,7 +63,10 @@ public abstract class Enterprise extends Organization {
         this.enterpriseType = type;
         organizationDirectory = new OrganizationDirectory();
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return super.getName();
+    }
 
 }

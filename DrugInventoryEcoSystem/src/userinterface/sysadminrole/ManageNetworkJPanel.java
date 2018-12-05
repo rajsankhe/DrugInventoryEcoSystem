@@ -9,6 +9,7 @@ import business.network.Network;
 import commonutils.Validator;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -123,13 +124,13 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 400, -1, -1));
 
         submitJButton.setBackground(new java.awt.Color(255, 255, 255));
-        submitJButton.setText("Submit");
+        submitJButton.setText("Add");
         submitJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitJButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 330, -1, -1));
+        kGradientPanel1.add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 330, 80, -1));
         kGradientPanel1.add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 390, 170, -1));
 
         backJButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -155,9 +156,14 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                 editNetworkjButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(editNetworkjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, -1, -1));
+        kGradientPanel1.add(editNetworkjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, -1, -1));
 
         deleteNetworkjButton.setText("Delete");
+        deleteNetworkjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteNetworkjButtonActionPerformed(evt);
+            }
+        });
         kGradientPanel1.add(deleteNetworkjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, -1, -1));
 
         add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 750));
@@ -167,9 +173,9 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
 
         String name = nameJTextField.getText();
 
-        if (!Validator.isValidAlphaNum(name)) {
+        if (!Validator.isValidAlphaNumericWithSpaces(name)) {
             //Name is not valid
-            JOptionPane.showMessageDialog(null, "Please enter a valid name. Only characters are allowed");
+            JOptionPane.showMessageDialog(null, "Please enter a valid name. Only alphanumeric characters, spaces and . allowed.");
             nameJTextField.setText("");
             return;
         }
@@ -199,45 +205,50 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_backJButtonActionPerformed
 
     private void editNetworkjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editNetworkjButtonActionPerformed
-        // TODO add your handling code here:
-//        int selectedRow = networkJTable.getSelectedRow();
-//
-//        if (selectedRow < 0) {
-//            JOptionPane.showMessageDialog(null, "Please select row");
-//            return;
-//        }
-//
-//        Network network = (Network) networkJTable.getValueAt(selectedRow, 0);
-//
-//        String oldName = network.getName();
-//        JFrame frame = new JFrame();
-//        String message = (String) JOptionPane.showInputDialog(frame,
-//                "Enter the new Name for Network",
-//                "Update Network",
-//                JOptionPane.OK_CANCEL_OPTION);
-//
-//        if (!Validator.isValidAlphaNum(message)) {
-//            //Name is not valid
-//            JOptionPane.showMessageDialog(null, "Please enter a valid name. Only characters and numbers are allowed");
-//            nameJTextField.setText("");
-//            return;
-//        }
-//
-//        network.setName(message);
-//
-//        //Update network in the list
-//        for (Network n : system.getNetworkDirectory().getNetworkList()) {
-//            if (n.getName().equalsIgnoreCase(oldName)) {
-//                //Found the network
-//                //n.setName(message);
-//
-//                break;
-//            }
-//        }
-//
-//        populateNetworkTable();
+        int selectedRow = networkJTable.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a row!!!");
+        } else {
+            Network network = (Network) networkJTable.getValueAt(selectedRow, 0);
+            JFrame frame = new JFrame();
+            String message = (String) JOptionPane.showInputDialog(frame,
+                    "Update Network",
+                    "New Name",
+                    JOptionPane.OK_CANCEL_OPTION);
+            if (!Validator.isValidAlphaNumericWithSpaces(message)) {
+                JOptionPane.showMessageDialog(null, "Network update failed. Only alphanumeric characters, spaces and . allowed.");
+                return;
+            }
+
+            system.getNetworkDirectory().updateNetwork(network, message);
+            populateNetworkTable();
+        }
 
     }//GEN-LAST:event_editNetworkjButtonActionPerformed
+
+    private void deleteNetworkjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteNetworkjButtonActionPerformed
+        int selectedRow = networkJTable.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a row!!!");
+        } else {
+            Network network = (Network) networkJTable.getValueAt(selectedRow, 0);
+
+            if (network.getEnterpriseDirectory().getEnterpriseList().size() > 0) {
+                //Cannot delete the network
+                JOptionPane.showMessageDialog(null, "Network cannot be deleted. First delete all the enterprises within this network.");
+                return;
+            }
+
+            int selectionButton = JOptionPane.YES_NO_OPTION;
+            int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure to delete?", "Warning", selectionButton);
+            if (selectionResult == JOptionPane.YES_OPTION) {
+                //can delete the network now.
+                system.getNetworkDirectory().deleteNetwork(network);
+            }
+
+            populateNetworkTable();
+        }
+    }//GEN-LAST:event_deleteNetworkjButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backJButton;

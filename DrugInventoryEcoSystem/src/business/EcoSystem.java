@@ -56,5 +56,4 @@ public class EcoSystem extends Organization {
         roleList.add(new SystemAdminRole(RoleType.Admin));
         return roleList;
     }
-
 }

@@ -56,4 +56,20 @@ public class EnterpriseDirectory {
         return enterprise;
     }
 
+    public Enterprise updateEnterprise(String origName, String newName) {
+        Enterprise enterprise = null;
+
+        for (Enterprise e : enterpriseList) {
+            if (e.getName().equalsIgnoreCase(origName)) {
+                //Enerprise with the name passed already exists
+                e.setName(newName);
+            }
+        }
+        return enterprise;
+    }
+
+    public void removeEnterprise(Enterprise enterprise) {
+        enterpriseList.remove(enterprise);
+    }
+
 }

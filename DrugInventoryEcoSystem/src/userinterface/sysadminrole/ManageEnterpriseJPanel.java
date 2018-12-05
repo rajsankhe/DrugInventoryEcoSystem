@@ -13,6 +13,7 @@ import business.network.Network;
 import commonutils.Validator;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -53,8 +54,8 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         for (Network network : system.getNetworkDirectory().getNetworkList()) {
             for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
                 Object[] row = new Object[3];
-                row[0] = enterprise.getName();
-                row[1] = network.getName();
+                row[0] = enterprise;
+                row[1] = network;
                 row[2] = enterprise.getEnterpriseType().getValue();
 
                 model.addRow(row);
@@ -193,9 +194,19 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         kGradientPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 380, 50));
 
         updateEnterprisejButton.setText("Edit");
+        updateEnterprisejButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateEnterprisejButtonActionPerformed(evt);
+            }
+        });
         kGradientPanel1.add(updateEnterprisejButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
 
         deleteEnterprisejButton.setText("Delete");
+        deleteEnterprisejButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteEnterprisejButtonActionPerformed(evt);
+            }
+        });
         kGradientPanel1.add(deleteEnterprisejButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 410, -1, -1));
 
         add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 750));
@@ -213,9 +224,9 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
         String name = nameJTextField.getText();
 
-        if (!Validator.isValidAlphaNum(name)) {
+        if (!Validator.isValidAlphaNumericWithSpaces(name)) {
             //Name is not valid
-            JOptionPane.showMessageDialog(null, "Please enter a valid name. Only characters are allowed");
+            JOptionPane.showMessageDialog(null, "Please enter a valid name. Only alphanumeric characters, spaces and . allowed.");
             return;
         }
 
@@ -226,7 +237,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Enterprise with the given name already exists in this network! Please check.");
             return;
         }
-        
+
         if (type == Enterprise.EnterpriseType.Chemist) {
             ChemistEnterprise chemistEnterprise = (ChemistEnterprise) enterprise;
             chemistEnterprise.getInventory().setDrugStock(ConfigureASystem.generateInventory());
@@ -261,6 +272,54 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
     private void networkJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_networkJComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_networkJComboBoxActionPerformed
+
+    private void updateEnterprisejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateEnterprisejButtonActionPerformed
+
+        int selectedRow = enterpriseJTable.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a row!!!");
+        } else {
+            Enterprise enterprise = (Enterprise) enterpriseJTable.getValueAt(selectedRow, 0);
+            Network network = (Network) enterpriseJTable.getValueAt(selectedRow, 1);
+            JFrame frame = new JFrame();
+            String message = (String) JOptionPane.showInputDialog(frame,
+                    "Update Enterprise",
+                    "New Name",
+                    JOptionPane.OK_CANCEL_OPTION);
+            if (!Validator.isValidAlphaNumericWithSpaces(message)) {
+                JOptionPane.showMessageDialog(null, "Enterprise update failed. Only alphanumeric characters, spaces and . allowed.");
+                return;
+            }
+
+            network.getEnterpriseDirectory().updateEnterprise(enterprise.getName(), message);
+            populateTable();
+        }
+
+    }//GEN-LAST:event_updateEnterprisejButtonActionPerformed
+
+    private void deleteEnterprisejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteEnterprisejButtonActionPerformed
+        int selectedRow = enterpriseJTable.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a row!!!");
+        } else {
+            Enterprise enterprise = (Enterprise) enterpriseJTable.getValueAt(selectedRow, 0);
+            Network network = (Network) enterpriseJTable.getValueAt(selectedRow, 1);
+
+            if (enterprise.getOrganizationDirectory().getOrganizationList().size() > 0) {
+                JOptionPane.showMessageDialog(null, "Enterprise has organization which are active. Please remove them first");
+                return;
+            }
+
+            int selectionButton = JOptionPane.YES_NO_OPTION;
+            int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure to delete?", "Warning", selectionButton);
+            if (selectionResult == JOptionPane.YES_OPTION) {
+                //can delete the network now.
+                network.getEnterpriseDirectory().removeEnterprise(enterprise);
+            }
+
+            populateTable();
+        }
+    }//GEN-LAST:event_deleteEnterprisejButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backJButton;
