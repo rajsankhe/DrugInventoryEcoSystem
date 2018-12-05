@@ -13,14 +13,14 @@ import java.util.List;
  * @author Admin
  */
 public class Inventory {
-    private List<Drug> inventory;
+    private List<Drug> drugStock;
 
-    public List<Drug> getInventory() {
-        return inventory;
+    public List<Drug> getDrugStock() {
+        return drugStock;
     }
 
-    public void setInventory(List<Drug> inventory) {
-        this.inventory = inventory;
+    public void setDrugStock(List<Drug> drugStock) {
+        this.drugStock = drugStock;
     }
     
 }

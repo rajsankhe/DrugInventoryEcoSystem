@@ -255,7 +255,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         
         WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("viewEditDrug", new ViewOrderjpanel(userProcessContainer, request));
+        userProcessContainer.add("viewEditDrug", new ViewOrderjpanel(userProcessContainer, request, enterprise));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_viewRequestActionPerformed
 
@@ -277,6 +277,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         }
         else
         {
+            request.getEnterpriseStack().add(this.enterprise);
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer,ecosystem, request ));
             layout.next(userProcessContainer);

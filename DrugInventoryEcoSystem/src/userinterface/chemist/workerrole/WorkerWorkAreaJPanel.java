@@ -249,8 +249,8 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_viewRequestActionPerformed
 
     private void orderRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderRequestActionPerformed
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("OrderDrugs", new OrderDrugsJpanel(userProcessContainer, userAccount));
+         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("OrderDrugs", new OrderDrugsJpanel(userProcessContainer, userAccount, enterprise));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_orderRequestActionPerformed
 

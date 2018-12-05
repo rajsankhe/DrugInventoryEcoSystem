@@ -6,6 +6,8 @@
 package userinterface.chemist.workerrole;
 
 import business.drug.Drug;
+import business.enterprise.ChemistEnterprise;
+import business.enterprise.Enterprise;
 import business.useraccount.UserAccount;
 import business.workqueue.WorkRequest;
 import business.workqueue.WorkRequestDrugs;
@@ -30,8 +32,9 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private UserAccount userAccount;
+    private ChemistEnterprise enterprise;
 
-    public OrderDrugsJpanel(JPanel userProcessContainer, UserAccount account) {
+    public OrderDrugsJpanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise) {
         initComponents();
         this.setSize(1200, 750);
         ((DefaultTableCellRenderer)drugquantity.getDefaultRenderer(Object.class)).setOpaque(false);
@@ -39,6 +42,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
         jScrollPane1.getViewport().setOpaque(false);
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
+        this.enterprise = (ChemistEnterprise) enterprise;
         drugquantity.setSize(300, 64);
     }
 
@@ -59,6 +63,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
         back = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButtonCheckInventory = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1200, 750));
 
@@ -114,6 +119,13 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
         jLabel2.setAlignmentX(740.0F);
         jLabel2.setAlignmentY(245.0F);
 
+        jButtonCheckInventory.setText("Check Inventory");
+        jButtonCheckInventory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCheckInventoryActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -134,6 +146,8 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                 .addComponent(submit)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonCheckInventory)
+                                .addGap(75, 75, 75)
                                 .addComponent(addRow))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 20, Short.MAX_VALUE))
@@ -150,7 +164,8 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submit)
-                    .addComponent(addRow))
+                    .addComponent(addRow)
+                    .addComponent(jButtonCheckInventory))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(359, 359, 359))
@@ -224,11 +239,19 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backActionPerformed
 
+    private void jButtonCheckInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCheckInventoryActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("viewInventory", new ViewInventoryJpanel(userProcessContainer, enterprise.getInventory()));
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_jButtonCheckInventoryActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addRow;
     private javax.swing.JButton back;
     private javax.swing.JTable drugquantity;
+    private javax.swing.JButton jButtonCheckInventory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

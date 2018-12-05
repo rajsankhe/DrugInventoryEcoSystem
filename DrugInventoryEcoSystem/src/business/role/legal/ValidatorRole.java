@@ -8,9 +8,11 @@ package business.role.legal;
 import business.EcoSystem;
 import business.enterprise.Enterprise;
 import business.organization.Organization;
+import business.organization.legal.ValidatorOrganization;
 import business.role.Role;
 import business.useraccount.UserAccount;
 import javax.swing.JPanel;
+import userinterface.legal.validatorrole.ValidatorWorkArea;
 
 /**
  *
@@ -25,7 +27,7 @@ public class ValidatorRole extends Role {
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {
         //left
-        return null;
+        return new ValidatorWorkArea(userProcessContainer,account,(ValidatorOrganization)organization,enterprise);
     }
 
 }

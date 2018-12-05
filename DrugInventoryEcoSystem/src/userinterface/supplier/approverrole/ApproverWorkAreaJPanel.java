@@ -7,8 +7,10 @@ package userinterface.supplier.approverrole;
 
 import userinterface.chemist.managerrole.*;
 import business.EcoSystem;
+import business.drug.Drug;
 import business.enterprise.Enterprise;
 import business.enterprise.SupplierEnterprise;
+import business.inventory.Inventory;
 import business.organization.Organization;
 import business.organization.chemist.ManagerOrganization;
 import business.organization.legal.ValidatorOrganization;
@@ -18,6 +20,9 @@ import business.workqueue.WorkRequest;
 import business.workqueue.WorkRequestDrugs;
 import commonutils.Constants;
 import java.awt.CardLayout;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -282,6 +287,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         }
         WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
         Organization org= null;
+        //request.getEnterpriseStack().add(this.enterprise);
         if(request.getReceiver()== userAccount){
             for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()){
             if (organization instanceof ValidatorOrganization){
@@ -312,12 +318,33 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
         if(request.getReceiver()== userAccount){
             SupplierEnterprise supplierEnterprise=(SupplierEnterprise)  enterprise;
-            supplierEnterprise.getInventory();
+            Inventory inventorySupp=supplierEnterprise.getInventory();
+            List<Drug> inventory = inventorySupp.getDrugStock();
+            List<Drug> drugsOrderList = request.getDrugsOrderList();
+            Map<String,int[]> requestOrSend= new HashMap<>();
+            Boolean bidFlag=false;
+            drugsOrderList.stream().forEach(drug -> requestOrSend.put(drug.getName(),new int[]{0,drug.getQuantity(),0}) );
+            for (Map.Entry<String,int[]> entry: requestOrSend.entrySet())
+            {
+                int[] countArray = entry.getValue();
+                Drug drug= inventory.stream()
+                .filter(drugIn -> entry.getKey().equals(drugIn.getName()))
+                .findAny()
+                .orElse(null);
+                countArray[0]= drug.getQuantity();
+                countArray[2]= countArray[1]-countArray[2];
+                if(countArray[2]<0)
+                  countArray[2]=0;  
+                else if(countArray[2]>0)
+                    {
+                        bidFlag= true; 
+                    }
+            }
             
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            userProcessContainer.add("RequestBid", new RequestBidOrSendSupplier(userProcessContainer,ecosystem, request ));
+            userProcessContainer.add("RequestBid", new RequestBidOrSendSupplier(request,requestOrSend,bidFlag ));
             layout.next(userProcessContainer);
-        }
+        }   
         else{
             JOptionPane.showMessageDialog(null, "Assign request to you.");
         }

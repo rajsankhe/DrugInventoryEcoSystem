@@ -5,6 +5,7 @@
  */
 package business;
 
+import business.drug.Drug;
 import business.employee.Employee;
 import business.enterprise.ChemistEnterprise;
 import business.enterprise.Enterprise;
@@ -23,6 +24,9 @@ import business.role.SystemAdminRole;
 import business.role.chemist.WorkerRole;
 import business.useraccount.UserAccount;
 import commonutils.PasswordUtility;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -66,25 +70,29 @@ public class ConfigureASystem {
     public static void addEnterpriseToDirectory(Network network, EnterpriseDirectory enterpriseDirectory, int i) {
         //Add enterprisedirectory and create enterprises
 
-        Enterprise chemistEnterprise = enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, i) + "Chemist" + i, Enterprise.EnterpriseType.Chemist);
+        Enterprise chemistEnterprise = enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, 1) + "Chemist" + i, Enterprise.EnterpriseType.Chemist);
         Employee chemistAdminEmployee = chemistEnterprise.getEmployeeDirectory().createEmployee("chemadminemp" + i);
         chemistEnterprise.getUserAccountDirectory().createUserAccount("chementadmin" + i, PasswordUtility.createPassword("chementadmin" + i), "dalal.vi@husky.neu.edu", chemistAdminEmployee, new AdminRole(Role.RoleType.Admin));
+        ChemistEnterprise tempcChemistEnterprise = (ChemistEnterprise) chemistEnterprise;
+        tempcChemistEnterprise.getInventory().setDrugStock(generateInventory());
+        
+        Enterprise supplierEnterprise = enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, 1) + "Supplier" + i, Enterprise.EnterpriseType.Supplier);
+        Employee supplierAdminEmployee = supplierEnterprise.getEmployeeDirectory().createEmployee("suppadminemp" + i);
+        supplierEnterprise.getUserAccountDirectory().createUserAccount("suppentadmin" + i, PasswordUtility.createPassword("suppentadmin" + i), "dalal.vi@husky.neu.edu", supplierAdminEmployee, new AdminRole(Role.RoleType.Admin));
+        SupplierEnterprise tempSupplierEnterprise = (SupplierEnterprise) supplierEnterprise;
+        tempSupplierEnterprise.getInventory().setDrugStock(generateInventory());
+        
+        Enterprise legalEnterprise = enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, 1) + "Legal" + i, Enterprise.EnterpriseType.Legal);
+        Employee legalAdminEmployee = legalEnterprise.getEmployeeDirectory().createEmployee("legaladminemp" + i);
+        legalEnterprise.getUserAccountDirectory().createUserAccount("legalentadmin" + i, PasswordUtility.createPassword("legalentadmin" + i), "dalal.vi@husky.neu.edu", legalAdminEmployee, new AdminRole(Role.RoleType.Admin));      
+        
+        Enterprise manufacturerEnterprise = enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, 1) + "Manufacturer" + i, Enterprise.EnterpriseType.Manufacturer);
+        Employee manufacturerAdminEmployee = manufacturerEnterprise.getEmployeeDirectory().createEmployee("manuadminemp" + i);
+        manufacturerEnterprise.getUserAccountDirectory().createUserAccount("manuentadmin" + i, PasswordUtility.createPassword("manuentadmin" + i), "dalal.vi@husky.neu.edu", manufacturerAdminEmployee, new AdminRole(Role.RoleType.Admin));
 
-        enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, i) + "Supplier" + i, Enterprise.EnterpriseType.Supplier);
-        Employee supplierAdminEmployee = chemistEnterprise.getEmployeeDirectory().createEmployee("suppadminemp" + i);
-        chemistEnterprise.getUserAccountDirectory().createUserAccount("suppentadmin" + i, PasswordUtility.createPassword("suppentadmin" + i), "dalal.vi@husky.neu.edu", supplierAdminEmployee, new AdminRole(Role.RoleType.Admin));
-
-        enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, i) + "Legal" + i, Enterprise.EnterpriseType.Legal);
-        Employee legalAdminEmployee = chemistEnterprise.getEmployeeDirectory().createEmployee("legaladminemp" + i);
-        chemistEnterprise.getUserAccountDirectory().createUserAccount("legalentadmin" + i, PasswordUtility.createPassword("legalentadmin" + i), "dalal.vi@husky.neu.edu", legalAdminEmployee, new AdminRole(Role.RoleType.Admin));
-
-        enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, i) + "Manufacturer" + i, Enterprise.EnterpriseType.Manufacturer);
-        Employee manufacturerAdminEmployee = chemistEnterprise.getEmployeeDirectory().createEmployee("manuadminemp" + i);
-        chemistEnterprise.getUserAccountDirectory().createUserAccount("manuentadmin" + i, PasswordUtility.createPassword("manuentadmin" + i), "dalal.vi@husky.neu.edu", manufacturerAdminEmployee, new AdminRole(Role.RoleType.Admin));
-
-        enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, i) + "Transporter" + i, Enterprise.EnterpriseType.Transporter);
-        Employee transporterAdminEmployee = chemistEnterprise.getEmployeeDirectory().createEmployee("tranadminemp" + i);
-        chemistEnterprise.getUserAccountDirectory().createUserAccount("tranentadmin" + i, PasswordUtility.createPassword("tranentadmin" + i), "dalal.vi@husky.neu.edu", transporterAdminEmployee, new AdminRole(Role.RoleType.Admin));
+        Enterprise transporterEnterprise = enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, 1) + "Transporter" + i, Enterprise.EnterpriseType.Transporter);
+        Employee transporterAdminEmployee = transporterEnterprise.getEmployeeDirectory().createEmployee("tranadminemp" + i);
+        transporterEnterprise.getUserAccountDirectory().createUserAccount("tranentadmin" + i, PasswordUtility.createPassword("tranentadmin" + i), "dalal.vi@husky.neu.edu", transporterAdminEmployee, new AdminRole(Role.RoleType.Admin));
 
         //Enterprises have been added now. Let's populate Organizations in the Enterprise
         for (Enterprise enterprise : enterpriseDirectory.getEnterpriseList()) {
@@ -165,6 +173,24 @@ public class ConfigureASystem {
 
             }
         }
+    }
+    
+    public static List<Drug> generateInventory(){
+        List<Drug> drugStock = new ArrayList<>();
+        List<String> drugs = new ArrayList<>();
+        for(int i=0;i<=10;i++){
+            drugs.add("drug"+i);
+        }
+        Random random = new Random();
+//        random.nextInt(10);
+        int sizeOfInventory = (random.ints(4, 10)).findAny().getAsInt();
+        for(int j= 1; j<=sizeOfInventory; j++){
+            Drug drug = new Drug();
+            drug.setName(drugs.get(random.nextInt(10)));
+            drug.setQuantity(random.nextInt(30));
+            drugStock.add(drug);
+        }
+        return drugStock;
     }
 
 }

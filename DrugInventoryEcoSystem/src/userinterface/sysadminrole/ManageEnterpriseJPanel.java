@@ -4,8 +4,11 @@
  */
 package userinterface.sysadminrole;
 
+import business.ConfigureASystem;
 import business.EcoSystem;
+import business.enterprise.ChemistEnterprise;
 import business.enterprise.Enterprise;
+import business.enterprise.SupplierEnterprise;
 import business.network.Network;
 import commonutils.Validator;
 import java.awt.CardLayout;
@@ -222,6 +225,14 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
             //Enterprise with same name already exists. Throw error
             JOptionPane.showMessageDialog(null, "Enterprise with the given name already exists in this network! Please check.");
             return;
+        }
+        
+        if (type == Enterprise.EnterpriseType.Chemist) {
+            ChemistEnterprise chemistEnterprise = (ChemistEnterprise) enterprise;
+            chemistEnterprise.getInventory().setDrugStock(ConfigureASystem.generateInventory());
+        } else if (type == Enterprise.EnterpriseType.Supplier) {
+            SupplierEnterprise supplierEnterprise = (SupplierEnterprise) enterprise;
+            supplierEnterprise.getInventory().setDrugStock(ConfigureASystem.generateInventory());
         }
 
         JOptionPane.showMessageDialog(null, "Enterprise created successfully.");
