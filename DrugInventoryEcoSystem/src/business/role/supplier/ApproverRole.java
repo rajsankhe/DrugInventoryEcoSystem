@@ -7,6 +7,7 @@ package business.role.supplier;
 
 import business.EcoSystem;
 import business.enterprise.Enterprise;
+import business.network.Network;
 import business.organization.Organization;
 import business.organization.supplier.ApproverOrganization;
 import business.role.Role;
@@ -25,8 +26,8 @@ public class ApproverRole extends Role {
     }
 
     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {
-        return new ApproverWorkAreaJPanel(userProcessContainer,account,(ApproverOrganization)organization,enterprise,business);
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business, Network network) {
+        return new ApproverWorkAreaJPanel(userProcessContainer,account,(ApproverOrganization)organization,enterprise,business, network);
     }
 
 }

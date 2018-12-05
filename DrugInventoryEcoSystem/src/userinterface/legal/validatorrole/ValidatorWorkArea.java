@@ -71,7 +71,7 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
             Object[] row = new Object[4];
             row[0] = request;
             row[1] = request.getStatus();
-            row[2] = request.getSender();
+            row[2] = request.getReceiver();
             ChemistEnterprise chemistEnterprise = null;
             for(Enterprise enterprise : request.getEnterpriseStack()){
                 if(enterprise instanceof ChemistEnterprise){
@@ -327,22 +327,10 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
         }
 
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
-        if (request.getReceiver() == userAccount) {
-            request.setStatus(Constants.Reject);
-            JFrame frame = new JFrame();
-            String message = (String) JOptionPane.showInputDialog(frame,
-                    "Enter the message",
-                    Constants.Reject + " message",
-                    JOptionPane.OK_CANCEL_OPTION);
-            request.setMessage(message);
-
-            organization.getWorkQueue().getWorkRequestList().remove(request);
-            populateRequestTable();
-        } else {
-            JOptionPane.showMessageDialog(null, "Assign request to you.");
-        }
-
-        //WorkRequestDrugs wr= request.getSender().getWorkQueue().getWorkRequestList().stream().filter(x -> x==request).findFirst().get();
+        request.setStatus(Constants.rejectedByLegal);
+        JOptionPane.showMessageDialog(null, "Rejected");
+        organization.getWorkQueue().deleteWorkRequest(request);
+        populateRequestTable();
     }//GEN-LAST:event_rejectActionPerformed
 
     private void approveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approveActionPerformed
@@ -355,18 +343,10 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
         }
 
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
-        if (request.getReceiver() == userAccount) {
-            request.setStatus(Constants.Approve);
-            JFrame frame = new JFrame();
-            String message = (String) JOptionPane.showInputDialog(frame,
-                    "Enter the message",
-                    Constants.Approve + " message",
-                    JOptionPane.OK_CANCEL_OPTION);
-            request.setMessage(message);
-            populateRequestTable();
-        } else {
-            JOptionPane.showMessageDialog(null, "Assign request to you.");
-        }
+        request.setStatus(Constants.acceptedByLegal);
+        JOptionPane.showMessageDialog(null, "Approved");
+        organization.getWorkQueue().deleteWorkRequest(request);
+        populateRequestTable();
     }//GEN-LAST:event_approveActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
