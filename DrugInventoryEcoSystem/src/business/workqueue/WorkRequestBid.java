@@ -11,10 +11,11 @@ import business.bid.Bid;
  *
  * @author Tej Sankhe
  */
-public class WorkRequestBid extends WorkRequest{
+public class WorkRequestBid extends WorkRequest {
+
     Bid bidRequest;
 
-    public WorkRequestBid(int size) {
+    public WorkRequestBid(String size) {
         super(size);
         this.bidRequest = new Bid();
     }
@@ -26,6 +27,5 @@ public class WorkRequestBid extends WorkRequest{
     public void setBidRequest(Bid bidRequest) {
         this.bidRequest = bidRequest;
     }
-    
-    
+
 }

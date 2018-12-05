@@ -5,14 +5,15 @@
  */
 package business.workqueue;
 
-
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  *
  * @author Tej Sankhe
  */
 public class WorkQueue {
+
     private ArrayList<WorkRequest> workRequestList;
 
     public WorkQueue() {
@@ -22,23 +23,27 @@ public class WorkQueue {
     public ArrayList<WorkRequest> getWorkRequestList() {
         return workRequestList;
     }
-    
-    public WorkRequest addWorkRequest(WorkRequest.workRequestType wRequestType){
+
+    public WorkRequest addWorkRequest(WorkRequest.workRequestType wRequestType) {
         WorkRequest workRequest = null;
-        if(wRequestType == WorkRequest.workRequestType.Bid){
-            workRequest = new WorkRequestBid(workRequestList.size());
-        }
-        else if(wRequestType == WorkRequest.workRequestType.Drugs){
-            workRequest = new WorkRequestDrugs(workRequestList.size());
-        }
-        else if(wRequestType == WorkRequest.workRequestType.Quotation){
-            workRequest = new WorkRequestQuotation(workRequestList.size());
+        //Generating ID for workRequest using UUID
+        UUID uuid = UUID.randomUUID();
+
+        if (wRequestType == WorkRequest.workRequestType.Bid) {
+            //workRequest = new WorkRequestBid(workRequestList.size());
+            workRequest = new WorkRequestBid(uuid.toString());
+        } else if (wRequestType == WorkRequest.workRequestType.Drugs) {
+            //workRequest = new WorkRequestDrugs(workRequestList.size());
+            workRequest = new WorkRequestDrugs(uuid.toString());
+        } else if (wRequestType == WorkRequest.workRequestType.Quotation) {
+            //workRequest = new WorkRequestQuotation(workRequestList.size());
+            workRequest = new WorkRequestQuotation(uuid.toString());
         }
         this.workRequestList.add(workRequest);
         return workRequest;
     }
-    
-    public void deleteWorkRequest(WorkRequest workRequest){
+
+    public void deleteWorkRequest(WorkRequest workRequest) {
         this.workRequestList.remove(workRequest);
     }
 }

@@ -101,7 +101,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -249,7 +249,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_viewRequestActionPerformed
 
     private void orderRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderRequestActionPerformed
-         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         userProcessContainer.add("OrderDrugs", new OrderDrugsJpanel(userProcessContainer, userAccount, enterprise));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_orderRequestActionPerformed
@@ -264,11 +264,10 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
         }
 
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
-        if(request.getStatus()== Constants.chemistCoworkerRequestCreated){
-           userAccount.getWorkQueue().deleteWorkRequest(request);
-           populateRequestTable();
-        }
-        else{
+        if (request.getStatus() == Constants.chemistCoworkerRequestCreated) {
+            userAccount.getWorkQueue().deleteWorkRequest(request);
+            populateRequestTable();
+        } else {
             JOptionPane.showMessageDialog(null, "Request is already proceeded can't be delete.");
             return;
         }

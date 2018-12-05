@@ -11,10 +11,11 @@ import business.quotation.Quotation;
  *
  * @author Tej Sankhe
  */
-public class WorkRequestQuotation extends WorkRequest{
+public class WorkRequestQuotation extends WorkRequest {
+
     Quotation quotationRequest;
 
-    public WorkRequestQuotation(int size) {
+    public WorkRequestQuotation(String size) {
         super(size);
         quotationRequest = new Quotation();
     }
@@ -26,6 +27,5 @@ public class WorkRequestQuotation extends WorkRequest{
     public void setQuotationRequest(Quotation quotationRequest) {
         this.quotationRequest = quotationRequest;
     }
-    
-    
+
 }
