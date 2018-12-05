@@ -6,7 +6,6 @@
 package business.workqueue;
 
 import business.enterprise.Enterprise;
-import business.organization.Organization;
 import business.useraccount.UserAccount;
 import java.util.Date;
 import java.util.Stack;
@@ -52,6 +51,7 @@ public class WorkRequest {
         this.requestDate = new Date();
         this.requestId = size;
         this.status = "";
+        this.enterpriseStack = new Stack<>();
     }
 
     public int getRequestId() {

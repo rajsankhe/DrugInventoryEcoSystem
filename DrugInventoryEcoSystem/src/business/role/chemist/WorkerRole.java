@@ -8,7 +8,6 @@ package business.role.chemist;
 import business.EcoSystem;
 import business.enterprise.Enterprise;
 import business.organization.Organization;
-import business.organization.chemist.ManagerOrganization;
 import business.organization.chemist.WorkerOrganization;
 import business.role.Role;
 import business.useraccount.UserAccount;
@@ -28,7 +27,7 @@ public class WorkerRole extends Role {
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {
         //left
-        return new WorkerWorkAreaJPanel(userProcessContainer,account,(WorkerOrganization)organization,enterprise);
+        return new WorkerWorkAreaJPanel(userProcessContainer, account, (WorkerOrganization) organization, enterprise);
     }
 
 }
