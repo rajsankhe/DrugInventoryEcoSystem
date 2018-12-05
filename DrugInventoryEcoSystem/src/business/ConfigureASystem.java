@@ -15,14 +15,19 @@ import business.enterprise.ManufacturerEnterprise;
 import business.enterprise.SupplierEnterprise;
 import business.enterprise.TransportationEnterprise;
 import business.network.Network;
-import business.network.NetworkDirectory;
 import business.organization.Organization;
 import business.organization.OrganizationDirectory;
 import business.role.AdminRole;
 import business.role.Role;
 import business.role.SystemAdminRole;
+import business.role.chemist.ManagerRole;
 import business.role.chemist.WorkerRole;
+import business.role.legal.ValidatorRole;
+import business.role.manufacturer.ProducerRole;
+import business.role.supplier.ApproverRole;
+import business.role.transport.TransporterRole;
 import business.useraccount.UserAccount;
+import commonutils.Helper;
 import commonutils.PasswordUtility;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,28 +39,27 @@ import java.util.Random;
  */
 public class ConfigureASystem {
 
+    private static final String emailID = "dalal.vi@husky.neu.edu";
+
     public static EcoSystem configure() {
 
         EcoSystem system = EcoSystem.getInstance();
 
         //Create a network
-        NetworkDirectory networkDirectory = new NetworkDirectory();
-        networkDirectory.createAndAddNetwork("Boston");
-        networkDirectory.createAndAddNetwork("NewYorkCity");
+        //NetworkDirectory networkDirectory = new NetworkDirectory();
+        system.networkDirectory.createAndAddNetwork("boston");
+        system.networkDirectory.createAndAddNetwork("newyorkcity");
 
-        for (Network network : networkDirectory.getNetworkList()) {
+        for (Network network : system.getNetworkDirectory().getNetworkList()) {
 
             EnterpriseDirectory enterpriseDirectory = new EnterpriseDirectory();
-            for (int entepriseCounter = 0; entepriseCounter < 2; entepriseCounter++) {
-                addEnterpriseToDirectory(network, enterpriseDirectory, entepriseCounter + 1);
+            for (int entepriseCounter = 1; entepriseCounter < 2; entepriseCounter++) {
+                addEnterpriseToDirectory(network, enterpriseDirectory, entepriseCounter);
             }
             network.setEnterpriseDirectory(enterpriseDirectory);
-
-            //Add organizations and
         }
 
-        system.networkDirectory = networkDirectory;
-
+        //system.networkDirectory = networkDirectory;
         //create an enterprise
         //initialize some organizations
         //have some employees
@@ -70,38 +74,50 @@ public class ConfigureASystem {
     public static void addEnterpriseToDirectory(Network network, EnterpriseDirectory enterpriseDirectory, int i) {
         //Add enterprisedirectory and create enterprises
 
-        Enterprise chemistEnterprise = enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, 1) + "Chemist" + i, Enterprise.EnterpriseType.Chemist);
-        Employee chemistAdminEmployee = chemistEnterprise.getEmployeeDirectory().createEmployee("chemadminemp" + i);
-        chemistEnterprise.getUserAccountDirectory().createUserAccount("chementadmin" + i, PasswordUtility.createPassword("chementadmin" + i), "dalal.vi@husky.neu.edu", chemistAdminEmployee, new AdminRole(Role.RoleType.Admin));
+        Enterprise chemistEnterprise = enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, 1) + "Chemist" + i,
+                Enterprise.EnterpriseType.Chemist);
+        String name = network.getName().substring(0, 1) + "chementadmin" + i;
+        Employee chemistAdminEmployee = chemistEnterprise.getEmployeeDirectory().createEmployee(name);
+        chemistEnterprise.getUserAccountDirectory().createUserAccount(name,
+                PasswordUtility.createPassword(name), emailID, chemistAdminEmployee, new AdminRole(Role.RoleType.Admin));
         ChemistEnterprise tempcChemistEnterprise = (ChemistEnterprise) chemistEnterprise;
         tempcChemistEnterprise.getInventory().setDrugStock(generateInventory());
-        
-        Enterprise supplierEnterprise = enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, 1) + "Supplier" + i, Enterprise.EnterpriseType.Supplier);
-        Employee supplierAdminEmployee = supplierEnterprise.getEmployeeDirectory().createEmployee("suppadminemp" + i);
-        supplierEnterprise.getUserAccountDirectory().createUserAccount("suppentadmin" + i, PasswordUtility.createPassword("suppentadmin" + i), "dalal.vi@husky.neu.edu", supplierAdminEmployee, new AdminRole(Role.RoleType.Admin));
+
+        name = network.getName().substring(0, 1) + "suppentadmin" + i;
+        Enterprise supplierEnterprise = enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, 1) + "Supplier" + i,
+                Enterprise.EnterpriseType.Supplier);
+        Employee supplierAdminEmployee = supplierEnterprise.getEmployeeDirectory().createEmployee(name);
+        supplierEnterprise.getUserAccountDirectory().createUserAccount(name,
+                PasswordUtility.createPassword(name), emailID, supplierAdminEmployee, new AdminRole(Role.RoleType.Admin));
         SupplierEnterprise tempSupplierEnterprise = (SupplierEnterprise) supplierEnterprise;
         tempSupplierEnterprise.getInventory().setDrugStock(generateInventory());
-        
-        Enterprise legalEnterprise = enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, 1) + "Legal" + i, Enterprise.EnterpriseType.Legal);
-        Employee legalAdminEmployee = legalEnterprise.getEmployeeDirectory().createEmployee("legaladminemp" + i);
-        legalEnterprise.getUserAccountDirectory().createUserAccount("legalentadmin" + i, PasswordUtility.createPassword("legalentadmin" + i), "dalal.vi@husky.neu.edu", legalAdminEmployee, new AdminRole(Role.RoleType.Admin));      
-        
-        Enterprise manufacturerEnterprise = enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, 1) + "Manufacturer" + i, Enterprise.EnterpriseType.Manufacturer);
-        Employee manufacturerAdminEmployee = manufacturerEnterprise.getEmployeeDirectory().createEmployee("manuadminemp" + i);
-        manufacturerEnterprise.getUserAccountDirectory().createUserAccount("manuentadmin" + i, PasswordUtility.createPassword("manuentadmin" + i), "dalal.vi@husky.neu.edu", manufacturerAdminEmployee, new AdminRole(Role.RoleType.Admin));
 
-        Enterprise transporterEnterprise = enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, 1) + "Transporter" + i, Enterprise.EnterpriseType.Transporter);
-        Employee transporterAdminEmployee = transporterEnterprise.getEmployeeDirectory().createEmployee("tranadminemp" + i);
-        transporterEnterprise.getUserAccountDirectory().createUserAccount("tranentadmin" + i, PasswordUtility.createPassword("tranentadmin" + i), "dalal.vi@husky.neu.edu", transporterAdminEmployee, new AdminRole(Role.RoleType.Admin));
+        name = network.getName().substring(0, 1) + "legalentadmin" + i;
+        Enterprise legalEnterprise = enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, 1) + "Legal" + i,
+                Enterprise.EnterpriseType.Legal);
+        Employee legalAdminEmployee = legalEnterprise.getEmployeeDirectory().createEmployee(name);
+        legalEnterprise.getUserAccountDirectory().createUserAccount(name,
+                PasswordUtility.createPassword(name), emailID, legalAdminEmployee, new AdminRole(Role.RoleType.Admin));
+
+        name = network.getName().substring(0, 1) + "manuentadmin" + i;
+        Enterprise manufacturerEnterprise = enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, 1) + "Manufacturer" + i, Enterprise.EnterpriseType.Manufacturer);
+        Employee manufacturerAdminEmployee = manufacturerEnterprise.getEmployeeDirectory().createEmployee(name);
+        manufacturerEnterprise.getUserAccountDirectory().createUserAccount(name,
+                PasswordUtility.createPassword(name), emailID, manufacturerAdminEmployee, new AdminRole(Role.RoleType.Admin));
+
+        name = network.getName().substring(0, 1) + "tranentadmin" + i;
+        Enterprise transporterEnterprise = enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, 1) + "Transporter" + i,
+                Enterprise.EnterpriseType.Transporter);
+        Employee transporterAdminEmployee = transporterEnterprise.getEmployeeDirectory().createEmployee(name);
+        transporterEnterprise.getUserAccountDirectory().createUserAccount(name,
+                PasswordUtility.createPassword(name), emailID, transporterAdminEmployee, new AdminRole(Role.RoleType.Admin));
 
         //Enterprises have been added now. Let's populate Organizations in the Enterprise
         for (Enterprise enterprise : enterpriseDirectory.getEnterpriseList()) {
-            int j = 1;
             OrganizationDirectory organizationDirectory = new OrganizationDirectory();
             //Adding organizations to the different enterprises
-            for (int organizationCounter = 0; organizationCounter < 2; organizationCounter++) {
-                addOrganizationToDirectory(organizationDirectory, enterprise, j);
-                j++;
+            for (int organizationCounter = 1; organizationCounter < 3; organizationCounter++) {
+                addOrganizationToDirectory(organizationDirectory, enterprise, organizationCounter, network.getName());
             }
 
             enterprise.setOrganizationDirectory(organizationDirectory);
@@ -110,81 +126,85 @@ public class ConfigureASystem {
 
     }
 
-    public static void addOrganizationToDirectory(OrganizationDirectory organizationDirectory, Enterprise enterprise, int j) {
+    public static void addOrganizationToDirectory(OrganizationDirectory organizationDirectory, Enterprise enterprise, int j, String networkName) {
         //Adding Admin in all the enterprises by default
-        Organization admin = organizationDirectory.createOrganization("OrgAdmin" + j, Organization.OrganizationType.Admin);
+        //Organization admin = organizationDirectory.createOrganization("OrgAdmin" + j, Organization.OrganizationType.Admin);
         //Withing organization we have roles. For eg: AdminOrganization has admin role. We will add that now
-        Employee adminEmp = admin.getEmployeeDirectory().createEmployee("orgadmin");
-        Role adminRole = new AdminRole(Role.RoleType.Admin);
-        admin.getUserAccountDirectory().createUserAccount("orgadmin", PasswordUtility.createPassword("orgadmin"), "dalal.vi@husky.neu.edu", adminEmp, adminRole);
+        //Employee adminEmp = admin.getEmployeeDirectory().createEmployee("orgadmin");
+        //Role adminRole = new AdminRole(Role.RoleType.Admin);
+        //admin.getUserAccountDirectory().createUserAccount("orgadmin", PasswordUtility.createPassword("orgadmin"), emailID, adminEmp, adminRole);
 
-        int k = 1;
         if (enterprise instanceof ChemistEnterprise) {
             //Adding Worker and Manager in Chemist Enterprise
-            Organization worker = organizationDirectory.createOrganization("Worker" + j, Organization.OrganizationType.Worker);
+            Organization worker = organizationDirectory.createOrganization(networkName.substring(0, 1) + "Worker" + j, Organization.OrganizationType.Worker);
             for (int employeeCounter = 0; employeeCounter < 2; employeeCounter++) {
-                Employee workerEmp = worker.getEmployeeDirectory().createEmployee("worker" + employeeCounter);
+                String name = networkName.substring(0, 1) + "worker" + Helper.nextNumGenerator();
+                Employee workerEmp = worker.getEmployeeDirectory().createEmployee(name);
                 Role workerRole = new WorkerRole(Role.RoleType.Worker);
-                worker.getUserAccountDirectory().createUserAccount("worker" + j, PasswordUtility.createPassword("worker" + j), "dalal.vi@husky.neu.edu", workerEmp, workerRole);
+                worker.getUserAccountDirectory().createUserAccount(name, PasswordUtility.createPassword(name), emailID, workerEmp, workerRole);
 
             }
-            Organization manager = organizationDirectory.createOrganization("Manager" + j, Organization.OrganizationType.Manager);
+            Organization manager = organizationDirectory.createOrganization(networkName.substring(0, 1) + "Manager" + j, Organization.OrganizationType.Manager);
             for (int employeeCounter = 0; employeeCounter < 2; employeeCounter++) {
-                Employee managerEmp = manager.getEmployeeDirectory().createEmployee("manager" + employeeCounter);
-                Role managerRole = new WorkerRole(Role.RoleType.Manager);
-                manager.getUserAccountDirectory().createUserAccount("manager" + j, PasswordUtility.createPassword("manager" + j), "dalal.vi@husky.neu.edu", managerEmp, managerRole);
+                String name = networkName.substring(0, 1) + "manager" + Helper.nextNumGenerator();
+                Employee managerEmp = manager.getEmployeeDirectory().createEmployee(name);
+                Role managerRole = new ManagerRole(Role.RoleType.Manager);
+                manager.getUserAccountDirectory().createUserAccount(name, PasswordUtility.createPassword(name), emailID, managerEmp, managerRole);
             }
 
         } else if (enterprise instanceof SupplierEnterprise) {
             //Adding Approver and Manager in Supplier Enterprise
-            Organization approver = organizationDirectory.createOrganization("Approver" + j, Organization.OrganizationType.Approver);
+            Organization approver = organizationDirectory.createOrganization(networkName.substring(0, 1) + "Approver" + j, Organization.OrganizationType.Approver);
 
             for (int employeeCounter = 0; employeeCounter < 2; employeeCounter++) {
-
-                Employee approverEmp = approver.getEmployeeDirectory().createEmployee("approver" + employeeCounter);
-                Role approverRole = new WorkerRole(Role.RoleType.Approver);
-                approver.getUserAccountDirectory().createUserAccount("approver" + j, PasswordUtility.createPassword("approver" + j), "dalal.vi@husky.neu.edu", approverEmp, approverRole);
+                String name = networkName.substring(0, 1) + "approver" + Helper.nextNumGenerator();
+                Employee approverEmp = approver.getEmployeeDirectory().createEmployee(name);
+                Role approverRole = new ApproverRole(Role.RoleType.Approver);
+                approver.getUserAccountDirectory().createUserAccount(name, PasswordUtility.createPassword(name), emailID, approverEmp, approverRole);
             }
         } else if (enterprise instanceof LegalEnterprise) {
             //Adding Validator in Legal Enterprise
 
-            Organization validator = organizationDirectory.createOrganization("Validator" + j, Organization.OrganizationType.Validator);
+            Organization validator = organizationDirectory.createOrganization(networkName.substring(0, 1) + "Validator" + j, Organization.OrganizationType.Validator);
             for (int employeeCounter = 0; employeeCounter < 2; employeeCounter++) {
-                Employee validatorEmp = validator.getEmployeeDirectory().createEmployee("validator" + employeeCounter);
-                Role validatorRole = new WorkerRole(Role.RoleType.Validator);
-                validator.getUserAccountDirectory().createUserAccount("validator" + j, PasswordUtility.createPassword("validator" + j), "dalal.vi@husky.neu.edu", validatorEmp, validatorRole);
+                String name = networkName.substring(0, 1) + "validator" + Helper.nextNumGenerator();
+                Employee validatorEmp = validator.getEmployeeDirectory().createEmployee(name);
+                Role validatorRole = new ValidatorRole(Role.RoleType.Validator);
+                validator.getUserAccountDirectory().createUserAccount(name, PasswordUtility.createPassword(name), emailID, validatorEmp, validatorRole);
             }
         } else if (enterprise instanceof ManufacturerEnterprise) {
             //Adding Producer in Manufacturer Enterprise
-            Organization producer = organizationDirectory.createOrganization("Producer" + j, Organization.OrganizationType.Producer);
+            Organization producer = organizationDirectory.createOrganization(networkName.substring(0, 1) + "Producer" + j, Organization.OrganizationType.Producer);
             for (int employeeCounter = 0; employeeCounter < 2; employeeCounter++) {
-                Employee producerEmp = producer.getEmployeeDirectory().createEmployee("producer" + employeeCounter);
-                Role producerRole = new WorkerRole(Role.RoleType.Producer);
-                producer.getUserAccountDirectory().createUserAccount("producer" + j, PasswordUtility.createPassword("producer" + j), "dalal.vi@husky.neu.edu", producerEmp, producerRole);
+                String name = networkName.substring(0, 1) + "producer" + Helper.nextNumGenerator();
+                Employee producerEmp = producer.getEmployeeDirectory().createEmployee(name);
+                Role producerRole = new ProducerRole(Role.RoleType.Producer);
+                producer.getUserAccountDirectory().createUserAccount(name, PasswordUtility.createPassword(name), emailID, producerEmp, producerRole);
 
             }
         } else if (enterprise instanceof TransportationEnterprise) {
             //Adding Transporter in Transportation Enterprise
-            Organization transporter = organizationDirectory.createOrganization("Transporter" + j, Organization.OrganizationType.Transporter);
+            Organization transporter = organizationDirectory.createOrganization(networkName.substring(0, 1) + "Transporter" + j, Organization.OrganizationType.Transporter);
             for (int employeeCounter = 0; employeeCounter < 2; employeeCounter++) {
-                Employee transporterEmp = transporter.getEmployeeDirectory().createEmployee("transporter" + employeeCounter);
-                Role transporterRole = new WorkerRole(Role.RoleType.Transporter);
-                transporter.getUserAccountDirectory().createUserAccount("transporter" + j, PasswordUtility.createPassword("transporter" + j), "dalal.vi@husky.neu.edu", transporterEmp, transporterRole);
+                String name = networkName.substring(0, 1) + "transporter" + Helper.nextNumGenerator();
+                Employee transporterEmp = transporter.getEmployeeDirectory().createEmployee(name);
+                Role transporterRole = new TransporterRole(Role.RoleType.Transporter);
+                transporter.getUserAccountDirectory().createUserAccount(name, PasswordUtility.createPassword(name), emailID, transporterEmp, transporterRole);
 
             }
         }
     }
-    
-    public static List<Drug> generateInventory(){
+
+    public static List<Drug> generateInventory() {
         List<Drug> drugStock = new ArrayList<>();
         List<String> drugs = new ArrayList<>();
-        for(int i=0;i<=10;i++){
-            drugs.add("drug"+i);
+        for (int i = 0; i <= 10; i++) {
+            drugs.add("drug" + i);
         }
         Random random = new Random();
 //        random.nextInt(10);
         int sizeOfInventory = (random.ints(4, 10)).findAny().getAsInt();
-        for(int j= 1; j<=sizeOfInventory; j++){
+        for (int j = 1; j <= sizeOfInventory; j++) {
             Drug drug = new Drug();
             drug.setName(drugs.get(random.nextInt(10)));
             drug.setQuantity(random.nextInt(30));
