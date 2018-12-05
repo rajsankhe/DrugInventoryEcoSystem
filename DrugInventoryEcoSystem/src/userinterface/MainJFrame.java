@@ -12,6 +12,8 @@ import business.network.Network;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import java.awt.CardLayout;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import userinterface.logout.LogOutScreen;
@@ -27,10 +29,10 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     //The parent EcoSystem Singleton Object
     private EcoSystem system;
+   // private static final Logger log = LogManager.getLogger(MainJFrame.class);
     //Singleton DB4O object to store and retrieve the EcoSystem when system STARTS/STOPS
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
-
-    public MainJFrame() {
+       public MainJFrame() {
         initComponents();
         //Retrieving the system from the file
         system = dB4OUtil.retrieveSystem();
@@ -147,7 +149,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         Enterprise inEnterprise = null;
         Organization inOrganization = null;
-
+        Network inNetwork = null;
         if (userAccount == null) {
             //Step 2: Go inside each network and check each enterprise
             for (Network network : system.getNetworkDirectory().getNetworkList()) {
@@ -162,6 +164,7 @@ public class MainJFrame extends javax.swing.JFrame {
                                 if (userAccount != null) {
                                     inEnterprise = enterprise;
                                     inOrganization = organization;
+                                    inNetwork = network;
                                     break;
                                 }
                             }
@@ -169,6 +172,7 @@ public class MainJFrame extends javax.swing.JFrame {
                         }
                         if (userAccount != null) {
                             inEnterprise = enterprise;
+                            inNetwork = network;
                             break;
                         }
                     }
@@ -181,7 +185,7 @@ public class MainJFrame extends javax.swing.JFrame {
             return;
         } else {
             CardLayout layout = (CardLayout) container.getLayout();
-            container.add("workArea", userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system));
+            container.add("workArea", userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system, inNetwork));
             layout.next(container);
         }
 

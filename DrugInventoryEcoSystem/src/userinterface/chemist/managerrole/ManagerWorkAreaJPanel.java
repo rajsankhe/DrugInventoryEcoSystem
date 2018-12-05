@@ -266,15 +266,20 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         }
 
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
+        if (!(Constants.sentToSupplier).equalsIgnoreCase(request.getStatus())) {
+            if (!(Constants.Approve).equalsIgnoreCase(request.getStatus())) {
+                JOptionPane.showMessageDialog(null, "Request Approved can only be send to Supplier");
+                return;
+            } else {
 
-        if (!(Constants.Approve).equalsIgnoreCase(request.getStatus())) {
-            JOptionPane.showMessageDialog(null, "Request Approved can only be send to Supplier");
-            return;
+                request.getEnterpriseStack().add(this.enterprise);
+                CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+                userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer, ecosystem, request));
+                layout.next(userProcessContainer);
+            }
+
         } else {
-            request.getEnterpriseStack().add(this.enterprise);
-            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer, ecosystem, request));
-            layout.next(userProcessContainer);
+            JOptionPane.showMessageDialog(null, "Request already send to Supplier");
         }
 
     }//GEN-LAST:event_sendToSupplierActionPerformed

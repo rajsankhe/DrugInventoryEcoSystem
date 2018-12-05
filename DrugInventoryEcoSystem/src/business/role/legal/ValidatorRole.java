@@ -7,6 +7,7 @@ package business.role.legal;
 
 import business.EcoSystem;
 import business.enterprise.Enterprise;
+import business.network.Network;
 import business.organization.Organization;
 import business.organization.legal.ValidatorOrganization;
 import business.role.Role;
@@ -25,7 +26,7 @@ public class ValidatorRole extends Role {
     }
 
     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business, Network network) {
         //left
         return new ValidatorWorkArea(userProcessContainer,account,(ValidatorOrganization)organization,enterprise);
     }

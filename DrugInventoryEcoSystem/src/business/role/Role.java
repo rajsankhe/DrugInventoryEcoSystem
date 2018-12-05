@@ -7,6 +7,7 @@ package business.role;
 
 import business.EcoSystem;
 import business.enterprise.Enterprise;
+import business.network.Network;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import javax.swing.JPanel;
@@ -24,6 +25,7 @@ public abstract class Role {
     }
 
     public enum RoleType {
+
         Admin("Admin"),
         Worker("Worker"),
         Manager("Manager"),
@@ -53,7 +55,8 @@ public abstract class Role {
             UserAccount account,
             Organization organization,
             Enterprise enterprise,
-            EcoSystem business);
+            EcoSystem business,
+            Network network);
 
     @Override
     public String toString() {
