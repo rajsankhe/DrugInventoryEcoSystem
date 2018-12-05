@@ -13,11 +13,12 @@ import java.util.List;
  *
  * @author Tej Sankhe
  */
-public class WorkRequestDrugs extends WorkRequest{
+public class WorkRequestDrugs extends WorkRequest {
+
     List<Drug> drugsOrderList;
 
-    public WorkRequestDrugs(int size) {
-super(size);
+    public WorkRequestDrugs(String size) {
+        super(size);
         this.drugsOrderList = new ArrayList<>();
     }
 
@@ -28,5 +29,5 @@ super(size);
     public void setDrugsOrderList(List<Drug> drugsOrderList) {
         this.drugsOrderList = drugsOrderList;
     }
-    
+
 }

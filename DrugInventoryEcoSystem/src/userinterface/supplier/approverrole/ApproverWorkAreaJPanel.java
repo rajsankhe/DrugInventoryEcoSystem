@@ -5,14 +5,12 @@
  */
 package userinterface.supplier.approverrole;
 
-import userinterface.chemist.managerrole.*;
 import business.EcoSystem;
 import business.drug.Drug;
 import business.enterprise.Enterprise;
 import business.enterprise.SupplierEnterprise;
 import business.inventory.Inventory;
 import business.organization.Organization;
-import business.organization.chemist.ManagerOrganization;
 import business.organization.legal.ValidatorOrganization;
 import business.organization.supplier.ApproverOrganization;
 import business.useraccount.UserAccount;
@@ -23,7 +21,6 @@ import java.awt.CardLayout;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -43,8 +40,8 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private UserAccount userAccount;
     private EcoSystem ecosystem;
-    
-    public ApproverWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ApproverOrganization organization, Enterprise enterprise,EcoSystem ecosystem) {
+
+    public ApproverWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ApproverOrganization organization, Enterprise enterprise, EcoSystem ecosystem) {
         initComponents();
         this.setSize(1680, 1050);
         ((DefaultTableCellRenderer) workRequestJTable.getDefaultRenderer(Object.class)).setOpaque(false);
@@ -54,16 +51,16 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.enterprise = enterprise;
         this.userAccount = account;
-        this.ecosystem= ecosystem;
-        title.setText("Supplier Approver: "+userAccount.getUsername());
+        this.ecosystem = ecosystem;
+        title.setText("Supplier Approver: " + userAccount.getUsername());
         populateRequestTable();
     }
-    
-    public void populateRequestTable(){
-        DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();  
+
+    public void populateRequestTable() {
+        DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();
         model.setRowCount(0);
-        for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
-            WorkRequestDrugs workRequestDrugs = (WorkRequestDrugs)request;            
+        for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()) {
+            WorkRequestDrugs workRequestDrugs = (WorkRequestDrugs) request;
             Object[] row = new Object[4];
             row[0] = request;
             row[1] = request.getStatus();
@@ -112,7 +109,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -246,18 +243,17 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
     private void assignToMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignToMeActionPerformed
         // TODO add your handling code here:
         int selectedRow = workRequestJTable.getSelectedRow();
-        if (selectedRow < 0){
+        if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
-        
-        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
-        if(request.getReceiver()==null){
-         request.setReceiver(userAccount);
-        populateRequestTable();   
-        }
-        else{
-             JOptionPane.showMessageDialog(null, "Already assinged to "+request.getReceiver());
+
+        WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
+        if (request.getReceiver() == null) {
+            request.setReceiver(userAccount);
+            populateRequestTable();
+        } else {
+            JOptionPane.showMessageDialog(null, "Already assinged to " + request.getReceiver());
             return;
         }
     }//GEN-LAST:event_assignToMeActionPerformed
@@ -265,13 +261,13 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
     private void viewRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRequestActionPerformed
         // TODO add your handling code here:
         int selectedRow = workRequestJTable.getSelectedRow();
-        
-        if (selectedRow < 0){
+
+        if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
-        
-        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
+
+        WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         userProcessContainer.add("viewEditDrug", new ViewApproverOrderjpanel(userProcessContainer, request));
         layout.next(userProcessContainer);
@@ -281,20 +277,20 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow = workRequestJTable.getSelectedRow();
 
-        if (selectedRow < 0){
+        if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
-        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
-        Organization org= null;
+        WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
+        Organization org = null;
         //request.getEnterpriseStack().add(this.enterprise);
-        if(request.getReceiver()== userAccount){
-            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()){
-            if (organization instanceof ValidatorOrganization){
-                org = organization;
-                org.getWorkQueue().getWorkRequestList().add(request);
+        if (request.getReceiver() == userAccount) {
+            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (organization instanceof ValidatorOrganization) {
+                    org = organization;
+                    org.getWorkQueue().getWorkRequestList().add(request);
+                }
             }
-        }
             request.setStatus(Constants.sentToLegal);
             request.setSender(request.getReceiver());
             request.setReceiver(null);
@@ -302,8 +298,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
             /* CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer,ecosystem, request ));
             layout.next(userProcessContainer);*/
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Assign request to you.");
         }
     }//GEN-LAST:event_sendToLegalActionPerformed
@@ -311,44 +306,41 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
     private void CheckInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckInventoryActionPerformed
         // TODO add your handling code here:
         int selectedRow = workRequestJTable.getSelectedRow();
-        if (selectedRow < 0){
+        if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
-        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
-        if(request.getReceiver()== userAccount){
-            SupplierEnterprise supplierEnterprise=(SupplierEnterprise)  enterprise;
-            Inventory inventorySupp=supplierEnterprise.getInventory();
+        WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
+        if (request.getReceiver() == userAccount) {
+            SupplierEnterprise supplierEnterprise = (SupplierEnterprise) enterprise;
+            Inventory inventorySupp = supplierEnterprise.getInventory();
             List<Drug> inventory = inventorySupp.getDrugStock();
             List<Drug> drugsOrderList = request.getDrugsOrderList();
-            Map<String,int[]> requestOrSend= new HashMap<>();
-            Boolean bidFlag=false;
-            drugsOrderList.stream().forEach(drug -> requestOrSend.put(drug.getName(),new int[]{0,drug.getQuantity(),0}) );
-            for (Map.Entry<String,int[]> entry: requestOrSend.entrySet())
-            {
+            Map<String, int[]> requestOrSend = new HashMap<>();
+            Boolean bidFlag = false;
+            drugsOrderList.stream().forEach(drug -> requestOrSend.put(drug.getName(), new int[]{0, drug.getQuantity(), 0}));
+            for (Map.Entry<String, int[]> entry : requestOrSend.entrySet()) {
                 int[] countArray = entry.getValue();
-                Drug drug= inventory.stream()
-                .filter(drugIn -> entry.getKey().equals(drugIn.getName()))
-                .findAny()
-                .orElse(null);
-                countArray[0]= drug.getQuantity();
-                countArray[2]= countArray[1]-countArray[2];
-                if(countArray[2]<0)
-                  countArray[2]=0;  
-                else if(countArray[2]>0)
-                    {
-                        bidFlag= true; 
-                    }
+                Drug drug = inventory.stream()
+                        .filter(drugIn -> entry.getKey().equals(drugIn.getName()))
+                        .findAny()
+                        .orElse(null);
+                countArray[0] = drug.getQuantity();
+                countArray[2] = countArray[1] - countArray[2];
+                if (countArray[2] < 0) {
+                    countArray[2] = 0;
+                } else if (countArray[2] > 0) {
+                    bidFlag = true;
+                }
             }
-            
+
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            userProcessContainer.add("RequestBid", new RequestBidOrSendSupplier(request,requestOrSend,bidFlag ));
+            userProcessContainer.add("RequestBid", new RequestBidOrSendSupplier(request, requestOrSend, bidFlag));
             layout.next(userProcessContainer);
-        }   
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Assign request to you.");
         }
-        
+
     }//GEN-LAST:event_CheckInventoryActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

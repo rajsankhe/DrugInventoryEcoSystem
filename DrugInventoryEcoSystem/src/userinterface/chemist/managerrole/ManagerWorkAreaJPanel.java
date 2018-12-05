@@ -7,9 +7,7 @@ package userinterface.chemist.managerrole;
 
 import business.EcoSystem;
 import business.enterprise.Enterprise;
-import business.organization.Organization;
 import business.organization.chemist.ManagerOrganization;
-import business.organization.supplier.ApproverOrganization;
 import business.useraccount.UserAccount;
 import business.workqueue.WorkRequest;
 import business.workqueue.WorkRequestDrugs;
@@ -35,8 +33,8 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private UserAccount userAccount;
     private EcoSystem ecosystem;
-    
-    public ManagerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ManagerOrganization organization, Enterprise enterprise,EcoSystem ecosystem) {
+
+    public ManagerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ManagerOrganization organization, Enterprise enterprise, EcoSystem ecosystem) {
         initComponents();
         this.setSize(1200, 750);
         ((DefaultTableCellRenderer) workRequestJTable.getDefaultRenderer(Object.class)).setOpaque(false);
@@ -46,17 +44,17 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.enterprise = enterprise;
         this.userAccount = account;
-        this.ecosystem= ecosystem;
-        title.setText("Chemist Manager: "+userAccount.getUsername());
+        this.ecosystem = ecosystem;
+        title.setText("Chemist Manager: " + userAccount.getUsername());
         populateRequestTable();
     }
-    
-    public void populateRequestTable(){
+
+    public void populateRequestTable() {
         DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();
-        
+
         model.setRowCount(0);
-        for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()){
-            WorkRequestDrugs workRequestDrugs = (WorkRequestDrugs)request;            
+        for (WorkRequest request : organization.getWorkQueue().getWorkRequestList()) {
+            WorkRequestDrugs workRequestDrugs = (WorkRequestDrugs) request;
             Object[] row = new Object[4];
             row[0] = request;
             row[1] = request.getStatus();
@@ -103,7 +101,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -228,18 +226,17 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
     private void assignToMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignToMeActionPerformed
         // TODO add your handling code here:
         int selectedRow = workRequestJTable.getSelectedRow();
-        if (selectedRow < 0){
+        if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
-        
-        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
-        if(request.getReceiver()==null){
-         request.setReceiver(userAccount);
-        populateRequestTable();   
-        }
-        else{
-             JOptionPane.showMessageDialog(null, "Already assinged to "+request.getReceiver());
+
+        WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
+        if (request.getReceiver() == null) {
+            request.setReceiver(userAccount);
+            populateRequestTable();
+        } else {
+            JOptionPane.showMessageDialog(null, "Already assinged to " + request.getReceiver());
             return;
         }
     }//GEN-LAST:event_assignToMeActionPerformed
@@ -247,13 +244,13 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
     private void viewRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRequestActionPerformed
         // TODO add your handling code here:
         int selectedRow = workRequestJTable.getSelectedRow();
-        
-        if (selectedRow < 0){
+
+        if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
-        
-        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
+
+        WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         userProcessContainer.add("viewEditDrug", new ViewOrderjpanel(userProcessContainer, request, enterprise));
         layout.next(userProcessContainer);
@@ -263,23 +260,20 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow = workRequestJTable.getSelectedRow();
 
-        if (selectedRow < 0){
+        if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
 
-        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
+        WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
 
-        if(!(Constants.Approve).equalsIgnoreCase(request.getStatus()))
-        {
+        if (!(Constants.Approve).equalsIgnoreCase(request.getStatus())) {
             JOptionPane.showMessageDialog(null, "Request Approved can only be send to Supplier");
             return;
-        }
-        else
-        {
+        } else {
             request.getEnterpriseStack().add(this.enterprise);
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer,ecosystem, request ));
+            userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer, ecosystem, request));
             layout.next(userProcessContainer);
         }
 
@@ -289,25 +283,24 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow = workRequestJTable.getSelectedRow();
 
-        if (selectedRow < 0){
+        if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
 
-        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
-        if(request.getReceiver()== userAccount){
+        WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
+        if (request.getReceiver() == userAccount) {
             request.setStatus(Constants.Reject);
             JFrame frame = new JFrame();
             String message = (String) JOptionPane.showInputDialog(frame,
-                "Enter the message",
-                Constants.Reject+" message",
-                JOptionPane.OK_CANCEL_OPTION);
+                    "Enter the message",
+                    Constants.Reject + " message",
+                    JOptionPane.OK_CANCEL_OPTION);
             request.setMessage(message);
 
             organization.getWorkQueue().getWorkRequestList().remove(request);
             populateRequestTable();
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Assign request to you.");
         }
 
@@ -318,23 +311,22 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow = workRequestJTable.getSelectedRow();
 
-        if (selectedRow < 0){
+        if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
 
-        WorkRequestDrugs request = (WorkRequestDrugs)workRequestJTable.getValueAt(selectedRow, 0);
-        if(request.getReceiver()== userAccount){
+        WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
+        if (request.getReceiver() == userAccount) {
             request.setStatus(Constants.Approve);
             JFrame frame = new JFrame();
             String message = (String) JOptionPane.showInputDialog(frame,
-                "Enter the message",
-                Constants.Approve+" message",
-                JOptionPane.OK_CANCEL_OPTION);
+                    "Enter the message",
+                    Constants.Approve + " message",
+                    JOptionPane.OK_CANCEL_OPTION);
             request.setMessage(message);
             populateRequestTable();
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Assign request to you.");
         }
     }//GEN-LAST:event_approveActionPerformed

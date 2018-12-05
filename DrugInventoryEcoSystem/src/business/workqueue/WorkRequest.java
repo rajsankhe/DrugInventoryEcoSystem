@@ -16,7 +16,7 @@ import java.util.Stack;
  */
 public class WorkRequest {
 
-    private int requestId;
+    private String requestId;
     private String message;
     private UserAccount sender;
     private UserAccount receiver;
@@ -47,14 +47,14 @@ public class WorkRequest {
         }
     }
 
-    public WorkRequest(int size) {
+    public WorkRequest(String size) {
         this.requestDate = new Date();
         this.requestId = size;
         this.status = "";
         this.enterpriseStack = new Stack<>();
     }
 
-    public int getRequestId() {
+    public String getRequestId() {
         return requestId;
     }
 
@@ -116,7 +116,7 @@ public class WorkRequest {
 
     @Override
     public String toString() {
-        return Integer.toString(requestId);
+        return requestId;
     }
 
     public Stack<Enterprise> getEnterpriseStack() {
