@@ -38,7 +38,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private ApproverOrganization organization;
-    private Enterprise enterprise;
+    private SupplierEnterprise enterprise;
     private UserAccount userAccount;
     private Network network;
     private EcoSystem ecosystem;
@@ -51,7 +51,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane1.getViewport().setOpaque(false);
         this.userProcessContainer = userProcessContainer;
         this.organization = organization;
-        this.enterprise = enterprise;
+        this.enterprise = (SupplierEnterprise) enterprise;
         this.userAccount = account;
         this.ecosystem = ecosystem;
         this.network = network;
@@ -172,6 +172,11 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         checkInventory.setText("Check Inventory");
+        checkInventory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkInventoryActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -295,7 +300,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         Organization org = null;
         //request.getEnterpriseStack().add(this.enterprise);
-        if (!(request.getStatus().equals(Constants.rejectedByLegal) || request.getStatus().equals(Constants.acceptedByLegal))) {
+        if (!(request.getStatus().equals(Constants.sentToLegal) || request.getStatus().equals(Constants.rejectedByLegal) || request.getStatus().equals(Constants.acceptedByLegal))) {
             if (request.getReceiver() == userAccount) {
                 for (Enterprise e : network.getEnterpriseDirectory().getEnterpriseList()) {
                     if (e.getEnterpriseType().equals(Enterprise.EnterpriseType.Legal)) {
@@ -310,6 +315,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
 
                 request.setStatus(Constants.sentToLegal);
                 JOptionPane.showMessageDialog(null, "Request send to Legal");
+                populateRequestTable();
                 /* CardLayout layout = (CardLayout) userProcessContainer.getLayout();
                  userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer,ecosystem, request ));
                  layout.next(userProcessContainer);*/
@@ -317,7 +323,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Assign request to you.");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Already validated by legal.");
+            JOptionPane.showMessageDialog(null, "Request already send to legal.");
         }
     }//GEN-LAST:event_sendToLegalActionPerformed
 
@@ -375,6 +381,13 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_requestOrSendActionPerformed
+
+    private void checkInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkInventoryActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("viewInventory", new ViewInventoryJpanel(userProcessContainer, enterprise.getInventory()));
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_checkInventoryActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assignToMe;
