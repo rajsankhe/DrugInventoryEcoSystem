@@ -26,6 +26,7 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private WorkRequestDrugs workRequestDrugs;
     ChemistEnterprise enterprise;
+
     public ViewOrderjpanel(JPanel userProcessContainer, WorkRequestDrugs request, Enterprise enterprise) {
         initComponents();
         this.setSize(1200, 750);
@@ -37,12 +38,12 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
         this.enterprise = (ChemistEnterprise) enterprise;
         populateRequestTable();
     }
-    
-    public void populateRequestTable(){
+
+    public void populateRequestTable() {
         DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
-        
+
         model.setRowCount(0);
-        for (Drug drug : workRequestDrugs.getDrugsOrderList()){         
+        for (Drug drug : workRequestDrugs.getDrugsOrderList()) {
             Object[] row = new Object[2];
             row[0] = drug.getName();
             row[1] = drug.getQuantity();
@@ -133,7 +134,7 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addComponent(back)
                         .addGap(294, 294, 294)
-                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(144, 144, 144)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -171,7 +172,7 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
         userProcessContainer.remove(this);
-        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backActionPerformed
 
@@ -181,7 +182,6 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
         userProcessContainer.add("viewInventory", new ViewInventoryJpanel(userProcessContainer, enterprise.getInventory()));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_jButtonCheckInventoryActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;

@@ -6,10 +6,13 @@
 package userinterface.manufacturer.producerrole;
 
 import business.drug.Drug;
-import business.enterprise.ChemistEnterprise;
-import business.enterprise.Enterprise;
 import business.workqueue.WorkRequestDrugs;
+import commonutils.Constants;
 import java.awt.CardLayout;
+import java.awt.Component;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -25,9 +28,8 @@ public class ViewAndUpdateBidProducerjpanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private WorkRequestDrugs workRequestDrugs;
-    ChemistEnterprise enterprise;
 
-    public ViewAndUpdateBidProducerjpanel(JPanel userProcessContainer, WorkRequestDrugs request, Enterprise enterprise) {
+    public ViewAndUpdateBidProducerjpanel(JPanel userProcessContainer, WorkRequestDrugs request) {
         initComponents();
         this.setSize(1200, 750);
         ((DefaultTableCellRenderer) drugquantity.getDefaultRenderer(Object.class)).setOpaque(false);
@@ -35,7 +37,7 @@ public class ViewAndUpdateBidProducerjpanel extends javax.swing.JPanel {
         jScrollPane1.getViewport().setOpaque(false);
         this.userProcessContainer = userProcessContainer;
         this.workRequestDrugs = request;
-        this.enterprise = (ChemistEnterprise) enterprise;
+
         populateRequestTable();
     }
 
@@ -44,9 +46,10 @@ public class ViewAndUpdateBidProducerjpanel extends javax.swing.JPanel {
 
         model.setRowCount(0);
         for (Drug drug : workRequestDrugs.getDrugsOrderList()) {
-            Object[] row = new Object[2];
-            row[0] = drug.getName();
+            Object[] row = new Object[3];
+            row[0] = drug;
             row[1] = drug.getQuantity();
+            //row[2] = drug.getManufacturerPrice();
             model.addRow(row);
         }
     }
@@ -77,20 +80,20 @@ public class ViewAndUpdateBidProducerjpanel extends javax.swing.JPanel {
         drugquantity.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         drugquantity.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Drug", "Quantity"
+                "Drug", "Quantity", "Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false
+                false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -118,7 +121,7 @@ public class ViewAndUpdateBidProducerjpanel extends javax.swing.JPanel {
         title.setAlignmentX(740.0F);
         title.setAlignmentY(245.0F);
 
-        jButtonCheckInventory.setText("Check Inventory");
+        jButtonCheckInventory.setText("Submit");
         jButtonCheckInventory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCheckInventoryActionPerformed(evt);
@@ -170,17 +173,55 @@ public class ViewAndUpdateBidProducerjpanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        // TODO add your handling code here:
         userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        ProducerWorkAreaJPanel producerWorkAreaJPanel = (ProducerWorkAreaJPanel) component;
+        producerWorkAreaJPanel.populateRequestTable();
+
+        // Taking the user back to the previous screen
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
+
     }//GEN-LAST:event_backActionPerformed
 
     private void jButtonCheckInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCheckInventoryActionPerformed
-        // TODO add your handling code here:
+
+        List<Drug> orderList = new ArrayList<>();
+        try {
+            DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
+            int nRow = model.getRowCount();
+            for (int i = 0; i < nRow; i++) {
+                if (model.getValueAt(i, 0) != null && model.getValueAt(i, 1) != null) {
+                    Drug newDrug = new Drug();
+                    newDrug.setName(String.valueOf(model.getValueAt(i, 0)));
+
+                    newDrug.setQuantity((Integer) model.getValueAt(i, 1));
+                    newDrug.setManufacturerPrice((Double) model.getValueAt(i, 2));
+                    orderList.add(newDrug);
+                }
+            }
+            workRequestDrugs.setDrugsOrderList(orderList);
+            workRequestDrugs.setStatus(Constants.priceUpdatedByManufacturer);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Please enter decimal value in price field.");
+            e.printStackTrace();
+            return;
+        }
+
+        workRequestDrugs.setDrugsOrderList(orderList);
+
+        JOptionPane.showMessageDialog(null, "Price updated successfully");
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        ProducerWorkAreaJPanel producerWorkAreaJPanel = (ProducerWorkAreaJPanel) component;
+        producerWorkAreaJPanel.populateRequestTable();
+
+        // Taking the user back to the previous screen
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        //userProcessContainer.add("viewInventory", new ViewInventoryJpanel(userProcessContainer, enterprise.getInventory()));
-        //layout.next(userProcessContainer);
+        layout.previous(userProcessContainer);
+
     }//GEN-LAST:event_jButtonCheckInventoryActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

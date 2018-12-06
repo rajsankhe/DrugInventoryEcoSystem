@@ -8,12 +8,12 @@ package userinterface.manufacturer.producerrole;
 import business.EcoSystem;
 import business.enterprise.Enterprise;
 import business.organization.Organization;
-import business.organization.legal.ValidatorOrganization;
 import business.organization.manufacturer.ProducerOrganization;
 import business.useraccount.UserAccount;
 import business.workqueue.WorkRequest;
 import business.workqueue.WorkRequestDrugs;
 import commonutils.Constants;
+import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -80,6 +80,7 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
         assignToMe = new javax.swing.JButton();
         title = new javax.swing.JLabel();
         processOrderjButton = new javax.swing.JButton();
+        completeOrderjButton = new javax.swing.JButton();
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1200, 750));
 
@@ -145,6 +146,13 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        completeOrderjButton.setText("Complete Order");
+        completeOrderjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                completeOrderjButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -159,8 +167,10 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                 .addComponent(assignToMe)
+                                .addGap(138, 138, 138)
+                                .addComponent(processOrderjButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(processOrderjButton))
+                                .addComponent(completeOrderjButton))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(498, Short.MAX_VALUE))
         );
@@ -174,7 +184,8 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(10, 10, 10)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(assignToMe)
-                    .addComponent(processOrderjButton))
+                    .addComponent(processOrderjButton)
+                    .addComponent(completeOrderjButton))
                 .addContainerGap(386, Short.MAX_VALUE))
         );
 
@@ -231,7 +242,7 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_assignToMeActionPerformed
 
     private void processOrderjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processOrderjButtonActionPerformed
-        // TODO add your handling code here:
+        //We will update the price in the drug list and return as a part of the request
         int selectedRow = workRequestJTable.getSelectedRow();
 
         if (selectedRow < 0) {
@@ -243,27 +254,43 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
         Organization org = null;
         //request.getEnterpriseStack().add(this.enterprise);
         if (request.getReceiver() == userAccount) {
-            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-                if (organization instanceof ValidatorOrganization) {
-                    org = organization;
-                    org.getWorkQueue().getWorkRequestList().add(request);
-                }
-            }
-            request.setStatus(Constants.sentToLegal);
-            UserAccount supplier = request.getSender();
-            request.setSender(request.getReceiver());
-            request.setReceiver(supplier);
-            JOptionPane.showMessageDialog(null, "Request processed and returned to Supplier: " + supplier.getUsername());
-            /* CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer,ecosystem, request ));
-            layout.next(userProcessContainer);*/
+
+//            JOptionPane.showMessageDialog(null, "Request processed and returned to Supplier: " + supplier.getUsername());
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            userProcessContainer.add("ViewAndUpdateBidProducer", new ViewAndUpdateBidProducerjpanel(userProcessContainer, request));
+            layout.next(userProcessContainer);
         } else {
-            JOptionPane.showMessageDialog(null, "Assign request to you.");
+            JOptionPane.showMessageDialog(null, "This request is not assigned to you.");
         }
     }//GEN-LAST:event_processOrderjButtonActionPerformed
 
+    private void completeOrderjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_completeOrderjButtonActionPerformed
+        int selectedRow = workRequestJTable.getSelectedRow();
+
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select row");
+            return;
+        }
+
+        WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
+        if (request.getStatus().equalsIgnoreCase(Constants.priceUpdatedByManufacturer)) {
+            request.setStatus(Constants.processedByManufacturer);
+            UserAccount supplier = request.getSender();
+            request.setSender(request.getReceiver());
+            request.setReceiver(supplier);
+            JOptionPane.showMessageDialog(null, "Order completed successfully");
+            organization.getWorkQueue().deleteWorkRequest(request);
+            populateRequestTable();
+        } else {
+            JOptionPane.showMessageDialog(null, "Please process the order first before completing it");
+            return;
+        }
+
+    }//GEN-LAST:event_completeOrderjButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assignToMe;
+    private javax.swing.JButton completeOrderjButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
