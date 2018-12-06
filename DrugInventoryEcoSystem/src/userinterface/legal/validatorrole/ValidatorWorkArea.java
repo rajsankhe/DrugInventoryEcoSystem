@@ -344,7 +344,13 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         request.setStatus(Constants.acceptedByLegal);
         JOptionPane.showMessageDialog(null, "Approved");
-        organization.getWorkQueue().deleteWorkRequest(request);
+        //Delete this order from all queues.
+        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            if (organization instanceof ValidatorOrganization) {
+                //Remove the workrequest from this queue
+                organization.getWorkQueue().deleteWorkRequest(request);
+            }
+        }
         populateRequestTable();
     }//GEN-LAST:event_approveActionPerformed
 
