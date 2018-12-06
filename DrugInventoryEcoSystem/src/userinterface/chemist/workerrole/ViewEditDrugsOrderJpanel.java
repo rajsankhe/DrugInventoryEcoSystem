@@ -102,10 +102,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         drugquantity.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         drugquantity.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Drug", "Quantity"
@@ -236,7 +233,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
 
     private void addRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRowActionPerformed
         DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
-        model.addRow(new Object[]{"", ""});
+        model.addRow(new Object[]{null, null});
     }//GEN-LAST:event_addRowActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
@@ -280,11 +277,14 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
+        Object o = drugquantity.getValueAt(selectedRow, 0);
+        if (!drugquantity.getValueAt(selectedRow, 0).equals("")) {
+            Drug drug = (Drug) drugquantity.getValueAt(selectedRow, 0);
+            workRequestDrugs.getDrugsOrderList().remove(drug);
+            populateRequestTable();
+        }
 
-        Drug drug = (Drug) drugquantity.getValueAt(selectedRow, 0);
-        workRequestDrugs.getDrugsOrderList().remove(drug);
-        populateRequestTable();
-        
+
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
