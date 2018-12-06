@@ -24,9 +24,8 @@ public class SupplierEnterprise extends Enterprise {
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
     }
-    
 
-    public SupplierEnterprise(String name, EnterpriseType type, int id) {
+    public SupplierEnterprise(String name, EnterpriseType type, String id) {
         super(name, type, id);
         inventory = new Inventory();
     }

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class ManufacturerEnterprise extends Enterprise {
 
-    public ManufacturerEnterprise(String name, EnterpriseType type, int id) {
+    public ManufacturerEnterprise(String name, EnterpriseType type, String id) {
         super(name, type, id);
     }
 

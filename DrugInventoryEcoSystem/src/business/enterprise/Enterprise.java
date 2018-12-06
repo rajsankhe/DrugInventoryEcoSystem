@@ -14,7 +14,6 @@ import business.organization.OrganizationDirectory;
  */
 public abstract class Enterprise extends Organization {
 
-    private int id; //Generate UUID.
     //private String name;
     private EnterpriseType enterpriseType;
     private OrganizationDirectory organizationDirectory;
@@ -58,7 +57,7 @@ public abstract class Enterprise extends Organization {
         this.enterpriseType = enterpriseType;
     }
 
-    public Enterprise(String name, EnterpriseType type, int id) {
+    public Enterprise(String name, EnterpriseType type, String id) {
         super(name, id);
         this.enterpriseType = type;
         organizationDirectory = new OrganizationDirectory();

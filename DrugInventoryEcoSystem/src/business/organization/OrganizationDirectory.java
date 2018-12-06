@@ -15,6 +15,7 @@ import business.organization.supplier.CoordinatorOrganization;
 import business.organization.transport.TransporterOrganization;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  *
@@ -34,24 +35,29 @@ public class OrganizationDirectory {
 
     public Organization createOrganization(String name, OrganizationType type) {
         Organization organization = null;
+        UUID uuid = UUID.randomUUID();
         if (type.getValue().equals(OrganizationType.Admin.getValue())) {
-            organization = new AdminOrganization(name, type, organizationList.size());
+            organization = new AdminOrganization(name, type, uuid.toString());
         } else if (type.getValue().equals(OrganizationType.Worker.getValue())) {
-            organization = new WorkerOrganization(name, type, organizationList.size());
+            organization = new WorkerOrganization(name, type, uuid.toString());
         } else if (type.getValue().equals(OrganizationType.Manager.getValue())) {
-            organization = new ManagerOrganization(name, type, organizationList.size());
+            organization = new ManagerOrganization(name, type, uuid.toString());
         } else if (type.getValue().equals(OrganizationType.Coordinator.getValue())) {
-            organization = new CoordinatorOrganization(name, type, organizationList.size());
+            organization = new CoordinatorOrganization(name, type, uuid.toString());
         } else if (type.getValue().equals(OrganizationType.Approver.getValue())) {
-            organization = new ApproverOrganization(name, type, organizationList.size());
+            organization = new ApproverOrganization(name, type, uuid.toString());
         } else if (type.getValue().equals(OrganizationType.Validator.getValue())) {
-            organization = new ValidatorOrganization(name, type, organizationList.size());
+            organization = new ValidatorOrganization(name, type, uuid.toString());
         } else if (type.getValue().equals(OrganizationType.Transporter.getValue())) {
-            organization = new TransporterOrganization(name, type, organizationList.size());
+            organization = new TransporterOrganization(name, type, uuid.toString());
         } else if (type.getValue().equals(OrganizationType.Producer.getValue())) {
-            organization = new ProducerOrganization(name, type, organizationList.size());
+            organization = new ProducerOrganization(name, type, uuid.toString());
         }
         organizationList.add(organization);
         return organization;
+    }
+
+    public void removeOrganization(Organization organization) {
+        organizationList.remove(organization);
     }
 }

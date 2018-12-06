@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class LegalEnterprise extends Enterprise {
 
-    public LegalEnterprise(String name, EnterpriseType type, int id) {
+    public LegalEnterprise(String name, EnterpriseType type, String id) {
         super(name, type, id);
     }
 

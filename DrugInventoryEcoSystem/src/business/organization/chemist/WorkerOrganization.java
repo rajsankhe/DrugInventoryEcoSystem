@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class WorkerOrganization extends Organization {
 
-    public WorkerOrganization(String name, OrganizationType type, int id) {
+    public WorkerOrganization(String name, OrganizationType type, String id) {
         super(name, id);
     }
 

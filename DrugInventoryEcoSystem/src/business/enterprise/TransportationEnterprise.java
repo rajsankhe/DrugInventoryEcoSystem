@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class TransportationEnterprise extends Enterprise {
 
-    public TransportationEnterprise(String name, EnterpriseType type, int id) {
+    public TransportationEnterprise(String name, EnterpriseType type, String id) {
         super(name, type, id);
     }
 

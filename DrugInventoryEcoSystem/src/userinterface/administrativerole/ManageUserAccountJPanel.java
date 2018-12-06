@@ -89,6 +89,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         backJButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        deleteOrgjButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setMaximumSize(new java.awt.Dimension(1200, 750));
@@ -109,11 +110,11 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
                 createUserJButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(createUserJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 599, -1, 60));
-        kGradientPanel1.add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 520, 250, -1));
+        kGradientPanel1.add(createUserJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 610, -1, 60));
+        kGradientPanel1.add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 550, 250, -1));
 
         jLabel1.setText("User Name");
-        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 520, -1, -1));
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 550, -1, -1));
 
         userJTable.setBackground(new java.awt.Color(102, 255, 204));
         userJTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -147,28 +148,28 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 750, 220));
 
         jLabel2.setText("Email ID");
-        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 560, -1, -1));
+        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 590, -1, -1));
 
         jLabel3.setText("Employee");
-        kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 450, -1, -1));
+        kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 480, -1, -1));
 
-        kGradientPanel1.add(employeeJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 440, 250, -1));
+        kGradientPanel1.add(employeeJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 470, 250, -1));
 
         jLabel5.setText("Organization");
-        kGradientPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 410, -1, -1));
+        kGradientPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, -1, -1));
 
         organizationJComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 organizationJComboBoxActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 400, 250, -1));
+        kGradientPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 430, 250, -1));
 
         jLabel4.setText("Role");
-        kGradientPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 490, -1, -1));
+        kGradientPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 520, -1, -1));
 
-        kGradientPanel1.add(roleJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 480, 250, -1));
-        kGradientPanel1.add(emailIdJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 550, 250, -1));
+        kGradientPanel1.add(roleJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 510, 250, -1));
+        kGradientPanel1.add(emailIdJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 580, 250, -1));
 
         backJButton2.setText("<< Back");
         backJButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -185,6 +186,9 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/admin-internal.png"))); // NOI18N
         kGradientPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 100));
+
+        deleteOrgjButton.setText("Delete");
+        kGradientPanel1.add(deleteOrgjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 390, -1, -1));
 
         add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 750));
     }// </editor-fold>//GEN-END:initComponents
@@ -298,6 +302,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backJButton2;
     private javax.swing.JButton createUserJButton;
+    private javax.swing.JButton deleteOrgjButton;
     private javax.swing.JTextField emailIdJTextField;
     private javax.swing.JComboBox employeeJComboBox;
     private javax.swing.JLabel jLabel1;
