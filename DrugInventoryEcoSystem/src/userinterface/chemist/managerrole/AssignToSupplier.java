@@ -222,6 +222,14 @@ public class AssignToSupplier extends javax.swing.JPanel {
             request.setSender(request.getReceiver());
             request.setReceiver(null);
             JOptionPane.showMessageDialog(null, "Request send to supplier");
+            userProcessContainer.remove(this);
+            Component[] componentArray = userProcessContainer.getComponents();
+            Component component = componentArray[componentArray.length - 1];
+            ManagerWorkAreaJPanel managerWorkAreaJPanel = (ManagerWorkAreaJPanel) component;
+            managerWorkAreaJPanel.populateRequestTable();
+            CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+            layout.previous(userProcessContainer);
+            
         }
         else
         {
