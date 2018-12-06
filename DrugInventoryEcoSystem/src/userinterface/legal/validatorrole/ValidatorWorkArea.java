@@ -5,15 +5,11 @@
  */
 package userinterface.legal.validatorrole;
 
-import userinterface.chemist.managerrole.*;
-import business.EcoSystem;
 import business.drug.Drug;
 import business.enterprise.ChemistEnterprise;
 import business.enterprise.Enterprise;
 import business.organization.Organization;
-import business.organization.chemist.ManagerOrganization;
 import business.organization.legal.ValidatorOrganization;
-import business.organization.supplier.ApproverOrganization;
 import business.useraccount.UserAccount;
 import business.workqueue.WorkRequest;
 import business.workqueue.WorkRequestDrugs;
@@ -24,9 +20,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -73,8 +67,8 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
             row[1] = request.getStatus();
             row[2] = request.getReceiver();
             ChemistEnterprise chemistEnterprise = null;
-            for(Enterprise enterprise : request.getEnterpriseStack()){
-                if(enterprise instanceof ChemistEnterprise){
+            for (Enterprise enterprise : request.getEnterpriseStack()) {
+                if (enterprise instanceof ChemistEnterprise) {
                     chemistEnterprise = (ChemistEnterprise) enterprise;
                 }
             }
@@ -256,11 +250,11 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
         }
 
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
-        HttpURLConnection conn= null;
+        HttpURLConnection conn = null;
         try {
             String chemist = (String) workRequestJTable.getValueAt(selectedRow, 3);
             List<String> orderedDrugs = new ArrayList<>();
-            for(Drug drug :request.getDrugsOrderList()){
+            for (Drug drug : request.getDrugsOrderList()) {
                 orderedDrugs.add(drug.getName());
             }
             String legalCheckURL = Constants.legalCheckApi + chemist;
@@ -276,7 +270,7 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
                     (conn.getInputStream())));
 
             String output;
-            JSONArray array =  null;
+            JSONArray array = null;
             while ((output = br.readLine()) != null) {
                 JSONParser parser = new JSONParser();
                 Object JsonString = parser.parse(output);
@@ -296,24 +290,21 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
                     message += drug + " ";
                 }
             }
-            if ( rightsToSellDrugs) {
+            if (rightsToSellDrugs) {
                 JOptionPane.showMessageDialog(null, "Authorized to sell ordered drugs.");
                 return;
             } else {
                 JOptionPane.showMessageDialog(null, message);
                 return;
             }
-            
 
         } catch (Exception e) {
 
             JOptionPane.showMessageDialog(null, "Api connection failed.");
             return;
-        }
-        finally{
+        } finally {
             conn.disconnect();
         }
-
 
     }//GEN-LAST:event_checkStatus
 
@@ -329,6 +320,14 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         request.setStatus(Constants.rejectedByLegal);
         JOptionPane.showMessageDialog(null, "Rejected");
+
+        //Delete this order from all queues.
+        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            if (organization instanceof ValidatorOrganization) {
+                //Remove the workrequest from this queue
+                organization.getWorkQueue().deleteWorkRequest(request);
+            }
+        }
         organization.getWorkQueue().deleteWorkRequest(request);
         populateRequestTable();
     }//GEN-LAST:event_rejectActionPerformed
