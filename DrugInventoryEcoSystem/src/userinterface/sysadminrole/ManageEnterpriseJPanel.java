@@ -8,6 +8,7 @@ import business.ConfigureASystem;
 import business.EcoSystem;
 import business.enterprise.ChemistEnterprise;
 import business.enterprise.Enterprise;
+import business.enterprise.ManufacturerEnterprise;
 import business.enterprise.SupplierEnterprise;
 import business.network.Network;
 import commonutils.Validator;
@@ -129,7 +130,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -244,7 +245,11 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         } else if (type == Enterprise.EnterpriseType.Supplier) {
             SupplierEnterprise supplierEnterprise = (SupplierEnterprise) enterprise;
             supplierEnterprise.getInventory().setDrugStock(ConfigureASystem.generateInventory());
+        }else if (type == Enterprise.EnterpriseType.Manufacturer) {
+            ManufacturerEnterprise manufacturerEnterprise = (ManufacturerEnterprise) enterprise;
+            manufacturerEnterprise.getInventory().setDrugStock(ConfigureASystem.generateInventory());
         }
+        
 
         JOptionPane.showMessageDialog(null, "Enterprise created successfully.");
         nameJTextField.setText("");
