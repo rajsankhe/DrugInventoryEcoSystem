@@ -8,6 +8,7 @@ package userinterface.supplier.approverrole;
 import business.EcoSystem;
 import business.enterprise.Enterprise;
 import business.network.Network;
+import business.organization.Organization;
 import business.organization.supplier.ApproverOrganization;
 import business.useraccount.UserAccount;
 import business.workqueue.WorkRequestDrugs;
@@ -206,8 +207,17 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
     }//GEN-LAST:event_requestBidActionPerformed
 
     private void sendToChemistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToChemistActionPerformed
+
         request.setStatus(Constants.resentToChemist);
         JOptionPane.showMessageDialog(null, "Order is completed");
+
+        //Delete this order from all queues.
+        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            if (organization instanceof ApproverOrganization) {
+                //Remove the workrequest from this queue
+                organization.getWorkQueue().deleteWorkRequest(request);
+            }
+        }
 
     }//GEN-LAST:event_sendToChemistActionPerformed
 
