@@ -7,19 +7,17 @@ package userinterface.supplier.approverrole;
 
 import business.EcoSystem;
 import business.enterprise.Enterprise;
+import business.network.Network;
 import business.organization.supplier.ApproverOrganization;
 import business.useraccount.UserAccount;
-import business.workqueue.WorkRequest;
 import business.workqueue.WorkRequestDrugs;
 import commonutils.Constants;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-import userinterface.chemist.workerrole.WorkerWorkAreaJPanel;
 
 /**
  *
@@ -36,18 +34,20 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
     private UserAccount userAccount;
     private EcoSystem ecosystem;
     private WorkRequestDrugs request;
+    private Network network;
 
-    public RequestBidOrSendSupplier(JPanel userProcessContainer,WorkRequestDrugs request, Map<String, int[]> requestOrSend, Boolean bidFlag) {
-        initComponents(); 
-        this.userProcessContainer=userProcessContainer;
-        this.request= request;
-        if(bidFlag==Boolean.TRUE)
-        {   messageLabel.setText("Inventory is low, please request bid");
+    public RequestBidOrSendSupplier(JPanel userProcessContainer, WorkRequestDrugs request, Map<String, int[]> requestOrSend, Boolean bidFlag,
+            EcoSystem system, Network network) {
+        initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.request = request;
+        this.ecosystem = system;
+        this.network = network;
+        if (bidFlag == Boolean.TRUE) {
+            messageLabel.setText("Inventory is low, please request bid");
             requestBid.setEnabled(true);
             sendToChemist.setEnabled(false);
-        }
-        else
-        {
+        } else {
             messageLabel.setText("Request can be full filled");
             requestBid.setEnabled(false);
             sendToChemist.setEnabled(true);
@@ -197,13 +197,18 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestBidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestBidActionPerformed
-        // TODO add your handling code here:
+        // Send bid request to Manufacturer
+        request.getEnterpriseStack().add(this.enterprise);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("ChooseManufacturer", new AssignToManufacturer(userProcessContainer, ecosystem, request));
+        layout.next(userProcessContainer);
+
     }//GEN-LAST:event_requestBidActionPerformed
 
     private void sendToChemistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToChemistActionPerformed
-              request.setStatus(Constants.resentToChemist);
-              JOptionPane.showMessageDialog(null, "Order is completed");
-              
+        request.setStatus(Constants.resentToChemist);
+        JOptionPane.showMessageDialog(null, "Order is completed");
+
     }//GEN-LAST:event_sendToChemistActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
@@ -213,10 +218,9 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
         Component component = componentArray[componentArray.length - 1];
         ApproverWorkAreaJPanel approverworkAreaJPanel = (ApproverWorkAreaJPanel) component;
         approverworkAreaJPanel.populateRequestTable();
-        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
@@ -230,10 +234,10 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void populateRequestTable(Map<String, int[]> requestOrSend) {
-        DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();  
+        DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();
         model.setRowCount(0);
         for (Map.Entry<String, int[]> entry : requestOrSend.entrySet()) {
-             Object[] row = new Object[4]; 
+            Object[] row = new Object[4];
             row[0] = entry.getKey();
             int[] countArray = entry.getValue();
             row[1] = countArray[0];
@@ -241,6 +245,5 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
             row[3] = countArray[2];
             model.addRow(row);
         }
-    }   
+    }
 }
-
