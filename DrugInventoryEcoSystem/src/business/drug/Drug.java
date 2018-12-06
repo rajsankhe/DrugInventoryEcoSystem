@@ -19,7 +19,17 @@ public class Drug {
     private double manufacturerPrice;
     private List<String> disease;
     private double supplierPrice;
+    private int requestCountFromMan;
 
+    public int getRequestCountFromMan() {
+        return requestCountFromMan;
+    }
+
+    public void setRequestCountFromMan(int requestCountFromMan) {
+        this.requestCountFromMan = requestCountFromMan;
+    }
+
+    
     public int getId() {
         return id;
     }
