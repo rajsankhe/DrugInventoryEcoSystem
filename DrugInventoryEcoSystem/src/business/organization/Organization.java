@@ -23,11 +23,11 @@ public abstract class Organization {
     private UserAccountDirectory userAccountDirectory;
     //left
     //use UUID
-    private int organizationID;
+    private String organizationID;
     //private static int counter = 0;
     private OrganizationType organizationType;
 
-    public Organization(String name, int id) {
+    public Organization(String name, String id) {
         this.name = name;
         //left
         workQueue = new WorkQueue();
@@ -65,7 +65,7 @@ public abstract class Organization {
         return userAccountDirectory;
     }
 
-    public int getOrganizationID() {
+    public String getOrganizationID() {
         return organizationID;
     }
 

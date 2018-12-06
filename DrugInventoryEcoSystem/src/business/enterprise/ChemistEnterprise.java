@@ -24,9 +24,8 @@ public class ChemistEnterprise extends Enterprise {
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
     }
-    
 
-    public ChemistEnterprise(String name, EnterpriseType type, int id) {
+    public ChemistEnterprise(String name, EnterpriseType type, String id) {
         super(name, type, id);
         inventory = new Inventory();
     }
