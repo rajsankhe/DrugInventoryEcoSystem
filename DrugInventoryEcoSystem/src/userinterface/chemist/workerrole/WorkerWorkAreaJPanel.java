@@ -79,7 +79,6 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
         orderRequest = new javax.swing.JButton();
         send = new javax.swing.JButton();
         title = new javax.swing.JLabel();
-        jButtonDelete = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1200, 750));
 
@@ -97,7 +96,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Request ID", "Status", "Manager", "Message"
+                "Request ID", "Status", "Receiver", "Message"
             }
         ) {
             Class[] types = new Class [] {
@@ -152,13 +151,6 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
         title.setAlignmentX(740.0F);
         title.setAlignmentY(245.0F);
 
-        jButtonDelete.setText("Delete Row");
-        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDeleteActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -170,11 +162,9 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
                     .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(kGradientPanel1Layout.createSequentialGroup()
                             .addComponent(orderRequest)
-                            .addGap(66, 66, 66)
-                            .addComponent(viewRequest)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonDelete)
-                            .addGap(58, 58, 58)
+                            .addComponent(viewRequest)
+                            .addGap(143, 143, 143)
                             .addComponent(send))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 744, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(392, Short.MAX_VALUE))
@@ -190,8 +180,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(orderRequest)
                     .addComponent(viewRequest)
-                    .addComponent(send)
-                    .addComponent(jButtonDelete))
+                    .addComponent(send))
                 .addContainerGap(320, Short.MAX_VALUE))
         );
 
@@ -254,27 +243,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_orderRequestActionPerformed
 
-    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        // TODO add your handling code here:
-        int selectedRow = workRequestJTable.getSelectedRow();
-
-        if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(null, "Please select row");
-            return;
-        }
-
-        WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
-        if (request.getStatus() == Constants.chemistCoworkerRequestCreated) {
-            userAccount.getWorkQueue().deleteWorkRequest(request);
-            populateRequestTable();
-        } else {
-            JOptionPane.showMessageDialog(null, "Request is already proceeded can't be delete.");
-            return;
-        }
-    }//GEN-LAST:event_jButtonDeleteActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonDelete;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JButton orderRequest;

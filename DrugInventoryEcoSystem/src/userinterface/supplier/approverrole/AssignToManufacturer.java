@@ -6,6 +6,7 @@
 package userinterface.supplier.approverrole;
 
 import business.EcoSystem;
+import business.drug.Drug;
 import business.enterprise.Enterprise;
 import business.enterprise.ManufacturerEnterprise;
 import business.network.Network;
@@ -58,9 +59,11 @@ public class AssignToManufacturer extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        networkDropdown = new javax.swing.JComboBox<>();
-        enterpriseDropdown = new javax.swing.JComboBox<>();
+        networkDropdown = new javax.swing.JComboBox<String>();
+        enterpriseDropdown = new javax.swing.JComboBox<String>();
         back = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        workRequestJTable = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1200, 750));
 
@@ -91,7 +94,6 @@ public class AssignToManufacturer extends javax.swing.JPanel {
             }
         });
 
-        networkDropdown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         networkDropdown.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 networkDropdownItemStateChanged(evt);
@@ -103,7 +105,6 @@ public class AssignToManufacturer extends javax.swing.JPanel {
             }
         });
 
-        enterpriseDropdown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         enterpriseDropdown.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 enterpriseDropdownItemStateChanged(evt);
@@ -122,6 +123,39 @@ public class AssignToManufacturer extends javax.swing.JPanel {
             }
         });
 
+        workRequestJTable.setBackground(new java.awt.Color(153, 255, 255));
+        workRequestJTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Drug Name", "Inventory Count", "Order Count", "Request Count"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        workRequestJTable.setGridColor(new java.awt.Color(0, 0, 0));
+        workRequestJTable.setSelectionBackground(new java.awt.Color(153, 255, 255));
+        workRequestJTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jScrollPane1.setViewportView(workRequestJTable);
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -134,18 +168,22 @@ public class AssignToManufacturer extends javax.swing.JPanel {
                         .addGap(108, 108, 108)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
+                        .addGap(157, 157, 157)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(networkDropdown, 0, 161, Short.MAX_VALUE)
-                            .addComponent(enterpriseDropdown, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                .addGap(181, 181, 181)
+                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(networkDropdown, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(enterpriseDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(267, 267, 267)
+                        .addGap(447, 447, 447)
                         .addComponent(jButton1)))
-                .addContainerGap(667, Short.MAX_VALUE))
+                .addContainerGap(374, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,7 +192,9 @@ public class AssignToManufacturer extends javax.swing.JPanel {
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(back))
-                .addGap(59, 59, 59)
+                .addGap(54, 54, 54)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(networkDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -162,9 +202,9 @@ public class AssignToManufacturer extends javax.swing.JPanel {
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(enterpriseDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(36, 36, 36)
                 .addComponent(jButton1)
-                .addContainerGap(483, Short.MAX_VALUE))
+                .addContainerGap(186, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -192,7 +232,21 @@ public class AssignToManufacturer extends javax.swing.JPanel {
     }//GEN-LAST:event_backActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+
+        //Read table contents.
+        for (int i = 0; i < workRequestJTable.getRowCount(); i++) {
+            String drugName = (String) workRequestJTable.getValueAt(i, 0);
+            int manufacturerQuantity = (Integer) workRequestJTable.getValueAt(i, 0);
+
+            for (Drug drug : request.getDrugsOrderList()) {
+                if (drug.getName().equalsIgnoreCase(drugName)) {
+                    drug.setRequestCountFromMan(manufacturerQuantity);
+                    break;
+                }
+            }
+
+        }
+
         List<Network> networkList = ecosystem.getNetworkDirectory().getNetworkList();
         String networkName = networkDropdown.getSelectedItem().toString();
         Network networkSelected = networkList.stream()
@@ -274,8 +328,10 @@ public class AssignToManufacturer extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JComboBox<String> networkDropdown;
+    private javax.swing.JTable workRequestJTable;
     // End of variables declaration//GEN-END:variables
 
 }

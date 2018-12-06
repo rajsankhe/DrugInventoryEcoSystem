@@ -205,10 +205,14 @@ public class ConfigureASystem {
 //        random.nextInt(10);
         int sizeOfInventory = (random.ints(4, 10)).findAny().getAsInt();
         for (int j = 1; j <= sizeOfInventory; j++) {
-            Drug drug = new Drug();
-            drug.setName(drugs.get(random.nextInt(10)));
-            drug.setQuantity(random.nextInt(30));
-            drugStock.add(drug);
+            String drugName = drugs.get(random.nextInt(10));
+            if (drugStock.stream().noneMatch(d -> d.getName().equals(drugName))) {
+                Drug drug = new Drug();
+                drug.setName(drugName);
+                drug.setQuantity(random.nextInt(30));
+                drugStock.add(drug);
+            }
+
         }
         return drugStock;
     }
