@@ -87,8 +87,10 @@
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="assignToMe" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="138" max="-2" attributes="0"/>
                                       <Component id="processOrderjButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="completeOrderjButton" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jScrollPane1" min="-2" pref="669" max="-2" attributes="0"/>
                               </Group>
@@ -109,6 +111,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="assignToMe" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="processOrderjButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="completeOrderjButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="386" max="32767" attributes="0"/>
                   </Group>
@@ -205,6 +208,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="processOrderjButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="completeOrderjButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Complete Order"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="completeOrderjButtonActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

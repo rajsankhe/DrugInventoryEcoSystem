@@ -22,5 +22,7 @@ public class Constants {
     public static final String requestBid = "Bid requestted";
     public static String resentToChemist = "Order Completed";
     public static String sentToManufacturer = "Sent to Manufacturer";
+    public static String priceUpdatedByManufacturer = "Order updated with prices";
+    public static String processedByManufacturer = "Processed by Manufacturer";
     public static final String legalCheckApi = "http://localhost:3000/legalcheck/";
 }
