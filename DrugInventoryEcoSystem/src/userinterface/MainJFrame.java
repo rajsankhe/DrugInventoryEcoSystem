@@ -12,10 +12,10 @@ import business.network.Network;
 import business.organization.Organization;
 import business.useraccount.UserAccount;
 import java.awt.CardLayout;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import userinterface.logout.LogOutScreen;
 
 /**
@@ -29,7 +29,7 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     //The parent EcoSystem Singleton Object
     private EcoSystem system;
-   // private static final Logger log = LogManager.getLogger(MainJFrame.class);
+    private static final Logger log = LogManager.getLogger(MainJFrame.class);
     //Singleton DB4O object to store and retrieve the EcoSystem when system STARTS/STOPS
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
        public MainJFrame() {
@@ -39,6 +39,12 @@ public class MainJFrame extends javax.swing.JFrame {
         this.setSize(1200, 750);
         jButtonLogIn.setEnabled(true);
         jButtonLogOut.setEnabled(false);
+         log.trace("Trace Message!");
+      log.debug("Debug Message!");
+      log.info("Info Message!");
+      log.warn("Warn Message!");
+      log.error("Error Message!");
+      log.fatal("Fatal Message!");
     }
 
     /**

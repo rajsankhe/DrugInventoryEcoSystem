@@ -1,0 +1,5 @@
+[DEBUG] 2018-12-05 17:25:04.896 [AWT-EventQueue-0] MainJFrame - Debug Message!
+[INFO ] 2018-12-05 17:25:04.896 [AWT-EventQueue-0] MainJFrame - Info Message!
+[WARN ] 2018-12-05 17:25:04.897 [AWT-EventQueue-0] MainJFrame - Warn Message!
+[ERROR] 2018-12-05 17:25:04.897 [AWT-EventQueue-0] MainJFrame - Error Message!
+[FATAL] 2018-12-05 17:25:04.897 [AWT-EventQueue-0] MainJFrame - Fatal Message!
