@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class TransporterOrganization extends Organization {
 
-    public TransporterOrganization(String name, OrganizationType type, int id) {
+    public TransporterOrganization(String name, OrganizationType type, String id) {
         super(name, id);
     }
 

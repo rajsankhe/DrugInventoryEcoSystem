@@ -30,7 +30,8 @@ public class EcoSystem extends Organization {
     }
 
     private EcoSystem() {
-        super("EcoSystem", 1);
+
+        super("EcoSystem", "ecosystem_id");
         networkDirectory = new NetworkDirectory();
     }
 

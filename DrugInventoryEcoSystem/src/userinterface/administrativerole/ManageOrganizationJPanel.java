@@ -12,6 +12,7 @@ import business.organization.Organization.OrganizationType;
 import business.organization.OrganizationDirectory;
 import commonutils.Validator;
 import java.awt.CardLayout;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -72,7 +73,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         for (Organization organization : directory.getOrganizationList()) {
             Object[] row = new Object[2];
             row[0] = organization.getOrganizationID();
-            row[1] = organization.getName();
+            row[1] = organization;
 
             model.addRow(row);
         }
@@ -98,6 +99,8 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         orgNameJTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        editOrgjButton = new javax.swing.JButton();
+        deleteOrgjButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setMaximumSize(new java.awt.Dimension(1200, 750));
@@ -152,12 +155,12 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                 addJButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(addJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 439, -1, 50));
+        kGradientPanel1.add(addJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 450, -1, 50));
 
-        kGradientPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, 200, -1));
+        kGradientPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 390, 200, -1));
 
         jLabel1.setText("Organization Type ");
-        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, -1, -1));
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 390, -1, -1));
 
         backJButton.setText("<< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -168,8 +171,8 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         kGradientPanel1.add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         jLabel2.setText("Organization Name ");
-        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 400, -1, -1));
-        kGradientPanel1.add(orgNameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 400, 200, -1));
+        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, -1, -1));
+        kGradientPanel1.add(orgNameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 420, 200, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 51, 255));
@@ -180,6 +183,22 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/admin-internal.png"))); // NOI18N
         kGradientPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 90, 100));
 
+        editOrgjButton.setText("Edit");
+        editOrgjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editOrgjButtonActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(editOrgjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, -1, -1));
+
+        deleteOrgjButton.setText("Delete");
+        deleteOrgjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteOrgjButtonActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(deleteOrgjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 360, -1, -1));
+
         add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 750));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -187,7 +206,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
 
         OrganizationType type = (OrganizationType) organizationJComboBox.getSelectedItem();
         String orgName = orgNameJTextField.getText();
-        if (!Validator.isValidAlphaNum(orgName)) {
+        if (!Validator.isValidAlphaNumericWithSpaces(orgName)) {
             JOptionPane.showMessageDialog(null, "Organization name is invalid. Only alphanumeric characters are allowed. Please check");
             return;
         }
@@ -213,9 +232,56 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed
 
+    private void editOrgjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editOrgjButtonActionPerformed
+        int selectedRow = organizationJTable.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a row!!!");
+        } else {
+            Organization organization = (Organization) organizationJTable.getValueAt(selectedRow, 1);
+
+            JFrame frame = new JFrame();
+            String message = (String) JOptionPane.showInputDialog(frame,
+                    "Update Organization",
+                    "New Name",
+                    JOptionPane.OK_CANCEL_OPTION);
+            if (!Validator.isValidAlphaNumericWithSpaces(message)) {
+                JOptionPane.showMessageDialog(null, "Organization update failed. Only alphanumeric characters, spaces and . allowed.");
+                return;
+            }
+
+            organization.setName(message);
+            populateTable();
+        }
+    }//GEN-LAST:event_editOrgjButtonActionPerformed
+
+    private void deleteOrgjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteOrgjButtonActionPerformed
+        int selectedRow = organizationJTable.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a row!!!");
+        } else {
+            Organization organization = (Organization) organizationJTable.getValueAt(selectedRow, 1);
+            if (organization.getUserAccountDirectory().getUserAccountList().size() > 0) {
+                JOptionPane.showMessageDialog(null, "Organization has user account which are active. Please remove them first");
+                return;
+            }
+
+            int selectionButton = JOptionPane.YES_NO_OPTION;
+            int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure to delete?", "Warning", selectionButton);
+            if (selectionResult == JOptionPane.YES_OPTION) {
+                //can delete the network now.
+                directory.removeOrganization(organization);
+            }
+
+            populateTable();
+        }
+
+    }//GEN-LAST:event_deleteOrgjButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addJButton;
     private javax.swing.JButton backJButton;
+    private javax.swing.JButton deleteOrgjButton;
+    private javax.swing.JButton editOrgjButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

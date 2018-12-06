@@ -7,6 +7,7 @@ package business.enterprise;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  *
@@ -40,16 +41,19 @@ public class EnterpriseDirectory {
             }
         }
 
+        UUID uuid = UUID.randomUUID();
+
         if (type == Enterprise.EnterpriseType.Chemist) {
-            enterprise = new ChemistEnterprise(name, type, enterpriseList.size());
+
+            enterprise = new ChemistEnterprise(name, type, uuid.toString());
         } else if (type == Enterprise.EnterpriseType.Legal) {
-            enterprise = new LegalEnterprise(name, type, enterpriseList.size());
+            enterprise = new LegalEnterprise(name, type, uuid.toString());
         } else if (type == Enterprise.EnterpriseType.Manufacturer) {
-            enterprise = new ManufacturerEnterprise(name, type, enterpriseList.size());
+            enterprise = new ManufacturerEnterprise(name, type, uuid.toString());
         } else if (type == Enterprise.EnterpriseType.Transporter) {
-            enterprise = new TransportationEnterprise(name, type, enterpriseList.size());
+            enterprise = new TransportationEnterprise(name, type, uuid.toString());
         } else if (type == Enterprise.EnterpriseType.Supplier) {
-            enterprise = new SupplierEnterprise(name, type, enterpriseList.size());
+            enterprise = new SupplierEnterprise(name, type, uuid.toString());
         }
 
         enterpriseList.add(enterprise);

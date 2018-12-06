@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class ApproverOrganization extends Organization {
 
-    public ApproverOrganization(String name, OrganizationType type, int id) {
+    public ApproverOrganization(String name, OrganizationType type, String id) {
         super(name, id);
     }
 
