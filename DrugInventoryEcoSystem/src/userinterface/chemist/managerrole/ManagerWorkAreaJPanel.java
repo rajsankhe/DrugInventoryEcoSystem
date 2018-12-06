@@ -97,7 +97,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Request ID", "Status", "Worker", "Manager"
+                "Request ID", "Status", "Sender", "Receiver"
             }
         ) {
             Class[] types = new Class [] {

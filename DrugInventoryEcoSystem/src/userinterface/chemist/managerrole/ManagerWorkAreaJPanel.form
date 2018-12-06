@@ -115,8 +115,8 @@
                   <Table columnCount="4" rowCount="4">
                     <Column editable="false" title="Request ID" type="java.lang.String"/>
                     <Column editable="false" title="Status" type="java.lang.String"/>
-                    <Column editable="false" title="Worker" type="java.lang.Object"/>
-                    <Column editable="false" title="Manager" type="java.lang.Object"/>
+                    <Column editable="false" title="Sender" type="java.lang.Object"/>
+                    <Column editable="false" title="Receiver" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

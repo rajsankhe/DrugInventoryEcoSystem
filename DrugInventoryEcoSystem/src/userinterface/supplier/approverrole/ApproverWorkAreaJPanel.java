@@ -109,7 +109,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Request ID", "Status", "Chemist", "Supplier"
+                "Request ID", "Status", "Sender", "Receiver"
             }
         ) {
             Class[] types = new Class [] {
@@ -338,7 +338,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         if (request.getReceiver() == userAccount) {
 
             if (!Constants.resentToChemist.equals(request.getStatus())) {
-                if (!Constants.rejectedByLegal.equals(request.getStatus())) {
+                if (Constants.acceptedByLegal.equals(request.getStatus())) {
                     SupplierEnterprise supplierEnterprise = (SupplierEnterprise) enterprise;
                     Inventory inventorySupp = supplierEnterprise.getInventory();
                     List<Drug> inventory = inventorySupp.getDrugStock();
