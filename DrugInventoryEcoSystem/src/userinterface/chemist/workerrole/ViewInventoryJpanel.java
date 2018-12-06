@@ -87,7 +87,7 @@ public class ViewInventoryJpanel extends javax.swing.JPanel {
                 java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {

@@ -59,8 +59,8 @@ public class AssignToManufacturer extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        networkDropdown = new javax.swing.JComboBox<>();
-        enterpriseDropdown = new javax.swing.JComboBox<>();
+        networkDropdown = new javax.swing.JComboBox<String>();
+        enterpriseDropdown = new javax.swing.JComboBox<String>();
         back = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         workRequestJTable = new javax.swing.JTable();
