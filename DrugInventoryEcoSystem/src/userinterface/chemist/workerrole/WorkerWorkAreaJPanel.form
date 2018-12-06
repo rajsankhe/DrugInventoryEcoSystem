@@ -54,11 +54,9 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="orderRequest" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                              <Component id="viewRequest" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButtonDelete" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                              <Component id="viewRequest" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
                               <Component id="send" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane1" min="-2" pref="744" max="-2" attributes="0"/>
@@ -80,7 +78,6 @@
                       <Component id="orderRequest" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="viewRequest" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="send" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonDelete" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="320" max="32767" attributes="0"/>
               </Group>
@@ -186,14 +183,6 @@
             <Property name="alignmentX" type="float" value="740.0"/>
             <Property name="alignmentY" type="float" value="245.0"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButtonDelete">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Delete Row"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDeleteActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
