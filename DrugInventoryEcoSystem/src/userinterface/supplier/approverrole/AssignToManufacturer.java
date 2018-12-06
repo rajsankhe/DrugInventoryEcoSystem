@@ -63,6 +63,7 @@ public class AssignToManufacturer extends javax.swing.JPanel {
         back = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         workRequestJTable = new javax.swing.JTable();
+        messageLabel = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1200, 750));
 
@@ -157,6 +158,10 @@ public class AssignToManufacturer extends javax.swing.JPanel {
         workRequestJTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(workRequestJTable);
 
+        messageLabel.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        messageLabel.setForeground(new java.awt.Color(51, 51, 255));
+        messageLabel.setText("Please Update Request Count");
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -182,7 +187,8 @@ public class AssignToManufacturer extends javax.swing.JPanel {
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                 .addGap(112, 112, 112)
                                 .addComponent(jButton1))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(374, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
@@ -192,7 +198,9 @@ public class AssignToManufacturer extends javax.swing.JPanel {
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(back))
-                .addGap(54, 54, 54)
+                .addGap(15, 15, 15)
+                .addComponent(messageLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -316,6 +324,7 @@ public class AssignToManufacturer extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
+    private javax.swing.JLabel messageLabel;
     private javax.swing.JComboBox<String> networkDropdown;
     private javax.swing.JTable workRequestJTable;
     // End of variables declaration//GEN-END:variables
