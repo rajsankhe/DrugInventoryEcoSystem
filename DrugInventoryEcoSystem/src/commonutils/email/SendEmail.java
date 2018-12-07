@@ -10,6 +10,7 @@ package commonutils.email;
  * @author Admin
  */
 import business.workqueue.WorkRequest;
+import java.util.List;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -58,7 +59,7 @@ public class SendEmail {
 
     }
 
-    public void sendMailMulti(String username, String to, String userPassword) {
+    public void sendMailMulti(WorkRequest workRequest, List<String> emailIdList) {
         //Get properties object
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -80,16 +81,13 @@ public class SendEmail {
         //compose message
         try {
             MimeMessage message = new MimeMessage(session);
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject(sub);
-            StringBuilder emailBody = new StringBuilder();
 
-            emailBody.append("<h1>Welcome onboard!!!!</h1><br>Your username is :").
-                    append(username).
-                    append("</p><p>Your Password is: ").
-                    append(userPassword).
-                    append("</p>");
-            message.setContent(emailBody.toString(), "text/html; charset=utf-8");
+            for (String email : emailIdList) {
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+            }
+
+            message.setSubject(sub);
+            message.setContent(createEmailMessageWorkAlert(workRequest), "text/html; charset=utf-8");
             //send message
             Transport.send(message);
             System.out.println("Message sent successfully");
@@ -111,13 +109,11 @@ public class SendEmail {
         return emailBody.toString();
     }
 
-    public String createEmailMessageWorkAlert(WorkRequest workRequest, String name) {
+    public String createEmailMessageWorkAlert(WorkRequest workRequest) {
         StringBuilder emailBody = new StringBuilder();
 
-        emailBody.append("<h1>Work Request received</h1><br> Details: Request </p><p>ID: ").
+        emailBody.append("<h1>Work Request completed successfully</h1><br> Details: Request </p><p>ID: ").
                 append(workRequest.getRequestId()).
-                append("</p><p>Sender: ").
-                append(workRequest.getSender()).
                 append("</p>");
 
         return emailBody.toString();
