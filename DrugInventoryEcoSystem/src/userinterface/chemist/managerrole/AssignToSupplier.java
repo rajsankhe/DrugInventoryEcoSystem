@@ -11,19 +11,14 @@ import business.enterprise.SupplierEnterprise;
 import business.network.Network;
 import business.organization.Organization;
 import business.organization.supplier.ApproverOrganization;
-import business.useraccount.UserAccount;
 import business.workqueue.WorkRequestDrugs;
 import commonutils.Constants;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import userinterface.chemist.workerrole.WorkerWorkAreaJPanel;
 
 /**
  *
@@ -37,14 +32,17 @@ public class AssignToSupplier extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private EcoSystem ecosystem;
     private WorkRequestDrugs request;
-    public AssignToSupplier(JPanel userProcessContainer,EcoSystem ecosystem,WorkRequestDrugs request ) {
+    private Enterprise enterprise;
+
+    public AssignToSupplier(JPanel userProcessContainer, EcoSystem ecosystem, WorkRequestDrugs request, Enterprise enterprise) {
         initComponents();
         networkDropdown.removeAllItems();
         enterpriseDropdown.removeAllItems();
-        this.userProcessContainer= userProcessContainer;
-        this.ecosystem= ecosystem;
-        this.request= request;
-        List<Network> networkList=  ecosystem.getNetworkDirectory().getNetworkList();
+        this.userProcessContainer = userProcessContainer;
+        this.ecosystem = ecosystem;
+        this.request = request;
+        this.enterprise = enterprise;
+        List<Network> networkList = ecosystem.getNetworkDirectory().getNetworkList();
         networkList.stream().forEach(network -> networkDropdown.addItem(network.getName()));
     }
 
@@ -190,74 +188,71 @@ public class AssignToSupplier extends javax.swing.JPanel {
         Component component = componentArray[componentArray.length - 1];
         ManagerWorkAreaJPanel managerWorkAreaJPanel = (ManagerWorkAreaJPanel) component;
         managerWorkAreaJPanel.populateRequestTable();
-        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        List<Network> networkList=  ecosystem.getNetworkDirectory().getNetworkList();
+        List<Network> networkList = ecosystem.getNetworkDirectory().getNetworkList();
         String networkName = networkDropdown.getSelectedItem().toString();
         Network networkSelected = networkList.stream()
                 .filter(network -> networkName.equals(network.getName()))
                 .findAny()
                 .orElse(null);
-        if(networkDropdown.getSelectedItem()!= null && enterpriseDropdown.getSelectedItem()!= null)
-        {
-             String enterpriseName = enterpriseDropdown.getSelectedItem().toString();
-        List<Enterprise> enterpriseList=networkSelected.getEnterpriseDirectory().getEnterpriseList().stream().
-                     filter(enterprise -> enterprise instanceof SupplierEnterprise).collect(Collectors.toList()); 
-            Enterprise enterpriseSelected=enterpriseList.stream()
-                .filter(enterprise -> enterpriseName.equals(enterprise.getName()))
-                .findAny()
-                .orElse(null);
-            Organization org= null;
-        for (Organization organization : enterpriseSelected.getOrganizationDirectory().getOrganizationList()){
-            if (organization instanceof ApproverOrganization){
-                org = organization;
-                org.getWorkQueue().getWorkRequestList().add(request);
+        if (networkDropdown.getSelectedItem() != null && enterpriseDropdown.getSelectedItem() != null) {
+            String enterpriseName = enterpriseDropdown.getSelectedItem().toString();
+            List<Enterprise> enterpriseList = networkSelected.getEnterpriseDirectory().getEnterpriseList().stream().
+                    filter(enterprise -> enterprise instanceof SupplierEnterprise).collect(Collectors.toList());
+            Enterprise enterpriseSelected = enterpriseList.stream()
+                    .filter(enterprise -> enterpriseName.equals(enterprise.getName()))
+                    .findAny()
+                    .orElse(null);
+            Organization org = null;
+            for (Organization organization : enterpriseSelected.getOrganizationDirectory().getOrganizationList()) {
+                if (organization instanceof ApproverOrganization) {
+                    org = organization;
+                    org.getWorkQueue().getWorkRequestList().add(request);
+                }
             }
-        }
             request.setStatus(Constants.sentToSupplier);
             request.setSender(request.getReceiver());
             request.setReceiver(null);
+            request.getEnterpriseStack().push(this.enterprise);
             JOptionPane.showMessageDialog(null, "Request send to supplier");
             userProcessContainer.remove(this);
             Component[] componentArray = userProcessContainer.getComponents();
             Component component = componentArray[componentArray.length - 1];
             ManagerWorkAreaJPanel managerWorkAreaJPanel = (ManagerWorkAreaJPanel) component;
             managerWorkAreaJPanel.populateRequestTable();
-            CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             layout.previous(userProcessContainer);
-            
-        }
-        else
-        {
+
+        } else {
             JOptionPane.showMessageDialog(null, "Request cannot be fulfilled");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void networkDropdownItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_networkDropdownItemStateChanged
         // TODO add your handling code here:
-        Network networkSelected= null;
+        Network networkSelected = null;
         enterpriseDropdown.removeAllItems();
-        if( ecosystem != null)
-        {
-        List<Network> networkList=  ecosystem.getNetworkDirectory().getNetworkList();
-        String networkName = networkDropdown.getSelectedItem().toString();
-         networkSelected= networkList.stream()
-                .filter(network -> networkName.equals(network.getName()))
-                .findAny()
-                .orElse(null);
+        if (ecosystem != null) {
+            List<Network> networkList = ecosystem.getNetworkDirectory().getNetworkList();
+            String networkName = networkDropdown.getSelectedItem().toString();
+            networkSelected = networkList.stream()
+                    .filter(network -> networkName.equals(network.getName()))
+                    .findAny()
+                    .orElse(null);
         }
-        List<Enterprise> enterpriseList= null;
-        if(networkSelected!= null)
-        {
-             enterpriseList=networkSelected.getEnterpriseDirectory().getEnterpriseList().stream().
-                     filter(enterprise -> enterprise instanceof SupplierEnterprise).collect(Collectors.toList());      
+        List<Enterprise> enterpriseList = null;
+        if (networkSelected != null) {
+            enterpriseList = networkSelected.getEnterpriseDirectory().getEnterpriseList().stream().
+                    filter(enterprise -> enterprise instanceof SupplierEnterprise).collect(Collectors.toList());
         }
-        if(enterpriseList!= null)
-        enterpriseList.stream().forEach(enterprise -> enterpriseDropdown.addItem(enterprise.getName()));   
+        if (enterpriseList != null) {
+            enterpriseList.stream().forEach(enterprise -> enterpriseDropdown.addItem(enterprise.getName()));
+        }
     }//GEN-LAST:event_networkDropdownItemStateChanged
 
     private void networkDropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_networkDropdownActionPerformed
@@ -269,9 +264,8 @@ public class AssignToSupplier extends javax.swing.JPanel {
     }//GEN-LAST:event_enterpriseDropdownActionPerformed
 
     private void enterpriseDropdownItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_enterpriseDropdownItemStateChanged
-        
-    }//GEN-LAST:event_enterpriseDropdownItemStateChanged
 
+    }//GEN-LAST:event_enterpriseDropdownItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;

@@ -5,6 +5,7 @@
  */
 package userinterface.manufacturer.producerrole;
 
+import business.EcoSystem;
 import business.drug.Drug;
 import business.workqueue.WorkRequestDrugs;
 import commonutils.Constants;
@@ -28,8 +29,9 @@ public class ViewAndUpdateBidProducerjpanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private WorkRequestDrugs workRequestDrugs;
+    private EcoSystem ecoSystem;
 
-    public ViewAndUpdateBidProducerjpanel(JPanel userProcessContainer, WorkRequestDrugs request) {
+    public ViewAndUpdateBidProducerjpanel(JPanel userProcessContainer, WorkRequestDrugs request, EcoSystem system) {
         initComponents();
         this.setSize(1200, 750);
         ((DefaultTableCellRenderer) drugquantity.getDefaultRenderer(Object.class)).setOpaque(false);
@@ -37,7 +39,7 @@ public class ViewAndUpdateBidProducerjpanel extends javax.swing.JPanel {
         jScrollPane1.getViewport().setOpaque(false);
         this.userProcessContainer = userProcessContainer;
         this.workRequestDrugs = request;
-
+        this.ecoSystem = system;
         populateRequestTable();
     }
 
@@ -48,7 +50,7 @@ public class ViewAndUpdateBidProducerjpanel extends javax.swing.JPanel {
         for (Drug drug : workRequestDrugs.getDrugsOrderList()) {
             Object[] row = new Object[3];
             row[0] = drug;
-            row[1] = drug.getQuantity();
+            row[1] = drug.getRequestCountFromMan();
             //row[2] = drug.getManufacturerPrice();
             model.addRow(row);
         }
@@ -193,15 +195,20 @@ public class ViewAndUpdateBidProducerjpanel extends javax.swing.JPanel {
             int nRow = model.getRowCount();
             for (int i = 0; i < nRow; i++) {
                 if (model.getValueAt(i, 0) != null && model.getValueAt(i, 1) != null) {
-                    Drug newDrug = new Drug();
-                    newDrug.setName(String.valueOf(model.getValueAt(i, 0)));
+                    String drugName = String.valueOf(model.getValueAt(i, 0));
+                    //int drugRequested = (Integer) model.getValueAt(i, 1);
+                    double manufacturerPrice = (Double) model.getValueAt(i, 2);
 
-                    newDrug.setQuantity((Integer) model.getValueAt(i, 1));
-                    newDrug.setManufacturerPrice((Double) model.getValueAt(i, 2));
-                    orderList.add(newDrug);
+                    for (Drug drug : workRequestDrugs.getDrugsOrderList()) {
+                        if (drug.getName().equalsIgnoreCase(drugName)) {
+                            drug.setManufacturerPrice(manufacturerPrice);
+                            break;
+                        }
+                    }
+
                 }
+
             }
-            workRequestDrugs.setDrugsOrderList(orderList);
             workRequestDrugs.setStatus(Constants.priceUpdatedByManufacturer);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please enter decimal value in price field.");

@@ -272,9 +272,8 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
                 return;
             } else {
 
-                request.getEnterpriseStack().add(this.enterprise);
                 CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-                userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer, ecosystem, request));
+                userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer, ecosystem, request, this.enterprise));
                 layout.next(userProcessContainer);
             }
 
