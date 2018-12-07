@@ -51,7 +51,10 @@ public class ViewAndUpdateBidProducerjpanel extends javax.swing.JPanel {
             Object[] row = new Object[3];
             row[0] = drug;
             row[1] = drug.getRequestCountFromMan();
-            //row[2] = drug.getManufacturerPrice();
+            if (drug.getManufacturerPrice() > 0) {
+                row[2] = drug.getManufacturerPrice();
+            }
+
             model.addRow(row);
         }
     }
@@ -215,8 +218,6 @@ public class ViewAndUpdateBidProducerjpanel extends javax.swing.JPanel {
             e.printStackTrace();
             return;
         }
-
-        workRequestDrugs.setDrugsOrderList(orderList);
 
         JOptionPane.showMessageDialog(null, "Price updated successfully");
         userProcessContainer.remove(this);
