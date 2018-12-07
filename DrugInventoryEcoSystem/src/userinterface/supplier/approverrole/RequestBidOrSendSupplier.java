@@ -230,7 +230,7 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
                 Drug drugInv= drugInventoryStock.stream().filter(drugIn -> (drug.getName()).equals(drugIn.getName()))
                         .findAny()
                         .orElse(null);
-                Drug drugInvSupp= drugInventoryStock.stream().filter(drugInsup -> (drug.getName()).equals(drugInsup.getName()))
+                Drug drugInvSupp= drugInventoryStockSupplier.stream().filter(drugInsup -> (drug.getName()).equals(drugInsup.getName()))
                         .findAny()
                         .orElse(null);
                 if( drugInv!= null)
