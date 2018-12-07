@@ -41,10 +41,8 @@ public abstract class Organization {
         Admin("Admin Organization"),//Common for all
         Manager("Manager Organization"), //Chemist
         Worker("Worker Organization"), //Chemist
-        Coordinator("Coordinator Organization"), //Supplier
         Approver("Approver Organization"), //Supplier
         Validator("Validator Organization"), //Legal
-        Transporter("Transporter Organization"), //Transport
         Producer("Producer Organization"); //Manufacturer
 
         private String value;
