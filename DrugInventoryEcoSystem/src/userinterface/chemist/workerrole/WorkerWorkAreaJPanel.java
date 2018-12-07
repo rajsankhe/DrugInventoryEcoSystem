@@ -207,15 +207,22 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
 
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         if (!(request.getStatus().equals(Constants.Approve) || request.getStatus().equals(Constants.chemistCoworkerSendForApproval))) {
-            Organization org = null;
-            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-                if (organization instanceof ManagerOrganization) {
-                    org = organization;
-                    org.getWorkQueue().getWorkRequestList().add(request);
+            if(request.getStatus().equals(Constants.resentToChemist))
+            {
+                Organization org = null;
+                for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                    if (organization instanceof ManagerOrganization) {
+                        org = organization;
+                        org.getWorkQueue().getWorkRequestList().add(request);
+                    }
                 }
+                request.setStatus(Constants.chemistCoworkerSendForApproval);
+                populateRequestTable();
             }
-            request.setStatus(Constants.chemistCoworkerSendForApproval);
-            populateRequestTable();
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Order is completed");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Already request send");
             return;
@@ -225,15 +232,17 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
 
     private void viewRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRequestActionPerformed
         int selectedRow = workRequestJTable.getSelectedRow();
-
+        boolean orderProc = false;
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
-
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
+        if ((Constants.resentToChemist).equals(request.getStatus())) {
+            orderProc = true;
+        }
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("viewEditDrug", new ViewEditDrugsOrderJpanel(userProcessContainer, request));
+        userProcessContainer.add("viewEditDrug", new ViewEditDrugsOrderJpanel(userProcessContainer, request,orderProc));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_viewRequestActionPerformed
 
