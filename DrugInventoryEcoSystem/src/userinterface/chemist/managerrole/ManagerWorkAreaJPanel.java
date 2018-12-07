@@ -230,11 +230,19 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
-
+        
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         if (request.getReceiver() == null) {
-            request.setReceiver(userAccount);
-            populateRequestTable();
+            if((Constants.chemistCoworkerSendForApproval).equals(request.getStatus()))
+            {
+                request.setReceiver(userAccount);
+                populateRequestTable();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Request is processed");
+                return;
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Already assinged to " + request.getReceiver());
             return;
@@ -293,19 +301,24 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         }
 
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
-        if (request.getReceiver() == userAccount) {
-            request.setStatus(Constants.Reject);
-            JFrame frame = new JFrame();
-            String message = (String) JOptionPane.showInputDialog(frame,
-                    "Enter the message",
-                    Constants.Reject + " message",
-                    JOptionPane.OK_CANCEL_OPTION);
-            request.setMessage(message);
+        if((Constants.chemistCoworkerSendForApproval).equals(request.getStatus()))
+            {
+                if (request.getReceiver() == userAccount) {
+                    request.setStatus(Constants.Reject);
+                    JFrame frame = new JFrame();
+                    String message = (String) JOptionPane.showInputDialog(frame,
+                            "Enter the message",
+                            Constants.Reject + " message",
+                            JOptionPane.OK_CANCEL_OPTION);
+                    request.setMessage(message);
 
-            organization.getWorkQueue().getWorkRequestList().remove(request);
-            populateRequestTable();
+                    organization.getWorkQueue().getWorkRequestList().remove(request);
+                    populateRequestTable();
+            }else {
+                    JOptionPane.showMessageDialog(null, "Assign request to you.");
+                }
         } else {
-            JOptionPane.showMessageDialog(null, "Assign request to you.");
+            JOptionPane.showMessageDialog(null, "Request is processed");
         }
 
         //WorkRequestDrugs wr= request.getSender().getWorkQueue().getWorkRequestList().stream().filter(x -> x==request).findFirst().get();
