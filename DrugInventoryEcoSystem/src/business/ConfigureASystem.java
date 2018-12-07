@@ -13,7 +13,6 @@ import business.enterprise.EnterpriseDirectory;
 import business.enterprise.LegalEnterprise;
 import business.enterprise.ManufacturerEnterprise;
 import business.enterprise.SupplierEnterprise;
-import business.enterprise.TransportationEnterprise;
 import business.network.Network;
 import business.organization.Organization;
 import business.organization.OrganizationDirectory;
@@ -25,7 +24,6 @@ import business.role.chemist.WorkerRole;
 import business.role.legal.ValidatorRole;
 import business.role.manufacturer.ProducerRole;
 import business.role.supplier.ApproverRole;
-import business.role.transport.TransporterRole;
 import business.useraccount.UserAccount;
 import commonutils.Helper;
 import commonutils.PasswordUtility;
@@ -105,13 +103,6 @@ public class ConfigureASystem {
         manufacturerEnterprise.getUserAccountDirectory().createUserAccount(name,
                 PasswordUtility.createPassword(name), emailID, manufacturerAdminEmployee, new AdminRole(Role.RoleType.Admin));
 
-        name = network.getName().substring(0, 1) + "tranentadmin" + i;
-        Enterprise transporterEnterprise = enterpriseDirectory.createAndAddEnterprise(network.getName().substring(0, 1) + "Transporter" + i,
-                Enterprise.EnterpriseType.Transporter);
-        Employee transporterAdminEmployee = transporterEnterprise.getEmployeeDirectory().createEmployee(name);
-        transporterEnterprise.getUserAccountDirectory().createUserAccount(name,
-                PasswordUtility.createPassword(name), emailID, transporterAdminEmployee, new AdminRole(Role.RoleType.Admin));
-
         //Enterprises have been added now. Let's populate Organizations in the Enterprise
         for (Enterprise enterprise : enterpriseDirectory.getEnterpriseList()) {
             OrganizationDirectory organizationDirectory = new OrganizationDirectory();
@@ -180,16 +171,6 @@ public class ConfigureASystem {
                 Employee producerEmp = producer.getEmployeeDirectory().createEmployee(name);
                 Role producerRole = new ProducerRole(Role.RoleType.Producer);
                 producer.getUserAccountDirectory().createUserAccount(name, PasswordUtility.createPassword(name), emailID, producerEmp, producerRole);
-
-            }
-        } else if (enterprise instanceof TransportationEnterprise) {
-            //Adding Transporter in Transportation Enterprise
-            Organization transporter = organizationDirectory.createOrganization(networkName.substring(0, 1) + "Transporter" + j, Organization.OrganizationType.Transporter);
-            for (int employeeCounter = 0; employeeCounter < 2; employeeCounter++) {
-                String name = networkName.substring(0, 1) + "transporter" + Helper.nextNumGenerator();
-                Employee transporterEmp = transporter.getEmployeeDirectory().createEmployee(name);
-                Role transporterRole = new TransporterRole(Role.RoleType.Transporter);
-                transporter.getUserAccountDirectory().createUserAccount(name, PasswordUtility.createPassword(name), emailID, transporterEmp, transporterRole);
 
             }
         }

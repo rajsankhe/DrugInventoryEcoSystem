@@ -57,10 +57,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
             organizationJComboBox.addItem(OrganizationType.Validator);
         } else if (enterpriseType == Enterprise.EnterpriseType.Manufacturer) {
             organizationJComboBox.addItem(OrganizationType.Producer);
-        } else if (enterpriseType == Enterprise.EnterpriseType.Transporter) {
-            organizationJComboBox.addItem(OrganizationType.Transporter);
         } else if (enterpriseType == Enterprise.EnterpriseType.Supplier) {
-            organizationJComboBox.addItem(OrganizationType.Coordinator);
             organizationJComboBox.addItem(OrganizationType.Approver);
         }
     }
