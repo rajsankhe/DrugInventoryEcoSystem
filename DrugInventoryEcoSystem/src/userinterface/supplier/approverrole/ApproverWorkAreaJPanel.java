@@ -263,11 +263,15 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
-
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         if (request.getReceiver() == null) {
-            request.setReceiver(userAccount);
-            populateRequestTable();
+            if ((Constants.sentToSupplier).equals(request.getStatus())) {
+                request.setReceiver(userAccount);
+                populateRequestTable();
+            } else {
+                JOptionPane.showMessageDialog(null, "Request is processed");
+                return;
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Already assinged to " + request.getReceiver());
             return;

@@ -28,8 +28,8 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private WorkRequestDrugs workRequestDrugs;
-
-    public ViewEditDrugsOrderJpanel(JPanel userProcessContainer, WorkRequestDrugs workRequestDrugs) {
+    
+    public ViewEditDrugsOrderJpanel(JPanel userProcessContainer, WorkRequestDrugs workRequestDrugs, boolean orderPros) {
         initComponents();
         //drugquantity.setEnabled(false);
         //drugquantity.setOpaque(false);
@@ -58,7 +58,10 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         this.setSize(1200, 750);
         this.userProcessContainer = userProcessContainer;
         this.workRequestDrugs = workRequestDrugs;
-
+        if(orderPros== true)
+        {
+            update.setEnabled(false);
+        }
         populateRequestTable();
     }
 
