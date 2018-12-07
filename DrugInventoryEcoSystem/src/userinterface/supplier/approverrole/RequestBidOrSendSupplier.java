@@ -40,6 +40,7 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
     private EcoSystem ecosystem;
     private WorkRequestDrugs request;
     private Network network;
+    private Map<String, int[]> requestOrSend;
 
     public RequestBidOrSendSupplier(JPanel userProcessContainer, WorkRequestDrugs request, Map<String, int[]> requestOrSend, Boolean bidFlag,
             EcoSystem system, Network network, SupplierEnterprise enterprise) {
@@ -58,7 +59,8 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
             requestBid.setEnabled(false);
             sendToChemist.setEnabled(true);
         }
-        populateRequestTable(requestOrSend);
+        this.requestOrSend = requestOrSend;
+        populateRequestTable(this.requestOrSend);
     }
 
     /**
@@ -206,7 +208,7 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
         // Send bid request to Manufacturer
         request.getEnterpriseStack().add(this.enterprise);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("ChooseManufacturer", new AssignToManufacturer(userProcessContainer, ecosystem, request, enterprise));
+        userProcessContainer.add("ChooseManufacturer", new AssignToManufacturer(userProcessContainer, ecosystem, request, enterprise, requestOrSend));
         layout.next(userProcessContainer);
 
     }//GEN-LAST:event_requestBidActionPerformed
