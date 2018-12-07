@@ -88,58 +88,43 @@
 [WARN ] 2018-12-06 02:50:15.353 [AWT-EventQueue-0] MainJFrame - Warn Message!
 [ERROR] 2018-12-06 02:50:15.353 [AWT-EventQueue-0] MainJFrame - Error Message!
 [FATAL] 2018-12-06 02:50:15.353 [AWT-EventQueue-0] MainJFrame - Fatal Message!
-[DEBUG] 2018-12-06 02:56:25.580 [AWT-EventQueue-0] MainJFrame - Debug Message!
-[INFO ] 2018-12-06 02:56:25.581 [AWT-EventQueue-0] MainJFrame - Info Message!
-[WARN ] 2018-12-06 02:56:25.581 [AWT-EventQueue-0] MainJFrame - Warn Message!
-[ERROR] 2018-12-06 02:56:25.582 [AWT-EventQueue-0] MainJFrame - Error Message!
-[FATAL] 2018-12-06 02:56:25.582 [AWT-EventQueue-0] MainJFrame - Fatal Message!
-[DEBUG] 2018-12-06 14:13:52.829 [AWT-EventQueue-0] MainJFrame - Debug Message!
-[INFO ] 2018-12-06 14:13:52.830 [AWT-EventQueue-0] MainJFrame - Info Message!
-[WARN ] 2018-12-06 14:13:52.830 [AWT-EventQueue-0] MainJFrame - Warn Message!
-[ERROR] 2018-12-06 14:13:52.830 [AWT-EventQueue-0] MainJFrame - Error Message!
-[FATAL] 2018-12-06 14:13:52.830 [AWT-EventQueue-0] MainJFrame - Fatal Message!
-[DEBUG] 2018-12-06 14:26:23.954 [AWT-EventQueue-0] MainJFrame - Debug Message!
-[INFO ] 2018-12-06 14:26:23.955 [AWT-EventQueue-0] MainJFrame - Info Message!
-[WARN ] 2018-12-06 14:26:23.955 [AWT-EventQueue-0] MainJFrame - Warn Message!
-[ERROR] 2018-12-06 14:26:23.955 [AWT-EventQueue-0] MainJFrame - Error Message!
-[FATAL] 2018-12-06 14:26:23.956 [AWT-EventQueue-0] MainJFrame - Fatal Message!
-[DEBUG] 2018-12-06 14:29:44.418 [AWT-EventQueue-0] MainJFrame - Debug Message!
-[INFO ] 2018-12-06 14:29:44.419 [AWT-EventQueue-0] MainJFrame - Info Message!
-[WARN ] 2018-12-06 14:29:44.419 [AWT-EventQueue-0] MainJFrame - Warn Message!
-[ERROR] 2018-12-06 14:29:44.419 [AWT-EventQueue-0] MainJFrame - Error Message!
-[FATAL] 2018-12-06 14:29:44.419 [AWT-EventQueue-0] MainJFrame - Fatal Message!
-[DEBUG] 2018-12-06 17:14:52.828 [AWT-EventQueue-0] MainJFrame - Debug Message!
-[INFO ] 2018-12-06 17:14:52.828 [AWT-EventQueue-0] MainJFrame - Info Message!
-[WARN ] 2018-12-06 17:14:52.828 [AWT-EventQueue-0] MainJFrame - Warn Message!
-[ERROR] 2018-12-06 17:14:52.828 [AWT-EventQueue-0] MainJFrame - Error Message!
-[FATAL] 2018-12-06 17:14:52.828 [AWT-EventQueue-0] MainJFrame - Fatal Message!
-[DEBUG] 2018-12-06 17:42:45.749 [AWT-EventQueue-0] MainJFrame - Debug Message!
-[INFO ] 2018-12-06 17:42:45.750 [AWT-EventQueue-0] MainJFrame - Info Message!
-[WARN ] 2018-12-06 17:42:45.750 [AWT-EventQueue-0] MainJFrame - Warn Message!
-[ERROR] 2018-12-06 17:42:45.750 [AWT-EventQueue-0] MainJFrame - Error Message!
-[FATAL] 2018-12-06 17:42:45.750 [AWT-EventQueue-0] MainJFrame - Fatal Message!
-[DEBUG] 2018-12-06 17:54:29.192 [AWT-EventQueue-0] MainJFrame - Debug Message!
-[INFO ] 2018-12-06 17:54:29.192 [AWT-EventQueue-0] MainJFrame - Info Message!
-[WARN ] 2018-12-06 17:54:29.193 [AWT-EventQueue-0] MainJFrame - Warn Message!
-[ERROR] 2018-12-06 17:54:29.193 [AWT-EventQueue-0] MainJFrame - Error Message!
-[FATAL] 2018-12-06 17:54:29.193 [AWT-EventQueue-0] MainJFrame - Fatal Message!
-[DEBUG] 2018-12-06 17:56:42.120 [AWT-EventQueue-0] MainJFrame - Debug Message!
-[INFO ] 2018-12-06 17:56:42.120 [AWT-EventQueue-0] MainJFrame - Info Message!
-[WARN ] 2018-12-06 17:56:42.120 [AWT-EventQueue-0] MainJFrame - Warn Message!
-[ERROR] 2018-12-06 17:56:42.121 [AWT-EventQueue-0] MainJFrame - Error Message!
-[FATAL] 2018-12-06 17:56:42.121 [AWT-EventQueue-0] MainJFrame - Fatal Message!
-[DEBUG] 2018-12-06 17:58:58.127 [AWT-EventQueue-0] MainJFrame - Debug Message!
-[INFO ] 2018-12-06 17:58:58.128 [AWT-EventQueue-0] MainJFrame - Info Message!
-[WARN ] 2018-12-06 17:58:58.128 [AWT-EventQueue-0] MainJFrame - Warn Message!
-[ERROR] 2018-12-06 17:58:58.128 [AWT-EventQueue-0] MainJFrame - Error Message!
-[FATAL] 2018-12-06 17:58:58.128 [AWT-EventQueue-0] MainJFrame - Fatal Message!
-[DEBUG] 2018-12-06 17:59:45.890 [AWT-EventQueue-0] MainJFrame - Debug Message!
-[INFO ] 2018-12-06 17:59:45.891 [AWT-EventQueue-0] MainJFrame - Info Message!
-[WARN ] 2018-12-06 17:59:45.891 [AWT-EventQueue-0] MainJFrame - Warn Message!
-[ERROR] 2018-12-06 17:59:45.891 [AWT-EventQueue-0] MainJFrame - Error Message!
-[FATAL] 2018-12-06 17:59:45.891 [AWT-EventQueue-0] MainJFrame - Fatal Message!
-[DEBUG] 2018-12-06 18:02:28.351 [AWT-EventQueue-0] MainJFrame - Debug Message!
-[INFO ] 2018-12-06 18:02:28.352 [AWT-EventQueue-0] MainJFrame - Info Message!
-[WARN ] 2018-12-06 18:02:28.352 [AWT-EventQueue-0] MainJFrame - Warn Message!
-[ERROR] 2018-12-06 18:02:28.352 [AWT-EventQueue-0] MainJFrame - Error Message!
-[FATAL] 2018-12-06 18:02:28.352 [AWT-EventQueue-0] MainJFrame - Fatal Message!
+[DEBUG] 2018-12-06 11:53:05.798 [AWT-EventQueue-0] MainJFrame - Debug Message!
+[INFO ] 2018-12-06 11:53:05.799 [AWT-EventQueue-0] MainJFrame - Info Message!
+[WARN ] 2018-12-06 11:53:05.799 [AWT-EventQueue-0] MainJFrame - Warn Message!
+[ERROR] 2018-12-06 11:53:05.799 [AWT-EventQueue-0] MainJFrame - Error Message!
+[FATAL] 2018-12-06 11:53:05.799 [AWT-EventQueue-0] MainJFrame - Fatal Message!
+[DEBUG] 2018-12-06 15:01:29.092 [AWT-EventQueue-0] MainJFrame - Debug Message!
+[INFO ] 2018-12-06 15:01:29.094 [AWT-EventQueue-0] MainJFrame - Info Message!
+[WARN ] 2018-12-06 15:01:29.094 [AWT-EventQueue-0] MainJFrame - Warn Message!
+[ERROR] 2018-12-06 15:01:29.094 [AWT-EventQueue-0] MainJFrame - Error Message!
+[FATAL] 2018-12-06 15:01:29.094 [AWT-EventQueue-0] MainJFrame - Fatal Message!
+[DEBUG] 2018-12-06 15:03:28.993 [AWT-EventQueue-0] MainJFrame - Debug Message!
+[INFO ] 2018-12-06 15:03:28.994 [AWT-EventQueue-0] MainJFrame - Info Message!
+[WARN ] 2018-12-06 15:03:28.994 [AWT-EventQueue-0] MainJFrame - Warn Message!
+[ERROR] 2018-12-06 15:03:28.994 [AWT-EventQueue-0] MainJFrame - Error Message!
+[FATAL] 2018-12-06 15:03:28.994 [AWT-EventQueue-0] MainJFrame - Fatal Message!
+[DEBUG] 2018-12-06 15:24:03.196 [AWT-EventQueue-0] MainJFrame - Debug Message!
+[INFO ] 2018-12-06 15:24:03.197 [AWT-EventQueue-0] MainJFrame - Info Message!
+[WARN ] 2018-12-06 15:24:03.197 [AWT-EventQueue-0] MainJFrame - Warn Message!
+[ERROR] 2018-12-06 15:24:03.197 [AWT-EventQueue-0] MainJFrame - Error Message!
+[FATAL] 2018-12-06 15:24:03.197 [AWT-EventQueue-0] MainJFrame - Fatal Message!
+[DEBUG] 2018-12-06 17:20:21.532 [AWT-EventQueue-0] MainJFrame - Debug Message!
+[INFO ] 2018-12-06 17:20:21.533 [AWT-EventQueue-0] MainJFrame - Info Message!
+[WARN ] 2018-12-06 17:20:21.533 [AWT-EventQueue-0] MainJFrame - Warn Message!
+[ERROR] 2018-12-06 17:20:21.533 [AWT-EventQueue-0] MainJFrame - Error Message!
+[FATAL] 2018-12-06 17:20:21.533 [AWT-EventQueue-0] MainJFrame - Fatal Message!
+[DEBUG] 2018-12-06 17:59:18.876 [AWT-EventQueue-0] MainJFrame - Debug Message!
+[INFO ] 2018-12-06 17:59:18.877 [AWT-EventQueue-0] MainJFrame - Info Message!
+[WARN ] 2018-12-06 17:59:18.877 [AWT-EventQueue-0] MainJFrame - Warn Message!
+[ERROR] 2018-12-06 17:59:18.877 [AWT-EventQueue-0] MainJFrame - Error Message!
+[FATAL] 2018-12-06 17:59:18.878 [AWT-EventQueue-0] MainJFrame - Fatal Message!
+[DEBUG] 2018-12-06 18:13:06.241 [AWT-EventQueue-0] MainJFrame - Debug Message!
+[INFO ] 2018-12-06 18:13:06.241 [AWT-EventQueue-0] MainJFrame - Info Message!
+[WARN ] 2018-12-06 18:13:06.242 [AWT-EventQueue-0] MainJFrame - Warn Message!
+[ERROR] 2018-12-06 18:13:06.242 [AWT-EventQueue-0] MainJFrame - Error Message!
+[FATAL] 2018-12-06 18:13:06.242 [AWT-EventQueue-0] MainJFrame - Fatal Message!
+[DEBUG] 2018-12-06 18:34:45.528 [AWT-EventQueue-0] MainJFrame - Debug Message!
+[INFO ] 2018-12-06 18:34:45.530 [AWT-EventQueue-0] MainJFrame - Info Message!
+[WARN ] 2018-12-06 18:34:45.530 [AWT-EventQueue-0] MainJFrame - Warn Message!
+[ERROR] 2018-12-06 18:34:45.530 [AWT-EventQueue-0] MainJFrame - Error Message!
+[FATAL] 2018-12-06 18:34:45.530 [AWT-EventQueue-0] MainJFrame - Fatal Message!

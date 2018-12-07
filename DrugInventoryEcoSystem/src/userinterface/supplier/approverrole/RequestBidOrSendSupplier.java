@@ -6,7 +6,10 @@
 package userinterface.supplier.approverrole;
 
 import business.EcoSystem;
+import business.drug.Drug;
+import business.enterprise.ChemistEnterprise;
 import business.enterprise.Enterprise;
+import business.enterprise.SupplierEnterprise;
 import business.network.Network;
 import business.organization.Organization;
 import business.organization.supplier.ApproverOrganization;
@@ -15,6 +18,7 @@ import business.workqueue.WorkRequestDrugs;
 import commonutils.Constants;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -31,19 +35,20 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private ApproverOrganization organization;
-    private Enterprise enterprise;
+    private SupplierEnterprise enterprise;
     private UserAccount userAccount;
     private EcoSystem ecosystem;
     private WorkRequestDrugs request;
     private Network network;
 
     public RequestBidOrSendSupplier(JPanel userProcessContainer, WorkRequestDrugs request, Map<String, int[]> requestOrSend, Boolean bidFlag,
-            EcoSystem system, Network network) {
+            EcoSystem system, Network network, SupplierEnterprise enterprise) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.request = request;
         this.ecosystem = system;
         this.network = network;
+        this.enterprise= enterprise;
         if (bidFlag == Boolean.TRUE) {
             messageLabel.setText("Inventory is low, please request bid");
             requestBid.setEnabled(true);
@@ -207,10 +212,40 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
     }//GEN-LAST:event_requestBidActionPerformed
 
     private void sendToChemistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToChemistActionPerformed
-
-        request.setStatus(Constants.resentToChemist);
-        JOptionPane.showMessageDialog(null, "Order is completed");
-
+        //Update inventory of chemist
+        ChemistEnterprise chemistEnterprise= null;
+        SupplierEnterprise supplierEnterprise= enterprise;
+        for (Enterprise enterprise : request.getEnterpriseStack()) {
+                if (enterprise instanceof ChemistEnterprise) {
+                    chemistEnterprise = (ChemistEnterprise) enterprise;
+                }
+            }
+        if(chemistEnterprise != null)
+        {
+            List<Drug> drugInventoryStock = chemistEnterprise.getInventory().getDrugStock();
+            List<Drug> drugInventoryStockSupplier = supplierEnterprise.getInventory().getDrugStock();
+            List<Drug> drugOrder=request.getDrugsOrderList();
+            for(Drug drug:drugOrder)
+            {
+                Drug drugInv= drugInventoryStock.stream().filter(drugIn -> (drug.getName()).equals(drugIn.getName()))
+                        .findAny()
+                        .orElse(null);
+                Drug drugInvSupp= drugInventoryStock.stream().filter(drugInsup -> (drug.getName()).equals(drugInsup.getName()))
+                        .findAny()
+                        .orElse(null);
+                if( drugInv!= null)
+                {
+                    drugInv.setQuantity(drugInv.getQuantity()+drug.getQuantity());
+                }
+                else
+                {
+                    drugInventoryStock.add(drug);
+                }
+                if(drugInvSupp!=null)
+                {
+                    drugInvSupp.setQuantity(drugInvSupp.getQuantity()-drug.getQuantity());
+                }
+            }
         //Delete this order from all queues.
         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
             if (organization instanceof ApproverOrganization) {
@@ -218,7 +253,28 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
                 organization.getWorkQueue().deleteWorkRequest(request);
             }
         }
-
+        request.setStatus(Constants.resentToChemist);
+        JOptionPane.showMessageDialog(null, "Order is completed");
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        ApproverWorkAreaJPanel approverworkAreaJPanel = (ApproverWorkAreaJPanel) component;
+        approverworkAreaJPanel.populateRequestTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+        }
+        else
+        {   
+            request.setStatus(Constants.orderCannotBeFullfilled);
+            JOptionPane.showMessageDialog(null, "Order Cannot be fulfilled");
+            userProcessContainer.remove(this);
+            Component[] componentArray = userProcessContainer.getComponents();
+            Component component = componentArray[componentArray.length - 1];
+            ApproverWorkAreaJPanel approverworkAreaJPanel = (ApproverWorkAreaJPanel) component;
+            approverworkAreaJPanel.populateRequestTable();
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            layout.previous(userProcessContainer);
+        }
     }//GEN-LAST:event_sendToChemistActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed

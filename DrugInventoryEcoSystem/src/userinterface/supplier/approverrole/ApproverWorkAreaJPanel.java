@@ -366,7 +366,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
 
                     CardLayout layout = (CardLayout) userProcessContainer.getLayout();
                     userProcessContainer.add("RequestBid", new RequestBidOrSendSupplier(userProcessContainer, request, requestOrSend, bidFlag,
-                            ecosystem, network));
+                            ecosystem, network,enterprise));
                     layout.next(userProcessContainer);
                 } else {
                     JOptionPane.showMessageDialog(null, "Request Not authorized by legal");
