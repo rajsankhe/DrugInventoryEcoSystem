@@ -37,7 +37,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
     public OrderDrugsJpanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise) {
         initComponents();
         this.setSize(1200, 750);
-        ((DefaultTableCellRenderer)drugquantity.getDefaultRenderer(Object.class)).setOpaque(false);
+        ((DefaultTableCellRenderer) drugquantity.getDefaultRenderer(Object.class)).setOpaque(false);
         jScrollPane1.setOpaque(false);
         jScrollPane1.getViewport().setOpaque(false);
         this.userProcessContainer = userProcessContainer;
@@ -75,10 +75,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
         drugquantity.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         drugquantity.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Drug", "Quantity"
@@ -190,34 +187,48 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
         List<Drug> orderList = new ArrayList<>();
         DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
         int nRow = model.getRowCount();
-        try{
+        try {
             for (int i = 0; i < nRow; i++) {
-            if (model.getValueAt(i, 0) != null && model.getValueAt(i, 1) != null) {
-                Drug newDrug = new Drug();
-                newDrug.setName(String.valueOf(model.getValueAt(i, 0)));
-                newDrug.setQuantity(Integer.parseInt((String) model.getValueAt(i, 1)));
-                orderList.add(newDrug);
+                if (!(model.getValueAt(i, 0).equals("") || model.getValueAt(i, 1).equals(""))) {
+                    String drugName = String.valueOf(model.getValueAt(i, 0));
+                    if (orderList.stream().noneMatch(d -> d.getName().equals(drugName))) {
+                        Drug newDrug = new Drug();
+                        newDrug.setName(String.valueOf(model.getValueAt(i, 0)));
+                        newDrug.setQuantity(Integer.parseInt((String) model.getValueAt(i, 1)));
+                        orderList.add(newDrug);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Double entries of " + drugName + " is not allowed.");
+                        return;
+                    }
+                } else {
+                    if (!(model.getValueAt(i, 0).equals("") && model.getValueAt(i, 1).equals(""))) {
+                        if (model.getValueAt(i, 0).equals("")) {
+                            JOptionPane.showMessageDialog(null, "Enter drug name");
+                            return;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Enter quantity of drug");
+                            return;
+                        }
+                    }
+                }
             }
-        }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please enter integer value in quantity field.");
             return;
         }
-        if(!orderList.isEmpty()){
-        WorkRequestDrugs workRequestDrugs = (WorkRequestDrugs) userAccount.getWorkQueue().addWorkRequest(WorkRequest.workRequestType.Drugs);
-        workRequestDrugs.setSender(userAccount);    
-        workRequestDrugs.setStatus(Constants.chemistCoworkerRequestCreated);
-        workRequestDrugs.setDrugsOrderList(orderList);
-        userProcessContainer.remove(this);
-        Component[] componentArray = userProcessContainer.getComponents();
-        Component component = componentArray[componentArray.length - 1];
-        WorkerWorkAreaJPanel workAreaJPanel = (WorkerWorkAreaJPanel) component;
-        workAreaJPanel.populateRequestTable();
-        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
-        layout.previous(userProcessContainer);
-        }
-        else{
+        if (!orderList.isEmpty()) {
+            WorkRequestDrugs workRequestDrugs = (WorkRequestDrugs) userAccount.getWorkQueue().addWorkRequest(WorkRequest.workRequestType.Drugs);
+            workRequestDrugs.setSender(userAccount);
+            workRequestDrugs.setStatus(Constants.chemistCoworkerRequestCreated);
+            workRequestDrugs.setDrugsOrderList(orderList);
+            userProcessContainer.remove(this);
+            Component[] componentArray = userProcessContainer.getComponents();
+            Component component = componentArray[componentArray.length - 1];
+            WorkerWorkAreaJPanel workAreaJPanel = (WorkerWorkAreaJPanel) component;
+            workAreaJPanel.populateRequestTable();
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            layout.previous(userProcessContainer);
+        } else {
             JOptionPane.showMessageDialog(null, "Order list can't be empty.");
             return;
         }
