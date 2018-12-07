@@ -300,15 +300,22 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
 
             for (Drug drug : request.getDrugsOrderList()) {
                 //check if drug exists in the supplier inventory
+                boolean foundDrugInInventory = false;
                 for (Drug suppDrug : supplierEnterprise.getInventory().getDrugStock()) {
-                    if (drug.getName().equalsIgnoreCase(suppDrug.get)) {
 
+                    if (drug.getName().equalsIgnoreCase(suppDrug.getName())) {
+                        foundDrugInInventory = true;
+                        suppDrug.setQuantity(suppDrug.getQuantity() + drug.getRequestCountFromMan());
+                        suppDrug.setManufacturerPrice(drug.getManufacturerPrice());
                     }
                 }
 
-            }
+                if (!foundDrugInInventory) {
+                    //Drug not found in inventory. Add this drug to inventory
+                    supplierEnterprise.getInventory().getDrugStock().add(drug);
+                }
 
-            supplierEnterprise.setInventory();
+            }
 
             populateRequestTable();
         } else {
