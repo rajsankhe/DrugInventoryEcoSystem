@@ -16,10 +16,14 @@ import business.organization.supplier.ApproverOrganization;
 import business.useraccount.UserAccount;
 import business.workqueue.WorkRequestDrugs;
 import commonutils.Constants;
+import commonutils.email.SendEmail;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -40,6 +44,7 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
     private EcoSystem ecosystem;
     private WorkRequestDrugs request;
     private Network network;
+    private Map<String, int[]> requestOrSend;
 
     public RequestBidOrSendSupplier(JPanel userProcessContainer, WorkRequestDrugs request, Map<String, int[]> requestOrSend, Boolean bidFlag,
             EcoSystem system, Network network, SupplierEnterprise enterprise) {
@@ -58,7 +63,8 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
             requestBid.setEnabled(false);
             sendToChemist.setEnabled(true);
         }
-        populateRequestTable(requestOrSend);
+        this.requestOrSend = requestOrSend;
+        populateRequestTable(this.requestOrSend);
     }
 
     /**
@@ -206,7 +212,7 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
         // Send bid request to Manufacturer
         request.getEnterpriseStack().add(this.enterprise);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("ChooseManufacturer", new AssignToManufacturer(userProcessContainer, ecosystem, request, enterprise));
+        userProcessContainer.add("ChooseManufacturer", new AssignToManufacturer(userProcessContainer, ecosystem, request, enterprise, requestOrSend));
         layout.next(userProcessContainer);
 
     }//GEN-LAST:event_requestBidActionPerformed
@@ -257,6 +263,33 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
             approverworkAreaJPanel.populateRequestTable();
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             layout.previous(userProcessContainer);
+
+            List<String> emailIDList = new ArrayList<>();
+            for (Organization organization : chemistEnterprise.getOrganizationDirectory().getOrganizationList()) {
+                for (UserAccount userAccount : organization.getUserAccountDirectory().getUserAccountListValues()) {
+                    emailIDList.add(userAccount.getEmailID());
+                }
+            }
+
+            //Send email to user with password.
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+
+            Runnable runnableTask = () -> {
+                try {
+                    System.out.println("Executor task started");
+                    SendEmail sendEmail = new SendEmail();
+                    sendEmail.sendMailMulti(request, emailIDList);
+
+                } catch (Exception exception) {
+                    //JOptionPane.showMessageDialog(null, "We were unable to send mail to the desired recepient! Please contact system administrator");
+                    exception.printStackTrace();
+                }
+            };
+
+            executor.execute(runnableTask);
+
+            executor.shutdown();
+
         } else {
             request.setStatus(Constants.orderCannotBeFullfilled);
             JOptionPane.showMessageDialog(null, "Order Cannot be fulfilled");
@@ -268,6 +301,7 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             layout.previous(userProcessContainer);
         }
+
     }//GEN-LAST:event_sendToChemistActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed

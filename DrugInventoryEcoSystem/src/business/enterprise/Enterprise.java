@@ -29,7 +29,6 @@ public abstract class Enterprise extends Organization {
     public enum EnterpriseType {
         Chemist("Chemist"),
         Supplier("Supplier"),
-        Transporter("Transporter"),
         Legal("Legal"),
         Manufacturer("Manufacturer");
 

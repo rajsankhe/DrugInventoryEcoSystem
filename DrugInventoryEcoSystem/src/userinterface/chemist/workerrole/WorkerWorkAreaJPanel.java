@@ -205,8 +205,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
 
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         if (!(request.getStatus().equals(Constants.Approve) || request.getStatus().equals(Constants.chemistCoworkerSendForApproval))) {
-            if(request.getStatus().equals(Constants.resentToChemist))
-            {
+            if (!request.getStatus().equals(Constants.resentToChemist)) {
                 Organization org = null;
                 for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
                     if (organization instanceof ManagerOrganization) {
@@ -216,9 +215,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
                 }
                 request.setStatus(Constants.chemistCoworkerSendForApproval);
                 populateRequestTable();
-            }
-            else
-            {
+            } else {
                 JOptionPane.showMessageDialog(null, "Order is completed");
             }
         } else {
@@ -240,7 +237,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
             orderProc = true;
         }
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("viewEditDrug", new ViewEditDrugsOrderJpanel(userProcessContainer, request,orderProc));
+        userProcessContainer.add("viewEditDrug", new ViewEditDrugsOrderJpanel(userProcessContainer, request, orderProc));
         layout.next(userProcessContainer);
     }//GEN-LAST:event_viewRequestActionPerformed
 

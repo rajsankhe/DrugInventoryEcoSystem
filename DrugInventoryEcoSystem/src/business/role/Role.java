@@ -29,10 +29,8 @@ public abstract class Role {
         Admin("Admin"),
         Worker("Worker"),
         Manager("Manager"),
-        Coordinator("Coordinator"),
         Approver("Approver"),
         Validator("Validator"),
-        Transporter("Transporter"),
         Producer("Prod");
 
         private String value;

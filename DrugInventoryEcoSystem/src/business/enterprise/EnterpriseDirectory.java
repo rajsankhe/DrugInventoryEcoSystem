@@ -44,14 +44,11 @@ public class EnterpriseDirectory {
         UUID uuid = UUID.randomUUID();
 
         if (type == Enterprise.EnterpriseType.Chemist) {
-
             enterprise = new ChemistEnterprise(name, type, uuid.toString());
         } else if (type == Enterprise.EnterpriseType.Legal) {
             enterprise = new LegalEnterprise(name, type, uuid.toString());
         } else if (type == Enterprise.EnterpriseType.Manufacturer) {
             enterprise = new ManufacturerEnterprise(name, type, uuid.toString());
-        } else if (type == Enterprise.EnterpriseType.Transporter) {
-            enterprise = new TransportationEnterprise(name, type, uuid.toString());
         } else if (type == Enterprise.EnterpriseType.Supplier) {
             enterprise = new SupplierEnterprise(name, type, uuid.toString());
         }

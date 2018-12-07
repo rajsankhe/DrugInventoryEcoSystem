@@ -304,7 +304,8 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         Organization org = null;
         //request.getEnterpriseStack().add(this.enterprise);
-        if (!(request.getStatus().equals(Constants.sentToLegal) || request.getStatus().equals(Constants.rejectedByLegal) || request.getStatus().equals(Constants.acceptedByLegal))) {
+        if (!(request.getStatus().equals(Constants.sentToLegal) || request.getStatus().equals(Constants.rejectedByLegal)
+                || request.getStatus().equals(Constants.acceptedByLegal))) {
             if (request.getReceiver() == userAccount) {
                 for (Enterprise e : network.getEnterpriseDirectory().getEnterpriseList()) {
                     if (e.getEnterpriseType().equals(Enterprise.EnterpriseType.Legal)) {
@@ -342,7 +343,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         if (request.getReceiver() == userAccount) {
 
             if (!Constants.resentToChemist.equals(request.getStatus())) {
-                if (Constants.acceptedByLegal.equals(request.getStatus())) {
+                if (Constants.acceptedByLegal.equals(request.getStatus()) || Constants.processedByManufacturer.equals(request.getStatus())) {
                     SupplierEnterprise supplierEnterprise = (SupplierEnterprise) enterprise;
                     Inventory inventorySupp = supplierEnterprise.getInventory();
                     List<Drug> inventory = inventorySupp.getDrugStock();
@@ -370,7 +371,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
 
                     CardLayout layout = (CardLayout) userProcessContainer.getLayout();
                     userProcessContainer.add("RequestBid", new RequestBidOrSendSupplier(userProcessContainer, request, requestOrSend, bidFlag,
-                            ecosystem, network,enterprise));
+                            ecosystem, network, enterprise));
                     layout.next(userProcessContainer);
                 } else {
                     JOptionPane.showMessageDialog(null, "Request Not authorized by legal");

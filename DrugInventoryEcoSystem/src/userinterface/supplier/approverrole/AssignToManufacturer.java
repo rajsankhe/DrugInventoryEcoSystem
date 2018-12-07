@@ -17,9 +17,11 @@ import commonutils.Constants;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -35,7 +37,8 @@ public class AssignToManufacturer extends javax.swing.JPanel {
     private WorkRequestDrugs request;
     private Enterprise enterprise;
 
-    public AssignToManufacturer(JPanel userProcessContainer, EcoSystem ecosystem, WorkRequestDrugs request, Enterprise enterprise) {
+    public AssignToManufacturer(JPanel userProcessContainer, EcoSystem ecosystem, WorkRequestDrugs request, Enterprise enterprise,
+            Map<String, int[]> requestOrSend) {
         initComponents();
         networkDropdown.removeAllItems();
         enterpriseDropdown.removeAllItems();
@@ -45,6 +48,7 @@ public class AssignToManufacturer extends javax.swing.JPanel {
         this.enterprise = enterprise;
         List<Network> networkList = ecosystem.getNetworkDirectory().getNetworkList();
         networkList.stream().forEach(network -> networkDropdown.addItem(network.getName()));
+        populateRequestTable(requestOrSend);
     }
 
     /**
@@ -61,8 +65,8 @@ public class AssignToManufacturer extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        networkDropdown = new javax.swing.JComboBox<String>();
-        enterpriseDropdown = new javax.swing.JComboBox<String>();
+        networkDropdown = new javax.swing.JComboBox<>();
+        enterpriseDropdown = new javax.swing.JComboBox<>();
         back = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         workRequestJTable = new javax.swing.JTable();
@@ -238,7 +242,7 @@ public class AssignToManufacturer extends javax.swing.JPanel {
         //Read table contents.
         for (int i = 0; i < workRequestJTable.getRowCount(); i++) {
             String drugName = (String) workRequestJTable.getValueAt(i, 0);
-            int manufacturerQuantity = (Integer) workRequestJTable.getValueAt(i, 0);
+            int manufacturerQuantity = (Integer) workRequestJTable.getValueAt(i, 3);
 
             for (Drug drug : request.getDrugsOrderList()) {
                 if (drug.getName().equalsIgnoreCase(drugName)) {
@@ -311,6 +315,20 @@ public class AssignToManufacturer extends javax.swing.JPanel {
             enterpriseList.stream().forEach(enterprise -> enterpriseDropdown.addItem(enterprise.getName()));
         }
     }//GEN-LAST:event_networkDropdownItemStateChanged
+
+    private void populateRequestTable(Map<String, int[]> requestOrSend) {
+        DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();
+        model.setRowCount(0);
+        for (Map.Entry<String, int[]> entry : requestOrSend.entrySet()) {
+            Object[] row = new Object[4];
+            row[0] = entry.getKey();
+            int[] countArray = entry.getValue();
+            row[1] = countArray[0];
+            row[2] = countArray[1];
+            row[3] = countArray[2];
+            model.addRow(row);
+        }
+    }
 
     private void networkDropdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_networkDropdownActionPerformed
         // TODO add your handling code here:

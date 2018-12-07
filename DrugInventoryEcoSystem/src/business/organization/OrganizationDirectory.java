@@ -11,8 +11,6 @@ import business.organization.chemist.WorkerOrganization;
 import business.organization.legal.ValidatorOrganization;
 import business.organization.manufacturer.ProducerOrganization;
 import business.organization.supplier.ApproverOrganization;
-import business.organization.supplier.CoordinatorOrganization;
-import business.organization.transport.TransporterOrganization;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -42,14 +40,10 @@ public class OrganizationDirectory {
             organization = new WorkerOrganization(name, type, uuid.toString());
         } else if (type.getValue().equals(OrganizationType.Manager.getValue())) {
             organization = new ManagerOrganization(name, type, uuid.toString());
-        } else if (type.getValue().equals(OrganizationType.Coordinator.getValue())) {
-            organization = new CoordinatorOrganization(name, type, uuid.toString());
         } else if (type.getValue().equals(OrganizationType.Approver.getValue())) {
             organization = new ApproverOrganization(name, type, uuid.toString());
         } else if (type.getValue().equals(OrganizationType.Validator.getValue())) {
             organization = new ValidatorOrganization(name, type, uuid.toString());
-        } else if (type.getValue().equals(OrganizationType.Transporter.getValue())) {
-            organization = new TransporterOrganization(name, type, uuid.toString());
         } else if (type.getValue().equals(OrganizationType.Producer.getValue())) {
             organization = new ProducerOrganization(name, type, uuid.toString());
         }
