@@ -119,11 +119,6 @@ public class ConfigureASystem {
 
     public static void addOrganizationToDirectory(OrganizationDirectory organizationDirectory, Enterprise enterprise, int j, String networkName) {
         //Adding Admin in all the enterprises by default
-        //Organization admin = organizationDirectory.createOrganization("OrgAdmin" + j, Organization.OrganizationType.Admin);
-        //Withing organization we have roles. For eg: AdminOrganization has admin role. We will add that now
-        //Employee adminEmp = admin.getEmployeeDirectory().createEmployee("orgadmin");
-        //Role adminRole = new AdminRole(Role.RoleType.Admin);
-        //admin.getUserAccountDirectory().createUserAccount("orgadmin", PasswordUtility.createPassword("orgadmin"), emailID, adminEmp, adminRole);
 
         if (enterprise instanceof ChemistEnterprise) {
             //Adding Worker and Manager in Chemist Enterprise
