@@ -148,3 +148,4 @@
 [WARN ] 2018-12-06 22:16:56.234 [AWT-EventQueue-0] MainJFrame - Warn Message!
 [ERROR] 2018-12-06 22:16:56.234 [AWT-EventQueue-0] MainJFrame - Error Message!
 [FATAL] 2018-12-06 22:16:56.234 [AWT-EventQueue-0] MainJFrame - Fatal Message!
+
