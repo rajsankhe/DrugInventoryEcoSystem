@@ -54,11 +54,10 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()) {
             WorkRequestDrugs workRequestDrugs = (WorkRequestDrugs) request;
-            Object[] row = new Object[4];
+            Object[] row = new Object[3];
             row[0] = request;
             row[1] = request.getStatus();
-            row[2] = request.getReceiver();
-            row[3] = request.getMessage();
+            row[2] = request.getMessage();
             model.addRow(row);
         }
     }
@@ -90,20 +89,20 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
         workRequestJTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Request ID", "Status", "Receiver", "Message"
+                "Request ID", "Status", "Message"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -122,7 +121,6 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
             workRequestJTable.getColumnModel().getColumn(0).setResizable(false);
             workRequestJTable.getColumnModel().getColumn(1).setResizable(false);
             workRequestJTable.getColumnModel().getColumn(2).setResizable(false);
-            workRequestJTable.getColumnModel().getColumn(3).setResizable(false);
         }
 
         viewRequest.setText("View Request");
