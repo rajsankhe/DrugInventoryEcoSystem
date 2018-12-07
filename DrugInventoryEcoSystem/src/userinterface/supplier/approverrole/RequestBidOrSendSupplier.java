@@ -48,7 +48,7 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
         this.request = request;
         this.ecosystem = system;
         this.network = network;
-        this.enterprise= enterprise;
+        this.enterprise = enterprise;
         if (bidFlag == Boolean.TRUE) {
             messageLabel.setText("Inventory is low, please request bid");
             requestBid.setEnabled(true);
@@ -206,65 +206,58 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
         // Send bid request to Manufacturer
         request.getEnterpriseStack().add(this.enterprise);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        userProcessContainer.add("ChooseManufacturer", new AssignToManufacturer(userProcessContainer, ecosystem, request));
+        userProcessContainer.add("ChooseManufacturer", new AssignToManufacturer(userProcessContainer, ecosystem, request, enterprise));
         layout.next(userProcessContainer);
 
     }//GEN-LAST:event_requestBidActionPerformed
 
     private void sendToChemistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToChemistActionPerformed
         //Update inventory of chemist
-        ChemistEnterprise chemistEnterprise= null;
-        SupplierEnterprise supplierEnterprise= enterprise;
+        ChemistEnterprise chemistEnterprise = null;
+        SupplierEnterprise supplierEnterprise = enterprise;
         for (Enterprise enterprise : request.getEnterpriseStack()) {
-                if (enterprise instanceof ChemistEnterprise) {
-                    chemistEnterprise = (ChemistEnterprise) enterprise;
-                }
+            if (enterprise instanceof ChemistEnterprise) {
+                chemistEnterprise = (ChemistEnterprise) enterprise;
             }
-        if(chemistEnterprise != null)
-        {
+        }
+        if (chemistEnterprise != null) {
             List<Drug> drugInventoryStock = chemistEnterprise.getInventory().getDrugStock();
             List<Drug> drugInventoryStockSupplier = supplierEnterprise.getInventory().getDrugStock();
-            List<Drug> drugOrder=request.getDrugsOrderList();
-            for(Drug drug:drugOrder)
-            {
-                Drug drugInv= drugInventoryStock.stream().filter(drugIn -> (drug.getName()).equals(drugIn.getName()))
+            List<Drug> drugOrder = request.getDrugsOrderList();
+            for (Drug drug : drugOrder) {
+                Drug drugInv = drugInventoryStock.stream().filter(drugIn -> (drug.getName()).equals(drugIn.getName()))
                         .findAny()
                         .orElse(null);
-                Drug drugInvSupp= drugInventoryStockSupplier.stream().filter(drugInsup -> (drug.getName()).equals(drugInsup.getName()))
+
+                Drug drugInvSupp = drugInventoryStockSupplier.stream().filter(drugInsup -> (drug.getName()).equals(drugInsup.getName()))
                         .findAny()
                         .orElse(null);
-                if( drugInv!= null)
-                {
-                    drugInv.setQuantity(drugInv.getQuantity()+drug.getQuantity());
-                }
-                else
-                {
+                if (drugInv != null) {
+                    drugInv.setQuantity(drugInv.getQuantity() + drug.getQuantity());
+                } else {
                     drugInventoryStock.add(drug);
                 }
-                if(drugInvSupp!=null)
-                {
-                    drugInvSupp.setQuantity(drugInvSupp.getQuantity()-drug.getQuantity());
+                if (drugInvSupp != null) {
+                    drugInvSupp.setQuantity(drugInvSupp.getQuantity() - drug.getQuantity());
                 }
             }
-        //Delete this order from all queues.
-        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-            if (organization instanceof ApproverOrganization) {
-                //Remove the workrequest from this queue
-                organization.getWorkQueue().deleteWorkRequest(request);
+            //Delete this order from all queues.
+            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (organization instanceof ApproverOrganization) {
+                    //Remove the workrequest from this queue
+                    organization.getWorkQueue().deleteWorkRequest(request);
+                }
             }
-        }
-        request.setStatus(Constants.resentToChemist);
-        JOptionPane.showMessageDialog(null, "Order is completed");
-        userProcessContainer.remove(this);
-        Component[] componentArray = userProcessContainer.getComponents();
-        Component component = componentArray[componentArray.length - 1];
-        ApproverWorkAreaJPanel approverworkAreaJPanel = (ApproverWorkAreaJPanel) component;
-        approverworkAreaJPanel.populateRequestTable();
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.previous(userProcessContainer);
-        }
-        else
-        {   
+            request.setStatus(Constants.resentToChemist);
+            JOptionPane.showMessageDialog(null, "Order is completed");
+            userProcessContainer.remove(this);
+            Component[] componentArray = userProcessContainer.getComponents();
+            Component component = componentArray[componentArray.length - 1];
+            ApproverWorkAreaJPanel approverworkAreaJPanel = (ApproverWorkAreaJPanel) component;
+            approverworkAreaJPanel.populateRequestTable();
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            layout.previous(userProcessContainer);
+        } else {
             request.setStatus(Constants.orderCannotBeFullfilled);
             JOptionPane.showMessageDialog(null, "Order Cannot be fulfilled");
             userProcessContainer.remove(this);

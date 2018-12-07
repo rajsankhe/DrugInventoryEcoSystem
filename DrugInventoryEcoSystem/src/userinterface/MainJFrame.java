@@ -32,19 +32,20 @@ public class MainJFrame extends javax.swing.JFrame {
     private static final Logger log = LogManager.getLogger(MainJFrame.class);
     //Singleton DB4O object to store and retrieve the EcoSystem when system STARTS/STOPS
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
-       public MainJFrame() {
+
+    public MainJFrame() {
         initComponents();
         //Retrieving the system from the file
         system = dB4OUtil.retrieveSystem();
         this.setSize(1200, 750);
         jButtonLogIn.setEnabled(true);
         jButtonLogOut.setEnabled(false);
-         log.trace("Trace Message!");
-      log.debug("Debug Message!");
-      log.info("Info Message!");
-      log.warn("Warn Message!");
-      log.error("Error Message!");
-      log.fatal("Fatal Message!");
+//        log.trace("Trace Message!");
+//        log.debug("Debug Message!");
+//        log.info("Info Message!");
+//        log.warn("Warn Message!");
+//        log.error("Error Message!");
+//        log.fatal("Fatal Message!");
     }
 
     /**

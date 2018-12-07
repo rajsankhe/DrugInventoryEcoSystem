@@ -6,7 +6,9 @@
 package userinterface.manufacturer.producerrole;
 
 import business.EcoSystem;
+import business.drug.Drug;
 import business.enterprise.Enterprise;
+import business.enterprise.SupplierEnterprise;
 import business.organization.Organization;
 import business.organization.manufacturer.ProducerOrganization;
 import business.useraccount.UserAccount;
@@ -81,7 +83,6 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
         title = new javax.swing.JLabel();
         processOrderjButton = new javax.swing.JButton();
         completeOrderjButton = new javax.swing.JButton();
-        showAnalyticsJButton = new javax.swing.JButton();
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1200, 750));
 
@@ -154,13 +155,6 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        showAnalyticsJButton.setText("Show Analytics");
-        showAnalyticsJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showAnalyticsJButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -175,11 +169,9 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                 .addComponent(assignToMe)
-                                .addGap(18, 18, 18)
-                                .addComponent(showAnalyticsJButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(processOrderjButton)
-                                .addGap(18, 18, 18)
+                                .addGap(124, 124, 124)
                                 .addComponent(completeOrderjButton))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(498, Short.MAX_VALUE))
@@ -195,8 +187,7 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(assignToMe)
                     .addComponent(processOrderjButton)
-                    .addComponent(completeOrderjButton)
-                    .addComponent(showAnalyticsJButton))
+                    .addComponent(completeOrderjButton))
                 .addContainerGap(386, Short.MAX_VALUE))
         );
 
@@ -268,7 +259,7 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
 
 //            JOptionPane.showMessageDialog(null, "Request processed and returned to Supplier: " + supplier.getUsername());
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            userProcessContainer.add("ViewAndUpdateBidProducer", new ViewAndUpdateBidProducerjpanel(userProcessContainer, request));
+            userProcessContainer.add("ViewAndUpdateBidProducer", new ViewAndUpdateBidProducerjpanel(userProcessContainer, request, ecosystem));
             layout.next(userProcessContainer);
         } else {
             JOptionPane.showMessageDialog(null, "This request is not assigned to you.");
@@ -299,6 +290,33 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
                 }
             }
 
+            SupplierEnterprise supplierEnterprise = null;
+            //Add drug to supplier inventory
+            for (Enterprise enterprise : request.getEnterpriseStack()) {
+                if (enterprise instanceof SupplierEnterprise) {
+                    supplierEnterprise = (SupplierEnterprise) enterprise;
+                }
+            }
+
+            for (Drug drug : request.getDrugsOrderList()) {
+                //check if drug exists in the supplier inventory
+                boolean foundDrugInInventory = false;
+                for (Drug suppDrug : supplierEnterprise.getInventory().getDrugStock()) {
+
+                    if (drug.getName().equalsIgnoreCase(suppDrug.getName())) {
+                        foundDrugInInventory = true;
+                        suppDrug.setQuantity(suppDrug.getQuantity() + drug.getRequestCountFromMan());
+                        suppDrug.setManufacturerPrice(drug.getManufacturerPrice());
+                    }
+                }
+
+                if (!foundDrugInInventory) {
+                    //Drug not found in inventory. Add this drug to inventory
+                    supplierEnterprise.getInventory().getDrugStock().add(drug);
+                }
+
+            }
+
             populateRequestTable();
         } else {
             JOptionPane.showMessageDialog(null, "Please process the order first before completing it");
@@ -307,10 +325,6 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_completeOrderjButtonActionPerformed
 
-    private void showAnalyticsJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAnalyticsJButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_showAnalyticsJButtonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assignToMe;
     private javax.swing.JButton completeOrderjButton;
@@ -318,7 +332,6 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JButton processOrderjButton;
-    private javax.swing.JButton showAnalyticsJButton;
     private javax.swing.JLabel title;
     private javax.swing.JTable workRequestJTable;
     // End of variables declaration//GEN-END:variables

@@ -33,14 +33,16 @@ public class AssignToManufacturer extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private EcoSystem ecosystem;
     private WorkRequestDrugs request;
+    private Enterprise enterprise;
 
-    public AssignToManufacturer(JPanel userProcessContainer, EcoSystem ecosystem, WorkRequestDrugs request) {
+    public AssignToManufacturer(JPanel userProcessContainer, EcoSystem ecosystem, WorkRequestDrugs request, Enterprise enterprise) {
         initComponents();
         networkDropdown.removeAllItems();
         enterpriseDropdown.removeAllItems();
         this.userProcessContainer = userProcessContainer;
         this.ecosystem = ecosystem;
         this.request = request;
+        this.enterprise = enterprise;
         List<Network> networkList = ecosystem.getNetworkDirectory().getNetworkList();
         networkList.stream().forEach(network -> networkDropdown.addItem(network.getName()));
     }
@@ -271,6 +273,7 @@ public class AssignToManufacturer extends javax.swing.JPanel {
             request.setStatus(Constants.sentToManufacturer);
             request.setSender(request.getReceiver());
             request.setReceiver(null);
+            request.getEnterpriseStack().push(this.enterprise);
             JOptionPane.showMessageDialog(null, "Request send to manufacturer");
         } else {
             JOptionPane.showMessageDialog(null, "Request cannot be fulfilled");
