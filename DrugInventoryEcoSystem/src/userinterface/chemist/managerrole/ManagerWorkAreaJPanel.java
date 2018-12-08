@@ -6,7 +6,9 @@
 package userinterface.chemist.managerrole;
 
 import business.EcoSystem;
+import business.enterprise.ChemistEnterprise;
 import business.enterprise.Enterprise;
+import business.enterprise.SupplierEnterprise;
 import business.organization.chemist.ManagerOrganization;
 import business.useraccount.UserAccount;
 import business.workqueue.WorkRequest;
@@ -18,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import userinterface.analysis.showAnalysisJpanel;
 
 /**
  *
@@ -82,6 +85,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         title = new javax.swing.JLabel();
         sendToSupplier = new javax.swing.JButton();
         approve = new javax.swing.JButton();
+        showStatisticsButton = new javax.swing.JButton();
 
         kGradientPanel1.setkEndColor(new java.awt.Color(102, 204, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(183, 248, 230));
@@ -166,26 +170,35 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        showStatisticsButton.setText("Show Statistics");
+        showStatisticsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showStatisticsButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(assignToMe)
-                        .addGap(41, 41, 41)
-                        .addComponent(viewRequest)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(approve)
-                        .addGap(51, 51, 51)
-                        .addComponent(sendToSupplier)
-                        .addGap(55, 55, 55)
-                        .addComponent(reject))
-                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                            .addComponent(assignToMe)
+                            .addGap(41, 41, 41)
+                            .addComponent(viewRequest)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(approve)
+                            .addGap(51, 51, 51)
+                            .addComponent(sendToSupplier)
+                            .addGap(55, 55, 55)
+                            .addComponent(reject))
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(showStatisticsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(462, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
@@ -202,7 +215,9 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(reject)
                     .addComponent(sendToSupplier)
                     .addComponent(approve))
-                .addContainerGap(351, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(showStatisticsButton)
+                .addContainerGap(296, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -348,6 +363,14 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_approveActionPerformed
 
+    private void showStatisticsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showStatisticsButtonActionPerformed
+        // TODO add your handling code here:
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            ChemistEnterprise chemistEnterprise = (ChemistEnterprise) enterprise;
+            userProcessContainer.add("showStatistics", new showAnalysisJpanel(userProcessContainer, chemistEnterprise.getInventory()));
+            layout.next(userProcessContainer);
+    }//GEN-LAST:event_showStatisticsButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton approve;
     private javax.swing.JButton assignToMe;
@@ -355,6 +378,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JButton reject;
     private javax.swing.JButton sendToSupplier;
+    private javax.swing.JButton showStatisticsButton;
     private javax.swing.JLabel title;
     private javax.swing.JButton viewRequest;
     private javax.swing.JTable workRequestJTable;

@@ -26,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import userinterface.analysis.showAnalysisJpanel;
 
 /**
  *
@@ -92,6 +93,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         sendToLegal = new javax.swing.JButton();
         requestOrSend = new javax.swing.JButton();
         checkInventory = new javax.swing.JButton();
+        showStatisticsButton = new javax.swing.JButton();
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1200, 750));
 
@@ -178,6 +180,13 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        showStatisticsButton.setText("Show Statistics");
+        showStatisticsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showStatisticsButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -197,8 +206,9 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
                                         .addComponent(assignToMe)
                                         .addGap(152, 152, 152)
                                         .addComponent(viewRequest))
-                                    .addComponent(requestOrSend))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                                    .addComponent(requestOrSend)
+                                    .addComponent(showStatisticsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(sendToLegal, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(checkInventory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))))))
@@ -220,7 +230,9 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(requestOrSend)
                     .addComponent(checkInventory))
-                .addContainerGap(342, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(showStatisticsButton)
+                .addContainerGap(297, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -395,6 +407,13 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_checkInventoryActionPerformed
 
+    private void showStatisticsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showStatisticsButtonActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        userProcessContainer.add("showStatistics", new showAnalysisJpanel(userProcessContainer, enterprise.getInventory()));
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_showStatisticsButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assignToMe;
     private javax.swing.JButton checkInventory;
@@ -403,6 +422,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JButton requestOrSend;
     private javax.swing.JButton sendToLegal;
+    private javax.swing.JButton showStatisticsButton;
     private javax.swing.JLabel title;
     private javax.swing.JButton viewRequest;
     private javax.swing.JTable workRequestJTable;
