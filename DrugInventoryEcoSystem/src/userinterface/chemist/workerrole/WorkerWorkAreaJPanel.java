@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -32,7 +34,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
     private WorkerOrganization organization;
     private Enterprise enterprise;
     private UserAccount userAccount;
-
+    private static final Logger log = LogManager.getLogger(WorkerWorkAreaJPanel.class);
     public WorkerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, WorkerOrganization organization, Enterprise enterprise) {
         initComponents();
         this.setSize(1200, 750);
@@ -214,6 +216,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
                     }
                 }
                 request.setStatus(Constants.chemistCoworkerSendForApproval);
+                log.info("Request send for Manager's Approval");
                 populateRequestTable();
             } else {
                 JOptionPane.showMessageDialog(null, "Order is completed");
@@ -226,6 +229,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_sendActionPerformed
 
     private void viewRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRequestActionPerformed
+        log.info("View Order");
         int selectedRow = workRequestJTable.getSelectedRow();
         boolean orderProc = false;
         if (selectedRow < 0) {

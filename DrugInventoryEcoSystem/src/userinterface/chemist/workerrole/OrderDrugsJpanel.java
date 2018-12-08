@@ -20,6 +20,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -33,7 +35,8 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private UserAccount userAccount;
     private ChemistEnterprise enterprise;
-
+    private static final Logger log = LogManager.getLogger(OrderDrugsJpanel.class);
+    
     public OrderDrugsJpanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise) {
         initComponents();
         this.setSize(1200, 750);
@@ -183,7 +186,6 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-
         List<Drug> orderList = new ArrayList<>();
         DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
         int nRow = model.getRowCount();
@@ -221,6 +223,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
             workRequestDrugs.setSender(userAccount);
             workRequestDrugs.setStatus(Constants.chemistCoworkerRequestCreated);
             workRequestDrugs.setDrugsOrderList(orderList);
+            log.info("Order Created");
             userProcessContainer.remove(this);
             Component[] componentArray = userProcessContainer.getComponents();
             Component component = componentArray[componentArray.length - 1];
@@ -255,6 +258,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         userProcessContainer.add("viewInventory", new ViewInventoryJpanel(userProcessContainer, enterprise.getInventory()));
         layout.next(userProcessContainer);
+        log.info("Checking Inventory");
     }//GEN-LAST:event_jButtonCheckInventoryActionPerformed
 
 

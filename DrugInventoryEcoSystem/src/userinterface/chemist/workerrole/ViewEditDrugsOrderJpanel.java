@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -28,6 +30,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private WorkRequestDrugs workRequestDrugs;
+    private static final Logger log = LogManager.getLogger(ViewEditDrugsOrderJpanel.class);
     
     public ViewEditDrugsOrderJpanel(JPanel userProcessContainer, WorkRequestDrugs workRequestDrugs, boolean orderPros) {
         initComponents();
@@ -268,6 +271,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
             save.setEnabled(false);
             update.setEnabled(true);
             JOptionPane.showMessageDialog(null, "Order list updated.");
+            log.info("Order Updated");
         } else {
             JOptionPane.showMessageDialog(null, "Order list can't be empty.");
             return;

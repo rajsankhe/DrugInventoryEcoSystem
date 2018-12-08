@@ -34,18 +34,18 @@ public class MainJFrame extends javax.swing.JFrame {
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
 
     public MainJFrame() {
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Already there
+//        setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        setUndecorated(true);
         initComponents();
         //Retrieving the system from the file
         system = dB4OUtil.retrieveSystem();
         this.setSize(1200, 750);
         jButtonLogIn.setEnabled(true);
         jButtonLogOut.setEnabled(false);
-//        log.trace("Trace Message!");
-//        log.debug("Debug Message!");
-//        log.info("Info Message!");
-//        log.warn("Warn Message!");
-//        log.error("Error Message!");
-//        log.fatal("Fatal Message!");
+
+        jButtonClose.addActionListener(new CloseListener());
+
     }
 
     /**
@@ -65,10 +65,11 @@ public class MainJFrame extends javax.swing.JFrame {
         jButtonLogOut = new javax.swing.JButton();
         jButtonLogIn = new javax.swing.JButton();
         jPasswordFieldLogin = new javax.swing.JPasswordField();
+        jButtonClose = new javax.swing.JButton();
         container = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setPreferredSize(new java.awt.Dimension(1200, 750));
         setResizable(false);
@@ -100,7 +101,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 jButtonLogOutActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 90, 36));
+        jPanel1.add(jButtonLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 610, 90, 36));
 
         jButtonLogIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/login_btn.png"))); // NOI18N
         jButtonLogIn.setText("In");
@@ -112,8 +113,19 @@ public class MainJFrame extends javax.swing.JFrame {
                 jButtonLogInActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 620, 90, 36));
+        jPanel1.add(jButtonLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 560, 90, 36));
         jPanel1.add(jPasswordFieldLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 126, 87, -1));
+
+        jButtonClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/close-window.png"))); // NOI18N
+        jButtonClose.setMaximumSize(new java.awt.Dimension(90, 36));
+        jButtonClose.setMinimumSize(new java.awt.Dimension(90, 36));
+        jButtonClose.setPreferredSize(new java.awt.Dimension(90, 36));
+        jButtonClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCloseActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 660, 90, 36));
 
         jSplitPane1.setLeftComponent(jPanel1);
 
@@ -220,6 +232,10 @@ public class MainJFrame extends javax.swing.JFrame {
         dB4OUtil.storeSystem(system);
     }//GEN-LAST:event_jButtonLogOutActionPerformed
 
+    private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
+
+    }//GEN-LAST:event_jButtonCloseActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -257,6 +273,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel container;
+    private javax.swing.JButton jButtonClose;
     private javax.swing.JButton jButtonLogIn;
     private javax.swing.JButton jButtonLogOut;
     private javax.swing.JLabel jLabel1;
