@@ -14,11 +14,15 @@ import java.util.List;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SendEmail {
 
+    private static final Logger log = LogManager.getLogger(SendEmail.class);
+
     public void sendMail(String username, String to, String userPassword) {
-        System.out.println("Mail triggered! to: " + to);
+        log.info("Mail triggered! to: " + to);
         //Get properties object
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -52,7 +56,7 @@ public class SendEmail {
             message.setContent(emailBody.toString(), "text/html; charset=utf-8");
             //send message
             Transport.send(message);
-            System.out.println("Message sent successfully");
+            log.info("Message sent successfully");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
@@ -90,7 +94,7 @@ public class SendEmail {
             message.setContent(createEmailMessageWorkAlert(workRequest), "text/html; charset=utf-8");
             //send message
             Transport.send(message);
-            System.out.println("Message sent successfully");
+            log.info("Message sent successfully");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }

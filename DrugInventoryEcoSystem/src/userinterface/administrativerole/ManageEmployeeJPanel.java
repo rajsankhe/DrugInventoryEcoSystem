@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -23,6 +25,8 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
 
     private OrganizationDirectory organizationDir;
     private JPanel userProcessContainer;
+
+    private static final Logger log = LogManager.getLogger(ManageEmployeeJPanel.class);
 
     /**
      * Creates new form ManageEmployeeJPanel
@@ -40,6 +44,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
 
         populateOrganizationComboBox();
         populateOrganizationEmpComboBox();
+        log.info("ManageEmployeeJPanel successfully loaded");
     }
 
     public void populateOrganizationComboBox() {
@@ -204,18 +209,21 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         organizationEmpJComboBox.setSelectedIndex(0);
         if (!Validator.isValidStringWithSpaces(name)) {
             JOptionPane.showMessageDialog(null, "Name passed is invalid. Only alphabest and spaces are allowed");
+            log.info("Name passed is invalid. Only alphabest and spaces are allowed");
             return;
         }
 
         for (Employee employee : organization.getEmployeeDirectory().getEmployeeList()) {
             if (employee.getName().equalsIgnoreCase(name)) {
                 JOptionPane.showMessageDialog(null, "Employee with same name exists in the organization");
+                log.info("Employee with same name exists in the organization");
                 return;
             }
         }
 
         organization.getEmployeeDirectory().createEmployee(name);
         JOptionPane.showMessageDialog(null, "Employee created successfully.");
+        log.info("Employee created successfully.");
         nameJTextField.setText("");
 //        populateTable(organization);
 

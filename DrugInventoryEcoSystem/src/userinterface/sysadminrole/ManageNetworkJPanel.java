@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -23,6 +25,8 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
 
     private JPanel userProcessContainer;
     private EcoSystem system;
+
+    private static final Logger log = LogManager.getLogger(ManageNetworkJPanel.class);
 
     /**
      *
@@ -39,6 +43,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         networkJTable.setShowGrid(true);
         networkJTable.setSize(300, 64);
         populateNetworkTable();
+        log.info("ManageNetworkJPanel loaded successfully");
     }
 
     private void populateNetworkTable() {
@@ -176,6 +181,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         if (!Validator.isValidAlphaNumericWithSpaces(name)) {
             //Name is not valid
             JOptionPane.showMessageDialog(null, "Please enter a valid name. Only alphanumeric characters, spaces and . allowed.");
+            log.info("Please enter a valid name. Only alphanumeric characters, spaces and . allowed.");
             nameJTextField.setText("");
             return;
         }
@@ -186,8 +192,10 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         if (network != null) {
             populateNetworkTable();
             JOptionPane.showMessageDialog(null, "Network successfully created");
+            log.info("Network successfully created");
         } else {
             JOptionPane.showMessageDialog(null, "Network creation failed! Network with same name already exists in the system. Please check.");
+            log.info("Network creation failed! Network with same name already exists in the system. Please check.");
             return;
         }
 
@@ -217,6 +225,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                     JOptionPane.OK_CANCEL_OPTION);
             if (!Validator.isValidAlphaNumericWithSpaces(message)) {
                 JOptionPane.showMessageDialog(null, "Network update failed. Only alphanumeric characters, spaces and . allowed.");
+                log.info("Network update failed. Only alphanumeric characters, spaces and . allowed.");
                 return;
             }
 
@@ -230,12 +239,14 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
         int selectedRow = networkJTable.getSelectedRow();
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select a row!!!");
+            log.info("Please select a row!!!");
         } else {
             Network network = (Network) networkJTable.getValueAt(selectedRow, 0);
 
             if (network.getEnterpriseDirectory().getEnterpriseList().size() > 0) {
                 //Cannot delete the network
                 JOptionPane.showMessageDialog(null, "Network cannot be deleted. First delete all the enterprises within this network.");
+                log.info("Network cannot be deleted. First delete all the enterprises within this network.");
                 return;
             }
 

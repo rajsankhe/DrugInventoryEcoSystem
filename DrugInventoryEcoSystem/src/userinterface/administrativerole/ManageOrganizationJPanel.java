@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -27,6 +29,8 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
     private OrganizationDirectory directory;
     private JPanel userProcessContainer;
     private EnterpriseType enterpriseType;
+
+    private static final Logger log = LogManager.getLogger(ManageOrganizationJPanel.class);
 
     /**
      * Creates new form ManageOrganizationJPanel
@@ -45,6 +49,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
 
         populateTable();
         populateCombo();
+        log.info("ManageOrganizationJPanel loaded successfully");
     }
 
     private void populateCombo() {
@@ -205,6 +210,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         String orgName = orgNameJTextField.getText();
         if (!Validator.isValidAlphaNumericWithSpaces(orgName)) {
             JOptionPane.showMessageDialog(null, "Organization name is invalid. Only alphanumeric characters are allowed. Please check");
+            log.info("Organization name is invalid. Only alphanumeric characters are allowed. Please check");
             return;
         }
 
@@ -212,12 +218,14 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         for (Organization organization : directory.getOrganizationList()) {
             if (organization.getName().equalsIgnoreCase(orgName)) {
                 JOptionPane.showMessageDialog(null, "Organization with the same name exists in this enterprise. Please check");
+                log.info("Organization with the same name exists in this enterprise. Please check");
                 return;
             }
         }
 
         directory.createOrganization(orgName, type);
         JOptionPane.showMessageDialog(null, "Organization created successfully");
+        log.info("Organization created successfully");
         orgNameJTextField.setText("");
         populateTable();
     }//GEN-LAST:event_addJButtonActionPerformed
@@ -233,6 +241,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         int selectedRow = organizationJTable.getSelectedRow();
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select a row!!!");
+            log.info("Please select a row!!!");
         } else {
             Organization organization = (Organization) organizationJTable.getValueAt(selectedRow, 1);
 
@@ -243,6 +252,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                     JOptionPane.OK_CANCEL_OPTION);
             if (!Validator.isValidAlphaNumericWithSpaces(message)) {
                 JOptionPane.showMessageDialog(null, "Organization update failed. Only alphanumeric characters, spaces and . allowed.");
+                log.info("Organization update failed. Only alphanumeric characters, spaces and . allowed.");
                 return;
             }
 
@@ -259,6 +269,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
             Organization organization = (Organization) organizationJTable.getValueAt(selectedRow, 1);
             if (organization.getUserAccountDirectory().getUserAccountList().size() > 0) {
                 JOptionPane.showMessageDialog(null, "Organization has user account which are active. Please remove them first");
+                log.info("Organization has user account which are active. Please remove them first");
                 return;
             }
 

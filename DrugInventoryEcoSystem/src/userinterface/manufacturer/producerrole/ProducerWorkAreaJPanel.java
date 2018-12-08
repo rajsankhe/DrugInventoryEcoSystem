@@ -20,6 +20,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -36,6 +38,8 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     private EcoSystem ecosystem;
 
+    private static final Logger log = LogManager.getLogger(ProducerWorkAreaJPanel.class);
+
     public ProducerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ProducerOrganization organization,
             Enterprise enterprise, EcoSystem ecosystem) {
         initComponents();
@@ -50,6 +54,7 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
         this.ecosystem = ecosystem;
         title.setText("Manufacturer: " + userAccount.getUsername());
         populateRequestTable();
+        log.info("Producer Work Area JPanel Loaded");
     }
 
     public void populateRequestTable() {
@@ -229,6 +234,7 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
         int selectedRow = workRequestJTable.getSelectedRow();
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select row");
+            log.info("User didn't select a row");
             return;
         }
 
@@ -236,8 +242,10 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
         if (request.getReceiver() == null) {
             request.setReceiver(userAccount);
             populateRequestTable();
+            log.info("Request successfully assigned!");
         } else {
             JOptionPane.showMessageDialog(null, "Already assinged to " + request.getReceiver());
+            log.info("Already assinged to " + request.getReceiver());
             return;
         }
 
@@ -249,6 +257,7 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
 
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select row");
+            log.info("Please select row");
             return;
         }
 
@@ -261,8 +270,10 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             userProcessContainer.add("ViewAndUpdateBidProducer", new ViewAndUpdateBidProducerjpanel(userProcessContainer, request, ecosystem));
             layout.next(userProcessContainer);
+            log.info("Moving to the Process Order Screen");
         } else {
             JOptionPane.showMessageDialog(null, "This request is not assigned to you.");
+            log.info("This request is not assigned to the user.");
         }
     }//GEN-LAST:event_processOrderjButtonActionPerformed
 
@@ -271,6 +282,7 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
 
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select row");
+            log.info("Please select row");
             return;
         }
 
@@ -281,6 +293,7 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
             request.setSender(request.getReceiver());
             request.setReceiver(supplier);
             JOptionPane.showMessageDialog(null, "Order completed successfully");
+            log.info("Order completed successfully");
 
             //Delete this order from all queues.
             for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
@@ -320,6 +333,7 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
             populateRequestTable();
         } else {
             JOptionPane.showMessageDialog(null, "Please process the order first before completing it");
+            log.info("Please process the order first before completing it");
             return;
         }
 

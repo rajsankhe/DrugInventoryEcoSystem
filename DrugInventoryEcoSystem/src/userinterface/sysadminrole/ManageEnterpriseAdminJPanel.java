@@ -23,6 +23,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -32,6 +34,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
     private JPanel userProcessContainer;
     private EcoSystem system;
+    private static final Logger log = LogManager.getLogger(ManageEnterpriseAdminJPanel.class);
 
     /**
      * Creates new form ManageEnterpriseJPanel
@@ -49,6 +52,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
         populateTable();
         populateNetworkComboBox();
+        log.info("ManageEnterpriseAdminJPanel loaded successfully");
     }
 
     private void populateTable() {
@@ -251,11 +255,14 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
         if (enterprise == null) {
             JOptionPane.showMessageDialog(null, "Please select a valid Enterprise and then proceed");
+            log.info("Please select a valid Enterprise and then proceed");
             return;
         }
 
         if (!Validator.isValidUsername(username)) {
             JOptionPane.showMessageDialog(null, "Username in incorrect format. Should be 2 to 25 characters "
+                    + "and characters, numbers and the ., -, _ symbols");
+            log.info("Username in incorrect format. Should be 2 to 25 characters "
                     + "and characters, numbers and the ., -, _ symbols");
             return;
         }
@@ -265,12 +272,14 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
             for (Enterprise e : network.getEnterpriseDirectory().getEnterpriseList()) {
                 if (e.getUserAccountDirectory().isUserExists(username)) {
                     JOptionPane.showMessageDialog(null, "Account with the username passed already exists in the system! Please check");
+                    log.info("Account with the username passed already exists in the system! Please check");
                     return;
                 }
 
                 for (Organization organization : e.getOrganizationDirectory().getOrganizationList()) {
                     if (organization.getUserAccountDirectory().isUserExists(username)) {
                         JOptionPane.showMessageDialog(null, "Account with the username passed already exists in the system! Please check");
+                        log.info("Account with the username passed already exists in the system! Please check");
                         return;
                     }
                 }
@@ -279,11 +288,13 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
         if (!Validator.isValidEmail(emailID)) {
             JOptionPane.showMessageDialog(null, "Email ID is in incorrect format. Please check.");
+            log.info("Email ID is in incorrect format. Please check.");
             return;
         }
 
         if (!Validator.isValidStringWithSpaces(name)) {
             JOptionPane.showMessageDialog(null, "Name can contain only alphabets. Please check.");
+            log.info("Name can contain only alphabets. Please check.");
             return;
         }
 
@@ -291,6 +302,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
         if (enterprise.getUserAccountDirectory().isUserExists(username)) {
             JOptionPane.showMessageDialog(null, "Account with the username passed already exists in the system! Please check");
+            log.info("Account with the username passed already exists in the system! Please check");
             return;
         }
 
@@ -303,13 +315,14 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
         Runnable runnableTask = () -> {
             try {
-                System.out.println("Executor task started");
+                log.info("Executor task started");
                 SendEmail sendEmail = new SendEmail();
                 sendEmail.sendMail(username, emailID, password);
 
             } catch (Exception exception) {
                 //JOptionPane.showMessageDialog(null, "We were unable to send mail to the desired recepient! Please contact system administrator");
-                exception.printStackTrace();
+                log.error("Somehting went wrong while sending mail. Please check", exception);
+                //exception.printStackTrace();
             }
         };
 
@@ -326,6 +339,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 //            exception.printStackTrace();
 //        }
         JOptionPane.showMessageDialog(null, "User created successfully. Please check email for login credentials.");
+        log.info("User created successfully. Please check email for login credentials.");
         usernameJTextField.setText("");
         emailIDJTextField.setText("");
         nameJTextField.setText("");
@@ -338,6 +352,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         int selectedRow = enterpriseJTable.getSelectedRow();
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select a row!!!");
+            log.info("Please select a row!!!");
         } else {
             Enterprise enterprise = (Enterprise) enterpriseJTable.getValueAt(selectedRow, 0);
             Network network = (Network) enterpriseJTable.getValueAt(selectedRow, 1);

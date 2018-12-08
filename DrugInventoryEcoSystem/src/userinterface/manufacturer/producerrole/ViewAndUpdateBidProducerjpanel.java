@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -31,6 +33,8 @@ public class ViewAndUpdateBidProducerjpanel extends javax.swing.JPanel {
     private WorkRequestDrugs workRequestDrugs;
     private EcoSystem ecoSystem;
 
+    private static final Logger log = LogManager.getLogger(ViewAndUpdateBidProducerjpanel.class);
+
     public ViewAndUpdateBidProducerjpanel(JPanel userProcessContainer, WorkRequestDrugs request, EcoSystem system) {
         initComponents();
         this.setSize(1200, 750);
@@ -41,6 +45,8 @@ public class ViewAndUpdateBidProducerjpanel extends javax.swing.JPanel {
         this.workRequestDrugs = request;
         this.ecoSystem = system;
         populateRequestTable();
+        log.info("ViewAndUpdateBidProducerjpanel loaded successfully");
+
     }
 
     public void populateRequestTable() {
@@ -215,11 +221,13 @@ public class ViewAndUpdateBidProducerjpanel extends javax.swing.JPanel {
             workRequestDrugs.setStatus(Constants.priceUpdatedByManufacturer);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please enter decimal value in price field.");
-            e.printStackTrace();
+            log.error("Please enter decimal value in price field.", e);
+            //e.printStackTrace();
             return;
         }
 
         JOptionPane.showMessageDialog(null, "Price updated successfully");
+        log.info("Price updated successfully");
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
