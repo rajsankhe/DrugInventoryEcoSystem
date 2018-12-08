@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -28,6 +30,8 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     JPanel userProcessContainer;
     EcoSystem ecosystem;
 
+    private static final Logger log = LogManager.getLogger(SystemAdminWorkAreaJPanel.class);
+
     public SystemAdminWorkAreaJPanel(JPanel userProcessContainer, EcoSystem ecosystem) {
         //Admin screen which loads up when we login as a Admin - EcoSystem Admin
         initComponents();
@@ -38,6 +42,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         //btnManageAdmin.setEnabled(false);
         //Tree which shows the hierarchy of the EcoSystem
         populateTree();
+        log.info("SystemAdminWorkAreaJPanel loaded successfully");
     }
 
     public void populateTree() {
@@ -181,6 +186,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         //check if network is created
         if (ecosystem.getNetworkDirectory().getNetworkList().size() == 0) {
             JOptionPane.showMessageDialog(null, "Please create a network before creating an enpterprise");
+            log.info("Please create a network before creating an enpterprise");
             return;
         }
 
@@ -203,6 +209,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         if (!isEnterprisePresent) {
             JOptionPane.showMessageDialog(null, "Please create an enterprise before creating an admin");
+            log.info("Please create an enterprise before creating an admin");
             return;
         }
 

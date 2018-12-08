@@ -11,6 +11,8 @@ import business.organization.Organization;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -20,6 +22,8 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
 
     JPanel userProcessContainer;
     Enterprise enterprise;
+
+    private static final Logger log = LogManager.getLogger(AdminWorkAreaJPanel.class);
 
     /**
      * Creates new form AdminWorkAreaJPanel
@@ -129,6 +133,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
 
         if (!isEmployeePresent) {
             JOptionPane.showMessageDialog(null, "Please create an employee before creating an user");
+            log.info("Please create an employee before creating an user");
             return;
         }
         ManageUserAccountJPanel muajp = new ManageUserAccountJPanel(userProcessContainer, enterprise);
@@ -142,6 +147,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         //check if organization has been created
         if (enterprise.getOrganizationDirectory().getOrganizationList().size() == 0) {
             JOptionPane.showMessageDialog(null, "Please create an organization before creating an enpterprise");
+            log.info("Please create an organization before creating an enpterprise");
             return;
         }
         ManageEmployeeJPanel manageEmployeeJPanel = new ManageEmployeeJPanel(userProcessContainer, enterprise.getOrganizationDirectory());

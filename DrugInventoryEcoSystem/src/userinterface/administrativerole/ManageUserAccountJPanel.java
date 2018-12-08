@@ -20,6 +20,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -29,6 +31,8 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
 
     private JPanel container;
     private Enterprise enterprise;
+
+    private static final Logger log = LogManager.getLogger(ManageUserAccountJPanel.class);
 
     /**
      * Creates new form ManageUserAccountJPanel
@@ -46,6 +50,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         popOrganizationComboBox();
         // employeeJComboBox.removeAllItems();
         popData();
+        log.info("ManageUserAccountJPanel loaded successfully");
     }
 
     public void populateEmployeeComboBox(Organization organization) {
@@ -202,6 +207,8 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         if (!Validator.isValidUsername(userName)) {
             JOptionPane.showMessageDialog(null, "Username in incorrect format. Should be 2 to 25 characters "
                     + "and characters, numbers and the ., -, _ symbols");
+            log.info("Username in incorrect format. Should be 2 to 25 characters "
+                    + "and characters, numbers and the ., -, _ symbols");
             return;
         }
 
@@ -213,6 +220,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
 
         if (employee == null || role == null) {
             JOptionPane.showMessageDialog(null, "Please fill correct information in employee and role fields");
+            log.info("Please fill correct information in employee and role fields");
             return;
         }
 
@@ -220,6 +228,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
 
         if (userAccount == null) {
             JOptionPane.showMessageDialog(null, "Username already exists in this organization! Please check");
+            log.info("Username already exists in this organization! Please check");
             return;
         }
         //Send email to user with password.
@@ -227,7 +236,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
 
         Runnable runnableTask = () -> {
             try {
-                System.out.println("Executor task started");
+                log.info("Send email task started");
                 SendEmail sendEmail = new SendEmail();
                 sendEmail.sendMail(userName, emailID, password);
 
@@ -250,6 +259,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
 //            exception.printStackTrace();
 //        }
         JOptionPane.showMessageDialog(null, "User created successfully. Please check email for login credentials.");
+        log.info("User created successfully. Please check email for login credentials.");
         organizationJComboBox.setSelectedIndex(0);
         employeeJComboBox.setSelectedIndex(0);
         roleJComboBox.setSelectedIndex(0);

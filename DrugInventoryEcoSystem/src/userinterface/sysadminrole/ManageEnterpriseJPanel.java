@@ -8,7 +8,6 @@ import business.ConfigureASystem;
 import business.EcoSystem;
 import business.enterprise.ChemistEnterprise;
 import business.enterprise.Enterprise;
-import business.enterprise.ManufacturerEnterprise;
 import business.enterprise.SupplierEnterprise;
 import business.network.Network;
 import commonutils.Validator;
@@ -19,6 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -28,6 +29,8 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
     private JPanel userProcessContainer;
     private EcoSystem system;
+
+    private static final Logger log = LogManager.getLogger(ManageEnterpriseJPanel.class);
 
     /**
      * Creates new form ManageEnterpriseJPanel
@@ -46,6 +49,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
         populateTable();
         populateComboBox();
+        log.info("ManageEnterpriseJPanel loaded successfully");
     }
 
     private void populateTable() {
@@ -220,6 +224,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
         if (network == null || type == null) {
             JOptionPane.showMessageDialog(null, "Invalid Input!");
+            log.info("Invalid input!!");
             return;
         }
 
@@ -228,6 +233,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         if (!Validator.isValidAlphaNumericWithSpaces(name)) {
             //Name is not valid
             JOptionPane.showMessageDialog(null, "Please enter a valid name. Only alphanumeric characters, spaces and . allowed.");
+            log.info("Please enter a valid name. Only alphanumeric characters, spaces and . allowed.");
             return;
         }
 
@@ -236,6 +242,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         if (enterprise == null) {
             //Enterprise with same name already exists. Throw error
             JOptionPane.showMessageDialog(null, "Enterprise with the given name already exists in this network! Please check.");
+            log.info("Enterprise with the given name already exists in this network! Please check.");
             return;
         }
 
@@ -250,9 +257,9 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 //            ManufacturerEnterprise manufacturerEnterprise = (ManufacturerEnterprise) enterprise;
 //            manufacturerEnterprise.getInventory().setDrugStock(ConfigureASystem.generateInventory());
 //        }
-        
 
         JOptionPane.showMessageDialog(null, "Enterprise created successfully.");
+        log.info("Enterprise created successfully.");
         nameJTextField.setText("");
         networkJComboBox.setSelectedIndex(0);
         enterpriseTypeJComboBox.setSelectedIndex(0);
@@ -294,6 +301,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
                     JOptionPane.OK_CANCEL_OPTION);
             if (!Validator.isValidAlphaNumericWithSpaces(message)) {
                 JOptionPane.showMessageDialog(null, "Enterprise update failed. Only alphanumeric characters, spaces and . allowed.");
+                log.info("Enterprise update failed. Only alphanumeric characters, spaces and . allowed.");
                 return;
             }
 
@@ -307,12 +315,14 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         int selectedRow = enterpriseJTable.getSelectedRow();
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select a row!!!");
+            log.info("Please select a row!!!");
         } else {
             Enterprise enterprise = (Enterprise) enterpriseJTable.getValueAt(selectedRow, 0);
             Network network = (Network) enterpriseJTable.getValueAt(selectedRow, 1);
 
             if (enterprise.getOrganizationDirectory().getOrganizationList().size() > 0) {
                 JOptionPane.showMessageDialog(null, "Enterprise has organization which are active. Please remove them first");
+                log.info("Enterprise has organization which are active. Please remove them first");
                 return;
             }
 
