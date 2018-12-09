@@ -149,7 +149,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         organizationJTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(organizationJTable);
 
-        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 690, 160));
+        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 690, 160));
 
         addJButton.setText("Add Organization");
         addJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -157,12 +157,12 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                 addJButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(addJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 450, -1, 50));
+        kGradientPanel1.add(addJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 450, -1, 50));
 
-        kGradientPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 390, 200, -1));
+        kGradientPanel1.add(organizationJComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 390, 200, -1));
 
         jLabel1.setText("Organization Type ");
-        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 390, -1, -1));
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 390, -1, -1));
 
         backJButton.setText("<< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -173,14 +173,14 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         kGradientPanel1.add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         jLabel2.setText("Organization Name ");
-        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, -1, -1));
-        kGradientPanel1.add(orgNameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 420, 200, -1));
+        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 420, -1, -1));
+        kGradientPanel1.add(orgNameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 420, 200, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 51, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Manage Organization");
-        kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 660, 110));
+        kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 660, 110));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/admin-internal.png"))); // NOI18N
         kGradientPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 90, 100));
@@ -191,7 +191,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                 editOrgjButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(editOrgjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, -1, -1));
+        kGradientPanel1.add(editOrgjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, -1, -1));
 
         deleteOrgjButton.setText("Delete");
         deleteOrgjButton.addActionListener(new java.awt.event.ActionListener() {
@@ -199,7 +199,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                 deleteOrgjButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(deleteOrgjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 360, -1, -1));
+        kGradientPanel1.add(deleteOrgjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 360, -1, -1));
 
         add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 750));
     }// </editor-fold>//GEN-END:initComponents

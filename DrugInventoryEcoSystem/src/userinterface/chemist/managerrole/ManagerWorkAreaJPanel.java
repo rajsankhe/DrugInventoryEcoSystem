@@ -189,47 +189,54 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(108, 108, 108)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                    .addComponent(assignToMe)
-                                    .addGap(41, 41, 41)
-                                    .addComponent(viewRequest)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(approve)
-                                    .addGap(51, 51, 51)
-                                    .addComponent(sendToSupplier)
-                                    .addGap(55, 55, 55)
-                                    .addComponent(reject))
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(showStatisticsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(jLabel1)))
-                .addContainerGap(378, Short.MAX_VALUE))
+                        .addComponent(jLabel1))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(263, 263, 263)
+                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(assignToMe, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(370, 370, 370)
+                        .addComponent(approve, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                .addComponent(viewRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(370, 370, 370)
+                                .addComponent(sendToSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                .addComponent(showStatisticsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(370, 370, 370)
+                                .addComponent(reject, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(353, 353, 353))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(assignToMe)
-                    .addComponent(viewRequest)
-                    .addComponent(reject)
-                    .addComponent(sendToSupplier)
                     .addComponent(approve))
-                .addGap(26, 26, 26)
-                .addComponent(showStatisticsButton)
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addGap(6, 6, 6)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(showStatisticsButton)
+                    .addComponent(reject))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(viewRequest)
+                    .addComponent(sendToSupplier))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -361,18 +368,17 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
 
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         if (request.getReceiver() == userAccount) {
-            if(!request.getStatus().equalsIgnoreCase(Constants.ManagerApprove)){
-            request.setStatus(Constants.ManagerApprove);
-            JFrame frame = new JFrame();
-            String message = (String) JOptionPane.showInputDialog(frame,
-                    "Enter the message",
-                    Constants.ManagerApprove + " message",
-                    JOptionPane.OK_CANCEL_OPTION);
-            request.setMessage(message);
-            populateRequestTable();
-            }
-            else{
-               JOptionPane.showMessageDialog(null, "Request already approved."); 
+            if (!request.getStatus().equalsIgnoreCase(Constants.ManagerApprove)) {
+                request.setStatus(Constants.ManagerApprove);
+                JFrame frame = new JFrame();
+                String message = (String) JOptionPane.showInputDialog(frame,
+                        "Enter the message",
+                        Constants.ManagerApprove + " message",
+                        JOptionPane.OK_CANCEL_OPTION);
+                request.setMessage(message);
+                populateRequestTable();
+            } else {
+                JOptionPane.showMessageDialog(null, "Request already approved.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Assign request to you.");

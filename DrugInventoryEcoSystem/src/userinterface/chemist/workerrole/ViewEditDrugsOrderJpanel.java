@@ -48,8 +48,8 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         drugquantity.setSize(300, 64);
         this.userProcessContainer = userProcessContainer;
         this.workRequestDrugs = workRequestDrugs;
-        if (workRequestDrugs.getStatus().equals(Constants.ManagerReject) || workRequestDrugs.getStatus().equals(Constants.chemistCoworkerRequestCreated) || 
-                workRequestDrugs.getStatus().equals(Constants.rejectedByLegal) || workRequestDrugs.getStatus().equals(Constants.orderCannotBeFullfilled)){
+        if (workRequestDrugs.getStatus().equals(Constants.ManagerReject) || workRequestDrugs.getStatus().equals(Constants.chemistCoworkerRequestCreated)
+                || workRequestDrugs.getStatus().equals(Constants.rejectedByLegal) || workRequestDrugs.getStatus().equals(Constants.orderCannotBeFullfilled)) {
             update.setEnabled(true);
         }
         drugquantity.setShowGrid(true);
@@ -169,7 +169,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                 .addComponent(update)
-                                .addGap(226, 226, 226)
+                                .addGap(218, 218, 218)
                                 .addComponent(addRow)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(save))
