@@ -25,6 +25,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 
@@ -41,7 +43,8 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
     private ValidatorOrganization organization;
     private Enterprise enterprise;
     private UserAccount userAccount;
-
+    private static final Logger log = LogManager.getLogger(ValidatorWorkArea.class);
+    
     public ValidatorWorkArea(JPanel userProcessContainer, UserAccount account, ValidatorOrganization organization, Enterprise enterprise) {
         initComponents();
         this.setSize(1200, 750);
@@ -320,7 +323,7 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         request.setStatus(Constants.rejectedByLegal);
         JOptionPane.showMessageDialog(null, "Rejected");
-
+        log.info("Rejected by legal");
         //Delete this order from all queues.
         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
             if (organization instanceof ValidatorOrganization) {
@@ -351,6 +354,7 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
                 organization.getWorkQueue().deleteWorkRequest(request);
             }
         }
+        log.info("Approved by legal");
         populateRequestTable();
     }//GEN-LAST:event_approveActionPerformed
 

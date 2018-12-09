@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -36,7 +38,8 @@ public class AssignToManufacturer extends javax.swing.JPanel {
     private EcoSystem ecosystem;
     private WorkRequestDrugs request;
     private Enterprise enterprise;
-
+    private static final Logger log = LogManager.getLogger(AssignToManufacturer.class);
+    
     public AssignToManufacturer(JPanel userProcessContainer, EcoSystem ecosystem, WorkRequestDrugs request, Enterprise enterprise,
             Map<String, int[]> requestOrSend) {
         initComponents();
@@ -279,6 +282,8 @@ public class AssignToManufacturer extends javax.swing.JPanel {
             request.setReceiver(null);
             request.getEnterpriseStack().push(this.enterprise);
             JOptionPane.showMessageDialog(null, "Request send to manufacturer");
+            log.info("Request send to manufacturer");
+            
         } else {
             JOptionPane.showMessageDialog(null, "Request cannot be fulfilled");
         }

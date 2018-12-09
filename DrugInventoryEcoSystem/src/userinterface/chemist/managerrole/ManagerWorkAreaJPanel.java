@@ -20,7 +20,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import userinterface.analysis.showAnalysisJpanel;
+import userinterface.chemist.workerrole.OrderDrugsJpanel;
 
 /**
  *
@@ -36,7 +39,8 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
     private Enterprise enterprise;
     private UserAccount userAccount;
     private EcoSystem ecosystem;
-
+    private static final Logger log = LogManager.getLogger(ManagerWorkAreaJPanel.class);
+    
     public ManagerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ManagerOrganization organization, Enterprise enterprise, EcoSystem ecosystem) {
         initComponents();
         this.setSize(1200, 750);
@@ -240,6 +244,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
 
     private void assignToMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignToMeActionPerformed
         // TODO add your handling code here:
+        log.info("Request Assign o manager");
         int selectedRow = workRequestJTable.getSelectedRow();
         if (selectedRow < 0) {
             JOptionPane.showMessageDialog(null, "Please select row");
@@ -298,6 +303,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
                 CardLayout layout = (CardLayout) userProcessContainer.getLayout();
                 userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer, ecosystem, request, this.enterprise));
                 layout.next(userProcessContainer);
+                log.info("Request send to supplier");
             }
 
         } else {
@@ -341,6 +347,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
 
     private void approveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approveActionPerformed
         // TODO add your handling code here:
+        log.info("Request Approved by manager");
         int selectedRow = workRequestJTable.getSelectedRow();
 
         if (selectedRow < 0) {
