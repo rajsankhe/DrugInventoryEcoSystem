@@ -212,25 +212,33 @@ public class AssignToSupplier extends javax.swing.JPanel {
                     .findAny()
                     .orElse(null);
             Organization org = null;
+            boolean isWorkRequestAssigned = false;
             for (Organization organization : enterpriseSelected.getOrganizationDirectory().getOrganizationList()) {
                 if (organization instanceof ApproverOrganization) {
                     org = organization;
+                    isWorkRequestAssigned = true;
                     org.getWorkQueue().getWorkRequestList().add(request);
                 }
             }
-            request.setStatus(Constants.sentToSupplier);
-            request.setSender(request.getReceiver());
-            request.setReceiver(null);
-            request.getEnterpriseStack().push(this.enterprise);
-            JOptionPane.showMessageDialog(null, "Request send to supplier");
-            userProcessContainer.remove(this);
-            Component[] componentArray = userProcessContainer.getComponents();
-            Component component = componentArray[componentArray.length - 1];
-            ManagerWorkAreaJPanel managerWorkAreaJPanel = (ManagerWorkAreaJPanel) component;
-            managerWorkAreaJPanel.populateRequestTable();
-            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            layout.previous(userProcessContainer);
-            log.info("Request Send to supplier");
+            if (isWorkRequestAssigned) {
+                request.setStatus(Constants.sentToSupplier);
+                request.setSender(request.getReceiver());
+                request.setReceiver(null);
+                request.getEnterpriseStack().push(this.enterprise);
+                JOptionPane.showMessageDialog(null, "Request send to supplier");
+                userProcessContainer.remove(this);
+                Component[] componentArray = userProcessContainer.getComponents();
+                Component component = componentArray[componentArray.length - 1];
+                ManagerWorkAreaJPanel managerWorkAreaJPanel = (ManagerWorkAreaJPanel) component;
+                managerWorkAreaJPanel.populateRequestTable();
+                CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+                layout.previous(userProcessContainer);
+                log.info("Request Send to supplier");
+            }else {
+                JOptionPane.showMessageDialog(null, "No Supplier organizations exists in the selected Enterprise. Request assingment failed");
+                log.info("No Supplier organizations exists in the selected Enterprise. Request assingment failed");
+                return;
+            }
 
         } else {
             JOptionPane.showMessageDialog(null, "Request cannot be fulfilled");
