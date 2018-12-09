@@ -6,6 +6,7 @@ dist/
 *.db4o
 logs/
 
+
 # Logs
 *.log
 npm-debug.log*
