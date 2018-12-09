@@ -127,14 +127,14 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "User Name", "Role"
+                "User Name", "Role", "Organization"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -296,9 +296,10 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
 
             for (UserAccount userAccount : organization.getUserAccountDirectory().getUserAccountListValues()) {
-                Object row[] = new Object[2];
+                Object row[] = new Object[3];
                 row[0] = userAccount;
                 row[1] = userAccount.getRole();
+                row[2] = organization;
                 ((DefaultTableModel) userJTable.getModel()).addRow(row);
             }
 
