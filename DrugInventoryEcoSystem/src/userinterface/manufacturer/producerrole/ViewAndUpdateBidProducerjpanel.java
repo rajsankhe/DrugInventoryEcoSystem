@@ -215,6 +215,10 @@ public class ViewAndUpdateBidProducerjpanel extends javax.swing.JPanel {
                     String drugName = String.valueOf(model.getValueAt(i, 0));
                     //int drugRequested = (Integer) model.getValueAt(i, 1);
                     double manufacturerPrice = (Double) model.getValueAt(i, 2);
+                    if(manufacturerPrice <= 0){
+                        JOptionPane.showMessageDialog(null, "Quantiy should be greater than zero.");
+                        return; 
+                        }
 
                     for (Drug drug : workRequestDrugs.getDrugsOrderList()) {
                         if (drug.getName().equalsIgnoreCase(drugName)) {
