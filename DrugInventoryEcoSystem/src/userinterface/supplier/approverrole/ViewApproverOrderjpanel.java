@@ -5,7 +5,6 @@
  */
 package userinterface.supplier.approverrole;
 
-import userinterface.chemist.managerrole.*;
 import business.drug.Drug;
 import business.workqueue.WorkRequestDrugs;
 import java.awt.CardLayout;
@@ -24,6 +23,7 @@ public class ViewApproverOrderjpanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private WorkRequestDrugs workRequestDrugs;
+
     public ViewApproverOrderjpanel(JPanel userProcessContainer, WorkRequestDrugs request) {
         initComponents();
         this.setSize(1680, 1050);
@@ -34,12 +34,12 @@ public class ViewApproverOrderjpanel extends javax.swing.JPanel {
         this.workRequestDrugs = request;
         populateRequestTable();
     }
-    
-    public void populateRequestTable(){
+
+    public void populateRequestTable() {
         DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
-        
+
         model.setRowCount(0);
-        for (Drug drug : workRequestDrugs.getDrugsOrderList()){         
+        for (Drug drug : workRequestDrugs.getDrugsOrderList()) {
             Object[] row = new Object[2];
             row[0] = drug.getName();
             row[1] = drug.getQuantity();
@@ -123,22 +123,22 @@ public class ViewApproverOrderjpanel extends javax.swing.JPanel {
                         .addGap(34, 34, 34)
                         .addComponent(back)
                         .addGap(260, 260, 260)
-                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(144, 144, 144)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(274, Short.MAX_VALUE))
+                .addContainerGap(444, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
+                .addGap(79, 79, 79)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back)
                     .addComponent(title))
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(364, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -156,10 +156,9 @@ public class ViewApproverOrderjpanel extends javax.swing.JPanel {
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
         userProcessContainer.remove(this);
-        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
