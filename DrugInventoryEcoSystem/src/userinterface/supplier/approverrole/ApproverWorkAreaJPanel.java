@@ -7,6 +7,7 @@ package userinterface.supplier.approverrole;
 
 import business.EcoSystem;
 import business.drug.Drug;
+import business.enterprise.ChemistEnterprise;
 import business.enterprise.Enterprise;
 import business.enterprise.SupplierEnterprise;
 import business.inventory.Inventory;
@@ -19,6 +20,8 @@ import business.workqueue.WorkRequest;
 import business.workqueue.WorkRequestDrugs;
 import commonutils.Constants;
 import java.awt.CardLayout;
+import java.awt.Component;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,6 +101,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         checkInventory = new javax.swing.JButton();
         showStatisticsButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        rejectOrder = new javax.swing.JButton();
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1200, 750));
 
@@ -193,6 +197,13 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/supplier.png"))); // NOI18N
 
+        rejectOrder.setText("Reject Order");
+        rejectOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rejectOrderActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -210,16 +221,17 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
                                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                                     .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(requestOrSend)
                                         .addComponent(showStatisticsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(assignToMe, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(viewRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(sendToLegal, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(checkInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                        .addComponent(viewRequest, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                                        .addComponent(sendToLegal, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                                        .addComponent(checkInventory, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                                        .addComponent(rejectOrder, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)))))))
                 .addContainerGap(387, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
@@ -245,7 +257,9 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
                         .addComponent(sendToLegal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(checkInventory)))
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rejectOrder)
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -429,6 +443,52 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         log.info("Show Statistics");
     }//GEN-LAST:event_showStatisticsButtonActionPerformed
 
+    private void rejectOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectOrderActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = workRequestJTable.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select row");
+            return;
+        }
+        List<String> statusAccepted= new ArrayList<>();
+        statusAccepted.add(Constants.sentToSupplier);
+        statusAccepted.add(Constants.rejectedByLegal);
+        WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
+        if (request.getReceiver() == userAccount) {
+            if(statusAccepted.contains(request.getStatus()))
+            {
+                request.setStatus(Constants.orderCannotBeFullfilled);
+                ChemistEnterprise chemistEnterprise = null;
+                SupplierEnterprise supplierEnterprise = enterprise;
+                for (Enterprise enterprise : request.getEnterpriseStack()) {
+                    if (enterprise instanceof ChemistEnterprise) {
+                        chemistEnterprise = (ChemistEnterprise) enterprise;
+                    }
+                }
+                for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                    if (organization instanceof ApproverOrganization) {
+                        //Remove the workrequest from this queue
+                        organization.getWorkQueue().deleteWorkRequest(request);
+                    }
+                }
+                request.setStatus(Constants.orderCannotBeFullfilled);
+                request.setSender(userAccount);
+                request.setReceiver(null);
+                populateRequestTable();
+                JOptionPane.showMessageDialog(null, "Order Rejected");
+            }
+            else
+            {
+               JOptionPane.showMessageDialog(null, "Action Cannot be performed");
+                return; 
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Assign request to you.");
+            return;
+        }
+    }//GEN-LAST:event_rejectOrderActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton assignToMe;
     private javax.swing.JButton checkInventory;
@@ -436,6 +496,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
+    private javax.swing.JButton rejectOrder;
     private javax.swing.JButton requestOrSend;
     private javax.swing.JButton sendToLegal;
     private javax.swing.JButton showStatisticsButton;
