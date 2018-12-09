@@ -299,7 +299,7 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
             boolean rightsToSellDrugs = true;
             String message = "Unauthorized to sell ";
             for (String drug : orderedDrugs) {
-                if (!authorizedDrugs.contains(drug)) {
+                if (!authorizedDrugs.contains(drug.toLowerCase())) {
                     rightsToSellDrugs = false;
                     message += drug + " ";
                 }
