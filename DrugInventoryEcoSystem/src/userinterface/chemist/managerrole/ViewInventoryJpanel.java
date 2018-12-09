@@ -5,12 +5,8 @@
  */
 package userinterface.chemist.managerrole;
 
-import userinterface.chemist.workerrole.*;
-import userinterface.chemist.managerrole.*;
 import business.drug.Drug;
-import business.enterprise.Enterprise;
 import business.inventory.Inventory;
-import business.workqueue.WorkRequestDrugs;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -27,6 +23,7 @@ public class ViewInventoryJpanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private Inventory inventory;
+
     public ViewInventoryJpanel(JPanel userProcessContainer, Inventory inventory) {
         initComponents();
         this.setSize(1200, 750);
@@ -37,12 +34,12 @@ public class ViewInventoryJpanel extends javax.swing.JPanel {
         this.inventory = inventory;
         populateRequestTable();
     }
-    
-    public void populateRequestTable(){
+
+    public void populateRequestTable() {
         DefaultTableModel model = (DefaultTableModel) drugquantity.getModel();
-        
+
         model.setRowCount(0);
-        for (Drug drug : inventory.getDrugStock()){         
+        for (Drug drug : inventory.getDrugStock()) {
             Object[] row = new Object[2];
             row[0] = drug.getName();
             row[1] = drug.getQuantity();
@@ -64,6 +61,7 @@ public class ViewInventoryJpanel extends javax.swing.JPanel {
         drugquantity = new javax.swing.JTable();
         back = new javax.swing.JButton();
         title = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1200, 750));
 
@@ -116,6 +114,8 @@ public class ViewInventoryJpanel extends javax.swing.JPanel {
         title.setAlignmentX(740.0F);
         title.setAlignmentY(245.0F);
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/inventory.png"))); // NOI18N
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -128,19 +128,24 @@ public class ViewInventoryJpanel extends javax.swing.JPanel {
                         .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(144, 144, 144)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel1)))
                 .addContainerGap(444, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back)
                     .addComponent(title))
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(430, Short.MAX_VALUE))
+                .addContainerGap(353, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -158,14 +163,14 @@ public class ViewInventoryJpanel extends javax.swing.JPanel {
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
         userProcessContainer.remove(this);
-        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
     private javax.swing.JTable drugquantity;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JLabel title;

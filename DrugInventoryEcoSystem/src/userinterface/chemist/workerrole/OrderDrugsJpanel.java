@@ -36,7 +36,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     private ChemistEnterprise enterprise;
     private static final Logger log = LogManager.getLogger(OrderDrugsJpanel.class);
-    
+
     public OrderDrugsJpanel(JPanel userProcessContainer, UserAccount account, Enterprise enterprise) {
         initComponents();
         this.setSize(1200, 750);
@@ -67,6 +67,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButtonCheckInventory = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1200, 750));
 
@@ -126,20 +127,15 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/order.png"))); // NOI18N
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(1017, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(183, 183, 183))
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(back)
-                        .addGap(300, 300, 300)
-                        .addComponent(jLabel2))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(230, 230, 230)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -149,13 +145,27 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
                                 .addComponent(jButtonCheckInventory)
                                 .addGap(75, 75, 75)
                                 .addComponent(addRow))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 20, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(back))
+                        .addGap(300, 300, 300)
+                        .addComponent(jLabel2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 262, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(183, 183, 183))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(359, 359, 359))
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(back))
@@ -166,9 +176,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
                     .addComponent(submit)
                     .addComponent(addRow)
                     .addComponent(jButtonCheckInventory))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(359, 359, 359))
+                .addContainerGap(339, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -261,7 +269,6 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
         log.info("Checking Inventory");
     }//GEN-LAST:event_jButtonCheckInventoryActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addRow;
     private javax.swing.JButton back;
@@ -269,6 +276,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
     private javax.swing.JButton jButtonCheckInventory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JButton submit;
