@@ -138,14 +138,14 @@ public class ViewOrderjpanel extends javax.swing.JPanel {
                         .addGap(144, 144, 144)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(413, 413, 413)
-                        .addComponent(jButtonCheckInventory))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(back))
                         .addGap(294, 294, 294)
-                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(373, 373, 373)
+                        .addComponent(jButtonCheckInventory)))
                 .addContainerGap(444, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(

@@ -103,6 +103,7 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
         kGradientPanel1.setkEndColor(new java.awt.Color(102, 204, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(183, 248, 230));
         kGradientPanel1.setPreferredSize(new java.awt.Dimension(1200, 750));
+        kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         workRequestJTable.setBackground(new java.awt.Color(153, 255, 255));
         workRequestJTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -143,12 +144,15 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
             workRequestJTable.getColumnModel().getColumn(3).setResizable(false);
         }
 
+        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 172, 669, 245));
+
         viewRequest.setText("View");
         viewRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewRequestActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(viewRequest, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 427, 160, -1));
 
         reject.setText("Reject");
         reject.addActionListener(new java.awt.event.ActionListener() {
@@ -156,11 +160,13 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
                 rejectActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(reject, new org.netbeans.lib.awtextra.AbsoluteConstraints(659, 462, 110, -1));
 
         title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         title.setText("Title");
         title.setAlignmentX(740.0F);
         title.setAlignmentY(245.0F);
+        kGradientPanel1.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 130, 554, -1));
 
         sendToSupplier.setText("Check Legal Status");
         sendToSupplier.addActionListener(new java.awt.event.ActionListener() {
@@ -168,6 +174,7 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
                 checkStatus(evt);
             }
         });
+        kGradientPanel1.add(sendToSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 462, -1, -1));
 
         approve.setText("Approve");
         approve.addActionListener(new java.awt.event.ActionListener() {
@@ -175,51 +182,10 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
                 approveActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(approve, new org.netbeans.lib.awtextra.AbsoluteConstraints(659, 427, 110, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/legal.png"))); // NOI18N
-
-        javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
-        kGradientPanel1.setLayout(kGradientPanel1Layout);
-        kGradientPanel1Layout.setHorizontalGroup(
-            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addComponent(viewRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(92, 92, 92)
-                                .addComponent(approve)
-                                .addGap(73, 73, 73)
-                                .addComponent(sendToSupplier)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(reject, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel1)))
-                .addContainerGap(401, Short.MAX_VALUE))
-        );
-        kGradientPanel1Layout.setVerticalGroup(
-            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel1)
-                .addGap(37, 37, 37)
-                .addComponent(title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewRequest)
-                    .addComponent(sendToSupplier)
-                    .addComponent(approve)
-                    .addComponent(reject))
-                .addContainerGap(262, Short.MAX_VALUE))
-        );
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 29, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
