@@ -217,21 +217,19 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
         }
 
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
-        if (!(request.getStatus().equals(Constants.ManagerApprove) || request.getStatus().equals(Constants.chemistCoworkerSendForApproval))) {
-            if (!request.getStatus().equals(Constants.resentToChemist)) {
-                Organization org = null;
-                for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-                    if (organization instanceof ManagerOrganization) {
-                        org = organization;
-                        org.getWorkQueue().getWorkRequestList().add(request);
-                    }
+//        if (!(request.getStatus().equals(Constants.ManagerApprove) || request.getStatus().equals(Constants.chemistCoworkerSendForApproval))) {
+        if (request.getStatus().equals(Constants.ManagerReject) || request.getStatus().equals(Constants.chemistCoworkerRequestCreated) || 
+                request.getStatus().equals(Constants.rejectedByLegal) || request.getStatus().equals(Constants.orderCannotBeFullfilled)){
+            Organization org = null;
+            for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (organization instanceof ManagerOrganization) {
+                    org = organization;
+                    org.getWorkQueue().getWorkRequestList().add(request);
                 }
-                request.setStatus(Constants.chemistCoworkerSendForApproval);
-                log.info("Request send for Manager's Approval");
-                populateRequestTable();
-            } else {
-                JOptionPane.showMessageDialog(null, "Order is completed");
             }
+            request.setStatus(Constants.chemistCoworkerSendForApproval);
+            log.info("Request send for Manager's Approval");
+            populateRequestTable();
         } else {
             JOptionPane.showMessageDialog(null, "Already request send");
             return;

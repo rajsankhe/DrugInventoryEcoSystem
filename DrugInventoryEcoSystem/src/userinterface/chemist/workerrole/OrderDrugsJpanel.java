@@ -201,7 +201,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
             for (int i = 0; i < nRow; i++) {
                 if (!(model.getValueAt(i, 0).equals("") || model.getValueAt(i, 1).equals(""))) {
                     String drugName = String.valueOf(model.getValueAt(i, 0));
-                    if (orderList.stream().noneMatch(d -> d.getName().equals(drugName))) {
+                    if (orderList.stream().noneMatch(d -> d.getName().equalsIgnoreCase(drugName))) {
                         Drug newDrug = new Drug();
                         newDrug.setName(String.valueOf(model.getValueAt(i, 0)));
                         newDrug.setQuantity(Integer.parseInt((String) model.getValueAt(i, 1)));
