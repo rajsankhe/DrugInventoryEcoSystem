@@ -84,6 +84,7 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
         sendToChemist = new javax.swing.JButton();
         messageLabel = new javax.swing.JLabel();
         back = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         kGradientPanel1.setkEndColor(new java.awt.Color(102, 204, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(183, 248, 230));
@@ -143,7 +144,6 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
 
         messageLabel.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         messageLabel.setForeground(new java.awt.Color(51, 51, 255));
-        messageLabel.setText("Hii");
 
         back.setText("<< Back");
         back.addActionListener(new java.awt.event.ActionListener() {
@@ -152,6 +152,8 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/supplier.png"))); // NOI18N
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -159,7 +161,7 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
+                        .addGap(174, 174, 174)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -170,14 +172,18 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
                                     .addComponent(sendToChemist))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(back)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                        .addGap(17, 17, 17)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(back))))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(back)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(title)
@@ -185,26 +191,26 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
                 .addComponent(messageLabel)
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
+                .addGap(20, 20, 20)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(requestBid)
-                    .addComponent(sendToChemist))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(sendToChemist)
+                    .addComponent(requestBid))
+                .addContainerGap(311, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 783, Short.MAX_VALUE)
+            .addGap(0, 984, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE))
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 984, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 524, Short.MAX_VALUE)
+            .addGap(0, 807, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE))
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -317,6 +323,7 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JLabel messageLabel;

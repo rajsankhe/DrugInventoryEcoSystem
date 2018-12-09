@@ -39,7 +39,7 @@ public class AssignToManufacturer extends javax.swing.JPanel {
     private WorkRequestDrugs request;
     private Enterprise enterprise;
     private static final Logger log = LogManager.getLogger(AssignToManufacturer.class);
-    
+
     public AssignToManufacturer(JPanel userProcessContainer, EcoSystem ecosystem, WorkRequestDrugs request, Enterprise enterprise,
             Map<String, int[]> requestOrSend) {
         initComponents();
@@ -263,6 +263,7 @@ public class AssignToManufacturer extends javax.swing.JPanel {
                 .findAny()
                 .orElse(null);
         if (networkDropdown.getSelectedItem() != null && enterpriseDropdown.getSelectedItem() != null) {
+
             String enterpriseName = enterpriseDropdown.getSelectedItem().toString();
             List<Enterprise> enterpriseList = networkSelected.getEnterpriseDirectory().getEnterpriseList().stream().
                     filter(enterprise -> enterprise instanceof ManufacturerEnterprise).collect(Collectors.toList());
@@ -270,22 +271,33 @@ public class AssignToManufacturer extends javax.swing.JPanel {
                     .filter(enterprise -> enterpriseName.equals(enterprise.getName()))
                     .findAny()
                     .orElse(null);
+
             Organization org = null;
+            boolean isWorkRequestAssigned = false;
             for (Organization organization : enterpriseSelected.getOrganizationDirectory().getOrganizationList()) {
                 if (organization instanceof ProducerOrganization) {
+                    isWorkRequestAssigned = true;
                     org = organization;
                     org.getWorkQueue().getWorkRequestList().add(request);
                 }
             }
-            request.setStatus(Constants.sentToManufacturer);
-            request.setSender(request.getReceiver());
-            request.setReceiver(null);
-            request.getEnterpriseStack().push(this.enterprise);
-            JOptionPane.showMessageDialog(null, "Request send to manufacturer");
-            log.info("Request send to manufacturer");
-            
+
+            if (isWorkRequestAssigned) {
+                request.setStatus(Constants.sentToManufacturer);
+                request.setSender(request.getReceiver());
+                request.setReceiver(null);
+                request.getEnterpriseStack().push(this.enterprise);
+                JOptionPane.showMessageDialog(null, "Request send to manufacturer");
+                log.info("Request send to manufacturer");
+            } else {
+                JOptionPane.showMessageDialog(null, "No Manufacturer organizations exists in the selected Enterprise. Request assingment failed");
+                log.info("No Manufacturer organizations exists in the selected Enterprise. Request assingment failed");
+                return;
+            }
+
         } else {
             JOptionPane.showMessageDialog(null, "Request cannot be fulfilled");
+            log.info("Request cannot be fulfilled");
         }
 
         // Removing the current screen from the stack
