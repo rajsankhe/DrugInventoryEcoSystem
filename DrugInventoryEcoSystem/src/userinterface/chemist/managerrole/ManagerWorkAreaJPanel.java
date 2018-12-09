@@ -361,6 +361,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
 
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         if (request.getReceiver() == userAccount) {
+            if(!request.getStatus().equalsIgnoreCase(Constants.ManagerApprove)){
             request.setStatus(Constants.ManagerApprove);
             JFrame frame = new JFrame();
             String message = (String) JOptionPane.showInputDialog(frame,
@@ -369,6 +370,10 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
                     JOptionPane.OK_CANCEL_OPTION);
             request.setMessage(message);
             populateRequestTable();
+            }
+            else{
+               JOptionPane.showMessageDialog(null, "Request already approved."); 
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Assign request to you.");
         }
