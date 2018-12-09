@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -33,7 +35,8 @@ public class AssignToSupplier extends javax.swing.JPanel {
     private EcoSystem ecosystem;
     private WorkRequestDrugs request;
     private Enterprise enterprise;
-
+    private static final Logger log = LogManager.getLogger(AssignToSupplier.class);
+    
     public AssignToSupplier(JPanel userProcessContainer, EcoSystem ecosystem, WorkRequestDrugs request, Enterprise enterprise) {
         initComponents();
         networkDropdown.removeAllItems();
@@ -227,6 +230,7 @@ public class AssignToSupplier extends javax.swing.JPanel {
             managerWorkAreaJPanel.populateRequestTable();
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             layout.previous(userProcessContainer);
+            log.info("Request Send to supplier");
 
         } else {
             JOptionPane.showMessageDialog(null, "Request cannot be fulfilled");

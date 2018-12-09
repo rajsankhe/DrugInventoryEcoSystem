@@ -26,6 +26,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import userinterface.analysis.showAnalysisJpanel;
 
 /**
@@ -43,7 +45,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     private Network network;
     private EcoSystem ecosystem;
-
+    private static final Logger log = LogManager.getLogger(ApproverWorkAreaJPanel.class);
     public ApproverWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ApproverOrganization organization, Enterprise enterprise, EcoSystem ecosystem, Network network) {
         initComponents();
         this.setSize(1680, 1050);
@@ -336,6 +338,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
                 /* CardLayout layout = (CardLayout) userProcessContainer.getLayout();
                  userProcessContainer.add("ChooseSupplier", new AssignToSupplier(userProcessContainer,ecosystem, request ));
                  layout.next(userProcessContainer);*/
+                log.info("Request send to legal");
             } else {
                 JOptionPane.showMessageDialog(null, "Assign request to you.");
             }
@@ -412,6 +415,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         userProcessContainer.add("showStatistics", new showAnalysisJpanel(userProcessContainer, enterprise.getInventory()));
         layout.next(userProcessContainer);
+        log.info("Show Statistics");
     }//GEN-LAST:event_showStatisticsButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
