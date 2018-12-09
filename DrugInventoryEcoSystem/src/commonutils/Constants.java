@@ -13,8 +13,8 @@ public class Constants {
 
     public static final String chemistCoworkerSendForApproval = "Pending Approval";
     public static final String chemistCoworkerRequestCreated = "Not send for Approval";
-    public static final String Approve = "Approved";
-    public static final String Reject = "Rejected";
+    public static final String ManagerApprove = "Approved";
+    public static final String ManagerReject = "Rejected";
     public static final String sentToSupplier = "Sent to supplier";
     public static final String sentToLegal = "Sent for Legal Check";
     public static final String rejectedByLegal = "Rejected by Legal";
@@ -24,6 +24,5 @@ public class Constants {
     public static String sentToManufacturer = "Sent to Manufacturer";
     public static String priceUpdatedByManufacturer = "Order updated with prices";
     public static String processedByManufacturer = "Processed by Manufacturer";
-    public static final String legalCheckApi = "http://localhost:3000/legalcheck/";
     public static String orderCannotBeFullfilled= "Order Cannot be fulfilled";
 }
