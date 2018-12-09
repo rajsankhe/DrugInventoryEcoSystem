@@ -31,7 +31,7 @@ public abstract class Role {
         Manager("Manager"),
         Approver("Approver"),
         Validator("Validator"),
-        Producer("Prod");
+        Producer("Producer");
 
         private String value;
 

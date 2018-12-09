@@ -268,8 +268,8 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         } else {
             Organization organization = (Organization) organizationJTable.getValueAt(selectedRow, 1);
             if (organization.getUserAccountDirectory().getUserAccountList().size() > 0) {
-                JOptionPane.showMessageDialog(null, "Organization has user account which are active. Please remove them first");
-                log.info("Organization has user account which are active. Please remove them first");
+                JOptionPane.showMessageDialog(null, "Organization has user account which are active");
+                log.info("Organization has user account which are active");
                 return;
             }
 
