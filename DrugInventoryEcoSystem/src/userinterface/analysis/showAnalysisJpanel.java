@@ -15,7 +15,6 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
@@ -29,6 +28,7 @@ public class showAnalysisJpanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private Inventory inventory;
+
     public showAnalysisJpanel(JPanel userProcessContainer, Inventory inventory) {
         initComponents();
         this.setSize(1200, 750);
@@ -36,10 +36,10 @@ public class showAnalysisJpanel extends javax.swing.JPanel {
         this.inventory = inventory;
         showInventoryGraph();
     }
-    
-    public void showInventoryGraph(){
+
+    public void showInventoryGraph() {
         DefaultCategoryDataset datasetInventory = new DefaultCategoryDataset();
-        for(Drug drug : inventory.getDrugStock()){
+        for (Drug drug : inventory.getDrugStock()) {
             datasetInventory.setValue(drug.getQuantity(), "", drug.getName());
         }
         JFreeChart chart = ChartFactory.createBarChart("Inventory Stock", "Drugs", "quantity", datasetInventory);
@@ -49,9 +49,9 @@ public class showAnalysisJpanel extends javax.swing.JPanel {
         chartJpanel.removeAll();
         chartJpanel.add(chartPanel, BorderLayout.CENTER);
         chartJpanel.validate();
-        
-        
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -98,11 +98,11 @@ public class showAnalysisJpanel extends javax.swing.JPanel {
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addComponent(back)
                         .addGap(188, 188, 188)
-                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(chartJpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,7 +111,7 @@ public class showAnalysisJpanel extends javax.swing.JPanel {
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(back)
                     .addComponent(title))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(chartJpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
         );
@@ -131,10 +131,9 @@ public class showAnalysisJpanel extends javax.swing.JPanel {
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
         userProcessContainer.remove(this);
-        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;

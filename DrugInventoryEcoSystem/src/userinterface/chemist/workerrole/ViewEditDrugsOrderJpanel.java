@@ -31,7 +31,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private WorkRequestDrugs workRequestDrugs;
     private static final Logger log = LogManager.getLogger(ViewEditDrugsOrderJpanel.class);
-    
+
     public ViewEditDrugsOrderJpanel(JPanel userProcessContainer, WorkRequestDrugs workRequestDrugs, boolean orderPros) {
         initComponents();
         //drugquantity.setEnabled(false);
@@ -61,8 +61,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         this.setSize(1200, 750);
         this.userProcessContainer = userProcessContainer;
         this.workRequestDrugs = workRequestDrugs;
-        if(orderPros== true)
-        {
+        if (orderPros == true) {
             update.setEnabled(false);
         }
         populateRequestTable();
@@ -92,6 +91,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         addRow = new javax.swing.JButton();
         save = new javax.swing.JButton();
         back = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1200, 750));
 
@@ -154,11 +154,14 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/edit.png"))); // NOI18N
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGap(80, 80, 80)
@@ -171,15 +174,19 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
                                 .addComponent(save))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(back)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(back))
                         .addGap(184, 184, 184)
                         .addComponent(jLabel1)))
-                .addGap(485, 485, 485))
+                .addContainerGap(414, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(back))
@@ -190,14 +197,14 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
                     .addComponent(update)
                     .addComponent(addRow)
                     .addComponent(save))
-                .addContainerGap(362, Short.MAX_VALUE))
+                .addContainerGap(314, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1265, Short.MAX_VALUE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,17 +253,15 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "Double entries of " + drugName + " is not allowed.");
                         return;
                     }
-                }
-                else{
-                    if(!(model.getValueAt(i, 0).equals("") && model.getValueAt(i, 1).equals(""))){
-                    if(model.getValueAt(i, 0).equals("")){
-                        JOptionPane.showMessageDialog(null, "Enter drug name");
-                        return;
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(null, "Enter quantity of drug");
-                        return;
-                    }
+                } else {
+                    if (!(model.getValueAt(i, 0).equals("") && model.getValueAt(i, 1).equals(""))) {
+                        if (model.getValueAt(i, 0).equals("")) {
+                            JOptionPane.showMessageDialog(null, "Enter drug name");
+                            return;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Enter quantity of drug");
+                            return;
+                        }
                     }
                 }
             }
@@ -285,6 +290,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
     private javax.swing.JButton back;
     private javax.swing.JTable drugquantity;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JButton save;

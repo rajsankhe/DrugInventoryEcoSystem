@@ -8,7 +8,6 @@ package userinterface.chemist.managerrole;
 import business.EcoSystem;
 import business.enterprise.ChemistEnterprise;
 import business.enterprise.Enterprise;
-import business.enterprise.SupplierEnterprise;
 import business.organization.chemist.ManagerOrganization;
 import business.useraccount.UserAccount;
 import business.workqueue.WorkRequest;
@@ -23,7 +22,6 @@ import javax.swing.table.DefaultTableModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import userinterface.analysis.showAnalysisJpanel;
-import userinterface.chemist.workerrole.OrderDrugsJpanel;
 
 /**
  *
@@ -40,7 +38,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     private EcoSystem ecosystem;
     private static final Logger log = LogManager.getLogger(ManagerWorkAreaJPanel.class);
-    
+
     public ManagerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ManagerOrganization organization, Enterprise enterprise, EcoSystem ecosystem) {
         initComponents();
         this.setSize(1200, 750);
@@ -90,6 +88,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         sendToSupplier = new javax.swing.JButton();
         approve = new javax.swing.JButton();
         showStatisticsButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         kGradientPanel1.setkEndColor(new java.awt.Color(102, 204, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(183, 248, 230));
@@ -181,34 +180,43 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/supplier.png"))); // NOI18N
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                            .addComponent(assignToMe)
-                            .addGap(41, 41, 41)
-                            .addComponent(viewRequest)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(approve)
-                            .addGap(51, 51, 51)
-                            .addComponent(sendToSupplier)
-                            .addGap(55, 55, 55)
-                            .addComponent(reject))
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(showStatisticsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(462, Short.MAX_VALUE))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(108, 108, 108)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                    .addComponent(assignToMe)
+                                    .addGap(41, 41, 41)
+                                    .addComponent(viewRequest)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(approve)
+                                    .addGap(51, 51, 51)
+                                    .addComponent(sendToSupplier)
+                                    .addGap(55, 55, 55)
+                                    .addComponent(reject))
+                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(showStatisticsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel1)))
+                .addContainerGap(378, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(36, 36, 36)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addComponent(title)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,7 +229,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(approve))
                 .addGap(26, 26, 26)
                 .addComponent(showStatisticsButton)
-                .addContainerGap(296, Short.MAX_VALUE))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -250,16 +258,13 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Please select row");
             return;
         }
-        
+
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         if (request.getReceiver() == null) {
-            if((Constants.chemistCoworkerSendForApproval).equals(request.getStatus()))
-            {
+            if ((Constants.chemistCoworkerSendForApproval).equals(request.getStatus())) {
                 request.setReceiver(userAccount);
                 populateRequestTable();
-            }
-            else
-            {
+            } else {
                 JOptionPane.showMessageDialog(null, "Request is processed");
                 return;
             }
@@ -322,22 +327,21 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         }
 
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
-        if((Constants.chemistCoworkerSendForApproval).equals(request.getStatus()))
-            {
-                if (request.getReceiver() == userAccount) {
-                    request.setStatus(Constants.Reject);
-                    JFrame frame = new JFrame();
-                    String message = (String) JOptionPane.showInputDialog(frame,
-                            "Enter the message",
-                            Constants.Reject + " message",
-                            JOptionPane.OK_CANCEL_OPTION);
-                    request.setMessage(message);
+        if ((Constants.chemistCoworkerSendForApproval).equals(request.getStatus())) {
+            if (request.getReceiver() == userAccount) {
+                request.setStatus(Constants.Reject);
+                JFrame frame = new JFrame();
+                String message = (String) JOptionPane.showInputDialog(frame,
+                        "Enter the message",
+                        Constants.Reject + " message",
+                        JOptionPane.OK_CANCEL_OPTION);
+                request.setMessage(message);
 
-                    organization.getWorkQueue().getWorkRequestList().remove(request);
-                    populateRequestTable();
-            }else {
-                    JOptionPane.showMessageDialog(null, "Assign request to you.");
-                }
+                organization.getWorkQueue().getWorkRequestList().remove(request);
+                populateRequestTable();
+            } else {
+                JOptionPane.showMessageDialog(null, "Assign request to you.");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Request is processed");
         }
@@ -372,15 +376,16 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
 
     private void showStatisticsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showStatisticsButtonActionPerformed
         // TODO add your handling code here:
-            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            ChemistEnterprise chemistEnterprise = (ChemistEnterprise) enterprise;
-            userProcessContainer.add("showStatistics", new showAnalysisJpanel(userProcessContainer, chemistEnterprise.getInventory()));
-            layout.next(userProcessContainer);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        ChemistEnterprise chemistEnterprise = (ChemistEnterprise) enterprise;
+        userProcessContainer.add("showStatistics", new showAnalysisJpanel(userProcessContainer, chemistEnterprise.getInventory()));
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_showStatisticsButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton approve;
     private javax.swing.JButton assignToMe;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JButton reject;
