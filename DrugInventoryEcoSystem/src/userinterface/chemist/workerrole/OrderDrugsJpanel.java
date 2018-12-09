@@ -204,7 +204,12 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
                     if (orderList.stream().noneMatch(d -> d.getName().equalsIgnoreCase(drugName))) {
                         Drug newDrug = new Drug();
                         newDrug.setName(String.valueOf(model.getValueAt(i, 0)));
-                        newDrug.setQuantity(Integer.parseInt((String) model.getValueAt(i, 1)));
+                        int quantity = Integer.parseInt((String) model.getValueAt(i, 1));
+                        if(quantity <= 0){
+                        JOptionPane.showMessageDialog(null, "Quantiy should be greater than zero.");
+                        return; 
+                        }
+                        newDrug.setQuantity(quantity);
                         orderList.add(newDrug);
                     } else {
                         JOptionPane.showMessageDialog(null, "Double entries of " + drugName + " is not allowed.");

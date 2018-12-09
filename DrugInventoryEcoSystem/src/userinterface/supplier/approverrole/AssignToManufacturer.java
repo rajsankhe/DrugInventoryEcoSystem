@@ -256,7 +256,10 @@ public class AssignToManufacturer extends javax.swing.JPanel {
         for (int i = 0; i < workRequestJTable.getRowCount(); i++) {
             String drugName = (String) workRequestJTable.getValueAt(i, 0);
             int manufacturerQuantity = (Integer) workRequestJTable.getValueAt(i, 3);
-
+                        if(manufacturerQuantity <= 0){
+                        JOptionPane.showMessageDialog(null, "Quantiy should be greater than zero.");
+                        return; 
+                        }
             for (Drug drug : request.getDrugsOrderList()) {
                 if (drug.getName().equalsIgnoreCase(drugName)) {
                     drug.setRequestCountFromMan(manufacturerQuantity);
