@@ -48,7 +48,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         drugquantity.setSize(300, 64);
         this.userProcessContainer = userProcessContainer;
         this.workRequestDrugs = workRequestDrugs;
-        if ((workRequestDrugs.getStatus().equals(Constants.Approve) || workRequestDrugs.getStatus().equals(Constants.chemistCoworkerSendForApproval))) {
+        if ((workRequestDrugs.getStatus().equals(Constants.ManagerApprove) || workRequestDrugs.getStatus().equals(Constants.chemistCoworkerSendForApproval))) {
             update.setEnabled(false);
         }
         drugquantity.setShowGrid(true);

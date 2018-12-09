@@ -300,7 +300,7 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
 
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         if (!(Constants.sentToSupplier).equalsIgnoreCase(request.getStatus())) {
-            if (!(Constants.Approve).equalsIgnoreCase(request.getStatus())) {
+            if (!(Constants.ManagerApprove).equalsIgnoreCase(request.getStatus())) {
                 JOptionPane.showMessageDialog(null, "Request Approved can only be send to Supplier");
                 return;
             } else {
@@ -329,11 +329,11 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         if ((Constants.chemistCoworkerSendForApproval).equals(request.getStatus())) {
             if (request.getReceiver() == userAccount) {
-                request.setStatus(Constants.Reject);
+                request.setStatus(Constants.ManagerReject);
                 JFrame frame = new JFrame();
                 String message = (String) JOptionPane.showInputDialog(frame,
                         "Enter the message",
-                        Constants.Reject + " message",
+                        Constants.ManagerReject + " message",
                         JOptionPane.OK_CANCEL_OPTION);
                 request.setMessage(message);
 
@@ -361,11 +361,11 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
 
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         if (request.getReceiver() == userAccount) {
-            request.setStatus(Constants.Approve);
+            request.setStatus(Constants.ManagerApprove);
             JFrame frame = new JFrame();
             String message = (String) JOptionPane.showInputDialog(frame,
                     "Enter the message",
-                    Constants.Approve + " message",
+                    Constants.ManagerApprove + " message",
                     JOptionPane.OK_CANCEL_OPTION);
             request.setMessage(message);
             populateRequestTable();

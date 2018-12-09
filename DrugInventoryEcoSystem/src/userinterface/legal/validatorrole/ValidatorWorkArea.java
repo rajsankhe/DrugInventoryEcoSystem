@@ -44,6 +44,7 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
     private Enterprise enterprise;
     private UserAccount userAccount;
     private static final Logger log = LogManager.getLogger(ValidatorWorkArea.class);
+    public static final String legalCheckApi = "http://localhost:3000/legalcheck/";
 
     public ValidatorWorkArea(JPanel userProcessContainer, UserAccount account, ValidatorOrganization organization, Enterprise enterprise) {
         initComponents();
@@ -270,7 +271,7 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
             for (Drug drug : request.getDrugsOrderList()) {
                 orderedDrugs.add(drug.getName());
             }
-            String legalCheckURL = Constants.legalCheckApi + chemist;
+            String legalCheckURL = legalCheckApi + chemist;
             URL url = new URL(legalCheckURL);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");

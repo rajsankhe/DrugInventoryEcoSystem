@@ -217,7 +217,7 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
         }
 
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
-        if (!(request.getStatus().equals(Constants.Approve) || request.getStatus().equals(Constants.chemistCoworkerSendForApproval))) {
+        if (!(request.getStatus().equals(Constants.ManagerApprove) || request.getStatus().equals(Constants.chemistCoworkerSendForApproval))) {
             if (!request.getStatus().equals(Constants.resentToChemist)) {
                 Organization org = null;
                 for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
