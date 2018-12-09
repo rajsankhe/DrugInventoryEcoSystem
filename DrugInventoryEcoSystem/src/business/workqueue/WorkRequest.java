@@ -27,9 +27,8 @@ public class WorkRequest {
     private Stack<Enterprise> enterpriseStack;
 
     public enum workRequestType {
-        Bid("Bid"),
-        Drugs("Drugs"),
-        Quotation("Quotation");
+        
+        Drugs("Drugs");
 
         private String value;
 
