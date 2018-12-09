@@ -152,7 +152,7 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
                 viewRequestActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(viewRequest, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 427, 160, -1));
+        kGradientPanel1.add(viewRequest, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 427, 170, -1));
 
         reject.setText("Reject");
         reject.addActionListener(new java.awt.event.ActionListener() {
@@ -160,7 +160,7 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
                 rejectActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(reject, new org.netbeans.lib.awtextra.AbsoluteConstraints(659, 462, 110, -1));
+        kGradientPanel1.add(reject, new org.netbeans.lib.awtextra.AbsoluteConstraints(609, 462, 160, -1));
 
         title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         title.setText("Title");
@@ -174,7 +174,7 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
                 checkStatus(evt);
             }
         });
-        kGradientPanel1.add(sendToSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 462, -1, -1));
+        kGradientPanel1.add(sendToSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 462, 170, -1));
 
         approve.setText("Approve");
         approve.addActionListener(new java.awt.event.ActionListener() {
@@ -182,7 +182,7 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
                 approveActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(approve, new org.netbeans.lib.awtextra.AbsoluteConstraints(659, 427, 110, -1));
+        kGradientPanel1.add(approve, new org.netbeans.lib.awtextra.AbsoluteConstraints(609, 427, 160, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/legal.png"))); // NOI18N
         kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 29, -1, -1));

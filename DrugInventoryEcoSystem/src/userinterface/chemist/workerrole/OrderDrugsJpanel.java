@@ -143,7 +143,7 @@ public class OrderDrugsJpanel extends javax.swing.JPanel {
                                 .addComponent(submit)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButtonCheckInventory)
-                                .addGap(75, 75, 75)
+                                .addGap(90, 90, 90)
                                 .addComponent(addRow))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
