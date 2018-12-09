@@ -29,16 +29,10 @@ public class WorkQueue {
         //Generating ID for workRequest using UUID
         UUID uuid = UUID.randomUUID();
 
-        if (wRequestType == WorkRequest.workRequestType.Bid) {
-            //workRequest = new WorkRequestBid(workRequestList.size());
-            workRequest = new WorkRequestBid(uuid.toString());
-        } else if (wRequestType == WorkRequest.workRequestType.Drugs) {
+         if (wRequestType == WorkRequest.workRequestType.Drugs) {
             //workRequest = new WorkRequestDrugs(workRequestList.size());
             workRequest = new WorkRequestDrugs(uuid.toString());
-        } else if (wRequestType == WorkRequest.workRequestType.Quotation) {
-            //workRequest = new WorkRequestQuotation(workRequestList.size());
-            workRequest = new WorkRequestQuotation(uuid.toString());
-        }
+        } 
         this.workRequestList.add(workRequest);
         return workRequest;
     }
