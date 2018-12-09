@@ -221,7 +221,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
                 deleteAdminjButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(deleteAdminjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 430, -1, -1));
+        kGradientPanel1.add(deleteAdminjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 430, -1, 30));
 
         add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 750));
     }// </editor-fold>//GEN-END:initComponents
@@ -358,10 +358,18 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
             Network network = (Network) enterpriseJTable.getValueAt(selectedRow, 1);
             UserAccount userAccount = (UserAccount) enterpriseJTable.getValueAt(selectedRow, 2);
 
+            //Checking whether there are more than 1 admins for this Enterprise.
+            if (enterprise.getUserAccountDirectory().getUserAccountList().size() < 2) {
+                JOptionPane.showMessageDialog(null, "The Enterprise does not have any other admin. Please create an admin and then delete this admin");
+                log.info("The Enterprise does not have any other admin. Please create an admin and then delete this admin");
+                return;
+            }
+
             int selectionButton = JOptionPane.YES_NO_OPTION;
             int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure to delete?", "Warning", selectionButton);
             if (selectionResult == JOptionPane.YES_OPTION) {
                 //can delete the network now.
+
                 enterprise.getUserAccountDirectory().removeUserAccout(userAccount);
             }
             populateTable();

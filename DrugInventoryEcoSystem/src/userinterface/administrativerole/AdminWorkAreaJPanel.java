@@ -71,14 +71,20 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, -1, 108));
 
         userJButton.setText("Manage User");
+        userJButton.setMaximumSize(new java.awt.Dimension(177, 29));
+        userJButton.setMinimumSize(new java.awt.Dimension(177, 29));
+        userJButton.setPreferredSize(new java.awt.Dimension(177, 29));
         userJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userJButtonActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(userJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 560, 230, 90));
+        kGradientPanel1.add(userJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 550, 230, 100));
 
         manageEmployeeJButton.setText("Manage Employee");
+        manageEmployeeJButton.setMaximumSize(new java.awt.Dimension(177, 29));
+        manageEmployeeJButton.setMinimumSize(new java.awt.Dimension(177, 29));
+        manageEmployeeJButton.setPreferredSize(new java.awt.Dimension(177, 29));
         manageEmployeeJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageEmployeeJButtonActionPerformed(evt);
