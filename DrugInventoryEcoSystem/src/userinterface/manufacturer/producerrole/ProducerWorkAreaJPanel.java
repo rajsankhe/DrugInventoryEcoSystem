@@ -334,8 +334,10 @@ public class ProducerWorkAreaJPanel extends javax.swing.JPanel {
 
                 if (!foundDrugInInventory) {
                     //Drug not found in inventory. Add this drug to inventory
-                    drug.setQuantity(drug.getRequestCountFromMan());
-                    supplierEnterprise.getInventory().getDrugStock().add(drug);
+                    Drug newDrug = new Drug();
+                    newDrug.setName(drug.getName());
+                    newDrug.setQuantity(drug.getRequestCountFromMan());
+                    supplierEnterprise.getInventory().getDrugStock().add(newDrug);
                 }
 
             }
