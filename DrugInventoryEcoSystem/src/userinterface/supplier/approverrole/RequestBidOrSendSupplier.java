@@ -321,6 +321,10 @@ public class RequestBidOrSendSupplier extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backActionPerformed
 
+    public void disableButton() {
+        requestBid.setEnabled(false);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
     private javax.swing.JLabel jLabel1;

@@ -317,6 +317,10 @@ public class AssignToManufacturer extends javax.swing.JPanel {
         userProcessContainer.remove(this);
         // Removing the RequestBidOrSendSupplier screen from the stack
         Component[] componentArray = userProcessContainer.getComponents();
+        Component componentPrev = componentArray[componentArray.length - 1]; //Taking two as we will skip a screen in between
+        RequestBidOrSendSupplier requestBidOrSendSupplier = (RequestBidOrSendSupplier) componentPrev;
+        requestBidOrSendSupplier.disableButton();
+
         Component component = componentArray[componentArray.length - 2]; //Taking two as we will skip a screen in between
         ApproverWorkAreaJPanel approverWorkAreaJPanel = (ApproverWorkAreaJPanel) component;
         approverWorkAreaJPanel.populateRequestTable();
