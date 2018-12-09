@@ -16,8 +16,10 @@ import commonutils.Constants;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,18 +39,36 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
     private static final Logger log = LogManager.getLogger(WorkerWorkAreaJPanel.class);
 
     public WorkerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, WorkerOrganization organization, Enterprise enterprise) {
-        initComponents();
-        this.setSize(1200, 750);
-        ((DefaultTableCellRenderer) workRequestJTable.getDefaultRenderer(Object.class)).setOpaque(false);
-        jScrollPane1.setOpaque(false);
-        jScrollPane1.getViewport().setOpaque(false);
         this.userProcessContainer = userProcessContainer;
         this.organization = organization;
         this.enterprise = enterprise;
         this.userAccount = account;
+        initComponents();
+        jComboBoxFilter.removeAllItems();
+        jComboBoxFilter.addItem("All");
+        jComboBoxFilter.addItem(Constants.chemistCoworkerRequestCreated);
+        jComboBoxFilter.addItem(Constants.chemistCoworkerSendForApproval);
+        jComboBoxFilter.addItem(Constants.ManagerApprove);
+        jComboBoxFilter.addItem(Constants.ManagerReject);
+        jComboBoxFilter.addItem(Constants.sentToSupplier);
+        jComboBoxFilter.addItem(Constants.sentToLegal);
+        jComboBoxFilter.addItem(Constants.rejectedByLegal);
+        jComboBoxFilter.addItem(Constants.acceptedByLegal);
+        jComboBoxFilter.addItem(Constants.requestBid);
+        jComboBoxFilter.addItem(Constants.resentToChemist);
+        jComboBoxFilter.addItem(Constants.sentToManufacturer);
+        jComboBoxFilter.addItem(Constants.priceUpdatedByManufacturer);
+        jComboBoxFilter.addItem(Constants.processedByManufacturer);
+        jComboBoxFilter.addItem(Constants.orderCannotBeFullfilled);
+        this.setSize(1200, 750);
+        ((DefaultTableCellRenderer) workRequestJTable.getDefaultRenderer(Object.class)).setOpaque(false);
+        jScrollPane1.setOpaque(false);
+        jScrollPane1.getViewport().setOpaque(false);
+        
         title.setText("Chemist Worker: " + userAccount.getUsername());
         workRequestJTable.setSize(300, 64);
         populateRequestTable();
+
     }
 
     public void populateRequestTable() {
@@ -82,6 +102,8 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
         send = new javax.swing.JButton();
         title = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jComboBoxFilter = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1200, 750));
 
@@ -155,6 +177,15 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/chemist.png"))); // NOI18N
 
+        jComboBoxFilter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxFilterActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Filter Status By:");
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -168,14 +199,19 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
                         .addGap(67, 67, 67)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                    .addComponent(orderRequest)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(viewRequest)
-                                    .addGap(143, 143, 143)
-                                    .addComponent(send))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 744, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jComboBoxFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                        .addComponent(orderRequest)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(viewRequest)
+                                        .addGap(143, 143, 143)
+                                        .addComponent(send))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 744, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(389, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
@@ -192,7 +228,11 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(orderRequest)
                     .addComponent(viewRequest)
                     .addComponent(send))
-                .addContainerGap(284, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap(224, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -218,8 +258,8 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
 
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
 //        if (!(request.getStatus().equals(Constants.ManagerApprove) || request.getStatus().equals(Constants.chemistCoworkerSendForApproval))) {
-        if (request.getStatus().equals(Constants.ManagerReject) || request.getStatus().equals(Constants.chemistCoworkerRequestCreated) || 
-                request.getStatus().equals(Constants.rejectedByLegal) || request.getStatus().equals(Constants.orderCannotBeFullfilled)){
+        if (request.getStatus().equals(Constants.ManagerReject) || request.getStatus().equals(Constants.chemistCoworkerRequestCreated)
+                || request.getStatus().equals(Constants.rejectedByLegal) || request.getStatus().equals(Constants.orderCannotBeFullfilled)) {
             Organization org = null;
             for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
                 if (organization instanceof ManagerOrganization) {
@@ -260,8 +300,25 @@ public class WorkerWorkAreaJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_orderRequestActionPerformed
 
+    private void jComboBoxFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxFilterActionPerformed
+        // TODO add your handling code here:
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(((DefaultTableModel) workRequestJTable.getModel()));
+        if (jComboBoxFilter.getSelectedItem() != null) {
+            if (!jComboBoxFilter.getSelectedItem().toString().equalsIgnoreCase("All")) {
+                sorter.setRowFilter(RowFilter.regexFilter(jComboBoxFilter.getSelectedItem().toString()));
+                workRequestJTable.setRowSorter(sorter);
+            } else {
+                workRequestJTable.setRowSorter(null);
+            }
+        }
+
+
+    }//GEN-LAST:event_jComboBoxFilterActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox jComboBoxFilter;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JButton orderRequest;
