@@ -43,13 +43,14 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
         jScrollPane1.getViewport().setOpaque(false);
         save.setEnabled(false);
         addRow.setEnabled(false);
-        update.setEnabled(true);
+        update.setEnabled(false);
         drugquantity.setEnabled(false);
         drugquantity.setSize(300, 64);
         this.userProcessContainer = userProcessContainer;
         this.workRequestDrugs = workRequestDrugs;
-        if ((workRequestDrugs.getStatus().equals(Constants.ManagerApprove) || workRequestDrugs.getStatus().equals(Constants.chemistCoworkerSendForApproval))) {
-            update.setEnabled(false);
+        if (workRequestDrugs.getStatus().equals(Constants.ManagerReject) || workRequestDrugs.getStatus().equals(Constants.chemistCoworkerRequestCreated) || 
+                workRequestDrugs.getStatus().equals(Constants.rejectedByLegal) || workRequestDrugs.getStatus().equals(Constants.orderCannotBeFullfilled)){
+            update.setEnabled(true);
         }
         drugquantity.setShowGrid(true);
         //drugquantity.getTableHeader().setOpaque(false);
@@ -244,7 +245,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
             for (int i = 0; i < nRow; i++) {
                 if (!(model.getValueAt(i, 0).equals("") || model.getValueAt(i, 1).equals(""))) {
                     String drugName = String.valueOf(model.getValueAt(i, 0));
-                    if (orderList.stream().noneMatch(d -> d.getName().equals(drugName))) {
+                    if (orderList.stream().noneMatch(d -> d.getName().equalsIgnoreCase(drugName))) {
                         Drug newDrug = new Drug();
                         newDrug.setName(String.valueOf(model.getValueAt(i, 0)));
                         newDrug.setQuantity(Integer.parseInt((String) model.getValueAt(i, 1)));

@@ -20,9 +20,9 @@ public class Constants {
     public static final String rejectedByLegal = "Rejected by Legal";
     public static final String acceptedByLegal = "Accepted by Legal";
     public static final String requestBid = "Bid requestted";
-    public static String resentToChemist = "Order Completed";
-    public static String sentToManufacturer = "Sent to Manufacturer";
-    public static String priceUpdatedByManufacturer = "Order updated with prices";
-    public static String processedByManufacturer = "Processed by Manufacturer";
-    public static String orderCannotBeFullfilled= "Order Cannot be fulfilled";
+    public static final String resentToChemist = "Order Completed";
+    public static final String sentToManufacturer = "Sent to Manufacturer";
+    public static final String priceUpdatedByManufacturer = "Order updated with prices";
+    public static final String processedByManufacturer = "Processed by Manufacturer";
+    public static final String orderCannotBeFullfilled= "Order Cannot be fulfilled";
 }
