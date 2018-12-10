@@ -190,7 +190,6 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         requestOrSend.setMaximumSize(new java.awt.Dimension(129, 29));
         requestOrSend.setMinimumSize(new java.awt.Dimension(129, 29));
         requestOrSend.setPreferredSize(new java.awt.Dimension(129, 29));
-        requestOrSend.setSize(new java.awt.Dimension(129, 29));
         requestOrSend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 requestOrSendActionPerformed(evt);
@@ -232,7 +231,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
                 rejectOrderActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(rejectOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 530, 249, -1));
+        kGradientPanel1.add(rejectOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(149, 530, 240, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -315,8 +314,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         WorkRequestDrugs request = (WorkRequestDrugs) workRequestJTable.getValueAt(selectedRow, 0);
         Organization org = null;
         //request.getEnterpriseStack().add(this.enterprise);
-        if (!(request.getStatus().equals(Constants.sentToLegal) || request.getStatus().equals(Constants.rejectedByLegal)
-                || request.getStatus().equals(Constants.acceptedByLegal))) {
+        if ((request.getStatus().equals(Constants.sentToSupplier))) {
             if (request.getReceiver() == userAccount) {
                 for (Enterprise e : network.getEnterpriseDirectory().getEnterpriseList()) {
                     if (e.getEnterpriseType().equals(Enterprise.EnterpriseType.Legal)) {
@@ -340,7 +338,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Assign request to you.");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Request already send to legal.");
+            JOptionPane.showMessageDialog(null, "Invalid action");
         }
     }//GEN-LAST:event_sendToLegalActionPerformed
 
