@@ -243,6 +243,8 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
             if (conn.getResponseCode() != 200) {
+                log.error("Failed : HTTP error code : "
+                        + conn.getResponseCode());
                 throw new RuntimeException("Failed : HTTP error code : "
                         + conn.getResponseCode());
             }
@@ -264,6 +266,7 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
             }
             boolean rightsToSellDrugs = true;
             String message = "Unauthorized to sell ";
+
             for (String drug : orderedDrugs) {
                 if (!authorizedDrugs.contains(drug.toLowerCase())) {
                     rightsToSellDrugs = false;
@@ -272,15 +275,18 @@ public class ValidatorWorkArea extends javax.swing.JPanel {
             }
             if (rightsToSellDrugs) {
                 JOptionPane.showMessageDialog(null, "Authorized to sell ordered drugs.");
+                log.info("Authorized to sell ordered drugs.");
                 return;
             } else {
                 JOptionPane.showMessageDialog(null, message);
+                log.info(message);
                 return;
             }
 
         } catch (Exception e) {
 
             JOptionPane.showMessageDialog(null, "Api connection failed.");
+            log.error("Api connection failed.", e);
             return;
         } finally {
             conn.disconnect();
