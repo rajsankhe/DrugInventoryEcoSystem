@@ -17,8 +17,10 @@ import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import userinterface.analysis.showAnalysisJpanel;
@@ -41,6 +43,21 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
 
     public ManagerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, ManagerOrganization organization, Enterprise enterprise, EcoSystem ecosystem) {
         initComponents();
+        jComboBoxFilter.removeAllItems();
+        jComboBoxFilter.addItem("All");
+        jComboBoxFilter.addItem(Constants.chemistCoworkerSendForApproval);
+        jComboBoxFilter.addItem(Constants.ManagerApprove);
+        jComboBoxFilter.addItem(Constants.ManagerReject);
+        jComboBoxFilter.addItem(Constants.sentToSupplier);
+        jComboBoxFilter.addItem(Constants.sentToLegal);
+        jComboBoxFilter.addItem(Constants.rejectedByLegal);
+        jComboBoxFilter.addItem(Constants.acceptedByLegal);
+        jComboBoxFilter.addItem(Constants.requestBid);
+        jComboBoxFilter.addItem(Constants.resentToChemist);
+        jComboBoxFilter.addItem(Constants.sentToManufacturer);
+        jComboBoxFilter.addItem(Constants.priceUpdatedByManufacturer);
+        jComboBoxFilter.addItem(Constants.processedByManufacturer);
+        jComboBoxFilter.addItem(Constants.orderCannotBeFullfilled);
         this.setSize(1200, 750);
         ((DefaultTableCellRenderer) workRequestJTable.getDefaultRenderer(Object.class)).setOpaque(false);
         jScrollPane1.setOpaque(false);
@@ -89,6 +106,8 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         approve = new javax.swing.JButton();
         showStatisticsButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBoxFilter = new javax.swing.JComboBox();
 
         kGradientPanel1.setkEndColor(new java.awt.Color(102, 204, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(183, 248, 230));
@@ -182,6 +201,15 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/supplier.png"))); // NOI18N
 
+        jLabel2.setText("Filter Status By:");
+
+        jComboBoxFilter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxFilterActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -212,7 +240,11 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                 .addComponent(showStatisticsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(370, 370, 370)
-                                .addComponent(reject, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(reject, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBoxFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(353, 353, 353))
         );
         kGradientPanel1Layout.setVerticalGroup(
@@ -236,6 +268,10 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(viewRequest)
                     .addComponent(sendToSupplier))
+                .addGap(18, 18, 18)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addContainerGap())
         );
 
@@ -393,10 +429,25 @@ public class ManagerWorkAreaJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_showStatisticsButtonActionPerformed
 
+    private void jComboBoxFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxFilterActionPerformed
+        // TODO add your handling code here:
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(((DefaultTableModel) workRequestJTable.getModel()));
+        if (jComboBoxFilter.getSelectedItem() != null) {
+            if (!jComboBoxFilter.getSelectedItem().toString().equalsIgnoreCase("All")) {
+                sorter.setRowFilter(RowFilter.regexFilter(jComboBoxFilter.getSelectedItem().toString()));
+                workRequestJTable.setRowSorter(sorter);
+            } else {
+                workRequestJTable.setRowSorter(null);
+            }
+        }
+    }//GEN-LAST:event_jComboBoxFilterActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton approve;
     private javax.swing.JButton assignToMe;
+    private javax.swing.JComboBox jComboBoxFilter;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JButton reject;
