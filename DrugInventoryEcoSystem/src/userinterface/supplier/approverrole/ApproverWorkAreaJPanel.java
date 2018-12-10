@@ -107,6 +107,7 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
         kGradientPanel1.setkEndColor(new java.awt.Color(102, 204, 255));
         kGradientPanel1.setkStartColor(new java.awt.Color(183, 248, 230));
         kGradientPanel1.setPreferredSize(new java.awt.Dimension(1200, 750));
+        kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         workRequestJTable.setBackground(new java.awt.Color(153, 255, 255));
         workRequestJTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -147,120 +148,91 @@ public class ApproverWorkAreaJPanel extends javax.swing.JPanel {
             workRequestJTable.getColumnModel().getColumn(3).setResizable(false);
         }
 
+        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 168, 669, 245));
+
         assignToMe.setText("Assign To Me");
         assignToMe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 assignToMeActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(assignToMe, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 423, 249, -1));
 
         viewRequest.setText("View");
+        viewRequest.setMaximumSize(new java.awt.Dimension(129, 29));
+        viewRequest.setMinimumSize(new java.awt.Dimension(129, 29));
+        viewRequest.setPreferredSize(new java.awt.Dimension(129, 29));
         viewRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewRequestActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(viewRequest, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 423, 249, -1));
 
         title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         title.setText("Approver Workarea");
         title.setAlignmentX(740.0F);
         title.setAlignmentY(245.0F);
+        kGradientPanel1.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 126, 553, -1));
 
         sendToLegal.setText("Send For Legal Check");
+        sendToLegal.setMaximumSize(new java.awt.Dimension(129, 29));
+        sendToLegal.setMinimumSize(new java.awt.Dimension(129, 29));
+        sendToLegal.setPreferredSize(new java.awt.Dimension(129, 29));
         sendToLegal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sendToLegalActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(sendToLegal, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 458, 249, -1));
 
         requestOrSend.setText("Request Bid OR Send To Chemist");
+        requestOrSend.setMaximumSize(new java.awt.Dimension(129, 29));
+        requestOrSend.setMinimumSize(new java.awt.Dimension(129, 29));
+        requestOrSend.setPreferredSize(new java.awt.Dimension(129, 29));
+        requestOrSend.setSize(new java.awt.Dimension(129, 29));
         requestOrSend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 requestOrSendActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(requestOrSend, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 458, 250, -1));
 
         checkInventory.setText("Check Inventory");
+        checkInventory.setMaximumSize(new java.awt.Dimension(129, 29));
+        checkInventory.setMinimumSize(new java.awt.Dimension(129, 29));
+        checkInventory.setPreferredSize(new java.awt.Dimension(129, 29));
         checkInventory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkInventoryActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(checkInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 493, 249, -1));
 
         showStatisticsButton.setText("Show Statistics");
+        showStatisticsButton.setMaximumSize(new java.awt.Dimension(129, 29));
+        showStatisticsButton.setMinimumSize(new java.awt.Dimension(129, 29));
+        showStatisticsButton.setPreferredSize(new java.awt.Dimension(129, 29));
         showStatisticsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showStatisticsButtonActionPerformed(evt);
             }
         });
+        kGradientPanel1.add(showStatisticsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 493, 249, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/supplier.png"))); // NOI18N
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 44, -1, -1));
 
         rejectOrder.setText("Reject Order");
+        rejectOrder.setMaximumSize(new java.awt.Dimension(129, 29));
+        rejectOrder.setMinimumSize(new java.awt.Dimension(129, 29));
+        rejectOrder.setPreferredSize(new java.awt.Dimension(129, 29));
         rejectOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rejectOrderActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
-        kGradientPanel1.setLayout(kGradientPanel1Layout);
-        kGradientPanel1Layout.setHorizontalGroup(
-            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel1))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(200, 200, 200)
-                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(144, 144, 144)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addGap(144, 144, 144)
-                                .addComponent(requestOrSend))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(assignToMe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(showStatisticsButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(rejectOrder, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(171, 171, 171)
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(viewRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sendToLegal, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(387, 387, 387))
-        );
-        kGradientPanel1Layout.setVerticalGroup(
-            kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(title)
-                .addGap(12, 12, 12)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(assignToMe)
-                    .addComponent(viewRequest))
-                .addGap(6, 6, 6)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(requestOrSend)
-                    .addComponent(sendToLegal))
-                .addGap(6, 6, 6)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkInventory)
-                    .addComponent(showStatisticsButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rejectOrder)
-                .addContainerGap())
-        );
+        kGradientPanel1.add(rejectOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 530, 249, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
