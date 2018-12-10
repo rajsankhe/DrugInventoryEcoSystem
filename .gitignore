@@ -3,7 +3,6 @@ build/
 private/
 dist/
 *.csv
-*.db4o
 logs/
 
 # Logs
