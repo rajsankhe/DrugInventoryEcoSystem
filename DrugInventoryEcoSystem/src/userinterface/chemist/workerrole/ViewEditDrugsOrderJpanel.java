@@ -104,7 +104,6 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
 
         drugquantity.setBackground(new java.awt.Color(153, 255, 255));
         drugquantity.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        drugquantity.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         drugquantity.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -113,11 +112,7 @@ public class ViewEditDrugsOrderJpanel extends javax.swing.JPanel {
                 "Drug", "Quantity"
             }
         ));
-        drugquantity.setAlignmentX(740.0F);
-        drugquantity.setAlignmentY(245.0F);
         drugquantity.setGridColor(new java.awt.Color(0, 0, 0));
-        drugquantity.setOpaque(false);
-        drugquantity.setPreferredSize(new java.awt.Dimension(300, 64));
         drugquantity.setSelectionBackground(new java.awt.Color(153, 255, 255));
         drugquantity.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(drugquantity);
