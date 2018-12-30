@@ -16,9 +16,9 @@ We aim to build a system which provides a comprehensive and simple Inventory man
 - Email functionality and Auto-password generation 
  
 ## Proposed Entities Enterprises: 
-Chemists, Suppliers, Manufactures, Legal department, Transportation department 
-Roles: Chemist Worker, Chemist Manager, Legal Validator, Supplier, Transporter, Producer
-Items: Drug, bids for drugs by manufacturers, Quotations 
+- Chemists, Suppliers, Manufactures, Legal department, Transportation department 
+- Roles: Chemist Worker, Chemist Manager, Legal Validator, Supplier, Transporter, Producer
+- Items: Drug, bids for drugs by manufacturers, Quotations 
  
 ## Additional features
 - Prediction of drugs orders to be made by chemist to meet customers demand 
